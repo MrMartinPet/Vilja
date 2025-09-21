@@ -3,32 +3,92 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Viljas Stavningsapp</title>
+<title>Viljas Läxa</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a84ff">
 <style>
-  body { font-family: -apple-system, sans-serif; margin: 0; padding: 20px; background:#fff; color:#111; }
-  h1 { color:#0a84ff; }
-  .card{border:1px solid #ddd; border-radius:12px; padding:16px; margin-top:12px}
-  .def{font-size:18px;margin:6px 0 12px}
-  input{width:100%;font-size:20px;padding:12px;border:1px solid #ccc;border-radius:8px}
-  button{margin-top:12px;padding:12px 16px;border:none;border-radius:8px;font-weight:600;font-size:16px;cursor:pointer}
-  .primary{background:#0a84ff;color:#fff}
-  .feedback{margin-top:8px;font-weight:600}
-  .ok{color:green} .err{color:red}
+  :root{ --accent:#0a84ff; --ok:#2db55d; --err:#d32f2f; --muted:#666; }
+  body{font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#111}
+  h1{margin:0 0 6px;color:var(--accent);font-size:24px}
+  .muted{color:var(--muted);font-size:13px}
+  .bar{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .chip{border:1px solid #e5e5ef;border-radius:999px;padding:6px 10px;font-size:12px;background:#fafafe}
+  .btn{border:none;border-radius:10px;padding:12px 14px;font-weight:700;font-size:16px;cursor:pointer}
+  .primary{background:var(--accent);color:#fff}
+  .ghost{background:#eef4ff;color:#0a2a66}
+  .danger{background:#ffe8e8;color:#7a1111}
+  .card{border:1px solid #e6e6ef;border-radius:14px;padding:16px;margin-top:12px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .def{font-size:18px;margin:6px 0 12px;min-height:48px}
+  input[type=text]{width:100%;font-size:20px;padding:12px;border:1px solid #d9d9e3;border-radius:10px;outline:none}
+  input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(10,132,255,.15)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  .feedback{min-height:22px;margin-top:8px;font-weight:700}
+  .ok{color:var(--ok)} .err{color:var(--err)}
+  .done{border:2px dashed #a7e5b7;background:#f2fff5;text-align:center;padding:16px;border-radius:14px}
+  .small{font-size:12px}
+  /* Admin modal */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:20px}
+  .modal .panel{background:#fff;border-radius:14px;max-width:720px;width:100%;padding:16px;border:1px solid #e6e6ef}
+  .list{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+  .item{border:1px solid #eee;border-radius:10px;padding:10px}
+  .item .w{font-weight:700}
+  .item .d{color:#555}
+  .item .actions{display:flex;gap:8px;margin-top:8px}
+  @media(min-width:720px){ .list{grid-template-columns:1fr 1fr} }
 </style>
 </head>
 <body>
 <h1>Hej Vilja! 🌟</h1>
-<p>Träna på att stava veckans ord:</p>
-<div class="card">
+<div class="muted">Dagens runda: klara alla ord minst en gång.</div>
+
+<div class="bar">
+  <div class="chip">Framsteg idag: <span id="progressText">0/0</span></div>
+  <div class="chip">Rätt i rad: <span id="streakText">0</span></div>
+  <button id="adminBtn" class="btn ghost">Pappa</button>
+</div>
+
+<div id="practiceCard" class="card">
   <div id="def" class="def">—</div>
-  <input id="answer" type="text" autocomplete="off" autocapitalize="none">
-  <button id="check" class="primary">Kolla</button>
+  <input id="answer" type="text" autocomplete="off" autocapitalize="none" placeholder="Skriv ordet …">
+  <div class="row">
+    <button id="check" class="btn primary">Kolla</button>
+    <button id="skip" class="btn ghost">Hoppa över</button>
+  </div>
   <div id="feedback" class="feedback"></div>
 </div>
+
+<div id="doneCard" class="done" style="display:none">
+  <div style="font-size:20px;font-weight:800;margin-bottom:6px">Bra jobbat, Vilja! 🎉</div>
+  <div>Du har klarat alla ord i dagens runda.</div>
+  <div class="row" style="justify-content:center;margin-top:12px">
+    <button id="newRound" class="btn primary">Kör en runda till</button>
+  </div>
+  <div class="small muted" style="margin-top:6px">Tips: Om något ord kändes svårt – be Pappa att lägga in fler exempel eller byta förklaring.</div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal" aria-hidden="true">
+  <div class="panel">
+    <div class="row" style="justify-content:space-between">
+      <h2 style="margin:0">Pappa – Redigera ord</h2>
+      <button id="closeAdmin" class="btn ghost" style="min-width:auto">Stäng</button>
+    </div>
+    <div class="row">
+      <input id="wInput" type="text" placeholder="Ord (t.ex. 'budget')" style="flex:1">
+      <input id="dInput" type="text" placeholder="Definition (förklaring)" style="flex:2">
+      <button id="addWord" class="btn primary">Spara</button>
+    </div>
+    <div class="small muted" style="margin-top:6px">Tips: Klicka “Ändra” på ett ord för att ladda uppgifterna i fälten, gör ändring och tryck “Spara”.</div>
+    <div id="wordList" class="list"></div>
+    <div class="row" style="margin-top:12px">
+      <button id="resetToday" class="btn ghost">Börja om dagens runda</button>
+      <button id="resetAll" class="btn danger">Rensa allt (ord & framsteg)</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const WORDS = [
+const DEFAULT_WORDS = [
   { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
   { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
   { w:"inkomst", d:"Pengar som kommer in, t.ex. lön eller ersättning." },
@@ -39,27 +99,179 @@ const WORDS = [
   { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
   { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
 ];
-let current;
-function next(){ current = WORDS[Math.floor(Math.random()*WORDS.length)];
-  document.getElementById("def").textContent = current.d;
-  document.getElementById("answer").value = "";
-  document.getElementById("feedback").textContent = "";
+
+const KEY_WORDS = "vilja_words_v1";
+const KEY_DAY   = "vilja_day_state_v2"; // bump for new logic
+
+function todayStr(){
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+function loadWords(){
+  try{ const raw = localStorage.getItem(KEY_WORDS); if(raw){ const arr = JSON.parse(raw); if(Array.isArray(arr) && arr.length){ return arr; } } }catch(e){}
+  return DEFAULT_WORDS.slice();
+}
+function saveWords(arr){ localStorage.setItem(KEY_WORDS, JSON.stringify(arr)); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+let WORDS = loadWords();
+let day = JSON.parse(localStorage.getItem(KEY_DAY) || "{}");
+if(day.date !== todayStr() || !Array.isArray(day.remaining) || !Array.isArray(day.done)){
+  day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+  localStorage.setItem(KEY_DAY, JSON.stringify(day));
+}
+
+// UI refs
+const defEl = document.getElementById("def");
+const answerEl = document.getElementById("answer");
+const feedbackEl = document.getElementById("feedback");
+const progressText = document.getElementById("progressText");
+const streakText = document.getElementById("streakText");
+const practiceCard = document.getElementById("practiceCard");
+const doneCard = document.getElementById("doneCard");
+const checkBtn = document.getElementById("check");
+const skipBtn = document.getElementById("skip");
+const adminBtn = document.getElementById("adminBtn");
+const adminModal = document.getElementById("adminModal");
+const closeAdmin = document.getElementById("closeAdmin");
+const wordList = document.getElementById("wordList");
+const wInput = document.getElementById("wInput");
+const dInput = document.getElementById("dInput");
+const addWordBtn = document.getElementById("addWord");
+const resetTodayBtn = document.getElementById("resetToday");
+const resetAllBtn = document.getElementById("resetAll");
+const newRoundBtn = document.getElementById("newRound");
+
+let current = null;
+
+function updateProgress(){
+  progressText.textContent = `${day.done.length}/${WORDS.length}`;
+  streakText.textContent = day.streak || 0;
+}
+function pickNext(){
+  if(day.remaining.length === 0){
+    practiceCard.style.display = "none";
+    doneCard.style.display = "block";
+    return;
+  }
+  const w = day.remaining[day.remaining.length - 1];
+  current = WORDS.find(o => o.w === w);
+  defEl.textContent = current ? current.d : "—";
+  answerEl.value = "";
+  feedbackEl.textContent = "";
+  feedbackEl.className = "feedback";
+  requestAnimationFrame(()=>answerEl.focus());
+  updateProgress();
+}
+function correct(){
+  feedbackEl.textContent = "Rätt! 🎉";
+  feedbackEl.className = "feedback ok";
+  day.streak = (day.streak||0) + 1;
+  day.done.push(current.w);
+  day.remaining.pop();
+  localStorage.setItem(KEY_DAY, JSON.stringify(day));
+  updateProgress();
+  setTimeout(pickNext, 1500); // 1.5s
+}
+function wrong(){
+  feedbackEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`;
+  feedbackEl.className = "feedback err";
+  day.streak = 0;
+  const idx = day.remaining.indexOf(current.w);
+  if(idx !== -1){ day.remaining.splice(idx,1); day.remaining.splice(0,0,current.w); }
+  localStorage.setItem(KEY_DAY, JSON.stringify(day));
+  updateProgress();
 }
 function check(){
-  const val = document.getElementById("answer").value.trim().toLowerCase();
-  if(val === current.w){
-    document.getElementById("feedback").textContent = "Rätt! 🎉";
-    document.getElementById("feedback").className = "feedback ok";
-    setTimeout(next,800);
-  } else {
-    document.getElementById("feedback").textContent = `Fel, rätt svar: ${current.w}`;
-    document.getElementById("feedback").className = "feedback err";
-  }
+  const val = (answerEl.value||"").trim().toLowerCase();
+  if(!current || !val) return;
+  if(val === current.w.toLowerCase()) correct(); else wrong();
 }
-document.getElementById("check").onclick = check;
-next();
+
+// Admin
+function renderAdminList(){
+  wordList.innerHTML = "";
+  WORDS.forEach((o, i) => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `<div class="w">${o.w}</div><div class="d">${o.d}</div>
+      <div class="actions">
+        <button class="btn ghost" data-edit="${i}">Ändra</button>
+        <button class="btn danger" data-del="${i}">Ta bort</button>
+      </div>`;
+    wordList.appendChild(div);
+  });
+  wordList.querySelectorAll("[data-edit]").forEach(b => b.onclick = (e)=>{
+    const idx = parseInt(e.currentTarget.getAttribute("data-edit"));
+    wInput.value = WORDS[idx].w; dInput.value = WORDS[idx].d; wInput.focus();
+  });
+  wordList.querySelectorAll("[data-del]").forEach(b => b.onclick = (e)=>{
+    const idx = parseInt(e.currentTarget.getAttribute("data-del"));
+    if(confirm(`Ta bort ordet "${WORDS[idx].w}"?`)){
+      WORDS.splice(idx,1); saveWords(WORDS);
+      day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+      localStorage.setItem(KEY_DAY, JSON.stringify(day));
+      renderAdminList(); updateProgress(); pickNext();
+    }
+  });
+}
+addWordBtn.onclick = ()=>{
+  const w = (wInput.value||"").trim(); const d = (dInput.value||"").trim();
+  if(!w || !d){ alert("Fyll i både ord och definition."); return; }
+  const ex = WORDS.findIndex(x => x.w.toLowerCase() === w.toLowerCase());
+  if(ex>=0){ WORDS[ex] = { w, d }; } else { WORDS.push({ w, d }); }
+  saveWords(WORDS);
+  day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+  localStorage.setItem(KEY_DAY, JSON.stringify(day));
+  wInput.value = ""; dInput.value = "";
+  renderAdminList(); updateProgress(); pickNext();
+};
+adminBtn.onclick = ()=>{ adminModal.style.display="flex"; renderAdminList(); };
+closeAdmin.onclick = ()=>{ adminModal.style.display="none"; };
+resetTodayBtn.onclick = ()=>{
+  if(confirm("Börja om dagens runda?")){
+    day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+    localStorage.setItem(KEY_DAY, JSON.stringify(day));
+    practiceCard.style.display = "block"; doneCard.style.display = "none";
+    pickNext();
+  }
+};
+resetAllBtn.onclick = ()=>{
+  if(confirm("Rensa ALLT (ordlista & framsteg)?")){
+    localStorage.removeItem(KEY_WORDS);
+    localStorage.removeItem(KEY_DAY);
+    WORDS = loadWords();
+    day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+    localStorage.setItem(KEY_DAY, JSON.stringify(day));
+    practiceCard.style.display = "block"; doneCard.style.display = "none";
+    renderAdminList(); updateProgress(); pickNext();
+  }
+};
+newRoundBtn.onclick = ()=>{
+  day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+  localStorage.setItem(KEY_DAY, JSON.stringify(day));
+  practiceCard.style.display = "block"; doneCard.style.display = "none";
+  pickNext();
+};
+
+// Start
+updateProgress();
+pickNext();
+
+// Service worker update hint
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
+  navigator.serviceWorker.register("sw.js").then(reg => {
+    reg.onupdatefound = () => {
+      const newSW = reg.installing;
+      newSW.onstatechange = () => {
+        if (newSW.state === "installed" && navigator.serviceWorker.controller) {
+          // New version available
+          skipBtn.textContent = "Hoppa över (uppdaterar)";
+          skipBtn.onclick = () => { location.reload(); };
+        }
+      };
+    };
+  });
 }
 </script>
 </body>

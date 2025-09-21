@@ -1,11 +1,11 @@
-const CACHE = "viljas-laxa-v4";
+const CACHE = "viljas-laxa-v5";
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./sw.js",
-  "./icon-192-v2.png",
-  "./icon-512-v2.png"
+  "./icon-192-v3.png",
+  "./icon-512-v3.png"
 ];
 
 self.addEventListener("install", e => {

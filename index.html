@@ -26,7 +26,6 @@
   .ok{color:var(--ok)} .err{color:var(--err)}
   .done{border:2px dashed #a7e5b7;background:#f2fff5;text-align:center;padding:16px;border-radius:14px}
   .small{font-size:12px}
-  /* Admin modal */
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:20px}
   .modal .panel{background:#fff;border-radius:14px;max-width:860px;width:100%;padding:16px;border:1px solid #e6e6ef}
   .list{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;max-height:55vh;overflow:auto}
@@ -37,7 +36,6 @@
   .inputs{display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-top:8px}
   .panel .row-top{display:flex;gap:8px;align-items:center;justify-content:space-between}
   @media(min-width:720px){ .list{grid-template-columns:1fr 1fr} }
-  .linkish{background:none;border:none;color:#0a2a66;text-decoration:underline;padding:0;font:inherit;cursor:pointer}
 </style>
 </head>
 <body>
@@ -52,7 +50,9 @@
 
 <div id="practiceCard" class="card">
   <div id="def" class="def">—</div>
-  <input id="answer" type="text" autocomplete="off" autocapitalize="none" placeholder="Skriv ordet …">
+  <input id="answer" type="text"
+         autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="latin"
+         placeholder="Skriv ordet …">
   <div class="row">
     <button id="check" class="btn primary">Kolla</button>
     <button id="skip" class="btn ghost">Hoppa över</button>
@@ -101,7 +101,15 @@
 </div>
 
 <script>
-// -------- Konfiguration & State --------
+// --- Helpers to force-disable iOS autocorrect in PWA ---
+(function(){
+  const a = document.getElementById("answer");
+  ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach((attr,i)=>{
+    if(attr==="spellcheck"){ a.setAttribute(attr,"false"); } else { a.setAttribute(attr,"off"); }
+  });
+  a.setAttribute("inputmode","latin");
+})();
+
 const DEFAULT_WORDS = [
   { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
   { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
@@ -114,8 +122,8 @@ const DEFAULT_WORDS = [
   { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
 ];
 
-const KEY_WORDS = "vilja_words_v2";
-const KEY_DAY   = "vilja_day_state_v3"; // bump for new logic
+const KEY_WORDS = "vilja_words_v3";
+const KEY_DAY   = "vilja_day_state_v4";
 
 function todayStr(){ return new Date().toISOString().slice(0,10); }
 function loadWords(){
@@ -133,7 +141,6 @@ function resetDay(){
 }
 if(day.date !== todayStr() || !Array.isArray(day.remaining) || !Array.isArray(day.done)){ resetDay(); }
 
-// -------- UI refs --------
 const defEl = document.getElementById("def");
 const answerEl = document.getElementById("answer");
 const feedbackEl = document.getElementById("feedback");
@@ -157,13 +164,11 @@ const resetAllBtn = document.getElementById("resetAll");
 const newRoundBtn = document.getElementById("newRound");
 
 let current = null;
+let editIndex = null;
 
-// -------- Huvudlogik --------
 function updateProgress(){ progressText.textContent = `${day.done.length}/${WORDS.length}`; streakText.textContent = day.streak || 0; }
 function pickNext(){
-  if(day.remaining.length === 0){
-    practiceCard.style.display = "none"; doneCard.style.display = "block"; return;
-  }
+  if(day.remaining.length === 0){ practiceCard.style.display = "none"; doneCard.style.display = "block"; return; }
   const w = day.remaining[day.remaining.length - 1];
   current = WORDS.find(o => o.w === w);
   defEl.textContent = current ? current.d : "—";
@@ -177,30 +182,27 @@ function correct(){
   day.done.push(current.w); day.remaining.pop();
   localStorage.setItem(KEY_DAY, JSON.stringify(day));
   updateProgress();
-  setTimeout(pickNext, 1500); // 1.5s feedback
+  setTimeout(pickNext, 1500);
 }
 function wrong(){
   feedbackEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`; feedbackEl.className = "feedback err";
   day.streak = 0;
   const idx = day.remaining.indexOf(current.w);
   if(idx !== -1){ day.remaining.splice(idx,1); day.remaining.splice(0,0,current.w); }
-  localStorage.setItem(KEY_DAY, JSON.stringify(day));
-  updateProgress();
+  localStorage.setItem(KEY_DAY, JSON.stringify(day)); updateProgress();
 }
 function check(){
   const val = (answerEl.value||"").trim().toLowerCase(); if(!current || !val) return;
   if(val === current.w.toLowerCase()) correct(); else wrong();
 }
 
-// -------- Admin (Pappa) --------
-let editIndex = null; // null => add new, number => edit existing
+// Admin
 function renderAdminList(){
   wordList.innerHTML = "";
   WORDS.forEach((o, i) => {
     const div = document.createElement("div");
     div.className = "item";
-    div.innerHTML = `
-      <div class="w">${o.w}</div>
+    div.innerHTML = `<div class="w">${o.w}</div>
       <div class="d">${o.d}</div>
       <div class="actions">
         <button class="btn ghost" data-edit="${i}">Ändra</button>
@@ -211,8 +213,7 @@ function renderAdminList(){
   wordList.querySelectorAll("[data-edit]").forEach(b => b.onclick = (e)=>{
     editIndex = parseInt(e.currentTarget.getAttribute("data-edit"));
     wInput.value = WORDS[editIndex].w; dInput.value = WORDS[editIndex].d;
-    addWordBtn.textContent = "Spara ändring"; clearInputsBtn.textContent = "Avbryt";
-    wInput.focus();
+    addWordBtn.textContent = "Spara ändring"; clearInputsBtn.textContent = "Avbryt"; wInput.focus();
   });
   wordList.querySelectorAll("[data-del]").forEach(b => b.onclick = (e)=>{
     const idx = parseInt(e.currentTarget.getAttribute("data-del"));
@@ -222,34 +223,23 @@ function renderAdminList(){
     }
   });
 }
-function clearInputs(){
-  editIndex = null; wInput.value = ""; dInput.value = "";
-  addWordBtn.textContent = "Spara"; clearInputsBtn.textContent = "Avbryt";
-}
+function clearInputs(){ editIndex = null; wInput.value = ""; dInput.value = ""; addWordBtn.textContent = "Spara"; clearInputsBtn.textContent = "Avbryt"; }
 addWordBtn.onclick = ()=>{
   const w = (wInput.value||"").trim(); const d = (dInput.value||"").trim();
   if(!w || !d){ alert("Fyll i både ord och definition."); return; }
-  if(editIndex === null){
-    WORDS.push({ w, d });
-  } else {
-    WORDS[editIndex] = { w, d };
-  }
+  if(editIndex === null){ WORDS.push({ w, d }); } else { WORDS[editIndex] = { w, d }; }
   saveWords(WORDS); resetDay(); clearInputs(); renderAdminList(); updateProgress(); pickNext();
 };
 clearInputsBtn.onclick = clearInputs;
-
 adminBtn.onclick = ()=>{ adminModal.style.display="flex"; renderAdminList(); };
 closeAdmin.onclick = ()=>{ adminModal.style.display="none"; };
 adminModal.addEventListener("click", (e)=>{ if(e.target === adminModal){ adminModal.style.display="none"; } });
 
-resetTodayBtn.onclick = ()=>{
-  if(confirm("Börja om dagens runda?")){ resetDay(); practiceCard.style.display="block"; doneCard.style.display="none"; pickNext(); }
-};
+resetTodayBtn.onclick = ()=>{ if(confirm("Börja om dagens runda?")){ resetDay(); practiceCard.style.display="block"; doneCard.style.display="none"; pickNext(); } };
 resetAllBtn.onclick = ()=>{
   if(confirm("Rensa ALLT (ordlista & framsteg)?")){
     localStorage.removeItem(KEY_WORDS); localStorage.removeItem(KEY_DAY);
-    WORDS = loadWords(); resetDay();
-    practiceCard.style.display="block"; doneCard.style.display="none";
+    WORDS = loadWords(); resetDay(); practiceCard.style.display="block"; doneCard.style.display="none";
     renderAdminList(); updateProgress(); pickNext();
   }
 };

@@ -2,177 +2,178 @@
 <html lang="sv">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Viljas Läxa</title>
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a84ff">
 <style>
-  :root{ --accent:#0a84ff; --ok:#2db55d; --err:#d32f2f; --muted:#666; }
-  body{font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#111}
-  h1{margin:0 0 6px;color:var(--accent);font-size:24px}
-  .muted{color:var(--muted);font-size:13px}
-  .bar{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
-  .chip{border:1px solid #e5e5ef;border-radius:999px;padding:6px 10px;font-size:12px;background:#fafafe}
-  .btn{border:none;border-radius:10px;padding:12px 14px;font-weight:700;font-size:16px;cursor:pointer}
-  .primary{background:var(--accent);color:#fff}
-  .ghost{background:#eef4ff;color:#0a2a66}
-  .card{border:1px solid #e6e6ef;border-radius:14px;padding:16px;margin-top:12px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
-  .def{font-size:18px;margin:6px 0 12px;min-height:48px}
-  input[type=text]{width:100%;font-size:20px;padding:12px;border:1px solid #d9d9e3;border-radius:10px;outline:none}
-  input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(10,132,255,.15)}
-  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
-  .feedback{min-height:22px;margin-top:8px;font-weight:700}
-  .ok{color:var(--ok)} .err{color:var(--err)}
-  .done{border:2px dashed #a7e5b7;background:#f2fff5;text-align:center;padding:16px;border-radius:14px}
-  .small{font-size:12px}
-  .links{margin-top:10px}
-  .links a{color:#0a2a66;text-decoration:underline}
+  :root{ --bg:#ffffff; --fg:#0d1321; --muted:#6b7280; --accent:#0a84ff; --ok:#2db55d; --err:#d32f2f; --card:#f8fafc; }
+  *{ box-sizing:border-box }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif }
+  .wrap{ max-width:820px; margin:0 auto; padding:24px 16px 56px }
+  header{ display:flex; align-items:flex-start; gap:12px; }
+  .logo{ width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#0a84ff,#66b2ff); box-shadow:0 6px 18px rgba(10,132,255,.25); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800 }
+  h1{ margin:0; font-size:26px; line-height:1.15; color:var(--accent) }
+  .sub{ color:var(--muted); margin-top:2px; font-size:14px }
+
+  .board{ margin-top:16px; display:flex; gap:10px; flex-wrap:wrap }
+  .chip{ background:#eef2ff; color:#102a63; border:1px solid #dbe3ff; padding:6px 12px; border-radius:999px; font-weight:600; font-size:12px }
+
+  .card{ background:var(--card); border:1px solid #e5e7eb; border-radius:16px; padding:18px; margin-top:14px; box-shadow:0 1px 0 rgba(2,6,23,.03) }
+  .def{ font-size:20px; margin:4px 0 12px; min-height:48px }
+  input[type=text]{ width:100%; font-size:20px; padding:14px 12px; border-radius:12px; border:1px solid #d1d5db; background:#fff; outline:none }
+  input[type=text]:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(10,132,255,.15) }
+
+  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px }
+  button{ border:none; border-radius:12px; padding:14px 16px; font-weight:800; font-size:16px; cursor:pointer }
+  .primary{ background:var(--accent); color:#fff }
+
+  .feedback{ min-height:24px; margin-top:8px; font-weight:800 }
+  .ok{ color:var(--ok) } .err{ color:var(--err) }
+
+  .done{ border:2px dashed #a7e5b7; background:#f2fff5; text-align:center; padding:20px; border-radius:16px; margin-top:16px }
+  .done h2{ margin:0 0 6px; font-size:22px }
+  .small{ color:var(--muted); font-size:13px }
 </style>
 </head>
 <body>
-<h1>Hej Vilja! 🌟</h1>
-<div class="muted">Dagens runda: klara alla ord minst en gång.</div>
+<div class="wrap">
+  <header>
+    <div class="logo">VL</div>
+    <div>
+      <h1>Hej Vilja! 🌟</h1>
+      <div class="sub">Dagens runda: klara alla ord minst en gång.</div>
+    </div>
+  </header>
 
-<div class="bar">
-  <div class="chip">Framsteg idag: <span id="progressText">0/0</span></div>
-  <div class="chip">Rätt i rad: <span id="streakText">0</span></div>
-</div>
-
-<div id="practiceCard" class="card">
-  <div id="def" class="def">—</div>
-  <input id="answer" type="text"
-         autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="latin"
-         placeholder="Skriv ordet …">
-  <div class="row">
-    <button id="check" type="button" class="btn primary">Kolla</button>
-    <button id="skip" type="button" class="btn ghost">Hoppa över</button>
+  <div class="board">
+    <div class="chip">Framsteg idag: <span id="progress">0/0</span></div>
+    <div class="chip">Rätt i rad: <span id="streak">0</span></div>
   </div>
-  <div id="feedback" class="feedback"></div>
-  <div class="links small muted">Uppdatera ordlistan? Öppna <a href="words.html">words.html</a> och exportera en ny <code>words.json</code>.</div>
-</div>
 
-<div id="doneCard" class="done" style="display:none">
-  <div style="font-size:20px;font-weight:800;margin-bottom:6px">Bra jobbat, Vilja! 🎉</div>
-  <div>Du har klarat alla ord i dagens runda.</div>
-  <div class="row" style="justify-content:center;margin-top:12px">
-    <button id="newRound" type="button" class="btn primary">Kör en runda till</button>
+  <div id="practice" class="card">
+    <div id="def" class="def">—</div>
+    <input id="answer" type="text"
+           placeholder="Skriv ordet …"
+           autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="latin">
+    <div class="row">
+      <button id="check" type="button" class="primary">Kolla</button>
+    </div>
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <div id="done" class="done" style="display:none">
+    <h2>Bra jobbat, Vilja! 🎉</h2>
+    <div>Du har klarat alla ord i dagens runda.</div>
+    <div class="row" style="justify-content:center; margin-top:12px">
+      <button id="again" type="button" class="primary">Kör en runda till</button>
+    </div>
+    <div class="small" style="margin-top:8px">Du är grym! 💙</div>
   </div>
 </div>
 
 <script>
-// --- Force-disable iOS autocorrect in PWA ---
-(function(){
+// ======= Byt orden här när du vill uppdatera läxan =======
+const WORDS = [
+  { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
+  { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
+  { w:"inkomst", d:"Pengar som kommer in, t.ex. lön eller ersättning." },
+  { w:"skatt", d:"Pengar man betalar till staten/kommunen för gemensam nytta." },
+  { w:"budget", d:"Plan för inkomster och utgifter så pengarna räcker." },
+  { w:"lungor", d:"Organen vi andas med, tar upp syre till blodet." },
+  { w:"luftrör", d:"Rör som leder luft till och från lungorna." },
+  { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
+  { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
+];
+// =========================================================
+
+(function forceNoIOSPredict(){
   const a = document.getElementById("answer");
-  ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach(attr => {
-    if(attr==="spellcheck"){ a.setAttribute(attr,"false"); } else { a.setAttribute(attr,"off"); }
+  ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach(attr=>{
+    a.setAttribute(attr, attr==="spellcheck" ? "false" : "off");
   });
   a.setAttribute("inputmode","latin");
 })();
 
-const KEY_DAY   = "vilja_day_state_words_v1";
-let WORDS = []; // loaded from words.json
-
-function todayStr(){ return new Date().toISOString().slice(0,10); }
+const KEY = "vilja_day_singlefile_v1";
+function today(){ return new Date().toISOString().slice(0,10); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-let day = JSON.parse(localStorage.getItem(KEY_DAY) || "{}");
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
 function resetDay(){
-  day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
-  localStorage.setItem(KEY_DAY, JSON.stringify(day));
+  state = { date: today(), order: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+if(state.date !== today() || !Array.isArray(state.order) || !Array.isArray(state.done)){
+  resetDay();
 }
 
 const defEl = document.getElementById("def");
-const answerEl = document.getElementById("answer");
-const feedbackEl = document.getElementById("feedback");
-const progressText = document.getElementById("progressText");
-const streakText = document.getElementById("streakText");
-const practiceCard = document.getElementById("practiceCard");
-const doneCard = document.getElementById("doneCard");
+const ansEl = document.getElementById("answer");
+const fbEl = document.getElementById("feedback");
+const progEl = document.getElementById("progress");
+const streakEl = document.getElementById("streak");
+const practice = document.getElementById("practice");
+const doneBox = document.getElementById("done");
 const checkBtn = document.getElementById("check");
-const skipBtn = document.getElementById("skip");
-const newRoundBtn = document.getElementById("newRound");
+const againBtn = document.getElementById("again");
 
 let current = null;
 
-function updateProgress(){ progressText.textContent = `${day.done.length}/${WORDS.length}`; streakText.textContent = day.streak || 0; }
+function updateUI(){
+  progEl.textContent = `${state.done.length}/${WORDS.length}`;
+  streakEl.textContent = state.streak || 0;
+}
+
 function pickNext(){
-  if(day.remaining.length === 0){ practiceCard.style.display = "none"; doneCard.style.display = "block"; return; }
-  const w = day.remaining[day.remaining.length - 1];
+  if(state.order.length === 0){
+    practice.style.display = "none";
+    doneBox.style.display = "block";
+    return;
+  }
+  const w = state.order[state.order.length - 1];
   current = WORDS.find(o => o.w === w);
   defEl.textContent = current ? current.d : "—";
-  answerEl.value = ""; feedbackEl.textContent = ""; feedbackEl.className = "feedback";
-  requestAnimationFrame(()=>answerEl.focus());
-  updateProgress();
+  ansEl.value = "";
+  fbEl.textContent = "";
+  fbEl.className = "feedback";
+  requestAnimationFrame(()=>ansEl.focus());
+  updateUI();
 }
+
 function correct(){
-  feedbackEl.textContent = "Rätt! 🎉"; feedbackEl.className = "feedback ok";
-  day.streak = (day.streak||0) + 1;
-  day.done.push(current.w); day.remaining.pop();
-  localStorage.setItem(KEY_DAY, JSON.stringify(day));
-  updateProgress();
-  setTimeout(pickNext, 1500);
+  fbEl.textContent = "Rätt! 🎉";
+  fbEl.className = "feedback ok";
+  state.streak = (state.streak||0) + 1;
+  state.done.push(current.w);
+  state.order.pop();
+  localStorage.setItem(KEY, JSON.stringify(state));
+  updateUI();
+  setTimeout(pickNext, 1500); // 1,5 s feedback
 }
+
 function wrong(){
-  feedbackEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`; feedbackEl.className = "feedback err";
-  day.streak = 0;
-  const idx = day.remaining.indexOf(current.w);
-  if(idx !== -1){ day.remaining.splice(idx,1); day.remaining.splice(0,0,current.w); }
-  localStorage.setItem(KEY_DAY, JSON.stringify(day)); updateProgress();
+  fbEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`;
+  fbEl.className = "feedback err";
+  state.streak = 0;
+  // Samma ord visas igen tills man skriver rätt
+  localStorage.setItem(KEY, JSON.stringify(state));
+  updateUI();
 }
+
 function check(){
-  const val = (answerEl.value||"").trim().toLowerCase(); if(!current || !val) return;
-  if(val === current.w.toLowerCase()) correct(); else wrong();
+  const v = (ansEl.value||"").trim().toLowerCase();
+  if(!v || !current) return;
+  if(v === current.w.toLowerCase()) correct(); else wrong();
 }
 
 checkBtn.addEventListener("click", check);
-skipBtn.addEventListener("click", pickNext);
-newRoundBtn.addEventListener("click", ()=>{ resetDay(); practiceCard.style.display="block"; doneCard.style.display="none"; pickNext(); });
-answerEl.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
+ansEl.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
+againBtn.addEventListener("click", ()=>{ resetDay(); practice.style.display="block"; doneBox.style.display="none"; pickNext(); });
 
-// Load words.json then start
-fetch("words.json", {cache:"no-store"}).then(r => r.json()).then(data => {
-  if(!Array.isArray(data)) throw new Error("words.json är inte en lista.");
-  WORDS = data;
-  if(day.date !== todayStr() || !Array.isArray(day.remaining) || !Array.isArray(day.done)){
-    resetDay();
-  } else {
-    // if words changed length, reset
-    const setA = new Set(WORDS.map(o=>o.w));
-    const allIn = day.remaining.concat(day.done).every(w => setA.has(w));
-    if(!allIn) resetDay();
-  }
-  updateProgress(); pickNext();
-}).catch(err => {
-  console.error(err);
-  // fallback default ord om words.json saknas
-  WORDS = [
-    { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
-    { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
-    { w:"inkomst", d:"Pengar som kommer in, t.ex. lön eller ersättning." },
-    { w:"skatt", d:"Pengar man betalar till staten/kommunen för gemensam nytta." },
-    { w:"budget", d:"Plan för inkomster och utgifter så pengarna räcker." },
-    { w:"lungor", d:"Organen vi andas med, tar upp syre till blodet." },
-    { w:"luftrör", d:"Rör som leder luft till och från lungorna." },
-    { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
-    { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
-  ];
-  resetDay(); updateProgress(); pickNext();
-});
-
-// Service worker update hint
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").then(reg => {
-    reg.onupdatefound = () => {
-      const newSW = reg.installing;
-      newSW.onstatechange = () => {
-        if (newSW.state === "installed" && navigator.serviceWorker.controller) {
-          skipBtn.textContent = "Hoppa över (uppdaterar)";
-          skipBtn.onclick = () => { location.reload(); };
-        }
-      };
-    };
-  });
-}
+updateUI();
+pickNext();
 </script>
 </body>
 </html>
+

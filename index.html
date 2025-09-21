@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Viljas Läxa</title>
 <meta name="theme-color" content="#0a84ff">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-512.png">
 <style>
   :root{ --bg:#ffffff; --fg:#0d1321; --muted:#6b7280; --accent:#0a84ff; --ok:#2db55d; --err:#d32f2f; --card:#f8fafc; }
   *{ box-sizing:border-box }
@@ -14,22 +16,17 @@
   .logo{ width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#0a84ff,#66b2ff); box-shadow:0 6px 18px rgba(10,132,255,.25); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800 }
   h1{ margin:0; font-size:26px; line-height:1.15; color:var(--accent) }
   .sub{ color:var(--muted); margin-top:2px; font-size:14px }
-
   .board{ margin-top:16px; display:flex; gap:10px; flex-wrap:wrap }
   .chip{ background:#eef2ff; color:#102a63; border:1px solid #dbe3ff; padding:6px 12px; border-radius:999px; font-weight:600; font-size:12px }
-
   .card{ background:var(--card); border:1px solid #e5e7eb; border-radius:16px; padding:18px; margin-top:14px; box-shadow:0 1px 0 rgba(2,6,23,.03) }
   .def{ font-size:20px; margin:4px 0 12px; min-height:48px }
   input[type=text]{ width:100%; font-size:20px; padding:14px 12px; border-radius:12px; border:1px solid #d1d5db; background:#fff; outline:none }
   input[type=text]:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(10,132,255,.15) }
-
   .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px }
   button{ border:none; border-radius:12px; padding:14px 16px; font-weight:800; font-size:16px; cursor:pointer }
   .primary{ background:var(--accent); color:#fff }
-
   .feedback{ min-height:24px; margin-top:8px; font-weight:800 }
   .ok{ color:var(--ok) } .err{ color:var(--err) }
-
   .done{ border:2px dashed #a7e5b7; background:#f2fff5; text-align:center; padding:20px; border-radius:16px; margin-top:16px }
   .done h2{ margin:0 0 6px; font-size:22px }
   .small{ color:var(--muted); font-size:13px }
@@ -72,7 +69,6 @@
 </div>
 
 <script>
-// ======= Byt orden här när du vill uppdatera läxan =======
 const WORDS = [
   { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
   { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
@@ -84,8 +80,6 @@ const WORDS = [
   { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
   { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
 ];
-// =========================================================
-
 (function forceNoIOSPredict(){
   const a = document.getElementById("answer");
   ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach(attr=>{
@@ -94,7 +88,7 @@ const WORDS = [
   a.setAttribute("inputmode","latin");
 })();
 
-const KEY = "vilja_day_singlefile_v1";
+const KEY = "vilja_pwa_cache_state_v2";
 function today(){ return new Date().toISOString().slice(0,10); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
@@ -103,10 +97,7 @@ function resetDay(){
   state = { date: today(), order: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
   localStorage.setItem(KEY, JSON.stringify(state));
 }
-
-if(state.date !== today() || !Array.isArray(state.order) || !Array.isArray(state.done)){
-  resetDay();
-}
+if(state.date !== today() || !Array.isArray(state.order) || !Array.isArray(state.done)){ resetDay(); }
 
 const defEl = document.getElementById("def");
 const ansEl = document.getElementById("answer");
@@ -119,61 +110,35 @@ const checkBtn = document.getElementById("check");
 const againBtn = document.getElementById("again");
 
 let current = null;
-
-function updateUI(){
-  progEl.textContent = `${state.done.length}/${WORDS.length}`;
-  streakEl.textContent = state.streak || 0;
-}
-
+function updateUI(){ progEl.textContent = `${state.done.length}/${WORDS.length}`; streakEl.textContent = state.streak || 0; }
 function pickNext(){
-  if(state.order.length === 0){
-    practice.style.display = "none";
-    doneBox.style.display = "block";
-    return;
-  }
+  if(state.order.length === 0){ practice.style.display="none"; doneBox.style.display="block"; return; }
   const w = state.order[state.order.length - 1];
   current = WORDS.find(o => o.w === w);
   defEl.textContent = current ? current.d : "—";
-  ansEl.value = "";
-  fbEl.textContent = "";
-  fbEl.className = "feedback";
-  requestAnimationFrame(()=>ansEl.focus());
-  updateUI();
+  ansEl.value = ""; fbEl.textContent = ""; fbEl.className = "feedback";
+  requestAnimationFrame(()=>ansEl.focus()); updateUI();
 }
-
 function correct(){
-  fbEl.textContent = "Rätt! 🎉";
-  fbEl.className = "feedback ok";
-  state.streak = (state.streak||0) + 1;
-  state.done.push(current.w);
-  state.order.pop();
-  localStorage.setItem(KEY, JSON.stringify(state));
-  updateUI();
-  setTimeout(pickNext, 1500); // 1,5 s feedback
+  fbEl.textContent = "Rätt! 🎉"; fbEl.className = "feedback ok";
+  state.streak = (state.streak||0) + 1; state.done.push(current.w); state.order.pop();
+  localStorage.setItem(KEY, JSON.stringify(state)); updateUI();
+  setTimeout(pickNext, 1500);
 }
-
 function wrong(){
-  fbEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`;
-  fbEl.className = "feedback err";
-  state.streak = 0;
-  // Samma ord visas igen tills man skriver rätt
-  localStorage.setItem(KEY, JSON.stringify(state));
-  updateUI();
+  fbEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`; fbEl.className = "feedback err";
+  state.streak = 0; localStorage.setItem(KEY, JSON.stringify(state)); updateUI();
 }
-
 function check(){
   const v = (ansEl.value||"").trim().toLowerCase();
   if(!v || !current) return;
   if(v === current.w.toLowerCase()) correct(); else wrong();
 }
-
 checkBtn.addEventListener("click", check);
 ansEl.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
 againBtn.addEventListener("click", ()=>{ resetDay(); practice.style.display="block"; doneBox.style.display="none"; pickNext(); });
-
-updateUI();
-pickNext();
+updateUI(); pickNext();
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js"); }
 </script>
 </body>
 </html>
-

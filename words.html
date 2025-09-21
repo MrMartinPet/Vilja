@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redigera ord – Viljas Läxa</title>
+<style>
+  body{font-family:-apple-system,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#111}
+  h1{margin:0 0 10px;color:#0a84ff}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  textarea{width:100%;min-height:320px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;border:1px solid #d9d9e3;border-radius:10px;padding:10px}
+  .btn{border:none;border-radius:10px;padding:10px 14px;font-weight:700}
+  .primary{background:#0a84ff;color:#fff}
+  .ghost{background:#eef4ff;color:#0a2a66}
+  .muted{color:#666}
+  .card{border:1px solid #e6e6ef;border-radius:14px;padding:16px;margin-top:12px}
+</style>
+</head>
+<body>
+<h1>Redigera ord – Viljas Läxa</h1>
+<p class="muted">Här kan du klistra in/ändra listan med ord. Format: JSON-array av objekt <code>{ "w": "ord", "d": "definition" }</code>. När du är klar, klicka <b>Ladda ner words.json</b> och ladda upp filen i GitHub-repot.</p>
+
+<div class="card">
+  <div class="row">
+    <button id="load" class="btn ghost">Hämta nuvarande words.json</button>
+    <button id="download" class="btn primary">Ladda ner words.json</button>
+  </div>
+  <textarea id="editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+  <div id="msg" class="muted" style="margin-top:8px"></div>
+</div>
+
+<script>
+const editor = document.getElementById("editor");
+const msg = document.getElementById("msg");
+const loadBtn = document.getElementById("load");
+const downloadBtn = document.getElementById("download");
+
+loadBtn.onclick = async () => {
+  try{
+    const r = await fetch("words.json?ts="+Date.now(), {cache:"no-store"});
+    const txt = await r.text();
+    editor.value = txt;
+    msg.textContent = "Laddade nuvarande words.json";
+  }catch(e){
+    msg.textContent = "Kunde inte ladda words.json (kolla att filen finns i samma mapp).";
+  }
+};
+
+downloadBtn.onclick = () => {
+  let data;
+  try{
+    data = JSON.stringify(JSON.parse(editor.value), null, 2);
+  }catch(e){
+    msg.textContent = "Fel i JSON: " + e.message;
+    return;
+  }
+  const blob = new Blob([data], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "words.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  msg.textContent = "words.json nedladdad. Ladda upp den till repot.";
+};
+
+// Fyll med en mall om tomt
+editor.value = `[\n  { "w": "pengar", "d": "Allmänna medel vi betalar med, både sedlar och digitalt." }\n]`;
+</script>
+</body>
+</html>

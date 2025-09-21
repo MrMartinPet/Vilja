@@ -16,7 +16,6 @@
   .btn{border:none;border-radius:10px;padding:12px 14px;font-weight:700;font-size:16px;cursor:pointer}
   .primary{background:var(--accent);color:#fff}
   .ghost{background:#eef4ff;color:#0a2a66}
-  .danger{background:#ffe8e8;color:#7a1111}
   .card{border:1px solid #e6e6ef;border-radius:14px;padding:16px;margin-top:12px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
   .def{font-size:18px;margin:6px 0 12px;min-height:48px}
   input[type=text]{width:100%;font-size:20px;padding:12px;border:1px solid #d9d9e3;border-radius:10px;outline:none}
@@ -26,16 +25,8 @@
   .ok{color:var(--ok)} .err{color:var(--err)}
   .done{border:2px dashed #a7e5b7;background:#f2fff5;text-align:center;padding:16px;border-radius:14px}
   .small{font-size:12px}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:20px}
-  .modal .panel{background:#fff;border-radius:14px;max-width:860px;width:100%;padding:16px;border:1px solid #e6e6ef}
-  .list{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px;max-height:55vh;overflow:auto}
-  .item{border:1px solid #eee;border-radius:10px;padding:10px}
-  .item .w{font-weight:700}
-  .item .d{color:#555;margin-top:4px}
-  .item .actions{display:flex;gap:8px;margin-top:10px}
-  .inputs{display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-top:8px}
-  .panel .row-top{display:flex;gap:8px;align-items:center;justify-content:space-between}
-  @media(min-width:720px){ .list{grid-template-columns:1fr 1fr} }
+  .links{margin-top:10px}
+  .links a{color:#0a2a66;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -45,7 +36,6 @@
 <div class="bar">
   <div class="chip">Framsteg idag: <span id="progressText">0/0</span></div>
   <div class="chip">Rätt i rad: <span id="streakText">0</span></div>
-  <button id="adminBtn" class="btn ghost">Pappa</button>
 </div>
 
 <div id="practiceCard" class="card">
@@ -54,92 +44,42 @@
          autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="latin"
          placeholder="Skriv ordet …">
   <div class="row">
-    <button id="check" class="btn primary">Kolla</button>
-    <button id="skip" class="btn ghost">Hoppa över</button>
+    <button id="check" type="button" class="btn primary">Kolla</button>
+    <button id="skip" type="button" class="btn ghost">Hoppa över</button>
   </div>
   <div id="feedback" class="feedback"></div>
+  <div class="links small muted">Uppdatera ordlistan? Öppna <a href="words.html">words.html</a> och exportera en ny <code>words.json</code>.</div>
 </div>
 
 <div id="doneCard" class="done" style="display:none">
   <div style="font-size:20px;font-weight:800;margin-bottom:6px">Bra jobbat, Vilja! 🎉</div>
   <div>Du har klarat alla ord i dagens runda.</div>
   <div class="row" style="justify-content:center;margin-top:12px">
-    <button id="newRound" class="btn primary">Kör en runda till</button>
-  </div>
-  <div class="small muted" style="margin-top:6px">Tips: Om något ord kändes svårt – be Pappa att lägga in fler exempel eller byta förklaring.</div>
-</div>
-
-<!-- Admin Modal -->
-<div id="adminModal" class="modal" aria-hidden="true">
-  <div class="panel">
-    <div class="row-top">
-      <div>
-        <h2 style="margin:0">Pappa – Redigera ord</h2>
-        <div class="small muted">Lägg till, ändra, ta bort. Ändringar sparas först när du trycker <strong>Spara</strong>.</div>
-      </div>
-      <div>
-        <button id="closeAdmin" class="btn ghost" style="min-width:auto">Stäng</button>
-      </div>
-    </div>
-
-    <div class="inputs">
-      <input id="wInput" type="text" placeholder="Ord (t.ex. 'budget')">
-      <input id="dInput" type="text" placeholder="Definition (förklaring)">
-    </div>
-    <div class="row">
-      <button id="addWord" class="btn primary">Spara</button>
-      <button id="clearInputs" class="btn ghost">Avbryt</button>
-    </div>
-
-    <div class="list" id="wordList"></div>
-
-    <div class="row" style="margin-top:12px;justify-content:space-between">
-      <button id="resetToday" class="btn ghost">Börja om dagens runda</button>
-      <button id="resetAll" class="btn danger">Rensa allt (ord & framsteg)</button>
-    </div>
+    <button id="newRound" type="button" class="btn primary">Kör en runda till</button>
   </div>
 </div>
 
 <script>
-// --- Helpers to force-disable iOS autocorrect in PWA ---
+// --- Force-disable iOS autocorrect in PWA ---
 (function(){
   const a = document.getElementById("answer");
-  ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach((attr,i)=>{
+  ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach(attr => {
     if(attr==="spellcheck"){ a.setAttribute(attr,"false"); } else { a.setAttribute(attr,"off"); }
   });
   a.setAttribute("inputmode","latin");
 })();
 
-const DEFAULT_WORDS = [
-  { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
-  { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
-  { w:"inkomst", d:"Pengar som kommer in, t.ex. lön eller ersättning." },
-  { w:"skatt", d:"Pengar man betalar till staten/kommunen för gemensam nytta." },
-  { w:"budget", d:"Plan för inkomster och utgifter så pengarna räcker." },
-  { w:"lungor", d:"Organen vi andas med, tar upp syre till blodet." },
-  { w:"luftrör", d:"Rör som leder luft till och från lungorna." },
-  { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
-  { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
-];
-
-const KEY_WORDS = "vilja_words_v3";
-const KEY_DAY   = "vilja_day_state_v4";
+const KEY_DAY   = "vilja_day_state_words_v1";
+let WORDS = []; // loaded from words.json
 
 function todayStr(){ return new Date().toISOString().slice(0,10); }
-function loadWords(){
-  try{ const raw = localStorage.getItem(KEY_WORDS); if(raw){ const arr = JSON.parse(raw); if(Array.isArray(arr)){ return arr; } } }catch(e){}
-  return DEFAULT_WORDS.slice();
-}
-function saveWords(arr){ localStorage.setItem(KEY_WORDS, JSON.stringify(arr)); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-let WORDS = loadWords();
 let day = JSON.parse(localStorage.getItem(KEY_DAY) || "{}");
 function resetDay(){
   day = { date: todayStr(), remaining: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
   localStorage.setItem(KEY_DAY, JSON.stringify(day));
 }
-if(day.date !== todayStr() || !Array.isArray(day.remaining) || !Array.isArray(day.done)){ resetDay(); }
 
 const defEl = document.getElementById("def");
 const answerEl = document.getElementById("answer");
@@ -150,21 +90,9 @@ const practiceCard = document.getElementById("practiceCard");
 const doneCard = document.getElementById("doneCard");
 const checkBtn = document.getElementById("check");
 const skipBtn = document.getElementById("skip");
-
-const adminBtn = document.getElementById("adminBtn");
-const adminModal = document.getElementById("adminModal");
-const closeAdmin = document.getElementById("closeAdmin");
-const wordList = document.getElementById("wordList");
-const wInput = document.getElementById("wInput");
-const dInput = document.getElementById("dInput");
-const addWordBtn = document.getElementById("addWord");
-const clearInputsBtn = document.getElementById("clearInputs");
-const resetTodayBtn = document.getElementById("resetToday");
-const resetAllBtn = document.getElementById("resetAll");
 const newRoundBtn = document.getElementById("newRound");
 
 let current = null;
-let editIndex = null;
 
 function updateProgress(){ progressText.textContent = `${day.done.length}/${WORDS.length}`; streakText.textContent = day.streak || 0; }
 function pickNext(){
@@ -196,57 +124,40 @@ function check(){
   if(val === current.w.toLowerCase()) correct(); else wrong();
 }
 
-// Admin
-function renderAdminList(){
-  wordList.innerHTML = "";
-  WORDS.forEach((o, i) => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.innerHTML = `<div class="w">${o.w}</div>
-      <div class="d">${o.d}</div>
-      <div class="actions">
-        <button class="btn ghost" data-edit="${i}">Ändra</button>
-        <button class="btn danger" data-del="${i}">Ta bort</button>
-      </div>`;
-    wordList.appendChild(div);
-  });
-  wordList.querySelectorAll("[data-edit]").forEach(b => b.onclick = (e)=>{
-    editIndex = parseInt(e.currentTarget.getAttribute("data-edit"));
-    wInput.value = WORDS[editIndex].w; dInput.value = WORDS[editIndex].d;
-    addWordBtn.textContent = "Spara ändring"; clearInputsBtn.textContent = "Avbryt"; wInput.focus();
-  });
-  wordList.querySelectorAll("[data-del]").forEach(b => b.onclick = (e)=>{
-    const idx = parseInt(e.currentTarget.getAttribute("data-del"));
-    if(confirm(`Ta bort ordet "${WORDS[idx].w}"?`)){
-      WORDS.splice(idx,1); saveWords(WORDS); resetDay();
-      renderAdminList(); updateProgress(); pickNext();
-    }
-  });
-}
-function clearInputs(){ editIndex = null; wInput.value = ""; dInput.value = ""; addWordBtn.textContent = "Spara"; clearInputsBtn.textContent = "Avbryt"; }
-addWordBtn.onclick = ()=>{
-  const w = (wInput.value||"").trim(); const d = (dInput.value||"").trim();
-  if(!w || !d){ alert("Fyll i både ord och definition."); return; }
-  if(editIndex === null){ WORDS.push({ w, d }); } else { WORDS[editIndex] = { w, d }; }
-  saveWords(WORDS); resetDay(); clearInputs(); renderAdminList(); updateProgress(); pickNext();
-};
-clearInputsBtn.onclick = clearInputs;
-adminBtn.onclick = ()=>{ adminModal.style.display="flex"; renderAdminList(); };
-closeAdmin.onclick = ()=>{ adminModal.style.display="none"; };
-adminModal.addEventListener("click", (e)=>{ if(e.target === adminModal){ adminModal.style.display="none"; } });
+checkBtn.addEventListener("click", check);
+skipBtn.addEventListener("click", pickNext);
+newRoundBtn.addEventListener("click", ()=>{ resetDay(); practiceCard.style.display="block"; doneCard.style.display="none"; pickNext(); });
+answerEl.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
 
-resetTodayBtn.onclick = ()=>{ if(confirm("Börja om dagens runda?")){ resetDay(); practiceCard.style.display="block"; doneCard.style.display="none"; pickNext(); } };
-resetAllBtn.onclick = ()=>{
-  if(confirm("Rensa ALLT (ordlista & framsteg)?")){
-    localStorage.removeItem(KEY_WORDS); localStorage.removeItem(KEY_DAY);
-    WORDS = loadWords(); resetDay(); practiceCard.style.display="block"; doneCard.style.display="none";
-    renderAdminList(); updateProgress(); pickNext();
+// Load words.json then start
+fetch("words.json", {cache:"no-store"}).then(r => r.json()).then(data => {
+  if(!Array.isArray(data)) throw new Error("words.json är inte en lista.");
+  WORDS = data;
+  if(day.date !== todayStr() || !Array.isArray(day.remaining) || !Array.isArray(day.done)){
+    resetDay();
+  } else {
+    // if words changed length, reset
+    const setA = new Set(WORDS.map(o=>o.w));
+    const allIn = day.remaining.concat(day.done).every(w => setA.has(w));
+    if(!allIn) resetDay();
   }
-};
-newRoundBtn.onclick = ()=>{ resetDay(); practiceCard.style.display="block"; doneCard.style.display="none"; pickNext(); };
-
-// Start
-updateProgress(); pickNext();
+  updateProgress(); pickNext();
+}).catch(err => {
+  console.error(err);
+  // fallback default ord om words.json saknas
+  WORDS = [
+    { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
+    { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
+    { w:"inkomst", d:"Pengar som kommer in, t.ex. lön eller ersättning." },
+    { w:"skatt", d:"Pengar man betalar till staten/kommunen för gemensam nytta." },
+    { w:"budget", d:"Plan för inkomster och utgifter så pengarna räcker." },
+    { w:"lungor", d:"Organen vi andas med, tar upp syre till blodet." },
+    { w:"luftrör", d:"Rör som leder luft till och från lungorna." },
+    { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
+    { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
+  ];
+  resetDay(); updateProgress(); pickNext();
+});
 
 // Service worker update hint
 if ("serviceWorker" in navigator) {

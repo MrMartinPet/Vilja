@@ -2,143 +2,276 @@
 <html lang="sv">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Viljas Läxa</title>
-<meta name="theme-color" content="#0a84ff">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viljas Stavningsläxa – Damirs läxa</title>
 <style>
-  :root{ --bg:#ffffff; --fg:#0d1321; --muted:#6b7280; --accent:#0a84ff; --ok:#2db55d; --err:#d32f2f; --card:#f8fafc; }
-  *{ box-sizing:border-box }
-  html,body{ margin:0; padding:0; background:var(--bg); color:var(--fg); font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif }
-  .wrap{ max-width:820px; margin:0 auto; padding:24px 16px 56px }
-  header{ display:flex; align-items:flex-start; gap:12px; }
-  .logo{ width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#0a84ff,#66b2ff); box-shadow:0 6px 18px rgba(10,132,255,.25); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800 }
-  h1{ margin:0; font-size:26px; line-height:1.15; color:var(--accent) }
-  .sub{ color:var(--muted); margin-top:2px; font-size:14px }
-  .board{ margin-top:16px; display:flex; gap:10px; flex-wrap:wrap }
-  .chip{ background:#eef2ff; color:#102a63; border:1px solid #dbe3ff; padding:6px 12px; border-radius:999px; font-weight:600; font-size:12px }
-  .card{ background:var(--card); border:1px solid #e5e7eb; border-radius:16px; padding:18px; margin-top:14px; box-shadow:0 1px 0 rgba(2,6,23,.03) }
-  .def{ font-size:20px; margin:4px 0 12px; min-height:48px }
-  input[type=text]{ width:100%; font-size:20px; padding:14px 12px; border-radius:12px; border:1px solid #d1d5db; background:#fff; outline:none }
-  input[type=text]:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(10,132,255,.15) }
-  .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px }
-  button{ border:none; border-radius:12px; padding:14px 16px; font-weight:800; font-size:16px; cursor:pointer }
-  .primary{ background:var(--accent); color:#fff }
-  .feedback{ min-height:24px; margin-top:8px; font-weight:800 }
-  .ok{ color:var(--ok) } .err{ color:var(--err) }
-  .done{ border:2px dashed #a7e5b7; background:#f2fff5; text-align:center; padding:20px; border-radius:16px; margin-top:16px }
-  .done h2{ margin:0 0 6px; font-size:22px }
-  .small{ color:var(--muted); font-size:13px }
+  :root{
+    --bg:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; --warn:#ef4444; --brand:#38bdf8;
+  }
+  *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b1222,#0f172a 40%,#0b1222);
+    color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 64px}
+  header{display:flex;align-items:center;gap:12px;margin:6px 0 18px}
+  .avatar{width:54px;height:54px;border-radius:12px;background:#1f2937;display:grid;place-items:center;
+    font-weight:800;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  h1{font-size:1.6rem;line-height:1.2;margin:0}
+  h1 small{display:block;font-weight:400;color:var(--muted);font-size:.9rem}
+  .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:16px;box-shadow:0 12px 32px rgba(0,0,0,.28)}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .grow{flex:1 1 280px}
+  .def{font-size:1.15rem;line-height:1.5}
+  .input{display:flex;gap:10px;margin-top:12px}
+  input[type=text]{flex:1;padding:14px 14px;border-radius:12px;border:1px solid #263042;background:#0b1220;color:var(--ink);
+    font-size:1.1rem;outline:none}
+  input[type=text].ok{border-color:var(--accent);box-shadow:0 0 0 3px #22c55e33}
+  input[type=text].bad{border-color:var(--warn);box-shadow:0 0 0 3px #ef444433}
+  button{padding:12px 14px;border-radius:12px;border:1px solid #263042;background:#0b1220;color:#e6edf3;cursor:pointer;
+    font-weight:600}
+  button.primary{background:linear-gradient(180deg,#22c55e,#16a34a);border:none}
+  button.ghost{background:transparent;border:1px solid #334155}
+  button:disabled{opacity:.6;cursor:not-allowed}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .pill{padding:8px 12px;border-radius:999px;border:1px solid #334155;background:#0b1220;color:#cbd5e1;font-weight:600;cursor:pointer}
+  .pill.active{background:#0ea5e9;border-color:#0284c7}
+  .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-top:10px}
+  .progress{height:10px;background:#0b1220;border:1px solid #263042;border-radius:999px;overflow:hidden}
+  .bar{height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#84cc16)}
+  .hint{color:#93c5fd;font-weight:600}
+  .footer{margin-top:18px;color:var(--muted);font-size:.9rem}
+  .tag{display:inline-block;margin-left:8px;padding:3px 8px;border-radius:8px;background:#0b2b3a;border:1px solid #0e7490;color:#7dd3fc}
+  .center{display:grid;place-items:center}
+  .fc{font-size:1.15rem;line-height:1.5;min-height:84px;display:grid;place-items:center;text-align:center}
+  .fc .word{font-size:1.6rem;font-weight:800}
+  .row-spaced{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .muted{color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">VL</div>
+    <div class="avatar">V</div>
     <div>
-      <h1>Hej Vilja! 🌟</h1>
-      <div class="sub">Dagens runda: klara alla ord minst en gång.</div>
+      <h1>Hej Vilja! <small>Veckans begrepp – “Damirs läxa”</small></h1>
+      <div class="muted">Stava orden & lär dig vad de betyder. Du klarar det! ✨</div>
     </div>
   </header>
 
-  <div class="board">
-    <div class="chip">Framsteg idag: <span id="progress">0/0</span></div>
-    <div class="chip">Rätt i rad: <span id="streak">0</span></div>
+  <div class="toolbar">
+    <button class="pill active" id="modeSpell">Stava</button>
+    <button class="pill" id="modeCards">Lär-kort</button>
+    <button class="pill" id="btnReset">Nollställ framsteg</button>
   </div>
 
-  <div id="practice" class="card">
-    <div id="def" class="def">—</div>
-    <input id="answer" type="text"
-           placeholder="Skriv ordet …"
-           autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="latin">
-    <div class="row">
-      <button id="check" type="button" class="primary">Kolla</button>
+  <div class="card" id="spellView">
+    <div class="row-spaced">
+      <div class="muted">Definition</div>
+      <div class="muted">Kvar: <span id="leftCount">–</span></div>
     </div>
-    <div id="feedback" class="feedback"></div>
+    <div class="def" id="definition"></div>
+
+    <div class="input">
+      <input id="answer" type="text" placeholder="Skriv ordet här …" autocomplete="off" autocapitalize="none" />
+      <button class="primary" id="checkBtn">Kolla</button>
+    </div>
+
+    <div class="toolbar">
+      <button class="ghost" id="hintBtn">Ledtråd</button>
+      <button class="ghost" id="revealBtn">Visa svar</button>
+      <button class="ghost" id="skipBtn">Hoppa över</button>
+      <button class="ghost" id="speakBtn">Lyssna</button>
+    </div>
+
+    <div class="meta">
+      <div class="progress grow"><div class="bar" id="bar"></div></div>
+      <div><span id="doneCount">0</span>/<span id="totalCount">0</span> klara</div>
+    </div>
+    <div class="footer">Tips: skriv <span class="hint">å ä ö</span> precis som vanligt. Fel ord visas rött, rätt blir grönt. 💚</div>
   </div>
 
-  <div id="done" class="done" style="display:none">
-    <h2>Bra jobbat, Vilja! 🎉</h2>
-    <div>Du har klarat alla ord i dagens runda.</div>
-    <div class="row" style="justify-content:center; margin-top:12px">
-      <button id="again" type="button" class="primary">Kör en runda till</button>
+  <div class="card" id="cardsView" style="display:none">
+    <div class="row-spaced"><div class="muted">Lär-kort</div><div class="muted">Kort: <span id="cardIndex">1</span>/<span id="cardTotal">–</span></div></div>
+    <div class="fc" id="flashArea">
+      <div class="word" id="flashFront"></div>
+      <div class="muted" id="flashBack" style="display:none"></div>
     </div>
-    <div class="small" style="margin-top:8px">Du är grym! 💙</div>
+    <div class="toolbar center">
+      <button class="primary" id="flipBtn">Vänd kort</button>
+      <button class="ghost" id="knowBtn">Kan det ✅</button>
+      <button class="ghost" id="practiceBtn">Öva mer 🔁</button>
+      <button class="ghost" id="prevBtn">◀︎</button>
+      <button class="ghost" id="nextBtn">▶︎</button>
+    </div>
+    <div class="meta"><div class="muted">Markerade som “kan”: <span id="knownCount">0</span></div></div>
   </div>
+
+  <div class="footer">Byggd bara för dig, Vilja 💙 — av pappa. <span class="tag">v1 – SO/NO/teknik</span></div>
 </div>
 
 <script>
+/* ======= 1) BYT VECKANS ORD HÄR ======= */
 const WORDS = [
-  { w:"pengar", d:"Allmänna medel vi betalar med, både sedlar och digitalt." },
-  { w:"kontanter", d:"Fysiska pengar: sedlar och mynt." },
-  { w:"inkomst", d:"Pengar som kommer in, t.ex. lön eller ersättning." },
-  { w:"skatt", d:"Pengar man betalar till staten/kommunen för gemensam nytta." },
-  { w:"budget", d:"Plan för inkomster och utgifter så pengarna räcker." },
-  { w:"lungor", d:"Organen vi andas med, tar upp syre till blodet." },
-  { w:"luftrör", d:"Rör som leder luft till och från lungorna." },
-  { w:"koldioxid", d:"Gas (CO₂) vi andas ut; bildas när kroppen använder energi." },
-  { w:"svalg", d:"Delen längst bak i mun och hals där luft och mat passerar." }
+  { word: "utgifter",
+    def: "Pengar som man betalar för saker man behöver, t.ex. mat, hyra och kläder." },
+  { word: "reklam",
+    def: "Budskap som ska få oss att lägga märke till och vilja köpa något." },
+  { word: "utbud",
+    def: "Hur mycket av en vara eller tjänst som finns att sälja." },
+  { word: "efterfrågan",
+    def: "Hur många som vill köpa en vara eller tjänst." },
+  { word: "skelett",
+    def: "Kroppens hårda stomme som håller oss uppe och skyddar organ." },
+  { word: "muskler",
+    def: "Det som sitter fast på skelettet och gör att vi kan röra oss." },
+  { word: "kranium",
+    def: "Skallbenet – den del av skelettet som skyddar hjärnan." },
+  { word: "transport",
+    def: "Att flytta människor eller saker från en plats till en annan." },
+  { word: "ingenjör",
+    def: "En person som använder teknik och kunskap för att lösa problem och bygga smarta saker." }
 ];
-(function forceNoIOSPredict(){
-  const a = document.getElementById("answer");
-  ["autocorrect","autocomplete","autocapitalize","spellcheck"].forEach(attr=>{
-    a.setAttribute(attr, attr==="spellcheck" ? "false" : "off");
-  });
-  a.setAttribute("inputmode","latin");
-})();
 
-const KEY = "vilja_pwa_cache_state_v2";
-function today(){ return new Date().toISOString().slice(0,10); }
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
+/* ======= 2) APP-LOGIK (behöver sällan ändras) ======= */
+const KEY = "vilja_damirs_laxa_progress_v1";
+const KNOWN_KEY = "vilja_cards_known_v1";
 
-let state = JSON.parse(localStorage.getItem(KEY) || "{}");
-function resetDay(){
-  state = { date: today(), order: shuffle(WORDS.map(o=>o.w)), done: [], streak:0 };
-  localStorage.setItem(KEY, JSON.stringify(state));
-}
-if(state.date !== today() || !Array.isArray(state.order) || !Array.isArray(state.done)){ resetDay(); }
+const $ = (id)=>document.getElementById(id);
+const shuffle = arr => arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 
-const defEl = document.getElementById("def");
-const ansEl = document.getElementById("answer");
-const fbEl = document.getElementById("feedback");
-const progEl = document.getElementById("progress");
-const streakEl = document.getElementById("streak");
-const practice = document.getElementById("practice");
-const doneBox = document.getElementById("done");
-const checkBtn = document.getElementById("check");
-const againBtn = document.getElementById("again");
+let order = shuffle([...WORDS.keys()]);
+let idx = 0;
+let progress = JSON.parse(localStorage.getItem(KEY) || "{}"); // { ord: true }
+let known = JSON.parse(localStorage.getItem(KNOWN_KEY) || "{}"); // { ord: true }
 
-let current = null;
-function updateUI(){ progEl.textContent = `${state.done.length}/${WORDS.length}`; streakEl.textContent = state.streak || 0; }
-function pickNext(){
-  if(state.order.length === 0){ practice.style.display="none"; doneBox.style.display="block"; return; }
-  const w = state.order[state.order.length - 1];
-  current = WORDS.find(o => o.w === w);
-  defEl.textContent = current ? current.d : "—";
-  ansEl.value = ""; fbEl.textContent = ""; fbEl.className = "feedback";
-  requestAnimationFrame(()=>ansEl.focus()); updateUI();
+const speak = (text)=>{
+  if (!("speechSynthesis" in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "sv-SE";
+  u.rate = 1.0;
+  u.pitch = 1.0;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+};
+const beep = (ok=true)=>{
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.type = ok ? "triangle":"sawtooth";
+    o.frequency.value = ok ? 880:200;
+    o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.18);
+    o.start(); o.stop(ctx.currentTime+0.2);
+  }catch{}
+};
+
+function saveProgress(){ localStorage.setItem(KEY, JSON.stringify(progress)); }
+function saveKnown(){ localStorage.setItem(KNOWN_KEY, JSON.stringify(known)); }
+
+function updateCounts(){
+  const done = Object.keys(progress).length;
+  $("doneCount").textContent = done;
+  $("totalCount").textContent = WORDS.length;
+  $("bar").style.width = Math.round(100*done/WORDS.length)+"%";
+  $("leftCount").textContent = (WORDS.length - done);
+  $("knownCount").textContent = Object.keys(known).length;
 }
-function correct(){
-  fbEl.textContent = "Rätt! 🎉"; fbEl.className = "feedback ok";
-  state.streak = (state.streak||0) + 1; state.done.push(current.w); state.order.pop();
-  localStorage.setItem(KEY, JSON.stringify(state)); updateUI();
-  setTimeout(pickNext, 1500);
+
+function loadCurrent(){
+  const w = WORDS[order[idx]];
+  $("definition").textContent = w.def;
+  $("answer").value = "";
+  $("answer").classList.remove("ok","bad");
+  $("answer").focus();
+  updateCounts();
 }
-function wrong(){
-  fbEl.innerHTML = `Nästan! Rätt svar är <strong>"${current.w}"</strong>`; fbEl.className = "feedback err";
-  state.streak = 0; localStorage.setItem(KEY, JSON.stringify(state)); updateUI();
+
+function nextItem(){
+  // flytta svåra ord senare genom att lägga in igen nära slutet
+  idx++;
+  if (idx>=order.length){ order = shuffle([...WORDS.keys()]); idx=0; }
+  loadCurrent();
 }
-function check(){
-  const v = (ansEl.value||"").trim().toLowerCase();
-  if(!v || !current) return;
-  if(v === current.w.toLowerCase()) correct(); else wrong();
+
+$("checkBtn").onclick = ()=>{
+  const w = WORDS[order[idx]];
+  const val = $("answer").value.trim().toLowerCase();
+  const right = w.word.toLowerCase();
+  if (val === right){
+    $("answer").classList.remove("bad"); $("answer").classList.add("ok");
+    progress[w.word] = true; saveProgress(); beep(true);
+    setTimeout(nextItem, 280);
+  }else{
+    $("answer").classList.remove("ok"); $("answer").classList.add("bad");
+    beep(false);
+  }
+  updateCounts();
+};
+
+$("hintBtn").onclick = ()=>{
+  const w = WORDS[order[idx]].word;
+  const first = w[0], last = w[w.length-1];
+  const hint = `${first} _ _ ... _ ${last}  (${w.length} bokstäver)`;
+  $("definition").innerHTML = WORDS[order[idx]].def + `<br><span class="hint">Ledtråd: ${hint}</span>`;
+};
+$("revealBtn").onclick = ()=>{
+  const w = WORDS[order[idx]].word;
+  $("answer").value = w;
+  $("answer").classList.add("ok");
+  setTimeout(()=>{$("answer").classList.remove("ok")},500);
+};
+$("skipBtn").onclick = nextItem;
+$("speakBtn").onclick = ()=>{
+  const w = WORDS[order[idx]];
+  speak(`Definition: ${w.def}. Skriv ordet: ${w.word}.`);
+};
+
+$("btnReset").onclick = ()=>{
+  if(confirm("Vill du nollställa framstegen?")){ progress={}; known={}; saveProgress(); saveKnown(); updateCounts(); }
+};
+
+/* ----- Lär-kort ----- */
+let cardIndex = 0;
+function renderCard(){
+  const item = WORDS[cardIndex];
+  $("flashFront").textContent = item.word;
+  $("flashBack").textContent = item.def;
+  $("flashBack").style.display = "none";
+  $("flashFront").style.display = "block";
+  $("cardIndex").textContent = (cardIndex+1);
+  $("cardTotal").textContent = WORDS.length;
+  updateCounts();
 }
-checkBtn.addEventListener("click", check);
-ansEl.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
-againBtn.addEventListener("click", ()=>{ resetDay(); practice.style.display="block"; doneBox.style.display="none"; pickNext(); });
-updateUI(); pickNext();
-if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js"); }
+$("flipBtn").onclick = ()=>{
+  const front = $("flashFront"), back = $("flashBack");
+  const showBack = back.style.display === "none";
+  back.style.display = showBack? "block":"none";
+  front.style.display = showBack? "none":"block";
+};
+$("nextBtn").onclick = ()=>{ cardIndex = (cardIndex+1)%WORDS.length; renderCard(); };
+$("prevBtn").onclick = ()=>{ cardIndex = (cardIndex-1+WORDS.length)%WORDS.length; renderCard(); };
+$("knowBtn").onclick = ()=>{ known[WORDS[cardIndex].word] = true; saveKnown(); updateCounts(); beep(true); };
+$("practiceBtn").onclick = ()=>{ delete known[WORDS[cardIndex].word]; saveKnown(); updateCounts(); };
+
+function switchMode(mode){
+  const spell = $("spellView"), cards = $("cardsView");
+  $("modeSpell").classList.toggle("active", mode==="spell");
+  $("modeCards").classList.toggle("active", mode==="cards");
+  spell.style.display = mode==="spell"?"block":"none";
+  cards.style.display = mode==="cards"?"block":"none";
+}
+$("modeSpell").onclick = ()=>switchMode("spell");
+$("modeCards").onclick = ()=>{ switchMode("cards"); renderCard(); };
+
+/* Init */
+updateCounts();
+loadCurrent();
+renderCard();
+
+/* Enter för snabb kontroll */
+$("answer").addEventListener("keydown", (e)=>{
+  if(e.key==="Enter"){ $("checkBtn").click(); }
+});
 </script>
 </body>
 </html>

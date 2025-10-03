@@ -2,276 +2,406 @@
 <html lang="sv">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Viljas Stavningsläxa – Damirs läxa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ekonomi – Träna</title>
+<meta name="theme-color" content="#0b1220">
 <style>
   :root{
-    --bg:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#9ca3af; --accent:#22c55e; --warn:#ef4444; --brand:#38bdf8;
+    --bg:#0b1220; --paper:#0f172a; --card:#111a2e;
+    --ink:#e5e7eb; --muted:#9ca3af; --line:#1f2937;
+    --accent:#60a5fa; --accent2:#22d3ee; --good:#22c55e; --bad:#ef4444;
+    --radius:16px; --tap:56px; --shadow:0 10px 26px rgba(0,0,0,.36);
+    --fs:clamp(18px,2.8vw,22px); --fs-big:clamp(20px,3.8vw,26px);
   }
-  *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b1222,#0f172a 40%,#0b1222);
-    color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
-  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 64px}
-  header{display:flex;align-items:center;gap:12px;margin:6px 0 18px}
-  .avatar{width:54px;height:54px;border-radius:12px;background:#1f2937;display:grid;place-items:center;
-    font-weight:800;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.35)}
-  h1{font-size:1.6rem;line-height:1.2;margin:0}
-  h1 small{display:block;font-weight:400;color:var(--muted);font-size:.9rem}
-  .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:16px;box-shadow:0 12px 32px rgba(0,0,0,.28)}
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  .grow{flex:1 1 280px}
-  .def{font-size:1.15rem;line-height:1.5}
-  .input{display:flex;gap:10px;margin-top:12px}
-  input[type=text]{flex:1;padding:14px 14px;border-radius:12px;border:1px solid #263042;background:#0b1220;color:var(--ink);
-    font-size:1.1rem;outline:none}
-  input[type=text].ok{border-color:var(--accent);box-shadow:0 0 0 3px #22c55e33}
-  input[type=text].bad{border-color:var(--warn);box-shadow:0 0 0 3px #ef444433}
-  button{padding:12px 14px;border-radius:12px;border:1px solid #263042;background:#0b1220;color:#e6edf3;cursor:pointer;
-    font-weight:600}
-  button.primary{background:linear-gradient(180deg,#22c55e,#16a34a);border:none}
-  button.ghost{background:transparent;border:1px solid #334155}
-  button:disabled{opacity:.6;cursor:not-allowed}
-  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-  .pill{padding:8px 12px;border-radius:999px;border:1px solid #334155;background:#0b1220;color:#cbd5e1;font-weight:600;cursor:pointer}
-  .pill.active{background:#0ea5e9;border-color:#0284c7}
-  .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.95rem;margin-top:10px}
-  .progress{height:10px;background:#0b1220;border:1px solid #263042;border-radius:999px;overflow:hidden}
-  .bar{height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#84cc16)}
-  .hint{color:#93c5fd;font-weight:600}
-  .footer{margin-top:18px;color:var(--muted);font-size:.9rem}
-  .tag{display:inline-block;margin-left:8px;padding:3px 8px;border-radius:8px;background:#0b2b3a;border:1px solid #0e7490;color:#7dd3fc}
-  .center{display:grid;place-items:center}
-  .fc{font-size:1.15rem;line-height:1.5;min-height:84px;display:grid;place-items:center;text-align:center}
-  .fc .word{font-size:1.6rem;font-weight:800}
-  .row-spaced{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+       background:var(--bg); color:var(--ink)}
+  header{position:sticky;top:0;z-index:10;background:#0b1220e6;backdrop-filter:blur(10px);
+         border-bottom:1px solid var(--line)}
+  .wrap{max-width:980px;margin:0 auto;padding:14px 16px}
+  h1{margin:2px 0 6px;font-size:var(--fs-big);letter-spacing:.2px}
+  .tabs{display:flex;gap:10px;flex-wrap:wrap}
+  .tab-btn{padding:14px 18px;border-radius:14px;border:1px solid var(--line);
+           font-size:var(--fs); background:#0d1b33;color:var(--ink);cursor:pointer}
+  .tab-btn.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#081426;border-color:transparent;font-weight:800}
+  main{padding:16px}
+  .screen{display:none}
+  .screen.active{display:block;animation:fade .15s ease}
+  @keyframes fade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  .grid{display:grid;gap:14px}
+  .grid.two{grid-template-columns:1fr}
+  @media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
+  .big{font-size:var(--fs-big);line-height:1.35}
+  .btn{display:inline-block;width:100%;min-height:var(--tap);border-radius:14px;border:1px solid var(--line);
+       background:#0d1b33;color:var(--ink);font-size:var(--fs);padding:14px 18px;cursor:pointer}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#081426;border:0;font-weight:800}
+  .choice{width:100%;text-align:left}
+  .choice.correct{border-color:rgba(34,197,94,.6);background:rgba(34,197,94,.08)}
+  .choice.wrong{border-color:rgba(239,68,68,.6);background:rgba(239,68,68,.08)}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .center{text-align:center}
   .muted{color:var(--muted)}
+  .kpi{display:flex;gap:12px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+  .kpi > div{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#0d1b33;font-size:var(--fs)}
+  .progress{height:10px;background:#0d1b33;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:6px 0 2px}
+  .progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+  ul,ol{font-size:var(--fs);line-height:1.5}
+  select{font-size:var(--fs);padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#132340;color:var(--ink)}
+  .float{position:fixed;right:14px;bottom:14px;z-index:20}
+  .pill{padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:#0d1b33;color:var(--ink);font-size:var(--fs);cursor:pointer}
+  .ok{color:var(--good)} .bad{color:var(--bad)}
+  .list{display:grid;gap:12px}
+  .item{padding:14px;border:1px solid var(--line);border-radius:12px;background:#0d1b33;font-size:var(--fs)}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="avatar">V</div>
-    <div>
-      <h1>Hej Vilja! <small>Veckans begrepp – “Damirs läxa”</small></h1>
-      <div class="muted">Stava orden & lär dig vad de betyder. Du klarar det! ✨</div>
-    </div>
-  </header>
-
-  <div class="toolbar">
-    <button class="pill active" id="modeSpell">Stava</button>
-    <button class="pill" id="modeCards">Lär-kort</button>
-    <button class="pill" id="btnReset">Nollställ framsteg</button>
+<header>
+  <div class="wrap">
+    <h1>Ekonomi – Träna</h1>
+    <div id="tabs" class="tabs"></div>
   </div>
+</header>
 
-  <div class="card" id="spellView">
-    <div class="row-spaced">
-      <div class="muted">Definition</div>
-      <div class="muted">Kvar: <span id="leftCount">–</span></div>
+<main class="wrap">
+  <!-- Ordkort -->
+  <section id="flashcards" class="screen active">
+    <div class="card">
+      <div class="kpi">
+        <div>Kort <span id="fcIndex">1</span>/<span id="fcTotal">0</span></div>
+        <div>Rätt i rad <span id="fcStreak">0</span></div>
+        <div>Klart <span id="fcDone">0%</span></div>
+      </div>
+      <div class="progress"><span id="fcBar"></span></div>
+      <div class="grid two" style="margin-top:10px">
+        <button id="fcCard" class="card big btn" style="min-height:180px;cursor:pointer">...</button>
+        <div class="card">
+          <div id="fcTip" class="big"></div>
+          <div class="row" style="margin-top:12px">
+            <button class="pill" id="btnKnow">Jag kan</button>
+            <button class="pill" id="btnDont">Öva mer</button>
+            <button class="pill" id="btnShuffle">Blanda</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="def" id="definition"></div>
+  </section>
 
-    <div class="input">
-      <input id="answer" type="text" placeholder="Skriv ordet här …" autocomplete="off" autocapitalize="none" />
-      <button class="primary" id="checkBtn">Kolla</button>
+  <!-- Quiz -->
+  <section id="quiz" class="screen">
+    <div class="card">
+      <div class="kpi">
+        <div>Fråga <span id="qIndex">1</span>/<span id="qTotal">0</span></div>
+        <div>Poäng <span id="qScore">0</span></div>
+      </div>
+      <div class="progress"><span id="qBar"></span></div>
+      <div id="qWrap" style="margin-top:12px"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="pill" id="qNext">Nästa</button>
+        <button class="pill" id="qAgain">Blanda om</button>
+      </div>
     </div>
+  </section>
 
-    <div class="toolbar">
-      <button class="ghost" id="hintBtn">Ledtråd</button>
-      <button class="ghost" id="revealBtn">Visa svar</button>
-      <button class="ghost" id="skipBtn">Hoppa över</button>
-      <button class="ghost" id="speakBtn">Lyssna</button>
+  <!-- Sant/Falskt -->
+  <section id="tf" class="screen">
+    <div class="card">
+      <div id="tfWrap" class="list"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="pill" id="tfReset">Blanda om</button>
+      </div>
     </div>
+  </section>
 
-    <div class="meta">
-      <div class="progress grow"><div class="bar" id="bar"></div></div>
-      <div><span id="doneCount">0</span>/<span id="totalCount">0</span> klara</div>
+  <!-- Rätt ord -->
+  <section id="cloze" class="screen">
+    <div class="card">
+      <div id="clozeWrap" class="list"></div>
+      <div class="row" style="margin-top:12px">
+        <div class="pill">Poäng: <span id="clozeScore">0</span>/<span id="clozeTotal">0</span></div>
+        <button class="pill" id="clozeAgain">Nya exempel</button>
+      </div>
     </div>
-    <div class="footer">Tips: skriv <span class="hint">å ä ö</span> precis som vanligt. Fel ord visas rött, rätt blir grönt. 💚</div>
-  </div>
+  </section>
 
-  <div class="card" id="cardsView" style="display:none">
-    <div class="row-spaced"><div class="muted">Lär-kort</div><div class="muted">Kort: <span id="cardIndex">1</span>/<span id="cardTotal">–</span></div></div>
-    <div class="fc" id="flashArea">
-      <div class="word" id="flashFront"></div>
-      <div class="muted" id="flashBack" style="display:none"></div>
+  <!-- Slutprov -->
+  <section id="exam" class="screen">
+    <div class="card">
+      <div class="kpi">
+        <div>Slutprov – <span id="exLeft">20</span> frågor</div>
+        <div>Poäng <span id="exScore">0</span></div>
+      </div>
+      <div class="progress"><span id="exBar"></span></div>
+      <div id="exWrap" style="margin-top:12px"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="pill" id="exStart">Starta om prov</button>
+      </div>
     </div>
-    <div class="toolbar center">
-      <button class="primary" id="flipBtn">Vänd kort</button>
-      <button class="ghost" id="knowBtn">Kan det ✅</button>
-      <button class="ghost" id="practiceBtn">Öva mer 🔁</button>
-      <button class="ghost" id="prevBtn">◀︎</button>
-      <button class="ghost" id="nextBtn">▶︎</button>
-    </div>
-    <div class="meta"><div class="muted">Markerade som “kan”: <span id="knownCount">0</span></div></div>
-  </div>
+  </section>
 
-  <div class="footer">Byggd bara för dig, Vilja 💙 — av pappa. <span class="tag">v1 – SO/NO/teknik</span></div>
+  <!-- Sammanfattning -->
+  <section id="cheat" class="screen">
+    <div class="card">
+      <h2 class="big">Ekonomiska kretsloppet</h2>
+      <ol id="loopList"></ol>
+    </div>
+  </section>
+</main>
+
+<div class="float">
+  <button id="resetBtn" class="pill">Nollställ</button>
 </div>
 
 <script>
-/* ======= 1) BYT VECKANS ORD HÄR ======= */
-const WORDS = [
-  { word: "utgifter",
-    def: "Pengar som man betalar för saker man behöver, t.ex. mat, hyra och kläder." },
-  { word: "reklam",
-    def: "Budskap som ska få oss att lägga märke till och vilja köpa något." },
-  { word: "utbud",
-    def: "Hur mycket av en vara eller tjänst som finns att sälja." },
-  { word: "efterfrågan",
-    def: "Hur många som vill köpa en vara eller tjänst." },
-  { word: "skelett",
-    def: "Kroppens hårda stomme som håller oss uppe och skyddar organ." },
-  { word: "muskler",
-    def: "Det som sitter fast på skelettet och gör att vi kan röra oss." },
-  { word: "kranium",
-    def: "Skallbenet – den del av skelettet som skyddar hjärnan." },
-  { word: "transport",
-    def: "Att flytta människor eller saker från en plats till en annan." },
-  { word: "ingenjör",
-    def: "En person som använder teknik och kunskap för att lösa problem och bygga smarta saker." }
+/* Stäng av autokorr/auto-cap om inputs läggs till senare */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('input, textarea').forEach(el=>{
+    el.setAttribute('autocapitalize','off');
+    el.setAttribute('autocomplete','off');
+    el.setAttribute('autocorrect','off');
+    el.setAttribute('spellcheck','false');
+    el.inputmode='none';
+  });
+});
+
+/* Tabs */
+const TABS=[
+  {id:'flashcards',label:'Ordkort'},
+  {id:'quiz',label:'Quiz'},
+  {id:'tf',label:'Sant/Falskt'},
+  {id:'cloze',label:'Rätt ord'},
+  {id:'exam',label:'Slutprov'},
+  {id:'cheat',label:'Kretslopp'}
+];
+const tabsEl=document.getElementById('tabs');
+let current='flashcards';
+TABS.forEach(t=>{
+  const b=document.createElement('button');
+  b.className='tab-btn'+(t.id===current?' active':'');
+  b.textContent=t.label;
+  b.onclick=()=>switchTab(t.id);
+  tabsEl.appendChild(b);
+});
+function switchTab(id){
+  current=id;
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',TABS[i].id===id));
+  document.querySelectorAll('.screen').forEach(sc=>sc.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ORDLISTA – fokus sista sidan */
+const WORDS=[
+  ['pengar','betalningsmedel – kontanter och elektroniska (kort/konto)'],
+  ['budget','plan för inkomster och utgifter'],
+  ['inkomst','pengar till hushållet, t.ex. lön'],
+  ['utgifter','pengar från hushållet, t.ex. kostnader'],
+  ['inkomstskatt','del av lönen som går till det offentliga'],
+  ['banken','plats för att spara och låna pengar'],
+  ['moms','mervärdesskatt på de flesta varor och tjänster'],
+  ['företag','verksamhet som drivs för att tjäna pengar'],
+  ['inflation','pengar blir mindre värda – priser stiger'],
+  ['ränta','kostnad för lån / ersättning för sparande'],
+  ['privatekonomi','en persons eller familjs ekonomi'],
+  ['ekonomiskt kretslopp','modell över hur pengar rör sig mellan hushåll, företag, bank och offentlig sektor'],
+  ['utbud','hur mycket det finns av en vara/tjänst'],
+  ['efterfrågan','hur många som vill köpa en vara/tjänst'],
+  ['bidrag','ekonomiskt stöd, t.ex. studiebidrag eller bostadsbidrag'],
+  ['offentlig sektor','stat, region och kommun (tjänster finansieras av skatter)'],
+  ['konkurs','när någon inte kan betala sina skulder och räkningar'],
+  ['byteshandel','att byta varor och tjänster med andra'],
+  ['hushåll','människor som bor ihop och delar inkomster/utgifter'],
+  ['kommun','geografiskt område, t.ex. Tidaholm med omnejd']
+];
+const TIPS={
+  'utbud':'Mycket som finns ⇒ pris ner.',
+  'efterfrågan':'Många vill ha ⇒ pris upp.',
+  'ränta':'Lån dyrt, sparande ger ersättning.'
+};
+const TERMS = WORDS.map(([t,d])=>({t,d,tip:TIPS[t]||''}));
+
+/* Kretslopp */
+const LOOP_STEPS=[
+  'Företag producerar varor/tjänster.',
+  'Hushåll konsumerar och betalar till företag.',
+  'Företag betalar löner till hushåll.',
+  'Hushåll betalar skatt (inkomstskatt, moms) till offentlig sektor.',
+  'Offentlig sektor ger tjänster och bidrag tillbaka.',
+  'Hushåll/företag sparar och lånar i bank – räntan spelar roll.',
+  'Pengar och varor cirkulerar – kretsloppet.'
 ];
 
-/* ======= 2) APP-LOGIK (behöver sällan ändras) ======= */
-const KEY = "vilja_damirs_laxa_progress_v1";
-const KNOWN_KEY = "vilja_cards_known_v1";
+/* Helpers */
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]);
 
-const $ = (id)=>document.getElementById(id);
-const shuffle = arr => arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
-
-let order = shuffle([...WORDS.keys()]);
-let idx = 0;
-let progress = JSON.parse(localStorage.getItem(KEY) || "{}"); // { ord: true }
-let known = JSON.parse(localStorage.getItem(KNOWN_KEY) || "{}"); // { ord: true }
-
-const speak = (text)=>{
-  if (!("speechSynthesis" in window)) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "sv-SE";
-  u.rate = 1.0;
-  u.pitch = 1.0;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
-};
-const beep = (ok=true)=>{
-  try{
-    const ctx = new (window.AudioContext||window.webkitAudioContext)();
-    const o = ctx.createOscillator(); const g = ctx.createGain();
-    o.type = ok ? "triangle":"sawtooth";
-    o.frequency.value = ok ? 880:200;
-    o.connect(g); g.connect(ctx.destination);
-    g.gain.setValueAtTime(0.0001, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.18);
-    o.start(); o.stop(ctx.currentTime+0.2);
-  }catch{}
-};
-
-function saveProgress(){ localStorage.setItem(KEY, JSON.stringify(progress)); }
-function saveKnown(){ localStorage.setItem(KNOWN_KEY, JSON.stringify(known)); }
-
-function updateCounts(){
-  const done = Object.keys(progress).length;
-  $("doneCount").textContent = done;
-  $("totalCount").textContent = WORDS.length;
-  $("bar").style.width = Math.round(100*done/WORDS.length)+"%";
-  $("leftCount").textContent = (WORDS.length - done);
-  $("knownCount").textContent = Object.keys(known).length;
+/* ---------- Ordkort ---------- */
+let order=TERMS.map((_,i)=>i);
+let pos=0, side=0, streak=0;
+let known=new Set(JSON.parse(localStorage.getItem('eco_known')||'[]'));
+$('#fcTotal').textContent=TERMS.length;
+function renderFC(){
+  const i=order[pos], it=TERMS[i];
+  $('#fcIndex').textContent=pos+1;
+  $('#fcCard').textContent= side? it.d : it.t ;
+  $('#fcTip').textContent=it.tip||'';
+  $('#fcStreak').textContent=streak;
+  $('#fcBar').style.width=((pos+1)/TERMS.length*100)+'%';
+  $('#fcDone').textContent=Math.round(known.size/TERMS.length*100)+'%';
 }
-
-function loadCurrent(){
-  const w = WORDS[order[idx]];
-  $("definition").textContent = w.def;
-  $("answer").value = "";
-  $("answer").classList.remove("ok","bad");
-  $("answer").focus();
-  updateCounts();
-}
-
-function nextItem(){
-  // flytta svåra ord senare genom att lägga in igen nära slutet
-  idx++;
-  if (idx>=order.length){ order = shuffle([...WORDS.keys()]); idx=0; }
-  loadCurrent();
-}
-
-$("checkBtn").onclick = ()=>{
-  const w = WORDS[order[idx]];
-  const val = $("answer").value.trim().toLowerCase();
-  const right = w.word.toLowerCase();
-  if (val === right){
-    $("answer").classList.remove("bad"); $("answer").classList.add("ok");
-    progress[w.word] = true; saveProgress(); beep(true);
-    setTimeout(nextItem, 280);
-  }else{
-    $("answer").classList.remove("ok"); $("answer").classList.add("bad");
-    beep(false);
-  }
-  updateCounts();
-};
-
-$("hintBtn").onclick = ()=>{
-  const w = WORDS[order[idx]].word;
-  const first = w[0], last = w[w.length-1];
-  const hint = `${first} _ _ ... _ ${last}  (${w.length} bokstäver)`;
-  $("definition").innerHTML = WORDS[order[idx]].def + `<br><span class="hint">Ledtråd: ${hint}</span>`;
-};
-$("revealBtn").onclick = ()=>{
-  const w = WORDS[order[idx]].word;
-  $("answer").value = w;
-  $("answer").classList.add("ok");
-  setTimeout(()=>{$("answer").classList.remove("ok")},500);
-};
-$("skipBtn").onclick = nextItem;
-$("speakBtn").onclick = ()=>{
-  const w = WORDS[order[idx]];
-  speak(`Definition: ${w.def}. Skriv ordet: ${w.word}.`);
-};
-
-$("btnReset").onclick = ()=>{
-  if(confirm("Vill du nollställa framstegen?")){ progress={}; known={}; saveProgress(); saveKnown(); updateCounts(); }
-};
-
-/* ----- Lär-kort ----- */
-let cardIndex = 0;
-function renderCard(){
-  const item = WORDS[cardIndex];
-  $("flashFront").textContent = item.word;
-  $("flashBack").textContent = item.def;
-  $("flashBack").style.display = "none";
-  $("flashFront").style.display = "block";
-  $("cardIndex").textContent = (cardIndex+1);
-  $("cardTotal").textContent = WORDS.length;
-  updateCounts();
-}
-$("flipBtn").onclick = ()=>{
-  const front = $("flashFront"), back = $("flashBack");
-  const showBack = back.style.display === "none";
-  back.style.display = showBack? "block":"none";
-  front.style.display = showBack? "none":"block";
-};
-$("nextBtn").onclick = ()=>{ cardIndex = (cardIndex+1)%WORDS.length; renderCard(); };
-$("prevBtn").onclick = ()=>{ cardIndex = (cardIndex-1+WORDS.length)%WORDS.length; renderCard(); };
-$("knowBtn").onclick = ()=>{ known[WORDS[cardIndex].word] = true; saveKnown(); updateCounts(); beep(true); };
-$("practiceBtn").onclick = ()=>{ delete known[WORDS[cardIndex].word]; saveKnown(); updateCounts(); };
-
-function switchMode(mode){
-  const spell = $("spellView"), cards = $("cardsView");
-  $("modeSpell").classList.toggle("active", mode==="spell");
-  $("modeCards").classList.toggle("active", mode==="cards");
-  spell.style.display = mode==="spell"?"block":"none";
-  cards.style.display = mode==="cards"?"block":"none";
-}
-$("modeSpell").onclick = ()=>switchMode("spell");
-$("modeCards").onclick = ()=>{ switchMode("cards"); renderCard(); };
-
-/* Init */
-updateCounts();
-loadCurrent();
-renderCard();
-
-/* Enter för snabb kontroll */
-$("answer").addEventListener("keydown", (e)=>{
-  if(e.key==="Enter"){ $("checkBtn").click(); }
+$('#fcCard').onclick=()=>{side=1-side;renderFC();};
+$('#btnKnow').onclick=()=>{known.add(order[pos]);localStorage.setItem('eco_known',JSON.stringify([...known]));streak++;pos=(pos+1)%TERMS.length;side=0;renderFC();};
+$('#btnDont').onclick=()=>{streak=0;pos=(pos+1)%TERMS.length;side=0;renderFC();};
+$('#btnShuffle').onclick=()=>{order.sort(()=>Math.random()-.5);pos=0;side=0;streak=0;renderFC();};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'){pos=(pos+1)%TERMS.length;side=0;renderFC();}
+  if(e.key==='ArrowLeft'){pos=(pos-1+TERMS.length)%TERMS.length;side=0;renderFC();}
+  if(e.key===' '){side=1-side;renderFC();}
 });
+renderFC();
+
+/* ---------- Quiz (10) ---------- */
+const QUIZ_POOL=[
+  ['Vad betyder BUDGET?','En plan för inkomster och utgifter',['En skatt på varor','Ett sparkonto','En sorts lön']],
+  ['Vad kallas pengar som går UT från hushållet?','Utgifter',['Inkomster','Ränta','Skatt']],
+  ['Vad är INKOMSTSKATT?','Del av lönen som går till det offentliga',['Skatt på varor','Avgift till banken','Pengar man sparar']],
+  ['Vad är MOMS?','Skatt på de flesta varor och tjänster',['Avgift till kommunen','Ränta på lån','Lön från företaget']],
+  ['Vad händer vid INFLATION?','Priser stiger och pengarna blir mindre värda',['Priser sjunker','Fler får jobb','Skatterna försvinner']],
+  ['Skillnaden KONSUMERA/PRODUCERA?','Konsumera = köpa/använda, Producera = tillverka/erbjuda',['Båda samma sak','Konsumera = sälja','Producera = köpa']],
+  ['Vilka ingår i OFFENTLIGA SEKTORN?','Stat, regioner och kommuner',['Företag och banker','Hushåll och företag','Privata banker']],
+  ['Vad är RÄNTA?','Kostnad för lån eller ersättning för sparande',['En typ av skatt','Bonus från arbetsgivare','Pris på en vara']],
+  ['Kontanter vs elektroniska pengar','Kontanter = sedlar/mynt, elektroniska = konto/kort',['Ingen skillnad','Elektroniska finns inte','Kontanter är gratis']],
+  ['Vad betyder UTBUD?','Hur mycket som finns av en vara/tjänst',['Hur mycket folk vill köpa','Hur mycket du tjänar','Skattens storlek']],
+  ['Vad betyder EFTERFRÅGAN?','Hur många som vill köpa',['Hur mycket som produceras','Räntans storlek','Skattens storlek']],
+  ['I kretsloppet betalar FÖRETAGEN...','Löner till hushållen',['Barnbidrag','Ränta till kommuner','Skolmat till banken']]
+];
+function buildQ(q){const [text,a,d]=q;const choices=shuffle([a,...d]).map(x=>({text:x,correct:x===a}));return {q:text,choices};}
+let quiz=[],qi=0,qscore=0;
+function makeQuiz(){quiz=shuffle(QUIZ_POOL).slice(0,10).map(buildQ);qi=0;qscore=0;$('#qTotal').textContent=quiz.length;$('#qScore').textContent=qscore;$('#qBar').style.width='0%';renderQ();}
+function renderQ(){
+  const cur=quiz[qi];
+  $('#qIndex').textContent=qi+1;
+  $('#qWrap').innerHTML = `<div class="big">${cur.q}</div>
+    <div class="grid" style="margin-top:10px">${cur.choices.map((c,i)=>`<button class="btn choice" data-i="${i}">${c.text}</button>`).join('')}</div>`;
+  $$('#qWrap .choice').forEach(btn=>{
+    btn.onclick=()=>{
+      const i=+btn.dataset.i; const ok=cur.choices[i].correct;
+      btn.classList.add(ok?'correct':'wrong');
+      if(ok){qscore++;$('#qScore').textContent=qscore;}
+      $$('#qWrap .choice').forEach((b,j)=>{b.disabled=true; if(cur.choices[j].correct) b.classList.add('correct');});
+    };
+  });
+  $('#qBar').style.width=((qi)/quiz.length*100)+'%';
+}
+$('#qNext').onclick=()=>{ if(qi<quiz.length-1){qi++;renderQ();} else { $('#qBar').style.width='100%'; const pct=Math.round(qscore/quiz.length*100); $('#qWrap').innerHTML=`<div class="center big">Klart! ${qscore}/${quiz.length} (${pct}%).</div>`; } };
+$('#qAgain').onclick=makeQuiz;
+makeQuiz();
+
+/* ---------- Sant/Falskt ---------- */
+const TF_ITEMS=[
+  ['Elektroniska pengar syns inte men flyttas mellan konton.',true],
+  ['Om ett företag har högre inkomster än utgifter finns risk för konkurs.',false],
+  ['Offentliga sektorn är allt vi tillsammans betalar för via skatter.',true],
+  ['Om momsen höjs blir varan oftast billigare.',false],
+  ['Sparar jag pengar på banken betalar jag ränta till banken.',false],
+  ['Inflation betyder att varor blir dyrare över tid.',true]
+];
+function renderTF(){
+  const wrap=$('#tfWrap'); wrap.innerHTML='';
+  shuffle(TF_ITEMS).forEach((it,idx)=>{
+    const el=document.createElement('button'); el.className='item'; el.textContent=(idx+1)+'. '+it[0];
+    el.onclick=()=>{el.innerHTML=(idx+1)+'. '+it[0]+' '+(it[1]?'<span class="ok">✔ Sant</span>':'<span class="bad">✘ Falskt</span>'); el.disabled=true;};
+    wrap.appendChild(el);
+  });
+}
+renderTF();
+$('#tfReset').onclick=renderTF;
+
+/* ---------- Rätt ord (Utbud/Efterfrågan) ---------- */
+const CLOZE=[
+  ['På sommaren finns många jordgubbar. Då är','UTBUD','stort och priset blir ofta lägre.'],
+  ['När det blir värmebölja vill många köpa glass. Då är','EFTERFRÅGAN','stor och priset kan bli högre.'],
+  ['Om många fabriker gör samma vara ökar','UTBUD','och priset pressas ner.'],
+  ['När ett populärt spel släpps ökar','EFTERFRÅGAN','och spelet kan ta slut.'],
+  ['När skörden slår fel minskar','UTBUD','och priset på bröd kan stiga.'],
+  ['Inför julafton ökar','EFTERFRÅGAN','på leksaker.']
+];
+function renderCloze(){
+  let score=0,total=0; const wrap=$('#clozeWrap'); wrap.innerHTML='';
+  shuffle(CLOZE).forEach((row,idx)=>{
+    total++;
+    const [a,correct,c]=row, opts=shuffle(['UTBUD','EFTERFRÅGAN']);
+    const div=document.createElement('div'); div.className='item';
+    div.innerHTML=`${a} <select id="sel${idx}">${opts.map(o=>`<option>${o}</option>`).join('')}</select> ${c}
+      <div class="row" style="margin-top:10px"><button class="pill">Kontrollera</button><span id="res${idx}"></span></div>`;
+    const btn=div.querySelector('button');
+    btn.onclick=()=>{
+      const val=div.querySelector('select').value, res=div.querySelector('#res'+idx);
+      if(val===correct){res.innerHTML='<span class="ok">✔ Rätt</span>'; score++;}
+      else{res.innerHTML='<span class="bad">✘ Rätt: '+correct+'</span>';}
+      $('#clozeScore').textContent=score;
+    };
+    wrap.appendChild(div);
+  });
+  $('#clozeTotal').textContent=total;
+}
+renderCloze();
+$('#clozeAgain').onclick=renderCloze;
+
+/* ---------- Slutprov (20 frågor) ---------- */
+let exList=[], exI=0, exScore=0;
+function buildExam(){
+  const styleA = WORDS.map(([t,d])=>({q:'Vad betyder "'+t+'"?', a:d, d:shuffle(WORDS.filter(w=>w[0]!==t).slice(0,3).map(w=>w[1]))}));
+  const styleB = WORDS.map(([t,d])=>({q:'Vilket ord passar till denna definition: "'+d+'"?', a:t, d:shuffle(WORDS.filter(w=>w[0]!==t).slice(0,3).map(w=>w[0]))}));
+  exList = shuffle([...styleA, ...styleB]).slice(0,20);
+  exI=0; exScore=0;
+  $('#exLeft').textContent=exList.length;
+  $('#exScore').textContent=exScore;
+  $('#exBar').style.width='0%';
+  renderExam();
+}
+function renderExam(){
+  const cur=exList[exI];
+  const choices=shuffle([cur.a,...cur.d]).map(x=>({text:x,correct:x===cur.a}));
+  $('#exWrap').innerHTML = `<div class="big">${cur.q}</div>
+    <div class="grid" style="margin-top:12px">
+      ${choices.map((c,i)=>`<button class="btn choice" data-i="${i}">${c.text}</button>`).join('')}
+    </div>`;
+  $$('#exWrap .choice').forEach(btn=>{
+    btn.onclick=()=>{
+      const ok=choices[+btn.dataset.i].correct;
+      btn.classList.add(ok?'correct':'wrong');
+      if(ok){exScore++;$('#exScore').textContent=exScore;}
+      $$('#exWrap .choice').forEach((b,j)=>{b.disabled=true; if(choices[j].correct) b.classList.add('correct');});
+      setTimeout(()=>{
+        if(exI<exList.length-1){
+          exI++; $('#exLeft').textContent=exList.length-exI; $('#exBar').style.width=(exI/exList.length*100)+'%'; renderExam();
+        } else {
+          $('#exBar').style.width='100%';
+          const pct=Math.round(exScore/exList.length*100);
+          const pass=pct>=80;
+          $('#exWrap').innerHTML=`<div class="center big">Slut! ${exScore}/${exList.length} (${pct}%). ${pass?'✅ Godkänd!':'❗ Öva lite till.'}</div>`;
+        }
+      }, 600);
+    };
+  });
+}
+document.getElementById('exStart').onclick=buildExam;
+buildExam();
+
+/* Kretslopp lista */
+const loopList=document.getElementById('loopList');
+LOOP_STEPS.forEach(s=>{const li=document.createElement('li'); li.textContent=s; loopList.appendChild(li);});
+
+/* Reset */
+document.getElementById('resetBtn').onclick=()=>{
+  if(confirm('Nollställa framsteg (ord du markerat som klara)?')){
+    localStorage.removeItem('eco_known'); known=new Set(); renderFC();
+    makeQuiz(); renderTF(); renderCloze(); buildExam();
+  }
+};
 </script>
 </body>
 </html>

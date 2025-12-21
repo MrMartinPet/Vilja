@@ -1,407 +1,483 @@
 <!doctype html>
 <html lang="sv">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ekonomi – Träna</title>
-<meta name="theme-color" content="#0b1220">
-<style>
-  :root{
-    --bg:#0b1220; --paper:#0f172a; --card:#111a2e;
-    --ink:#e5e7eb; --muted:#9ca3af; --line:#1f2937;
-    --accent:#60a5fa; --accent2:#22d3ee; --good:#22c55e; --bad:#ef4444;
-    --radius:16px; --tap:56px; --shadow:0 10px 26px rgba(0,0,0,.36);
-    --fs:clamp(18px,2.8vw,22px); --fs-big:clamp(20px,3.8vw,26px);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0}
-  body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-       background:var(--bg); color:var(--ink)}
-  header{position:sticky;top:0;z-index:10;background:#0b1220e6;backdrop-filter:blur(10px);
-         border-bottom:1px solid var(--line)}
-  .wrap{max-width:980px;margin:0 auto;padding:14px 16px}
-  h1{margin:2px 0 6px;font-size:var(--fs-big);letter-spacing:.2px}
-  .tabs{display:flex;gap:10px;flex-wrap:wrap}
-  .tab-btn{padding:14px 18px;border-radius:14px;border:1px solid var(--line);
-           font-size:var(--fs); background:#0d1b33;color:var(--ink);cursor:pointer}
-  .tab-btn.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#081426;border-color:transparent;font-weight:800}
-  main{padding:16px}
-  .screen{display:none}
-  .screen.active{display:block;animation:fade .15s ease}
-  @keyframes fade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-  .grid{display:grid;gap:14px}
-  .grid.two{grid-template-columns:1fr}
-  @media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}}
-  .big{font-size:var(--fs-big);line-height:1.35}
-  .btn{display:inline-block;width:100%;min-height:var(--tap);border-radius:14px;border:1px solid var(--line);
-       background:#0d1b33;color:var(--ink);font-size:var(--fs);padding:14px 18px;cursor:pointer}
-  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#081426;border:0;font-weight:800}
-  .choice{width:100%;text-align:left}
-  .choice.correct{border-color:rgba(34,197,94,.6);background:rgba(34,197,94,.08)}
-  .choice.wrong{border-color:rgba(239,68,68,.6);background:rgba(239,68,68,.08)}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  .center{text-align:center}
-  .muted{color:var(--muted)}
-  .kpi{display:flex;gap:12px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
-  .kpi > div{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#0d1b33;font-size:var(--fs)}
-  .progress{height:10px;background:#0d1b33;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:6px 0 2px}
-  .progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
-  ul,ol{font-size:var(--fs);line-height:1.5}
-  select{font-size:var(--fs);padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#132340;color:var(--ink)}
-  .float{position:fixed;right:14px;bottom:14px;z-index:20}
-  .pill{padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:#0d1b33;color:var(--ink);font-size:var(--fs);cursor:pointer}
-  .ok{color:var(--good)} .bad{color:var(--bad)}
-  .list{display:grid;gap:12px}
-  .item{padding:14px;border:1px solid var(--line);border-radius:12px;background:#0d1b33;font-size:var(--fs)}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Klä julgranen – tärningsspel</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { margin: 0; background:#0b1320; color:#eaf2ff; }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 18px; }
+    .card { background:#121d33; border:1px solid #223054; border-radius:14px; padding:16px; box-shadow: 0 10px 25px rgba(0,0,0,.25); }
+    h1 { font-size: 20px; margin:0 0 10px; }
+    h2 { font-size: 16px; margin:16px 0 8px; }
+    p, li { line-height: 1.35; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; }
+    .row > * { flex:1; min-width: 180px; }
+    input, select, button {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid #2a3a63;
+      background: #0f1830;
+      color: #eaf2ff;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button { cursor:pointer; background:#16305b; border-color:#2f4f8b; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .btn2 { background:#173a2a; border-color:#2b7a50; }
+    .danger { background:#4a1520; border-color:#a33850; }
+    .muted { color:#b9c8e6; font-size: 13px; }
+    .big {
+      font-size: 54px; text-align:center; padding: 10px 0; margin: 8px 0 2px;
+      letter-spacing: 2px;
+    }
+    .pill {
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      background:#0f1830; border:1px solid #2a3a63; color:#b9c8e6; font-size:13px;
+    }
+    .hr { height:1px; background:#223054; margin:14px 0; }
+    .log { background:#0f1830; border:1px solid #223054; border-radius:12px; padding:12px; max-height: 180px; overflow:auto; }
+    .log div { margin: 6px 0; }
+    .hide { display:none !important; }
+    .grid3 { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+    .grid2 { display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; }
+  </style>
 </head>
 <body>
-<header>
   <div class="wrap">
-    <h1>Ekonomi – Träna</h1>
-    <div id="tabs" class="tabs"></div>
-  </div>
-</header>
+    <div class="card" id="setupCard">
+      <h1>🎄 Klä julgranen – tärningsspel</h1>
+      <p class="muted">1–5 spelare. Max 3 kulor per tur. Tappar du en kula: du står över nästa tur.</p>
 
-<main class="wrap">
-  <!-- Ordkort -->
-  <section id="flashcards" class="screen active">
-    <div class="card">
-      <div class="kpi">
-        <div>Kort <span id="fcIndex">1</span>/<span id="fcTotal">0</span></div>
-        <div>Rätt i rad <span id="fcStreak">0</span></div>
-        <div>Klart <span id="fcDone">0%</span></div>
+      <h2>Spelare</h2>
+      <div class="row">
+        <input id="p1" placeholder="Spelare 1 (obligatorisk)" />
+        <input id="p2" placeholder="Spelare 2" />
       </div>
-      <div class="progress"><span id="fcBar"></span></div>
-      <div class="grid two" style="margin-top:10px">
-        <button id="fcCard" class="card big btn" style="min-height:180px;cursor:pointer">...</button>
-        <div class="card">
-          <div id="fcTip" class="big"></div>
-          <div class="row" style="margin-top:12px">
-            <button class="pill" id="btnKnow">Jag kan</button>
-            <button class="pill" id="btnDont">Öva mer</button>
-            <button class="pill" id="btnShuffle">Blanda</button>
+      <div class="row" style="margin-top:10px;">
+        <input id="p3" placeholder="Spelare 3" />
+        <input id="p4" placeholder="Spelare 4" />
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <input id="p5" placeholder="Spelare 5" />
+        <div></div>
+      </div>
+
+      <div class="row" style="margin-top:14px;">
+        <button id="startBtn" class="btn2">Starta spel</button>
+        <button id="rulesBtn">Visa regler</button>
+      </div>
+
+      <div id="rulesBox" class="hide" style="margin-top:12px;">
+        <div class="hr"></div>
+        <ul>
+          <li><b>1–3:</b> Häng samma antal kulor som tärningen visar.</li>
+          <li><b>4 – Julbyte:</b> Ge <b>1 kula</b> till valfri spelare som <b>måste hänga den direkt</b>.</li>
+          <li><b>5 – Dubbelval:</b> Välj: <b>2 kulor själv</b> eller <b>två olika spelare hänger 1 var</b>.</li>
+          <li><b>6 – Julchans:</b> Välj <b>exakt 1–3 kulor</b> att hänga.</li>
+          <li><b>Tappad kula:</b> Turen avslutas direkt och du <b>står över nästa tur</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card hide" id="gameCard">
+      <div class="row" style="align-items:center;">
+        <div>
+          <div class="pill" id="turnPill">Tur: –</div>
+          <div class="muted" style="margin-top:6px;">Tryck “Kasta tärning”. Följ instruktionen. Markera “Kula tappad” om det händer.</div>
+        </div>
+        <div style="min-width:220px; flex:0 0 220px;">
+          <button id="resetBtn" class="danger">Nytt spel</button>
+        </div>
+      </div>
+
+      <div class="big" id="diceFace">–</div>
+      <div class="muted" style="text-align:center; margin-bottom:10px;">Senaste slag</div>
+
+      <div class="row">
+        <button id="rollBtn" class="btn2">🎲 Kasta tärning</button>
+        <button id="dropBtn" class="danger" disabled>⚠️ Kula tappad (stå över nästa tur)</button>
+      </div>
+
+      <div class="hr"></div>
+
+      <h2>Instruktion</h2>
+      <div id="instruction" class="log"></div>
+
+      <!-- Special UI -->
+      <div id="specialArea" class="hide" style="margin-top:12px;">
+        <div class="hr"></div>
+        <h2>Val krävs</h2>
+
+        <!-- For 4 -->
+        <div id="special4" class="hide">
+          <p><b>4 – Julbyte:</b> Välj vem som ska hänga 1 kula direkt.</p>
+          <select id="s4Target"></select>
+          <div style="margin-top:10px;">
+            <button id="s4Confirm" class="btn2">Bekräfta</button>
+          </div>
+        </div>
+
+        <!-- For 5 -->
+        <div id="special5" class="hide">
+          <p><b>5 – Dubbelval:</b> Välj alternativ.</p>
+          <div class="grid2">
+            <button id="s5Self">Jag hänger 2 kulor</button>
+            <button id="s5TwoPlayers">Två spelare hänger 1 var</button>
+          </div>
+
+          <div id="s5PickTwo" class="hide" style="margin-top:12px;">
+            <p>Välj två olika spelare:</p>
+            <div class="row">
+              <select id="s5A"></select>
+              <select id="s5B"></select>
+            </div>
+            <div style="margin-top:10px;">
+              <button id="s5Confirm" class="btn2">Bekräfta</button>
+            </div>
+            <p class="muted">Tips: Välj inte samma spelare i båda listorna.</p>
+          </div>
+        </div>
+
+        <!-- For 6 -->
+        <div id="special6" class="hide">
+          <p><b>6 – Julchans:</b> Välj exakt antal kulor att hänga (1–3).</p>
+          <div class="grid3">
+            <button class="s6Btn" data-n="1">Häng 1</button>
+            <button class="s6Btn" data-n="2">Häng 2</button>
+            <button class="s6Btn" data-n="3">Häng 3</button>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Quiz -->
-  <section id="quiz" class="screen">
-    <div class="card">
-      <div class="kpi">
-        <div>Fråga <span id="qIndex">1</span>/<span id="qTotal">0</span></div>
-        <div>Poäng <span id="qScore">0</span></div>
-      </div>
-      <div class="progress"><span id="qBar"></span></div>
-      <div id="qWrap" style="margin-top:12px"></div>
-      <div class="row" style="margin-top:12px">
-        <button class="pill" id="qNext">Nästa</button>
-        <button class="pill" id="qAgain">Blanda om</button>
-      </div>
-    </div>
-  </section>
+      <div class="hr"></div>
 
-  <!-- Sant/Falskt -->
-  <section id="tf" class="screen">
-    <div class="card">
-      <div id="tfWrap" class="list"></div>
-      <div class="row" style="margin-top:12px">
-        <button class="pill" id="tfReset">Blanda om</button>
-      </div>
-    </div>
-  </section>
+      <h2>Turordning</h2>
+      <div id="playersLine" class="muted"></div>
 
-  <!-- Rätt ord -->
-  <section id="cloze" class="screen">
-    <div class="card">
-      <div id="clozeWrap" class="list"></div>
-      <div class="row" style="margin-top:12px">
-        <div class="pill">Poäng: <span id="clozeScore">0</span>/<span id="clozeTotal">0</span></div>
-        <button class="pill" id="clozeAgain">Nya exempel</button>
-      </div>
+      <h2>Logg</h2>
+      <div class="log" id="logBox"></div>
     </div>
-  </section>
-
-  <!-- Slutprov -->
-  <section id="exam" class="screen">
-    <div class="card">
-      <div class="kpi">
-        <div>Slutprov – <span id="exLeft">20</span> frågor</div>
-        <div>Poäng <span id="exScore">0</span></div>
-      </div>
-      <div class="progress"><span id="exBar"></span></div>
-      <div id="exWrap" style="margin-top:12px"></div>
-      <div class="row" style="margin-top:12px">
-        <button class="pill" id="exStart">Starta om prov</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sammanfattning -->
-  <section id="cheat" class="screen">
-    <div class="card">
-      <h2 class="big">Ekonomiska kretsloppet</h2>
-      <ol id="loopList"></ol>
-    </div>
-  </section>
-</main>
-
-<div class="float">
-  <button id="resetBtn" class="pill">Nollställ</button>
-</div>
+  </div>
 
 <script>
-/* Stäng av autokorr/auto-cap om inputs läggs till senare */
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('input, textarea').forEach(el=>{
-    el.setAttribute('autocapitalize','off');
-    el.setAttribute('autocomplete','off');
-    el.setAttribute('autocorrect','off');
-    el.setAttribute('spellcheck','false');
-    el.inputmode='none';
-  });
-});
+(() => {
+  const $ = (id) => document.getElementById(id);
 
-/* Tabs */
-const TABS=[
-  {id:'flashcards',label:'Ordkort'},
-  {id:'quiz',label:'Quiz'},
-  {id:'tf',label:'Sant/Falskt'},
-  {id:'cloze',label:'Rätt ord'},
-  {id:'exam',label:'Slutprov'},
-  {id:'cheat',label:'Kretslopp'}
-];
-const tabsEl=document.getElementById('tabs');
-let current='flashcards';
-TABS.forEach(t=>{
-  const b=document.createElement('button');
-  b.className='tab-btn'+(t.id===current?' active':'');
-  b.textContent=t.label;
-  b.onclick=()=>switchTab(t.id);
-  tabsEl.appendChild(b);
-});
-function switchTab(id){
-  current=id;
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',TABS[i].id===id));
-  document.querySelectorAll('.screen').forEach(sc=>sc.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+  const setupCard = $("setupCard");
+  const gameCard  = $("gameCard");
 
-/* ORDLISTA – fokus sista sidan */
-const WORDS=[
-  ['pengar','betalningsmedel – kontanter och elektroniska (kort/konto)'],
-  ['budget','plan för inkomster och utgifter'],
-  ['inkomst','pengar till hushållet, t.ex. lön'],
-  ['utgifter','pengar från hushållet, t.ex. kostnader'],
-  ['inkomstskatt','del av lönen som går till det offentliga'],
-  ['banken','plats för att spara och låna pengar'],
-  ['moms','mervärdesskatt på de flesta varor och tjänster'],
-  ['företag','verksamhet som drivs för att tjäna pengar'],
-  ['inflation','pengar blir mindre värda – priser stiger'],
-  ['ränta','kostnad för lån / ersättning för sparande'],
-  ['privatekonomi','en persons eller familjs ekonomi'],
-  ['ekonomiskt kretslopp','modell över hur pengar rör sig mellan hushåll, företag, bank och offentlig sektor'],
-  ['utbud','hur mycket det finns av en vara/tjänst'],
-  ['efterfrågan','hur många som vill köpa en vara/tjänst'],
-  ['bidrag','ekonomiskt stöd, t.ex. studiebidrag eller bostadsbidrag'],
-  ['offentlig sektor','stat, region och kommun (tjänster finansieras av skatter)'],
-  ['konkurs','när någon inte kan betala sina skulder och räkningar'],
-  ['byteshandel','att byta varor och tjänster med andra'],
-  ['hushåll','människor som bor ihop och delar inkomster/utgifter'],
-  ['kommun','geografiskt område, t.ex. Tidaholm med omnejd']
-];
-const TIPS={
-  'utbud':'Mycket som finns ⇒ pris ner.',
-  'efterfrågan':'Många vill ha ⇒ pris upp.',
-  'ränta':'Lån dyrt, sparande ger ersättning.'
-};
-const TERMS = WORDS.map(([t,d])=>({t,d,tip:TIPS[t]||''}));
+  const startBtn = $("startBtn");
+  const rulesBtn = $("rulesBtn");
+  const rulesBox = $("rulesBox");
 
-/* Kretslopp */
-const LOOP_STEPS=[
-  'Företag producerar varor/tjänster.',
-  'Hushåll konsumerar och betalar till företag.',
-  'Företag betalar löner till hushåll.',
-  'Hushåll betalar skatt (inkomstskatt, moms) till offentlig sektor.',
-  'Offentlig sektor ger tjänster och bidrag tillbaka.',
-  'Hushåll/företag sparar och lånar i bank – räntan spelar roll.',
-  'Pengar och varor cirkulerar – kretsloppet.'
-];
+  const turnPill = $("turnPill");
+  const diceFace = $("diceFace");
+  const rollBtn  = $("rollBtn");
+  const dropBtn  = $("dropBtn");
+  const resetBtn = $("resetBtn");
 
-/* Helpers */
-const $=s=>document.querySelector(s);
-const $$=s=>Array.from(document.querySelectorAll(s));
-const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(p=>p[1]);
+  const instruction = $("instruction");
+  const logBox = $("logBox");
+  const playersLine = $("playersLine");
 
-/* ---------- Ordkort ---------- */
-let order=TERMS.map((_,i)=>i);
-let pos=0, side=0, streak=0;
-let known=new Set(JSON.parse(localStorage.getItem('eco_known')||'[]'));
-$('#fcTotal').textContent=TERMS.length;
-function renderFC(){
-  const i=order[pos], it=TERMS[i];
-  $('#fcIndex').textContent=pos+1;
-  $('#fcCard').textContent= side? it.d : it.t ;
-  $('#fcTip').textContent=it.tip||'';
-  $('#fcStreak').textContent=streak;
-  $('#fcBar').style.width=((pos+1)/TERMS.length*100)+'%';
-  $('#fcDone').textContent=Math.round(known.size/TERMS.length*100)+'%';
-}
-$('#fcCard').onclick=()=>{side=1-side;renderFC();};
-$('#btnKnow').onclick=()=>{known.add(order[pos]);localStorage.setItem('eco_known',JSON.stringify([...known]));streak++;pos=(pos+1)%TERMS.length;side=0;renderFC();};
-$('#btnDont').onclick=()=>{streak=0;pos=(pos+1)%TERMS.length;side=0;renderFC();};
-$('#btnShuffle').onclick=()=>{order.sort(()=>Math.random()-.5);pos=0;side=0;streak=0;renderFC();};
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'){pos=(pos+1)%TERMS.length;side=0;renderFC();}
-  if(e.key==='ArrowLeft'){pos=(pos-1+TERMS.length)%TERMS.length;side=0;renderFC();}
-  if(e.key===' '){side=1-side;renderFC();}
-});
-renderFC();
+  const specialArea = $("specialArea");
+  const special4 = $("special4");
+  const special5 = $("special5");
+  const special6 = $("special6");
 
-/* ---------- Quiz (10) ---------- */
-const QUIZ_POOL=[
-  ['Vad betyder BUDGET?','En plan för inkomster och utgifter',['En skatt på varor','Ett sparkonto','En sorts lön']],
-  ['Vad kallas pengar som går UT från hushållet?','Utgifter',['Inkomster','Ränta','Skatt']],
-  ['Vad är INKOMSTSKATT?','Del av lönen som går till det offentliga',['Skatt på varor','Avgift till banken','Pengar man sparar']],
-  ['Vad är MOMS?','Skatt på de flesta varor och tjänster',['Avgift till kommunen','Ränta på lån','Lön från företaget']],
-  ['Vad händer vid INFLATION?','Priser stiger och pengarna blir mindre värda',['Priser sjunker','Fler får jobb','Skatterna försvinner']],
-  ['Skillnaden KONSUMERA/PRODUCERA?','Konsumera = köpa/använda, Producera = tillverka/erbjuda',['Båda samma sak','Konsumera = sälja','Producera = köpa']],
-  ['Vilka ingår i OFFENTLIGA SEKTORN?','Stat, regioner och kommuner',['Företag och banker','Hushåll och företag','Privata banker']],
-  ['Vad är RÄNTA?','Kostnad för lån eller ersättning för sparande',['En typ av skatt','Bonus från arbetsgivare','Pris på en vara']],
-  ['Kontanter vs elektroniska pengar','Kontanter = sedlar/mynt, elektroniska = konto/kort',['Ingen skillnad','Elektroniska finns inte','Kontanter är gratis']],
-  ['Vad betyder UTBUD?','Hur mycket som finns av en vara/tjänst',['Hur mycket folk vill köpa','Hur mycket du tjänar','Skattens storlek']],
-  ['Vad betyder EFTERFRÅGAN?','Hur många som vill köpa',['Hur mycket som produceras','Räntans storlek','Skattens storlek']],
-  ['I kretsloppet betalar FÖRETAGEN...','Löner till hushållen',['Barnbidrag','Ränta till kommuner','Skolmat till banken']]
-];
-function buildQ(q){const [text,a,d]=q;const choices=shuffle([a,...d]).map(x=>({text:x,correct:x===a}));return {q:text,choices};}
-let quiz=[],qi=0,qscore=0;
-function makeQuiz(){quiz=shuffle(QUIZ_POOL).slice(0,10).map(buildQ);qi=0;qscore=0;$('#qTotal').textContent=quiz.length;$('#qScore').textContent=qscore;$('#qBar').style.width='0%';renderQ();}
-function renderQ(){
-  const cur=quiz[qi];
-  $('#qIndex').textContent=qi+1;
-  $('#qWrap').innerHTML = `<div class="big">${cur.q}</div>
-    <div class="grid" style="margin-top:10px">${cur.choices.map((c,i)=>`<button class="btn choice" data-i="${i}">${c.text}</button>`).join('')}</div>`;
-  $$('#qWrap .choice').forEach(btn=>{
-    btn.onclick=()=>{
-      const i=+btn.dataset.i; const ok=cur.choices[i].correct;
-      btn.classList.add(ok?'correct':'wrong');
-      if(ok){qscore++;$('#qScore').textContent=qscore;}
-      $$('#qWrap .choice').forEach((b,j)=>{b.disabled=true; if(cur.choices[j].correct) b.classList.add('correct');});
-    };
-  });
-  $('#qBar').style.width=((qi)/quiz.length*100)+'%';
-}
-$('#qNext').onclick=()=>{ if(qi<quiz.length-1){qi++;renderQ();} else { $('#qBar').style.width='100%'; const pct=Math.round(qscore/quiz.length*100); $('#qWrap').innerHTML=`<div class="center big">Klart! ${qscore}/${quiz.length} (${pct}%).</div>`; } };
-$('#qAgain').onclick=makeQuiz;
-makeQuiz();
+  const s4Target = $("s4Target");
+  const s4Confirm = $("s4Confirm");
 
-/* ---------- Sant/Falskt ---------- */
-const TF_ITEMS=[
-  ['Elektroniska pengar syns inte men flyttas mellan konton.',true],
-  ['Om ett företag har högre inkomster än utgifter finns risk för konkurs.',false],
-  ['Offentliga sektorn är allt vi tillsammans betalar för via skatter.',true],
-  ['Om momsen höjs blir varan oftast billigare.',false],
-  ['Sparar jag pengar på banken betalar jag ränta till banken.',false],
-  ['Inflation betyder att varor blir dyrare över tid.',true]
-];
-function renderTF(){
-  const wrap=$('#tfWrap'); wrap.innerHTML='';
-  shuffle(TF_ITEMS).forEach((it,idx)=>{
-    const el=document.createElement('button'); el.className='item'; el.textContent=(idx+1)+'. '+it[0];
-    el.onclick=()=>{el.innerHTML=(idx+1)+'. '+it[0]+' '+(it[1]?'<span class="ok">✔ Sant</span>':'<span class="bad">✘ Falskt</span>'); el.disabled=true;};
-    wrap.appendChild(el);
-  });
-}
-renderTF();
-$('#tfReset').onclick=renderTF;
+  const s5Self = $("s5Self");
+  const s5TwoPlayers = $("s5TwoPlayers");
+  const s5PickTwo = $("s5PickTwo");
+  const s5A = $("s5A");
+  const s5B = $("s5B");
+  const s5Confirm = $("s5Confirm");
 
-/* ---------- Rätt ord (Utbud/Efterfrågan) ---------- */
-const CLOZE=[
-  ['På sommaren finns många jordgubbar. Då är','UTBUD','stort och priset blir ofta lägre.'],
-  ['När det blir värmebölja vill många köpa glass. Då är','EFTERFRÅGAN','stor och priset kan bli högre.'],
-  ['Om många fabriker gör samma vara ökar','UTBUD','och priset pressas ner.'],
-  ['När ett populärt spel släpps ökar','EFTERFRÅGAN','och spelet kan ta slut.'],
-  ['När skörden slår fel minskar','UTBUD','och priset på bröd kan stiga.'],
-  ['Inför julafton ökar','EFTERFRÅGAN','på leksaker.']
-];
-function renderCloze(){
-  let score=0,total=0; const wrap=$('#clozeWrap'); wrap.innerHTML='';
-  shuffle(CLOZE).forEach((row,idx)=>{
-    total++;
-    const [a,correct,c]=row, opts=shuffle(['UTBUD','EFTERFRÅGAN']);
-    const div=document.createElement('div'); div.className='item';
-    div.innerHTML=`${a} <select id="sel${idx}">${opts.map(o=>`<option>${o}</option>`).join('')}</select> ${c}
-      <div class="row" style="margin-top:10px"><button class="pill">Kontrollera</button><span id="res${idx}"></span></div>`;
-    const btn=div.querySelector('button');
-    btn.onclick=()=>{
-      const val=div.querySelector('select').value, res=div.querySelector('#res'+idx);
-      if(val===correct){res.innerHTML='<span class="ok">✔ Rätt</span>'; score++;}
-      else{res.innerHTML='<span class="bad">✘ Rätt: '+correct+'</span>';}
-      $('#clozeScore').textContent=score;
-    };
-    wrap.appendChild(div);
-  });
-  $('#clozeTotal').textContent=total;
-}
-renderCloze();
-$('#clozeAgain').onclick=renderCloze;
+  const state = {
+    players: [],
+    idx: 0,
+    skipNext: {}, // name -> boolean
+    canDrop: false,
+    pending: null, // {dice: number, roller: name}
+    awaitingChoice: false
+  };
 
-/* ---------- Slutprov (20 frågor) ---------- */
-let exList=[], exI=0, exScore=0;
-function buildExam(){
-  const styleA = WORDS.map(([t,d])=>({q:'Vad betyder "'+t+'"?', a:d, d:shuffle(WORDS.filter(w=>w[0]!==t).slice(0,3).map(w=>w[1]))}));
-  const styleB = WORDS.map(([t,d])=>({q:'Vilket ord passar till denna definition: "'+d+'"?', a:t, d:shuffle(WORDS.filter(w=>w[0]!==t).slice(0,3).map(w=>w[0]))}));
-  exList = shuffle([...styleA, ...styleB]).slice(0,20);
-  exI=0; exScore=0;
-  $('#exLeft').textContent=exList.length;
-  $('#exScore').textContent=exScore;
-  $('#exBar').style.width='0%';
-  renderExam();
-}
-function renderExam(){
-  const cur=exList[exI];
-  const choices=shuffle([cur.a,...cur.d]).map(x=>({text:x,correct:x===cur.a}));
-  $('#exWrap').innerHTML = `<div class="big">${cur.q}</div>
-    <div class="grid" style="margin-top:12px">
-      ${choices.map((c,i)=>`<button class="btn choice" data-i="${i}">${c.text}</button>`).join('')}
-    </div>`;
-  $$('#exWrap .choice').forEach(btn=>{
-    btn.onclick=()=>{
-      const ok=choices[+btn.dataset.i].correct;
-      btn.classList.add(ok?'correct':'wrong');
-      if(ok){exScore++;$('#exScore').textContent=exScore;}
-      $$('#exWrap .choice').forEach((b,j)=>{b.disabled=true; if(choices[j].correct) b.classList.add('correct');});
-      setTimeout(()=>{
-        if(exI<exList.length-1){
-          exI++; $('#exLeft').textContent=exList.length-exI; $('#exBar').style.width=(exI/exList.length*100)+'%'; renderExam();
-        } else {
-          $('#exBar').style.width='100%';
-          const pct=Math.round(exScore/exList.length*100);
-          const pass=pct>=80;
-          $('#exWrap').innerHTML=`<div class="center big">Slut! ${exScore}/${exList.length} (${pct}%). ${pass?'✅ Godkänd!':'❗ Öva lite till.'}</div>`;
-        }
-      }, 600);
-    };
-  });
-}
-document.getElementById('exStart').onclick=buildExam;
-buildExam();
-
-/* Kretslopp lista */
-const loopList=document.getElementById('loopList');
-LOOP_STEPS.forEach(s=>{const li=document.createElement('li'); li.textContent=s; loopList.appendChild(li);});
-
-/* Reset */
-document.getElementById('resetBtn').onclick=()=>{
-  if(confirm('Nollställa framsteg (ord du markerat som klara)?')){
-    localStorage.removeItem('eco_known'); known=new Set(); renderFC();
-    makeQuiz(); renderTF(); renderCloze(); buildExam();
+  function sanitizeName(s) {
+    return (s || "").trim().replace(/\s+/g, " ");
   }
-};
+
+  function log(msg) {
+    const d = document.createElement("div");
+    d.textContent = msg;
+    logBox.prepend(d);
+  }
+
+  function setInstruction(htmlText) {
+    instruction.innerHTML = `<div>${htmlText}</div>`;
+  }
+
+  function showSpecial(n) {
+    specialArea.classList.remove("hide");
+    special4.classList.toggle("hide", n !== 4);
+    special5.classList.toggle("hide", n !== 5);
+    special6.classList.toggle("hide", n !== 6);
+  }
+
+  function hideSpecial() {
+    specialArea.classList.add("hide");
+    special4.classList.add("hide");
+    special5.classList.add("hide");
+    special6.classList.add("hide");
+    s5PickTwo.classList.add("hide");
+  }
+
+  function currentPlayer() {
+    return state.players[state.idx];
+  }
+
+  function rebuildPlayerLine() {
+    const parts = state.players.map((p, i) => {
+      const skip = state.skipNext[p] ? " (står över nästa)" : "";
+      const marker = i === state.idx ? " 👉" : "";
+      return `${p}${skip}${marker}`;
+    });
+    playersLine.textContent = parts.join("  •  ");
+  }
+
+  function nextTurn(autoNote) {
+    // move to next player, respecting skipNext
+    let safety = 0;
+    do {
+      state.idx = (state.idx + 1) % state.players.length;
+      safety++;
+      if (safety > 20) break;
+      const p = currentPlayer();
+      if (state.skipNext[p]) {
+        state.skipNext[p] = false;
+        log(`⏭️ ${p} står över sin tur.`);
+        // continue to next
+      } else {
+        break;
+      }
+    } while (true);
+
+    state.pending = null;
+    state.awaitingChoice = false;
+    state.canDrop = false;
+    dropBtn.disabled = true;
+    rollBtn.disabled = false;
+    diceFace.textContent = "–";
+    hideSpecial();
+
+    turnPill.textContent = `Tur: ${currentPlayer()}`;
+    rebuildPlayerLine();
+    if (autoNote) setInstruction(autoNote);
+  }
+
+  function startGame() {
+    const names = [$("p1").value, $("p2").value, $("p3").value, $("p4").value, $("p5").value]
+      .map(sanitizeName)
+      .filter(Boolean);
+
+    // unique, preserve order
+    const uniq = [];
+    for (const n of names) if (!uniq.includes(n)) uniq.push(n);
+
+    if (uniq.length < 1) {
+      alert("Ange minst 1 spelare (Spelare 1).");
+      return;
+    }
+
+    state.players = uniq.slice(0, 5);
+    state.idx = 0;
+    state.skipNext = {};
+    state.pending = null;
+    state.awaitingChoice = false;
+    state.canDrop = false;
+
+    setupCard.classList.add("hide");
+    gameCard.classList.remove("hide");
+
+    logBox.innerHTML = "";
+    setInstruction("Tryck <b>🎲 Kasta tärning</b>.");
+    turnPill.textContent = `Tur: ${currentPlayer()}`;
+    rebuildPlayerLine();
+    log(`✅ Spelet startade. Spelare: ${state.players.join(", ")}.`);
+  }
+
+  function fillSelect(sel, includeSelf = true, exclude = []) {
+    sel.innerHTML = "";
+    const roller = currentPlayer();
+    for (const p of state.players) {
+      if (!includeSelf && p === roller) continue;
+      if (exclude.includes(p)) continue;
+      const opt = document.createElement("option");
+      opt.value = p;
+      opt.textContent = p;
+      sel.appendChild(opt);
+    }
+  }
+
+  function rollDice() {
+    const roller = currentPlayer();
+    const dice = Math.floor(Math.random() * 6) + 1;
+    state.pending = { dice, roller };
+    state.canDrop = true;
+    dropBtn.disabled = false;
+    rollBtn.disabled = true;
+
+    diceFace.textContent = String(dice);
+    log(`🎲 ${roller} slog ${dice}.`);
+
+    if (dice >= 1 && dice <= 3) {
+      setInstruction(`<b>${roller}</b>: Häng <b>${dice}</b> kula/kulor. (Max 3)`);
+      state.awaitingChoice = false;
+      // Efter att de hängt klart trycker de bara "Kasta tärning" igen? Vi kör auto nästa tur via knapp:
+      // Vi gör det enkelt: tryck på Kasta tärning för nästa tur först efter att man är klar.
+      // Men för att undvika dubbel-slag: lägg till en "Nästa spelare"-upplevelse via instruktionen.
+      setInstruction(`<b>${roller}</b>: Häng <b>${dice}</b> kula/kulor. När du är klar: tryck <b>🎲 Kasta tärning</b> för att gå vidare.`);
+      // För att gå vidare måste vi tillåta "Kasta tärning" -> men då slår nästa direkt. Bättre: automatisk turväxling via "Klar"-knapp.
+      // Vi skapar en snabb "Klar"-knapp inline:
+      instruction.innerHTML = `
+        <div><b>${roller}</b>: Häng <b>${dice}</b> kula/kulor. (Max 3)</div>
+        <div style="margin-top:10px;">
+          <button id="doneBtn" class="btn2">✅ Klar – nästa spelare</button>
+        </div>
+      `;
+      $("doneBtn").onclick = () => nextTurn(`Tryck <b>🎲 Kasta tärning</b>.`);
+      return;
+    }
+
+    // Specials 4-6
+    state.awaitingChoice = true;
+    showSpecial(dice);
+
+    if (dice === 4) {
+      fillSelect(s4Target, true);
+      setInstruction(`<b>4 – Julbyte</b>: Välj vem som ska hänga <b>1</b> kula direkt.`);
+    } else if (dice === 5) {
+      s5PickTwo.classList.add("hide");
+      setInstruction(`<b>5 – Dubbelval</b>: Välj alternativ.`);
+    } else if (dice === 6) {
+      setInstruction(`<b>6 – Julchans</b>: Välj exakt <b>1–3</b> kulor att hänga.`);
+    }
+  }
+
+  function markDropped() {
+    if (!state.canDrop) return;
+    const p = currentPlayer();
+    state.skipNext[p] = true;
+    state.canDrop = false;
+    dropBtn.disabled = true;
+    hideSpecial();
+
+    log(`⚠️ ${p} tappade en kula och står över nästa tur.`);
+    // Turen avslutas direkt
+    nextTurn(`⚠️ ${p} tappade en kula. Nästa spelare: tryck <b>🎲 Kasta tärning</b>.`);
+  }
+
+  // Special handlers
+  s4Confirm.onclick = () => {
+    const roller = currentPlayer();
+    const target = s4Target.value;
+    log(`🎁 4 – ${roller} gav 1 kula till ${target} som hänger den direkt.`);
+    setInstruction(`<b>${target}</b>: Häng <b>1</b> kula direkt. När klart: tryck <b>✅ Klar</b>.`);
+    instruction.innerHTML = `
+      <div><b>${target}</b>: Häng <b>1</b> kula direkt.</div>
+      <div style="margin-top:10px;">
+        <button id="doneBtn" class="btn2">✅ Klar – nästa spelare</button>
+      </div>
+    `;
+    $("doneBtn").onclick = () => nextTurn(`Tryck <b>🎲 Kasta tärning</b>.`);
+    state.awaitingChoice = false;
+    state.canDrop = true; // fortfarande tapp-regel gäller under special-utförande
+    hideSpecial();
+  };
+
+  s5Self.onclick = () => {
+    const roller = currentPlayer();
+    log(`✨ 5 – ${roller} valde att hänga 2 kulor.`);
+    instruction.innerHTML = `
+      <div><b>${roller}</b>: Häng <b>2</b> kulor. (Max 3)</div>
+      <div style="margin-top:10px;">
+        <button id="doneBtn" class="btn2">✅ Klar – nästa spelare</button>
+      </div>
+    `;
+    $("doneBtn").onclick = () => nextTurn(`Tryck <b>🎲 Kasta tärning</b>.`);
+    hideSpecial();
+    state.awaitingChoice = false;
+  };
+
+  s5TwoPlayers.onclick = () => {
+    s5PickTwo.classList.remove("hide");
+    fillSelect(s5A, true);
+    fillSelect(s5B, true);
+  };
+
+  s5Confirm.onclick = () => {
+    const roller = currentPlayer();
+    const a = s5A.value;
+    const b = s5B.value;
+    if (a === b) {
+      alert("Välj två olika spelare.");
+      return;
+    }
+    log(`✨ 5 – ${roller} valde att ${a} och ${b} hänger 1 kula var.`);
+    instruction.innerHTML = `
+      <div><b>${a}</b> och <b>${b}</b>: Häng <b>1</b> kula var (totalt 2).</div>
+      <div style="margin-top:10px;">
+        <button id="doneBtn" class="btn2">✅ Klar – nästa spelare</button>
+      </div>
+    `;
+    $("doneBtn").onclick = () => nextTurn(`Tryck <b>🎲 Kasta tärning</b>.`);
+    hideSpecial();
+    state.awaitingChoice = false;
+  };
+
+  document.querySelectorAll(".s6Btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const n = Number(btn.dataset.n);
+      const roller = currentPlayer();
+      log(`🌟 6 – ${roller} valde att hänga ${n} kula/kulor.`);
+      instruction.innerHTML = `
+        <div><b>${roller}</b>: Häng <b>${n}</b> kula/kulor. (Max 3)</div>
+        <div style="margin-top:10px;">
+          <button id="doneBtn" class="btn2">✅ Klar – nästa spelare</button>
+        </div>
+      `;
+      $("doneBtn").onclick = () => nextTurn(`Tryck <b>🎲 Kasta tärning</b>.`);
+      hideSpecial();
+      state.awaitingChoice = false;
+    });
+  });
+
+  // Buttons
+  startBtn.onclick = startGame;
+  rollBtn.onclick = () => {
+    // Om spelaren inte har gjort "Klar" kan de ändå trycka. Vi tillåter bara om inte pending/awaitingChoice.
+    if (state.pending || state.awaitingChoice) return;
+    rollDice();
+  };
+  dropBtn.onclick = markDropped;
+
+  resetBtn.onclick = () => {
+    if (!confirm("Starta om och ange spelare igen?")) return;
+    gameCard.classList.add("hide");
+    setupCard.classList.remove("hide");
+    rulesBox.classList.add("hide");
+    $("p1").focus();
+  };
+
+  rulesBtn.onclick = () => rulesBox.classList.toggle("hide");
+
+  // Init
+  $("p1").focus();
+})();
 </script>
 </body>
 </html>

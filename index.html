@@ -664,7 +664,6 @@
             </div>
 
             <div class="answerRow">
-              <!-- readonly => iPhone keyboard should NOT open -->
               <input class="answer" id="answerInput" readonly inputmode="none" autocomplete="off" placeholder="Svar" />
               <button class="btn primary okBtn" id="btnOk">OK</button>
             </div>
@@ -735,12 +734,13 @@
     /* =========================
        SETTINGS
     ========================== */
-    const TEST_SECONDS = 10;   // <-- ändrat från 5 till 10
+    const TEST_SECONDS = 10;
 
     /* =========================
        Storage
+       (fix: KEYY/KEY bug)
     ========================== */
-    const KEY =KEYY = "tabellhjalte_v2_light";
+    const KEY = "tabellhjalte_v2_light";
     const defaultState = () => ({
       coins: 0,
       streak: 0,
@@ -753,23 +753,14 @@
         top: "#2563eb",
         bottom: "#2f3a46",
         shoes: "#eaeaea",
-        unlocked: {
-          top: [0,1],
-          bottom: [0,1],
-          shoes: [0,1]
-        }
+        unlocked: { top: [0,1], bottom: [0,1], shoes: [0,1] }
       },
-      progress: Array.from({length:11}, (_,n)=>({
-        n,
-        passed: false,
-        bestAvg: null,
-        bestDate: null
-      }))
+      progress: Array.from({length:11}, (_,n)=>({ n, passed:false, bestAvg:null, bestDate:null }))
     });
 
     function loadState(){
       try{
-        const raw = localStorage.getItem(KEYY);
+        const raw = localStorage.getItem(KEY);
         if(!raw) return defaultState();
         const obj = JSON.parse(raw);
         const d = defaultState();
@@ -787,9 +778,7 @@
         return defaultState();
       }
     }
-    function saveState(){
-      localStorage.setItem(KEYY, JSON.stringify(state));
-    }
+    function saveState(){ localStorage.setItem(KEY, JSON.stringify(state)); }
     let state = loadState();
 
     /* =========================
@@ -874,9 +863,7 @@
       Object.values(screens).forEach(s=>s.classList.add("hide"));
       screens[which].classList.remove("hide");
     }
-    function clampDigits(s){
-      return (s || "").replace(/[^\d]/g, "").slice(0, 3);
-    }
+    function clampDigits(s){ return (s || "").replace(/[^\d]/g, "").slice(0, 3); }
     function shuffle(arr){
       const a = arr.slice();
       for(let i=a.length-1;i>0;i--){
@@ -900,17 +887,11 @@
       {label:"Kort", v:"short"},
       {label:"Medel", v:"medium"},
       {label:"Lång", v:"long"},
-      {label:"Mega", v:"xlong"}      // <-- mycket längre hår
+      {label:"Mega", v:"xlong"}
     ];
     const hairCols = ["#111111","#5a3b1f","#caa26a","#c04b2d","#7a7fff"];
+    const eyeSizes = [{label:"S", v:12},{label:"M", v:14},{label:"L", v:18}];
 
-    const eyeSizes = [
-      {label:"S", v:12},
-      {label:"M", v:14},
-      {label:"L", v:18}
-    ];
-
-    // Outfit with unlock costs
     const tops = [
       { col:"#2563eb", cost:0 },
       { col:"#1fb66a", cost:0 },
@@ -984,6 +965,12 @@
       });
     }
 
+    function flashChip(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.animate([{ transform:"scale(1)" },{ transform:"scale(1.05)" },{ transform:"scale(1)" }], { duration: 280, easing:"ease-out" });
+    }
+
     function applyAvatarPreview(){
       face.style.setProperty("--skin", state.avatar.skin);
       face.style.setProperty("--hair", state.avatar.hairCol);
@@ -993,53 +980,42 @@
       face.style.setProperty("--eyeSize", (state.avatar.eyeSize || 14) + "px");
 
       hair.className = `hair ${state.avatar.hairLen || "medium"}`;
-
-      shirt.style.setProperty("--top", state.avatar.top);
-      pants.style.setProperty("--bottom", state.avatar.bottom);
-      shoeL.style.setProperty("--shoes", state.avatar.shoes);
-      shoeR.style.setProperty("--shoes", state.avatar.shoes);
-
       avatarNamePreview.textContent = state.avatar.name ? `👤 ${state.avatar.name}` : "👤";
       updateTopbar();
-    }
-
-    function flashChip(id){
-      const el = document.getElementById(id);
-      el.animate([
-        { transform:"scale(1)" },
-        { transform:"scale(1.04)" },
-        { transform:"scale(1)" }
-      ], { duration: 300, easing:"ease-out" });
     }
 
     function renderAvatarUI(){
       inpName.value = state.avatar.name || "";
       applyAvatarPreview();
 
-      makeSeg(segSkin,
+      makeSeg(
+        segSkin,
         skins.map(c=>({label:"⬤", col:c})),
         (opt)=> opt.col===state.avatar.skin,
-        (opt)=>{ state.avatar.skin = opt.col; saveState(); applyAvatarPreview(); renderAvatarUI(); },
+        (opt)=>{ state.avatar.skin = opt.col; saveState(); renderAvatarUI(); },
         (b,opt)=>{ b.style.color = opt.col; }
       );
 
-      makeSeg(segHairLen,
+      makeSeg(
+        segHairLen,
         hairLens,
         (opt)=> opt.v===state.avatar.hairLen,
-        (opt)=>{ state.avatar.hairLen = opt.v; saveState(); applyAvatarPreview(); renderAvatarUI(); }
+        (opt)=>{ state.avatar.hairLen = opt.v; saveState(); renderAvatarUI(); }
       );
 
-      makeSeg(segHairCol,
+      makeSeg(
+        segHairCol,
         hairCols.map(c=>({label:"⬤", col:c})),
         (opt)=> opt.col===state.avatar.hairCol,
-        (opt)=>{ state.avatar.hairCol = opt.col; saveState(); applyAvatarPreview(); renderAvatarUI(); },
+        (opt)=>{ state.avatar.hairCol = opt.col; saveState(); renderAvatarUI(); },
         (b,opt)=>{ b.style.color = opt.col; }
       );
 
-      makeSeg(segEyeSize,
+      makeSeg(
+        segEyeSize,
         eyeSizes,
         (opt)=> opt.v===state.avatar.eyeSize,
-        (opt)=>{ state.avatar.eyeSize = opt.v; saveState(); applyAvatarPreview(); renderAvatarUI(); }
+        (opt)=>{ state.avatar.eyeSize = opt.v; saveState(); renderAvatarUI(); }
       );
 
       renderOutfitSeg(segTop, "top", tops, state.avatar.top, (col)=> state.avatar.top = col);
@@ -1056,10 +1032,11 @@
       const name = state.avatar.name || "Spelare";
       const passed = state.progress.filter(p=>p.passed).length;
       homeSub.textContent = `${name} • ⭐ ${passed}/11`;
-      tablesGrid.innerHTML = "";
 
+      tablesGrid.innerHTML = "";
       for(let n=0;n<=10;n++){
         const p = state.progress[n];
+
         const card = document.createElement("div");
         card.className = "card";
 
@@ -1117,7 +1094,7 @@
     let speedFailReason = "";
 
     function buildQuestionsForTable(n){
-      const ks = shuffle([...Array(11)].map((_,i)=>i));
+      const ks = shuffle([...Array(11)].map((_,i)=>i)); // 0..10
       return ks.map(k=>({ n, k, ans: n*k }));
     }
 
@@ -1134,6 +1111,7 @@
       wrong = 0;
       qElapsed = [];
       speedFailReason = "";
+
       updateGameHeader();
       showScreen("game");
       nextQuestion(true);
@@ -1149,6 +1127,7 @@
         ? `Max ${TEST_SECONDS},0s per fråga • Alla måste vara rätt`
         : "Svara med knapparna";
       timerText.textContent = `${TEST_SECONDS}.0`;
+      timerRing.style.setProperty("--p","0%");
     }
 
     function clearTimers(){
@@ -1158,11 +1137,12 @@
       }
     }
 
-    function nextQuestion(isFirst=false){
+    function nextQuestion(){
       clearTimers();
+
       answerInput.value = "";
       answerInput.classList.remove("good","bad");
-      btnOk.disabled = false;
+      btnOk.disabled = true;
 
       if(qi >= questions.length){
         finishGame(true);
@@ -1175,7 +1155,7 @@
       correctCount.textContent = correct;
       wrongCount.textContent = wrong;
 
-      // Prevent iOS keyboard entirely: blur if somehow focused
+      // aldrig fokus => ingen iOS-tangentbord
       answerInput.blur();
 
       if(selectedMode==="speed"){
@@ -1201,8 +1181,10 @@
           speedFailReason = "⏱️ Tiden tog slut";
           wrong++;
           wrongCount.textContent = wrong;
+
           answerInput.classList.add("bad");
           btnOk.disabled = true;
+
           clearTimers();
           setTimeout(()=>finishGame(false), 350);
           return;
@@ -1236,6 +1218,7 @@
         correct++;
         answerInput.classList.add("good");
         awardCoins(selectedMode==="speed" ? 2 : 1);
+
         clearTimers();
         qi++;
         setTimeout(()=>nextQuestion(), 120);
@@ -1246,7 +1229,6 @@
 
         if(selectedMode==="speed"){
           speedFailReason = "❌ Fel svar";
-          btnOk.disabled = true;
           setTimeout(()=>finishGame(false), 350);
         }else{
           btnOk.disabled = true;
@@ -1338,7 +1320,13 @@
     function popConfetti(){
       confetti.innerHTML = "";
       const count = 90;
-      const cols = ["rgba(37,99,235,.95)","rgba(31,182,106,.95)","rgba(245,158,11,.95)","rgba(239,68,68,.90)","rgba(139,92,246,.95)"];
+      const cols = [
+        "rgba(37,99,235,.95)",
+        "rgba(31,182,106,.95)",
+        "rgba(245,158,11,.95)",
+        "rgba(239,68,68,.90)",
+        "rgba(139,92,246,.95)"
+      ];
       for(let i=0;i<count;i++){
         const p = document.createElement("i");
         p.style.left = (Math.random()*100) + "vw";
@@ -1358,12 +1346,13 @@
     ========================== */
     function appendDigit(d){
       answerInput.value = clampDigits(answerInput.value + d);
-      // never focus -> avoids iOS keyboard
       answerInput.blur();
+      btnOk.disabled = answerInput.value.length === 0;
     }
     function backspace(){
       answerInput.value = answerInput.value.slice(0, -1);
       answerInput.blur();
+      btnOk.disabled = answerInput.value.length === 0;
     }
 
     document.querySelectorAll(".keypad .key").forEach(b=>{
@@ -1375,7 +1364,7 @@
       });
     });
 
-    // Also block keyboard if user taps the answer field
+    // blockera tangentbord på iOS om fältet trycks
     answerInput.addEventListener("pointerdown", (e)=>{
       e.preventDefault();
       answerInput.blur();
@@ -1386,18 +1375,11 @@
     /* =========================
        Navigation
     ========================== */
-    btnHome.addEventListener("click", ()=>{
-      renderHome();
-      showScreen("home");
-    });
-
-    btnAvatar.addEventListener("click", ()=>{
-      showScreen("avatar");
-      renderAvatarUI();
-    });
+    btnHome.addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
+    btnAvatar.addEventListener("click", ()=>{ showScreen("avatar"); renderAvatarUI(); });
 
     btnReset.addEventListener("click", ()=>{
-      localStorage.removeItem(KEYY);
+      localStorage.removeItem(KEY);
       state = defaultState();
       saveState();
       init();
@@ -1418,51 +1400,31 @@
       applyAvatarPreview();
     });
 
-    btnBackFromMode.addEventListener("click", ()=>{
-      renderHome();
-      showScreen("home");
-    });
-
+    btnBackFromMode.addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
     btnPractice.addEventListener("click", ()=> startGame("practice"));
     btnSpeed.addEventListener("click", ()=> startGame("speed"));
 
-    btnQuitGame.addEventListener("click", ()=>{
-      clearTimers();
-      renderHome();
-      showScreen("home");
-    });
+    btnQuitGame.addEventListener("click", ()=>{ clearTimers(); renderHome(); showScreen("home"); });
+    btnToOverview.addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
 
-    btnToOverview.addEventListener("click", ()=>{
-      renderHome();
-      showScreen("home");
-    });
-
-    btnAgain.addEventListener("click", ()=>{
-      startGame(lastResult.mode);
-    });
-
-    btnChangeMode.addEventListener("click", ()=>{
-      showMode();
-    });
+    btnAgain.addEventListener("click", ()=> startGame(lastResult.mode));
+    btnChangeMode.addEventListener("click", ()=> showMode());
 
     /* =========================
        Init
     ========================== */
-    function renderHomeAndAvatar(){
+    function init(){
       renderAvatarUI();
       renderHome();
       updateTopbar();
-    }
 
-    function init(){
-      renderHomeAndAvatar();
-
-      // First run: go avatar if no name
       if((state.avatar.name || "").trim().length === 0){
         showScreen("avatar");
       }else{
         showScreen("home");
       }
+
+      btnOk.disabled = true;
     }
 
     init();

@@ -50,6 +50,38 @@
       padding:16px;
     }
 
+    /* ===== MOBILE FIT FIX (stående) ===== */
+    @media (max-width: 420px){
+      .app{ padding:10px; }
+      :root{ --btn: 46px; --gap: 10px; }
+
+      .question{ font-size:30px; }
+      .answer{ font-size:22px; padding:12px 12px; }
+      .okBtn{ min-width:78px; }
+
+      .keypad{ gap:8px; }
+      .key{
+        height: var(--btn);
+        font-size:18px;      /* <-- mindre siffror på knappar */
+        border-radius:14px;
+      }
+
+      .qBox{ padding:12px; }
+      .panel .bd{ padding:12px; }
+      .panel .hd{ padding:12px; }
+
+      /* minska chips */
+      .chip{ padding:7px 10px; }
+    }
+
+    /* Extra tight för väldigt små skärmar */
+    @media (max-width: 360px){
+      :root{ --btn: 42px; }
+      .question{ font-size:28px; }
+      .key{ font-size:17px; }
+      .answer{ font-size:20px; }
+    }
+
     .topbar{
       display:flex;
       align-items:center;
@@ -97,11 +129,6 @@
       border:1px solid rgba(37,99,235,.35);
       color:#fff;
     }
-    .btn.good{
-      background: linear-gradient(180deg, rgba(31,182,106,.95), rgba(31,182,106,.72));
-      border:1px solid rgba(31,182,106,.35);
-      color:#fff;
-    }
     .btn.danger{
       background: rgba(227,59,59,.10);
       border: 1px solid rgba(227,59,59,.25);
@@ -132,9 +159,7 @@
       align-items:center;
       gap:10px;
     }
-    .panel .bd{
-      padding:14px;
-    }
+    .panel .bd{ padding:14px; }
 
     .grid{ display:grid; gap: var(--gap); }
 
@@ -189,18 +214,6 @@
       background: rgba(15,23,42,.03);
     }
     .modeBtn:active{ transform: translateY(1px); }
-    .modeBtn .t{ font-weight:1000; font-size:16px; }
-    .modeBtn .d{ font-size:12px; color:var(--muted); margin-top:4px; font-weight:800; }
-    .modeBtn .icon{
-      width:42px;height:42px;
-      border-radius:14px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: rgba(15,23,42,.03);
-      border:1px solid rgba(15,23,42,.10);
-      font-size:18px;
-    }
 
     .gameWrap{ display:grid; gap:12px; }
 
@@ -243,7 +256,6 @@
       font-weight:900;
     }
 
-    /* Timer ring */
     .timerRing{
       width:46px;height:46px;
       border-radius:999px;
@@ -259,7 +271,6 @@
       color:var(--txt);
     }
 
-    /* Answer display (NO iPhone keyboard) */
     .answerRow{
       display:flex;
       gap:10px;
@@ -281,7 +292,6 @@
     }
     .answer.good{ border-color: rgba(31,182,106,.65); }
     .answer.bad{ border-color: rgba(227,59,59,.70); }
-    .answer:focus{ box-shadow: 0 0 0 4px rgba(37,99,235,.18); border-color: rgba(37,99,235,.45); }
 
     .okBtn{
       min-width:92px;
@@ -291,7 +301,6 @@
     }
     .okBtn:disabled{ opacity:.55; cursor:not-allowed; }
 
-    /* Keypad: FORCE 3 columns on phone, bigger text */
     .keypad{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -306,7 +315,6 @@
       font-size:22px;
       font-weight:1000;
       cursor:pointer;
-      text-shadow: none;
     }
     .key:active{ transform: translateY(1px); }
     .key.wide{ grid-column: span 2; }
@@ -335,7 +343,6 @@
       position:relative;
       overflow:hidden;
     }
-
     .face{
       width:140px;height:140px;
       border-radius:40px;
@@ -344,7 +351,6 @@
       background: var(--skin, #f2c7a5);
       box-shadow: 0 12px 25px rgba(15,23,42,.12);
     }
-
     .hair{
       position:absolute;
       left:10px; right:10px;
@@ -374,7 +380,6 @@
       box-shadow: inset 0 -2px 0 rgba(255,255,255,.35);
       border:1px solid rgba(15,23,42,.10);
     }
-
     .mouth{
       position:absolute;
       bottom:28px; left:50%;
@@ -464,7 +469,6 @@
       font-weight:900;
       outline:none;
     }
-    .textInput:focus{ box-shadow: 0 0 0 4px rgba(37,99,235,.18); border-color: rgba(37,99,235,.45); }
 
     .stats{
       display:grid;
@@ -501,7 +505,6 @@
       top:-12px;
       width:10px;height:16px;
       border-radius:3px;
-      background: rgba(255,255,255,.9);
       opacity:.95;
       animation: fall 1.2s linear forwards;
       transform: rotate(var(--r, 0deg));
@@ -624,15 +627,15 @@
         <div class="modes">
           <div class="modeBtn" id="btnPractice">
             <div>
-              <div class="t">Träna</div>
-              <div class="d">Inga tidskrav</div>
+              <div class="t" style="font-weight:1000;">Träna</div>
+              <div class="d" style="font-size:12px;color:var(--muted);font-weight:800;margin-top:4px;">Inga tidskrav</div>
             </div>
             <div class="icon">🎮</div>
           </div>
           <div class="modeBtn" id="btnSpeed">
             <div>
-              <div class="t">Speed-test</div>
-              <div class="d">10 sek per fråga • krävs för ⭐</div>
+              <div class="t" style="font-weight:1000;">Speed-test</div>
+              <div class="d" style="font-size:12px;color:var(--muted);font-weight:800;margin-top:4px;">10 sek per fråga • krävs för ⭐</div>
             </div>
             <div class="icon">⚡</div>
           </div>
@@ -731,15 +734,8 @@
   <script>
     "use strict";
 
-    /* =========================
-       SETTINGS
-    ========================== */
     const TEST_SECONDS = 10;
 
-    /* =========================
-       Storage
-       (fix: KEYY/KEY bug)
-    ========================== */
     const KEY = "tabellhjalte_v2_light";
     const defaultState = () => ({
       coins: 0,
@@ -747,9 +743,9 @@
       avatar: {
         name: "",
         skin: "#f2c7a5",
-        hairLen: "medium",      // short | medium | long | xlong
+        hairLen: "medium",
         hairCol: "#5a3b1f",
-        eyeSize: 14,            // px
+        eyeSize: 14,
         top: "#2563eb",
         bottom: "#2f3a46",
         shoes: "#eaeaea",
@@ -781,9 +777,6 @@
     function saveState(){ localStorage.setItem(KEY, JSON.stringify(state)); }
     let state = loadState();
 
-    /* =========================
-       DOM
-    ========================== */
     const screens = {
       avatar: document.getElementById("screenAvatar"),
       home: document.getElementById("screenHome"),
@@ -800,7 +793,6 @@
     const btnAvatar = document.getElementById("btnAvatar");
     const btnReset = document.getElementById("btnReset");
 
-    // Avatar controls
     const inpName = document.getElementById("inpName");
     const segSkin = document.getElementById("segSkin");
     const segHairLen = document.getElementById("segHairLen");
@@ -812,24 +804,16 @@
     const btnSaveAvatar = document.getElementById("btnSaveAvatar");
     const avatarNamePreview = document.getElementById("avatarNamePreview");
 
-    // Avatar preview
     const face = document.getElementById("face");
     const hair = document.getElementById("hair");
-    const shirt = document.getElementById("shirt");
-    const pants = document.getElementById("pants");
-    const shoeL = document.getElementById("shoeL");
-    const shoeR = document.getElementById("shoeR");
 
-    // Home
     const tablesGrid = document.getElementById("tablesGrid");
 
-    // Mode
     const modeTitle = document.getElementById("modeTitle");
     const btnBackFromMode = document.getElementById("btnBackFromMode");
     const btnPractice = document.getElementById("btnPractice");
     const btnSpeed = document.getElementById("btnSpeed");
 
-    // Game
     const gameTitle = document.getElementById("gameTitle");
     const btnQuitGame = document.getElementById("btnQuitGame");
     const questionText = document.getElementById("questionText");
@@ -842,7 +826,6 @@
     const timerText = document.getElementById("timerText");
     const tinyHint = document.getElementById("tinyHint");
 
-    // Result
     const resultBig = document.getElementById("resultBig");
     const resultSub = document.getElementById("resultSub");
     const statCorrect = document.getElementById("statCorrect");
@@ -853,16 +836,15 @@
     const btnAgain = document.getElementById("btnAgain");
     const btnChangeMode = document.getElementById("btnChangeMode");
 
-    // Confetti
     const confetti = document.getElementById("confetti");
 
-    /* =========================
-       Helpers
-    ========================== */
     function showScreen(which){
       Object.values(screens).forEach(s=>s.classList.add("hide"));
       screens[which].classList.remove("hide");
+      // säkerställ att inget får fokus på mobil
+      setTimeout(()=>{ try{ document.activeElement && document.activeElement.blur && document.activeElement.blur(); }catch{} }, 0);
     }
+
     function clampDigits(s){ return (s || "").replace(/[^\d]/g, "").slice(0, 3); }
     function shuffle(arr){
       const a = arr.slice();
@@ -879,9 +861,43 @@
       streakEl.textContent = state.streak;
     }
 
-    /* =========================
-       Avatar data
-    ========================== */
+    /* ======= SOUND (dova rätt/fel) ======= */
+    let audioCtx = null;
+    function ensureAudio(){
+      if(audioCtx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return;
+      audioCtx = new AC();
+    }
+    function beep({freq=440, dur=0.10, type="sine", vol=0.05}){
+      ensureAudio();
+      if(!audioCtx) return;
+      if(audioCtx.state === "suspended") audioCtx.resume().catch(()=>{});
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = type;
+      o.frequency.value = freq;
+      g.gain.value = vol;
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      o.start();
+      o.stop(audioCtx.currentTime + dur);
+    }
+    function soundGood(){
+      // mjuk "pling"
+      beep({freq:520, dur:0.08, type:"sine", vol:0.045});
+      setTimeout(()=>beep({freq:740, dur:0.08, type:"sine", vol:0.035}), 70);
+    }
+    function soundBad(){
+      // dov "bomp"
+      beep({freq:180, dur:0.14, type:"triangle", vol:0.05});
+    }
+
+    // första touch/click init för iOS (kräver user gesture)
+    window.addEventListener("pointerdown", ensureAudio, { once:true });
+    window.addEventListener("touchstart", ensureAudio, { once:true });
+
+    /* Avatar data */
     const skins = ["#f2c7a5","#e0b48c","#c98e6a","#8d5b3a"];
     const hairLens = [
       {label:"Kort", v:"short"},
@@ -893,25 +909,16 @@
     const eyeSizes = [{label:"S", v:12},{label:"M", v:14},{label:"L", v:18}];
 
     const tops = [
-      { col:"#2563eb", cost:0 },
-      { col:"#1fb66a", cost:0 },
-      { col:"#f59e0b", cost:25 },
-      { col:"#ef4444", cost:25 },
-      { col:"#8b5cf6", cost:40 }
+      { col:"#2563eb", cost:0 }, { col:"#1fb66a", cost:0 },
+      { col:"#f59e0b", cost:25 }, { col:"#ef4444", cost:25 }, { col:"#8b5cf6", cost:40 }
     ];
     const bottoms = [
-      { col:"#2f3a46", cost:0 },
-      { col:"#1f2b38", cost:0 },
-      { col:"#6b4f3b", cost:25 },
-      { col:"#3b6b5f", cost:25 },
-      { col:"#555555", cost:40 }
+      { col:"#2f3a46", cost:0 }, { col:"#1f2b38", cost:0 },
+      { col:"#6b4f3b", cost:25 }, { col:"#3b6b5f", cost:25 }, { col:"#555555", cost:40 }
     ];
     const shoes = [
-      { col:"#eaeaea", cost:0 },
-      { col:"#111827", cost:0 },
-      { col:"#2563eb", cost:25 },
-      { col:"#1fb66a", cost:25 },
-      { col:"#f59e0b", cost:40 }
+      { col:"#eaeaea", cost:0 }, { col:"#111827", cost:0 },
+      { col:"#2563eb", cost:25 }, { col:"#1fb66a", cost:25 }, { col:"#f59e0b", cost:40 }
     ];
 
     function makeSeg(container, options, isActiveFn, onPick, styleFn){
@@ -996,10 +1003,7 @@
         (b,opt)=>{ b.style.color = opt.col; }
       );
 
-      makeSeg(
-        segHairLen,
-        hairLens,
-        (opt)=> opt.v===state.avatar.hairLen,
+      makeSeg(segHairLen, hairLens, (opt)=> opt.v===state.avatar.hairLen,
         (opt)=>{ state.avatar.hairLen = opt.v; saveState(); renderAvatarUI(); }
       );
 
@@ -1011,10 +1015,7 @@
         (b,opt)=>{ b.style.color = opt.col; }
       );
 
-      makeSeg(
-        segEyeSize,
-        eyeSizes,
-        (opt)=> opt.v===state.avatar.eyeSize,
+      makeSeg(segEyeSize, eyeSizes, (opt)=> opt.v===state.avatar.eyeSize,
         (opt)=>{ state.avatar.eyeSize = opt.v; saveState(); renderAvatarUI(); }
       );
 
@@ -1025,9 +1026,6 @@
       updateTopbar();
     }
 
-    /* =========================
-       Home / tables
-    ========================== */
     function renderHome(){
       const name = state.avatar.name || "Spelare";
       const passed = state.progress.filter(p=>p.passed).length;
@@ -1076,25 +1074,21 @@
       updateTopbar();
     }
 
-    /* =========================
-       Game logic
-    ========================== */
     let selectedTable = 0;
-    let selectedMode = "practice"; // practice | speed
+    let selectedMode = "practice";
 
     let questions = [];
     let qi = 0;
     let correct = 0;
     let wrong = 0;
 
-    // speed timing
     let qStartMs = 0;
     let qTimer = null;
     let qElapsed = [];
     let speedFailReason = "";
 
     function buildQuestionsForTable(n){
-      const ks = shuffle([...Array(11)].map((_,i)=>i)); // 0..10
+      const ks = shuffle([...Array(11)].map((_,i)=>i));
       return ks.map(k=>({ n, k, ans: n*k }));
     }
 
@@ -1106,15 +1100,13 @@
     function startGame(mode){
       selectedMode = mode;
       questions = buildQuestionsForTable(selectedTable);
-      qi = 0;
-      correct = 0;
-      wrong = 0;
+      qi = 0; correct = 0; wrong = 0;
       qElapsed = [];
       speedFailReason = "";
 
       updateGameHeader();
       showScreen("game");
-      nextQuestion(true);
+      nextQuestion();
     }
 
     function updateGameHeader(){
@@ -1131,10 +1123,7 @@
     }
 
     function clearTimers(){
-      if(qTimer){
-        cancelAnimationFrame(qTimer);
-        qTimer = null;
-      }
+      if(qTimer){ cancelAnimationFrame(qTimer); qTimer = null; }
     }
 
     function nextQuestion(){
@@ -1155,12 +1144,9 @@
       correctCount.textContent = correct;
       wrongCount.textContent = wrong;
 
-      // aldrig fokus => ingen iOS-tangentbord
       answerInput.blur();
 
-      if(selectedMode==="speed"){
-        startSpeedTimer();
-      }
+      if(selectedMode==="speed") startSpeedTimer();
     }
 
     function startSpeedTimer(){
@@ -1181,6 +1167,7 @@
           speedFailReason = "⏱️ Tiden tog slut";
           wrong++;
           wrongCount.textContent = wrong;
+          soundBad();
 
           answerInput.classList.add("bad");
           btnOk.disabled = true;
@@ -1217,6 +1204,7 @@
       if(userAns === q.ans){
         correct++;
         answerInput.classList.add("good");
+        soundGood();
         awardCoins(selectedMode==="speed" ? 2 : 1);
 
         clearTimers();
@@ -1225,6 +1213,7 @@
       }else{
         wrong++;
         answerInput.classList.add("bad");
+        soundBad();
         clearTimers();
 
         if(selectedMode==="speed"){
@@ -1285,7 +1274,6 @@
       showScreen("result");
 
       lastResult = { table:selectedTable, mode:selectedMode };
-
       if(newlyPassed) popConfetti();
     }
 
@@ -1314,9 +1302,6 @@
 
     let lastResult = { table:0, mode:"practice" };
 
-    /* =========================
-       Confetti
-    ========================== */
     function popConfetti(){
       confetti.innerHTML = "";
       const count = 90;
@@ -1341,9 +1326,6 @@
       setTimeout(()=>confetti.classList.remove("show"), 1300);
     }
 
-    /* =========================
-       Keypad (NO iPhone keyboard)
-    ========================== */
     function appendDigit(d){
       answerInput.value = clampDigits(answerInput.value + d);
       answerInput.blur();
@@ -1364,7 +1346,6 @@
       });
     });
 
-    // blockera tangentbord på iOS om fältet trycks
     answerInput.addEventListener("pointerdown", (e)=>{
       e.preventDefault();
       answerInput.blur();
@@ -1372,9 +1353,6 @@
 
     btnOk.addEventListener("click", submitAnswer);
 
-    /* =========================
-       Navigation
-    ========================== */
     btnHome.addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
     btnAvatar.addEventListener("click", ()=>{ showScreen("avatar"); renderAvatarUI(); });
 
@@ -1410,9 +1388,6 @@
     btnAgain.addEventListener("click", ()=> startGame(lastResult.mode));
     btnChangeMode.addEventListener("click", ()=> showMode());
 
-    /* =========================
-       Init
-    ========================== */
     function init(){
       renderAvatarUI();
       renderHome();

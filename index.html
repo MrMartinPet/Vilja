@@ -17,6 +17,8 @@
       --accent:#2563eb;
       --shadow: 0 10px 30px rgba(15,23,42,.12);
       --radius: 18px;
+
+      /* BASE SIZES (skalbara) */
       --btn: 56px;
       --gap: 12px;
       --maxw: 980px;
@@ -44,42 +46,95 @@
       justify-content:center;
     }
 
+    /* Säkerställ att ingenting kan "läcka" horisontellt på iPhone */
+    .app, .panel, .bd, .grid, .gameWrap, .qBox, .answerRow, .keypad{
+      max-width:100%;
+      overflow-x:hidden;
+    }
+
     .app{
       width:100%;
       max-width:var(--maxw);
       padding:16px;
     }
 
-    /* ===== MOBILE FIT FIX (stående) ===== */
-    @media (max-width: 420px){
-      .app{ padding:10px; }
-      :root{ --btn: 46px; --gap: 10px; }
-
-      .question{ font-size:30px; }
-      .answer{ font-size:22px; padding:12px 12px; }
-      .okBtn{ min-width:78px; }
-
-      .keypad{ gap:8px; }
-      .key{
-        height: var(--btn);
-        font-size:18px;      /* <-- mindre siffror på knappar */
-        border-radius:14px;
+    /* ===== MOBILE FIT FIX (stående iPhone + <=800px) =====
+       - gör allt mindre (ca 50%)
+       - clamp() så siffror alltid ryms
+       - knappar/keypad får aldrig bli större än viewport
+    */
+    @media (max-width: 800px){
+      :root{
+        --btn: 40px;   /* ~28% mindre än 56, men kombineras med mindre font + padding */
+        --gap: 10px;
       }
 
-      .qBox{ padding:12px; }
+      .app{ padding:10px; }
+
       .panel .bd{ padding:12px; }
       .panel .hd{ padding:12px; }
 
-      /* minska chips */
+      .card{ padding:12px; min-height:54px; }
+      .badge{ width:30px;height:30px; font-size:16px; }
+
+      /* Frågan (stora siffror) – clamp för att alltid rymmas */
+      .question{
+        font-size: clamp(22px, 8vw, 30px);
+        line-height:1.05;
+        word-break: break-word;
+      }
+
+      /* Svarsfältet – clamp så det inte blir för stort */
+      .answer{
+        font-size: clamp(16px, 6vw, 22px);
+        padding: 10px 10px;
+        border-radius:14px;
+        min-width: 0; /* viktigt i flex */
+      }
+
+      .okBtn{
+        min-width: 72px;
+        font-size: 14px;
+        border-radius:14px;
+        padding: 10px 12px;
+        flex: 0 0 auto;
+      }
+
+      .answerRow{
+        gap:8px;
+        width:100%;
+      }
+
+      /* Keypad: mindre knappar + mindre siffror */
+      .keypad{
+        gap:8px;
+      }
+      .key{
+        height: var(--btn);
+        font-size: 16px;     /* minst ~25% mindre än 22 */
+        border-radius: 14px;
+        padding: 0;
+      }
+
+      /* Topbar knappar */
+      .btn{
+        padding: 9px 12px;
+      }
+
+      /* Chips lite mindre */
       .chip{ padding:7px 10px; }
+
+      /* Timer ring lite mindre */
+      .timerRing{ width:40px; height:40px; }
+      .timerRing span{ font-size:11px; }
     }
 
     /* Extra tight för väldigt små skärmar */
-    @media (max-width: 360px){
-      :root{ --btn: 42px; }
-      .question{ font-size:28px; }
-      .key{ font-size:17px; }
-      .answer{ font-size:20px; }
+    @media (max-width: 380px){
+      :root{ --btn: 36px; }
+      .question{ font-size: clamp(20px, 9vw, 28px); }
+      .key{ font-size: 15px; }
+      .okBtn{ min-width: 66px; }
     }
 
     .topbar{
@@ -122,6 +177,7 @@
       border:1px solid rgba(15,23,42,.12);
       cursor:pointer;
       font-weight:800;
+      white-space:nowrap;
     }
     .btn:active{ transform: translateY(1px); }
     .btn.primary{
@@ -184,7 +240,7 @@
       min-height:60px;
     }
     .card:active{ transform: translateY(1px); }
-    .card .left{ display:flex; flex-direction:column; gap:4px; }
+    .card .left{ display:flex; flex-direction:column; gap:4px; min-width:0; }
     .card .k{ font-weight:1000; font-size:16px; line-height:1; }
     .card .s{ font-size:12px; color:var(--muted); font-weight:800; }
     .badge{
@@ -196,6 +252,7 @@
       border:1px solid rgba(15,23,42,.14);
       background: rgba(15,23,42,.03);
       font-size:18px;
+      flex:0 0 auto;
     }
 
     .modes{ display:grid; grid-template-columns: 1fr; gap:12px; }
@@ -235,11 +292,6 @@
       flex-wrap:wrap;
     }
 
-    .question{
-      font-size:36px;
-      font-weight:1000;
-      letter-spacing:.3px;
-    }
     .sub{
       color:var(--muted);
       font-size:12px;
@@ -254,6 +306,7 @@
       background: rgba(15,23,42,.03);
       border:1px solid rgba(15,23,42,.10);
       font-weight:900;
+      white-space:nowrap;
     }
 
     .timerRing{
@@ -275,9 +328,11 @@
       display:flex;
       gap:10px;
       align-items:stretch;
+      width:100%;
     }
     .answer{
-      flex:1;
+      flex:1 1 auto;
+      min-width:0;
       font-size:28px;
       font-weight:1000;
       padding:14px 14px;
@@ -305,6 +360,7 @@
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap:10px;
+      width:100%;
     }
     .key{
       height: var(--btn);
@@ -315,6 +371,7 @@
       font-size:22px;
       font-weight:1000;
       cursor:pointer;
+      min-width:0;
     }
     .key:active{ transform: translateY(1px); }
     .key.wide{ grid-column: span 2; }
@@ -841,7 +898,6 @@
     function showScreen(which){
       Object.values(screens).forEach(s=>s.classList.add("hide"));
       screens[which].classList.remove("hide");
-      // säkerställ att inget får fokus på mobil
       setTimeout(()=>{ try{ document.activeElement && document.activeElement.blur && document.activeElement.blur(); }catch{} }, 0);
     }
 
@@ -884,16 +940,13 @@
       o.stop(audioCtx.currentTime + dur);
     }
     function soundGood(){
-      // mjuk "pling"
       beep({freq:520, dur:0.08, type:"sine", vol:0.045});
       setTimeout(()=>beep({freq:740, dur:0.08, type:"sine", vol:0.035}), 70);
     }
     function soundBad(){
-      // dov "bomp"
       beep({freq:180, dur:0.14, type:"triangle", vol:0.05});
     }
 
-    // första touch/click init för iOS (kräver user gesture)
     window.addEventListener("pointerdown", ensureAudio, { once:true });
     window.addEventListener("touchstart", ensureAudio, { once:true });
 
@@ -1356,7 +1409,10 @@
     btnHome.addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
     btnAvatar.addEventListener("click", ()=>{ showScreen("avatar"); renderAvatarUI(); });
 
+    // RESET med säkerhetsvarning
     btnReset.addEventListener("click", ()=>{
+      const ok = confirm("Reset raderar ALLT (mynt, streak, stjärnor och avatar). Vill du fortsätta?");
+      if(!ok) return;
       localStorage.removeItem(KEY);
       state = defaultState();
       saveState();

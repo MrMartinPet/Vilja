@@ -13,6 +13,7 @@
       --txt:#0b1220;
       --muted:#5a6b84;
       --good:#1fb66a;
+      --warn:#f59e0b;
       --bad:#e33b3b;
       --accent:#2563eb;
       --shadow: 0 10px 30px rgba(15,23,42,.12);
@@ -47,7 +48,7 @@
     }
 
     /* Säkerställ att ingenting kan "läcka" horisontellt på iPhone */
-    .app, .panel, .bd, .grid, .gameWrap, .qBox, .answerRow, .keypad{
+    .app, .panel, .bd, .grid, .gameWrap, .qBox, .answerRow, .keypad, .banner{
       max-width:100%;
       overflow-x:hidden;
     }
@@ -58,40 +59,29 @@
       padding:16px;
     }
 
-    /* ===== MOBILE FIT FIX (stående iPhone + <=800px) =====
-       - gör allt mindre (ca 50%)
-       - clamp() så siffror alltid ryms
-       - knappar/keypad får aldrig bli större än viewport
-    */
+    /* ===== MOBILE FIT FIX (stående iPhone + <=800px) ===== */
     @media (max-width: 800px){
       :root{
-        --btn: 40px;   /* ~28% mindre än 56, men kombineras med mindre font + padding */
+        --btn: 40px;
         --gap: 10px;
       }
-
       .app{ padding:10px; }
-
       .panel .bd{ padding:12px; }
       .panel .hd{ padding:12px; }
-
       .card{ padding:12px; min-height:54px; }
       .badge{ width:30px;height:30px; font-size:16px; }
 
-      /* Frågan (stora siffror) – clamp för att alltid rymmas */
       .question{
         font-size: clamp(22px, 8vw, 30px);
         line-height:1.05;
         word-break: break-word;
       }
-
-      /* Svarsfältet – clamp så det inte blir för stort */
       .answer{
         font-size: clamp(16px, 6vw, 22px);
         padding: 10px 10px;
         border-radius:14px;
-        min-width: 0; /* viktigt i flex */
+        min-width: 0;
       }
-
       .okBtn{
         min-width: 72px;
         font-size: 14px;
@@ -99,37 +89,26 @@
         padding: 10px 12px;
         flex: 0 0 auto;
       }
+      .answerRow{ gap:8px; width:100%; }
 
-      .answerRow{
-        gap:8px;
-        width:100%;
-      }
-
-      /* Keypad: mindre knappar + mindre siffror */
-      .keypad{
-        gap:8px;
-      }
+      .keypad{ gap:8px; }
       .key{
         height: var(--btn);
-        font-size: 16px;     /* minst ~25% mindre än 22 */
+        font-size: 16px;
         border-radius: 14px;
         padding: 0;
       }
 
-      /* Topbar knappar */
-      .btn{
-        padding: 9px 12px;
-      }
-
-      /* Chips lite mindre */
+      .btn{ padding: 9px 12px; }
       .chip{ padding:7px 10px; }
 
-      /* Timer ring lite mindre */
       .timerRing{ width:40px; height:40px; }
       .timerRing span{ font-size:11px; }
+
+      .banner{ padding:12px; border-radius:16px; }
+      .banner .t{ font-size:14px; }
     }
 
-    /* Extra tight för väldigt små skärmar */
     @media (max-width: 380px){
       :root{ --btn: 36px; }
       .question{ font-size: clamp(20px, 9vw, 28px); }
@@ -218,10 +197,7 @@
     .panel .bd{ padding:14px; }
 
     .grid{ display:grid; gap: var(--gap); }
-
-    .grid.tables{
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .grid.tables{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
     @media (min-width: 760px){
       .grid.tables{ grid-template-columns: repeat(6, minmax(0, 1fr)); }
     }
@@ -273,7 +249,6 @@
     .modeBtn:active{ transform: translateY(1px); }
 
     .gameWrap{ display:grid; gap:12px; }
-
     .qBox{
       display:flex;
       flex-direction:column;
@@ -382,6 +357,45 @@
 
     .hint{ font-size:12px; color:var(--muted); font-weight:900; }
 
+    /* ===== Banner / Teaser ===== */
+    .banner{
+      margin-bottom:12px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(245,158,11,.28);
+      background:
+        radial-gradient(800px 200px at 20% 0%, rgba(255,105,180,.18), transparent 55%),
+        radial-gradient(800px 240px at 80% 120%, rgba(245,158,11,.16), transparent 55%),
+        rgba(245,158,11,.06);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .banner .t{
+      font-weight:1000;
+      letter-spacing:.2px;
+    }
+    .banner .d{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      margin-top:3px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,105,180,.28);
+      background: rgba(255,105,180,.10);
+      font-weight:1000;
+      white-space:nowrap;
+    }
+
     /* Avatar */
     .avatarLayout{ display:grid; gap:12px; }
     @media (min-width: 760px){
@@ -400,6 +414,23 @@
       position:relative;
       overflow:hidden;
     }
+
+    /* Långt hår bak, täcker inte ansiktet */
+    .backHair{
+      position:absolute;
+      left:50%;
+      top:78px;
+      transform:translateX(-50%);
+      width:170px;
+      height:180px;
+      border-radius: 60px;
+      background: var(--hair, #5a3b1f);
+      border:1px solid rgba(15,23,42,.18);
+      box-shadow: 0 12px 25px rgba(15,23,42,.10);
+      z-index:0;
+      display:none;
+    }
+
     .face{
       width:140px;height:140px;
       border-radius:40px;
@@ -407,6 +438,7 @@
       border:1px solid rgba(15,23,42,.10);
       background: var(--skin, #f2c7a5);
       box-shadow: 0 12px 25px rgba(15,23,42,.12);
+      z-index:2; /* alltid framför bakhår */
     }
     .hair{
       position:absolute;
@@ -416,11 +448,19 @@
       border-radius: 30px 30px 26px 26px;
       background: var(--hair, #5a3b1f);
       border:1px solid rgba(15,23,42,.18);
+      z-index:3;
     }
     .hair.short{ height:42px; top:-6px; }
     .hair.medium{ height:58px; }
     .hair.long{ height:78px; top:-10px; border-radius: 34px 34px 30px 30px; }
     .hair.xlong{ height:104px; top:-16px; border-radius: 38px 38px 34px 34px; }
+
+    /* Ny: midjelångt (waist) = kort lugg + långt bakhår */
+    .hair.waist{
+      height:40px;
+      top:-6px;
+      border-radius: 28px 28px 22px 22px;
+    }
 
     .eyes{
       position:absolute;
@@ -428,6 +468,7 @@
       display:flex;
       justify-content:center;
       gap:22px;
+      z-index:4;
     }
     .eye{
       width: var(--eyeSize, 14px);
@@ -445,6 +486,7 @@
       border-bottom: 5px solid rgba(15,23,42,.30);
       border-radius: 0 0 999px 999px;
       opacity:.85;
+      z-index:4;
     }
 
     .body{
@@ -460,6 +502,7 @@
       justify-content:center;
       padding:16px;
       gap:10px;
+      z-index:1;
     }
     .shirt{
       width:110px;height:70px;
@@ -479,6 +522,7 @@
       gap:10px;
       position:absolute;
       bottom:8px;
+      z-index:2;
     }
     .shoe{
       width:46px;height:18px;border-radius:999px;
@@ -570,6 +614,27 @@
       to{ transform: translateY(110vh) rotate(calc(var(--r, 0deg) + 260deg)); opacity:.0; }
     }
 
+    /* Mini-toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(15,23,42,.14);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      font-weight:900;
+      font-size:12px;
+      color:var(--txt);
+      display:none;
+      z-index:1000;
+      max-width:min(520px, calc(100vw - 24px));
+      text-align:center;
+    }
+    .toast.show{ display:block; }
+
     .hide{ display:none !important; }
     .small{ font-size:12px; font-weight:900; color:var(--muted); }
   </style>
@@ -597,9 +662,20 @@
         <button class="btn primary" id="btnSaveAvatar">Spara</button>
       </div>
       <div class="bd">
+
+        <div class="banner" id="legendBannerAvatar">
+          <div>
+            <div class="t">💖 Legendary Rosa-set</div>
+            <div class="d">Klara ⭐ Speed-test på 3:ans tabell för att låsa upp rosa outfit + midjelångt hår.</div>
+          </div>
+          <div class="tag" id="legendTagAvatar">🔒 Låst</div>
+        </div>
+
         <div class="avatarLayout">
           <div>
             <div class="avatarStage">
+              <div class="backHair" id="backHair"></div>
+
               <div class="face" id="face" style="--skin:#f2c7a5; --hair:#5a3b1f; --top:#4da3ff; --bottom:#2f3a46; --shoes:#eaeaea; --eyeSize:14px;">
                 <div class="hair medium" id="hair"></div>
                 <div class="eyes" id="eyes">
@@ -608,6 +684,7 @@
                 </div>
                 <div class="mouth"></div>
               </div>
+
               <div class="body">
                 <div>
                   <div class="shirt" id="shirt"></div>
@@ -635,6 +712,8 @@
 
             <div class="control">
               <div class="lbl">Hår</div>
+              <div class="small">Tips: 💖 Legendary-håret (midja) låses via ⭐ på 3:an</div>
+              <div style="height:10px"></div>
               <div class="seg" id="segHairLen"></div>
               <div style="height:10px"></div>
               <div class="seg" id="segHairCol"></div>
@@ -647,7 +726,7 @@
 
             <div class="control">
               <div class="lbl">Kläder</div>
-              <div class="small">Köp med 🪙 (gratis = första två)</div>
+              <div class="small">Köp med 🪙 (gratis = första två). 💖 Rosa-set låses med ⭐ på 3:an.</div>
               <div style="height:10px"></div>
               <div class="lbl">Topp</div>
               <div class="seg" id="segTop"></div>
@@ -670,6 +749,17 @@
         <div class="small" id="homeSub"></div>
       </div>
       <div class="bd">
+        <div class="banner" id="legendBannerHome">
+          <div>
+            <div class="t">💖 Teaser: Legendary Rosa-set</div>
+            <div class="d">Klara ⭐ Speed-test på 3:ans tabell och få rosa outfit + midjelångt hår.</div>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <div class="tag" id="legendTagHome">🔒 Låst</div>
+            <button class="btn" id="btnGoLegend">Visa</button>
+          </div>
+        </div>
+
         <div class="grid tables" id="tablesGrid"></div>
       </div>
     </section>
@@ -787,13 +877,30 @@
   </div>
 
   <div class="confetti" id="confetti"></div>
+  <div class="toast" id="toast"></div>
 
   <script>
     "use strict";
 
     const TEST_SECONDS = 10;
+    const KEY = "tabellhjalte_v3_light"; // ny version för att slippa gammalt trasigt state
 
-    const KEY = "tabellhjalte_v2_light";
+    /* ======== SHOP / LEGENDARY ========
+       Legendary Rosa-set:
+       - Låses upp när man klarar 3:ans tabell i Speed-test (⭐)
+       - Ger midjelångt hår (waist) + rosa outfit
+    */
+    const LEGEND = {
+      table: 3,
+      topIdx: 5,
+      bottomIdx: 5,
+      shoesIdx: 5,
+      pinkTop:  "#ff4fa3",
+      pinkBottom:"#ff79c2",
+      pinkShoes:"#ffd1ea",
+      pinkHair: "#ff79c2"
+    };
+
     const defaultState = () => ({
       coins: 0,
       streak: 0,
@@ -806,27 +913,49 @@
         top: "#2563eb",
         bottom: "#2f3a46",
         shoes: "#eaeaea",
-        unlocked: { top: [0,1], bottom: [0,1], shoes: [0,1] }
+        // Unlocked-listor MÅSTE vara arrays av index (numbers)
+        unlocked: { top: [0,1], bottom: [0,1], shoes: [0,1] },
+        legendaryUnlocked: false
       },
       progress: Array.from({length:11}, (_,n)=>({ n, passed:false, bestAvg:null, bestDate:null }))
     });
+
+    function asNumArray(v){
+      if(!Array.isArray(v)) return [];
+      return v.map(x=>Number(x)).filter(x=>Number.isFinite(x));
+    }
+    function normalizeState(obj){
+      const d = defaultState();
+      const s = (obj && typeof obj === "object") ? obj : {};
+      const avatar = (s.avatar && typeof s.avatar === "object") ? s.avatar : {};
+      const unlocked = (avatar.unlocked && typeof avatar.unlocked === "object") ? avatar.unlocked : {};
+
+      const out = {
+        ...d,
+        ...s,
+        avatar: {
+          ...d.avatar,
+          ...avatar,
+          unlocked: {
+            top: asNumArray(unlocked.top).length ? asNumArray(unlocked.top) : d.avatar.unlocked.top.slice(),
+            bottom: asNumArray(unlocked.bottom).length ? asNumArray(unlocked.bottom) : d.avatar.unlocked.bottom.slice(),
+            shoes: asNumArray(unlocked.shoes).length ? asNumArray(unlocked.shoes) : d.avatar.unlocked.shoes.slice(),
+          },
+          legendaryUnlocked: !!avatar.legendaryUnlocked
+        },
+        progress: (s.progress && Array.isArray(s.progress) && s.progress.length===11) ? s.progress : d.progress
+      };
+      // extra safety: coins/streak numbers
+      out.coins = Number.isFinite(Number(out.coins)) ? Number(out.coins) : 0;
+      out.streak = Number.isFinite(Number(out.streak)) ? Number(out.streak) : 0;
+      return out;
+    }
 
     function loadState(){
       try{
         const raw = localStorage.getItem(KEY);
         if(!raw) return defaultState();
-        const obj = JSON.parse(raw);
-        const d = defaultState();
-        return {
-          ...d,
-          ...obj,
-          avatar: {
-            ...d.avatar,
-            ...(obj.avatar||{}),
-            unlocked: { ...d.avatar.unlocked, ...((obj.avatar||{}).unlocked||{}) }
-          },
-          progress: (obj.progress && obj.progress.length===11) ? obj.progress : d.progress
-        };
+        return normalizeState(JSON.parse(raw));
       }catch{
         return defaultState();
       }
@@ -850,6 +979,10 @@
     const btnAvatar = document.getElementById("btnAvatar");
     const btnReset = document.getElementById("btnReset");
 
+    const legendTagHome = document.getElementById("legendTagHome");
+    const legendTagAvatar = document.getElementById("legendTagAvatar");
+    const btnGoLegend = document.getElementById("btnGoLegend");
+
     const inpName = document.getElementById("inpName");
     const segSkin = document.getElementById("segSkin");
     const segHairLen = document.getElementById("segHairLen");
@@ -863,6 +996,12 @@
 
     const face = document.getElementById("face");
     const hair = document.getElementById("hair");
+    const backHair = document.getElementById("backHair");
+
+    const shirt = document.getElementById("shirt");
+    const pants = document.getElementById("pants");
+    const shoeL = document.getElementById("shoeL");
+    const shoeR = document.getElementById("shoeR");
 
     const tablesGrid = document.getElementById("tablesGrid");
 
@@ -894,6 +1033,13 @@
     const btnChangeMode = document.getElementById("btnChangeMode");
 
     const confetti = document.getElementById("confetti");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg, ms=1200){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(()=>toast.classList.remove("show"), ms);
+    }
 
     function showScreen(which){
       Object.values(screens).forEach(s=>s.classList.add("hide"));
@@ -912,9 +1058,21 @@
     }
     function nowISO(){ return new Date().toISOString(); }
     function fmt1(x){ return (Math.round(x*10)/10).toFixed(1); }
+
     function updateTopbar(){
       coinsEl.textContent = state.coins;
       streakEl.textContent = state.streak;
+    }
+
+    function updateLegendTags(){
+      const unlocked = !!state.avatar.legendaryUnlocked;
+      const txt = unlocked ? "✅ Upplåst" : "🔒 Låst";
+      legendTagHome.textContent = txt;
+      legendTagAvatar.textContent = txt;
+      legendTagHome.style.borderColor = unlocked ? "rgba(31,182,106,.35)" : "rgba(255,105,180,.28)";
+      legendTagAvatar.style.borderColor = unlocked ? "rgba(31,182,106,.35)" : "rgba(255,105,180,.28)";
+      legendTagHome.style.background = unlocked ? "rgba(31,182,106,.10)" : "rgba(255,105,180,.10)";
+      legendTagAvatar.style.background = unlocked ? "rgba(31,182,106,.10)" : "rgba(255,105,180,.10)";
     }
 
     /* ======= SOUND (dova rätt/fel) ======= */
@@ -946,32 +1104,46 @@
     function soundBad(){
       beep({freq:180, dur:0.14, type:"triangle", vol:0.05});
     }
-
     window.addEventListener("pointerdown", ensureAudio, { once:true });
     window.addEventListener("touchstart", ensureAudio, { once:true });
 
     /* Avatar data */
     const skins = ["#f2c7a5","#e0b48c","#c98e6a","#8d5b3a"];
-    const hairLens = [
-      {label:"Kort", v:"short"},
-      {label:"Medel", v:"medium"},
-      {label:"Lång", v:"long"},
-      {label:"Mega", v:"xlong"}
-    ];
-    const hairCols = ["#111111","#5a3b1f","#caa26a","#c04b2d","#7a7fff"];
+
+    // Nya “waist” syns bara om legendaryUnlocked
+    function hairLenOptions(){
+      const base = [
+        {label:"Kort", v:"short"},
+        {label:"Medel", v:"medium"},
+        {label:"Lång", v:"long"},
+        {label:"Mega", v:"xlong"},
+      ];
+      if(state.avatar.legendaryUnlocked){
+        base.push({label:"Midja 💖", v:"waist"});
+      }else{
+        base.push({label:"Midja 🔒", v:"waist_locked"});
+      }
+      return base;
+    }
+
+    const hairCols = ["#111111","#5a3b1f","#caa26a","#c04b2d","#7a7fff", LEGEND.pinkHair];
     const eyeSizes = [{label:"S", v:12},{label:"M", v:14},{label:"L", v:18}];
 
+    // Shop: vi lägger Legendary rosa på sista index (5) och gör den INTE köpbar — den låses via ⭐.
     const tops = [
       { col:"#2563eb", cost:0 }, { col:"#1fb66a", cost:0 },
-      { col:"#f59e0b", cost:25 }, { col:"#ef4444", cost:25 }, { col:"#8b5cf6", cost:40 }
+      { col:"#f59e0b", cost:25 }, { col:"#ef4444", cost:25 }, { col:"#8b5cf6", cost:40 },
+      { col:LEGEND.pinkTop, cost:null, legendary:true }
     ];
     const bottoms = [
       { col:"#2f3a46", cost:0 }, { col:"#1f2b38", cost:0 },
-      { col:"#6b4f3b", cost:25 }, { col:"#3b6b5f", cost:25 }, { col:"#555555", cost:40 }
+      { col:"#6b4f3b", cost:25 }, { col:"#3b6b5f", cost:25 }, { col:"#555555", cost:40 },
+      { col:LEGEND.pinkBottom, cost:null, legendary:true }
     ];
     const shoes = [
       { col:"#eaeaea", cost:0 }, { col:"#111827", cost:0 },
-      { col:"#2563eb", cost:25 }, { col:"#1fb66a", cost:25 }, { col:"#f59e0b", cost:40 }
+      { col:"#2563eb", cost:25 }, { col:"#1fb66a", cost:25 }, { col:"#f59e0b", cost:40 },
+      { col:LEGEND.pinkShoes, cost:null, legendary:true }
     ];
 
     function makeSeg(container, options, isActiveFn, onPick, styleFn){
@@ -987,21 +1159,50 @@
       });
     }
 
+    function uniqSortedNums(arr){
+      return [...new Set(asNumArray(arr))].sort((a,b)=>a-b);
+    }
+
+    function isLegendaryIndex(kind, idx){
+      if(kind==="top") return idx===LEGEND.topIdx;
+      if(kind==="bottom") return idx===LEGEND.bottomIdx;
+      if(kind==="shoes") return idx===LEGEND.shoesIdx;
+      return false;
+    }
+
     function renderOutfitSeg(container, kind, arr, currentCol, setCol){
-      const unlocked = state.avatar.unlocked[kind] || [];
+      // Normalisera unlocked varje render (säkerhet)
+      state.avatar.unlocked[kind] = uniqSortedNums(state.avatar.unlocked[kind]);
+      const unlocked = state.avatar.unlocked[kind];
+
       container.innerHTML = "";
 
       arr.forEach((it, idx)=>{
         const b = document.createElement("button");
         b.type = "button";
-        const isUnlocked = unlocked.includes(idx);
+
+        const legendaryLocked = it.legendary && !state.avatar.legendaryUnlocked;
+        const isUnlocked = unlocked.includes(idx) && !legendaryLocked;
         const isActive = it.col === currentCol;
 
-        b.textContent = isUnlocked ? "⬤" : `🔒${it.cost}`;
+        if(legendaryLocked){
+          b.textContent = "🔒💖";
+        }else if(isUnlocked){
+          b.textContent = "⬤";
+        }else{
+          b.textContent = `🔒${it.cost}`;
+        }
+
         if(isActive) b.classList.add("active");
         b.style.color = it.col;
 
         b.addEventListener("click", ()=>{
+          if(legendaryLocked){
+            showToast("💖 Lås upp via ⭐ på 3:ans Speed-test");
+            flashChip("coinChip");
+            return;
+          }
+
           if(isUnlocked){
             setCol(it.col);
             applyAvatarPreview();
@@ -1009,15 +1210,26 @@
             renderAvatarUI();
             return;
           }
-          if(state.coins >= it.cost){
-            state.coins -= it.cost;
-            state.avatar.unlocked[kind] = [...new Set([...unlocked, idx])];
+
+          // köp (ej legendary)
+          const cost = Number(it.cost);
+          if(!Number.isFinite(cost) || cost <= 0){
+            // borde inte ske för låsta items som är gratis (gratis finns redan i unlocked)
+            showToast("Inte köpbar");
+            return;
+          }
+
+          if(state.coins >= cost){
+            state.coins -= cost;
+            state.avatar.unlocked[kind] = uniqSortedNums([...unlocked, idx]);
             setCol(it.col);
             applyAvatarPreview();
             saveState();
             renderAvatarUI();
+            showToast(`Köpt! -${cost}🪙`);
           }else{
             flashChip("coinChip");
+            showToast("För få mynt");
           }
         });
 
@@ -1039,9 +1251,22 @@
       face.style.setProperty("--shoes", state.avatar.shoes);
       face.style.setProperty("--eyeSize", (state.avatar.eyeSize || 14) + "px");
 
-      hair.className = `hair ${state.avatar.hairLen || "medium"}`;
+      // Midjelångt hår: visa bakhår och kort lugg
+      const len = state.avatar.hairLen || "medium";
+      const waist = (len === "waist");
+      backHair.style.display = waist ? "block" : "none";
+      backHair.style.setProperty("--hair", state.avatar.hairCol);
+
+      hair.className = "hair " + (waist ? "waist" : len);
+
+      shirt.style.background = state.avatar.top;
+      pants.style.background = state.avatar.bottom;
+      shoeL.style.background = state.avatar.shoes;
+      shoeR.style.background = state.avatar.shoes;
+
       avatarNamePreview.textContent = state.avatar.name ? `👤 ${state.avatar.name}` : "👤";
       updateTopbar();
+      updateLegendTags();
     }
 
     function renderAvatarUI(){
@@ -1056,15 +1281,43 @@
         (b,opt)=>{ b.style.color = opt.col; }
       );
 
-      makeSeg(segHairLen, hairLens, (opt)=> opt.v===state.avatar.hairLen,
-        (opt)=>{ state.avatar.hairLen = opt.v; saveState(); renderAvatarUI(); }
+      makeSeg(
+        segHairLen,
+        hairLenOptions(),
+        (opt)=> opt.v===state.avatar.hairLen || (opt.v==="waist_locked" && state.avatar.hairLen==="waist"),
+        (opt)=>{
+          if(opt.v==="waist_locked"){
+            showToast("💖 Lås upp via ⭐ på 3:ans Speed-test");
+            return;
+          }
+          if(opt.v==="waist" && !state.avatar.legendaryUnlocked){
+            showToast("💖 Lås upp via ⭐ på 3:ans Speed-test");
+            return;
+          }
+          state.avatar.hairLen = opt.v;
+          saveState();
+          renderAvatarUI();
+        }
       );
 
       makeSeg(
         segHairCol,
-        hairCols.map(c=>({label:"⬤", col:c})),
+        hairCols.map(c=>{
+          const isPink = c === LEGEND.pinkHair;
+          return {label: isPink ? "⬤💖" : "⬤", col:c, pink:isPink};
+        }),
         (opt)=> opt.col===state.avatar.hairCol,
-        (opt)=>{ state.avatar.hairCol = opt.col; saveState(); renderAvatarUI(); },
+        (opt)=>{
+          // rosa hår är tillåtet bara om legendaryUnlocked (annars “reklam”)
+          if(opt.pink && !state.avatar.legendaryUnlocked){
+            showToast("💖 Rosa hår låses via ⭐ på 3:ans Speed-test");
+            flashChip("coinChip");
+            return;
+          }
+          state.avatar.hairCol = opt.col;
+          saveState();
+          renderAvatarUI();
+        },
         (b,opt)=>{ b.style.color = opt.col; }
       );
 
@@ -1077,6 +1330,7 @@
       renderOutfitSeg(segShoes, "shoes", shoes, state.avatar.shoes, (col)=> state.avatar.shoes = col);
 
       updateTopbar();
+      updateLegendTags();
     }
 
     function renderHome(){
@@ -1125,6 +1379,7 @@
       }
 
       updateTopbar();
+      updateLegendTags();
     }
 
     let selectedTable = 0;
@@ -1288,6 +1543,28 @@
       wrongCount.textContent = wrong;
     }
 
+    function grantLegendaryIfNeeded(){
+      if(state.avatar.legendaryUnlocked) return false;
+      const p = state.progress[LEGEND.table];
+      if(!p || !p.passed) return false;
+
+      state.avatar.legendaryUnlocked = true;
+
+      // Lås upp rosa outfit-delar i shop (index 5)
+      state.avatar.unlocked.top = uniqSortedNums([...state.avatar.unlocked.top, LEGEND.topIdx]);
+      state.avatar.unlocked.bottom = uniqSortedNums([...state.avatar.unlocked.bottom, LEGEND.bottomIdx]);
+      state.avatar.unlocked.shoes = uniqSortedNums([...state.avatar.unlocked.shoes, LEGEND.shoesIdx]);
+
+      // Auto-apply: rosa outfit + midjelångt hår (och rosa hårfärg)
+      state.avatar.top = LEGEND.pinkTop;
+      state.avatar.bottom = LEGEND.pinkBottom;
+      state.avatar.shoes = LEGEND.pinkShoes;
+      state.avatar.hairLen = "waist";
+      state.avatar.hairCol = LEGEND.pinkHair;
+
+      return true;
+    }
+
     function finishGame(passedAll){
       clearTimers();
       const total = questions.length;
@@ -1320,7 +1597,10 @@
         }
       }
 
-      hookupResultUI(isSpeed, passed, total, coinBonus);
+      // Legendary unlock check (efter att progress sparats)
+      const gotLegend = grantLegendaryIfNeeded();
+
+      hookupResultUI(isSpeed, passed, total, coinBonus, gotLegend);
       saveState();
       updateTopbar();
       renderHome();
@@ -1328,14 +1608,23 @@
 
       lastResult = { table:selectedTable, mode:selectedMode };
       if(newlyPassed) popConfetti();
+      if(gotLegend){
+        // extra celebration
+        setTimeout(()=>popConfetti(), 200);
+        showToast("💖 Legendary Rosa-set upplåst!");
+      }
     }
 
-    function hookupResultUI(isSpeed, passed, total, coinBonus){
+    function hookupResultUI(isSpeed, passed, total, coinBonus, gotLegend){
       if(isSpeed){
         resultBig.textContent = passed ? "GODKÄND" : "EJ GODKÄND";
         resultBig.style.color = passed ? "var(--good)" : "var(--bad)";
+        let extra = "";
+        if(passed && selectedTable===LEGEND.table && gotLegend){
+          extra = " • 💖 Legendary Rosa-set upplåst!";
+        }
         resultSub.textContent = passed
-          ? `⭐ ${selectedTable}:an klar!`
+          ? `⭐ ${selectedTable}:an klar!${extra}`
           : (speedFailReason || `Max ${TEST_SECONDS},0s per fråga • alla rätt`);
       }else{
         resultBig.textContent = "KLART";
@@ -1363,7 +1652,8 @@
         "rgba(31,182,106,.95)",
         "rgba(245,158,11,.95)",
         "rgba(239,68,68,.90)",
-        "rgba(139,92,246,.95)"
+        "rgba(139,92,246,.95)",
+        "rgba(255,105,180,.95)"
       ];
       for(let i=0;i<count;i++){
         const p = document.createElement("i");
@@ -1409,6 +1699,12 @@
     btnHome.addEventListener("click", ()=>{ renderHome(); showScreen("home"); });
     btnAvatar.addEventListener("click", ()=>{ showScreen("avatar"); renderAvatarUI(); });
 
+    btnGoLegend.addEventListener("click", ()=>{
+      showScreen("avatar");
+      renderAvatarUI();
+      showToast(state.avatar.legendaryUnlocked ? "✅ Redo! Välj 💖-delarna i shoppen." : "🔒 Klarar du ⭐ på 3:an så låser du upp!");
+    });
+
     // RESET med säkerhetsvarning
     btnReset.addEventListener("click", ()=>{
       const ok = confirm("Reset raderar ALLT (mynt, streak, stjärnor och avatar). Vill du fortsätta?");
@@ -1445,9 +1741,14 @@
     btnChangeMode.addEventListener("click", ()=> showMode());
 
     function init(){
+      // normalisera i fall något blev snett
+      state = normalizeState(state);
+      saveState();
+
       renderAvatarUI();
       renderHome();
       updateTopbar();
+      updateLegendTags();
 
       if((state.avatar.name || "").trim().length === 0){
         showScreen("avatar");

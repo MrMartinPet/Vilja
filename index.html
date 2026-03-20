@@ -11,72 +11,170 @@ body {
   margin: 0;
   background: #f5f5f5;
   text-align: center;
+  color: #111;
 }
-.screen { display: none; padding: 20px; }
-.active { display: block; }
+
+.screen {
+  display: none;
+  padding: 20px 16px 40px;
+}
+
+.active {
+  display: block;
+}
+
+.wrap {
+  max-width: 700px;
+  margin: 0 auto;
+}
 
 button {
   width: 90%;
+  max-width: 500px;
   padding: 18px;
   margin: 10px 0;
   font-size: 20px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   background: #222;
   color: white;
+  cursor: pointer;
 }
 
 button.secondary { background: #666; }
-.correct { background: #2ecc71 !important; }
-.wrong { background: #e74c3c !important; }
+button.green { background: #2e7d32; }
+button.blue { background: #1565c0; }
+button.orange { background: #ef6c00; }
 
-h1 { margin-bottom: 20px; }
-.question { font-size: 24px; margin: 30px 0; }
+h1 {
+  margin-bottom: 16px;
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 8px 0 18px;
+}
+
+.question {
+  font-size: 28px;
+  margin: 26px 0 18px;
+  line-height: 1.3;
+}
+
 input {
   width: 90%;
+  max-width: 500px;
   padding: 15px;
-  font-size: 20px;
-  border-radius: 10px;
+  font-size: 22px;
+  border-radius: 12px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.infoBox {
+  width: 90%;
+  max-width: 500px;
+  margin: 14px auto;
+  padding: 14px;
+  background: white;
+  border-radius: 12px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.small {
+  font-size: 16px;
+  color: #444;
+}
+
+.feedback {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 16px 0 8px;
+  min-height: 28px;
+}
+
+.stats {
+  width: 90%;
+  max-width: 500px;
+  margin: 10px auto 18px;
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none;
 }
 </style>
 </head>
 
 <body>
+<div class="wrap">
 
-<!-- START -->
-<div id="start" class="screen active">
-  <h1>Religion</h1>
-  <button onclick="go('train')">Träna</button>
-  <button onclick="startTest()">Test</button>
-  <button onclick="startImage()">Öva med bilder</button>
-  <button onclick="startQuick()">Snabbquiz</button>
-</div>
+  <!-- START -->
+  <div id="start" class="screen active">
+    <h1>Religion</h1>
+    <button onclick="go('train')">Träna</button>
+    <button onclick="startFinalTest()">Slutprov</button>
+    <button onclick="startImage()">Öva med bilder</button>
+    <button onclick="startQuick()">Snabbquiz</button>
+  </div>
 
-<!-- TRAIN -->
-<div id="train" class="screen">
-  <h1>Välj</h1>
-  <button onclick="setMode('alla','symbol')">Symboler</button>
-  <button onclick="setMode('alla','profet')">Profeter</button>
-  <button onclick="setMode('alla','skrift')">Helig skrift</button>
-  <button onclick="setMode('alla','plats')">Helig plats</button>
-  <button onclick="setMode('alla','högtid')">Högtider</button>
-  <button class="secondary" onclick="go('start')">Tillbaka</button>
-</div>
+  <!-- TRAIN -->
+  <div id="train" class="screen">
+    <h1>Träna</h1>
+    <h2>Välj område</h2>
+    <button onclick="setTrainingMode('symbol')">Symboler</button>
+    <button onclick="setTrainingMode('profet')">Profeter</button>
+    <button onclick="setTrainingMode('skrift')">Helig skrift</button>
+    <button onclick="setTrainingMode('plats')">Helig plats</button>
+    <button onclick="setTrainingMode('högtid')">Högtider</button>
+    <button onclick="setTrainingMode('alla')">Alla blandat</button>
+    <button class="secondary" onclick="go('start')">Tillbaka</button>
+  </div>
 
-<!-- QUESTION -->
-<div id="question" class="screen">
-  <div class="question" id="q"></div>
-  <input id="answer" placeholder="Skriv svar..." onkeypress="enterCheck(event)">
-  <button onclick="check()">OK</button>
-  <button class="secondary" onclick="go('start')">Avsluta</button>
-</div>
+  <!-- QUESTION -->
+  <div id="question" class="screen">
+    <h1 id="modeTitle">Fråga</h1>
 
-<!-- TEST RESULT -->
-<div id="result" class="screen">
-  <h1>Resultat</h1>
-  <div id="score"></div>
-  <button onclick="go('start')">Start</button>
+    <div class="stats" id="liveStats"></div>
+
+    <div class="question" id="q"></div>
+
+    <input id="answer" placeholder="Skriv svar..." onkeypress="enterCheck(event)">
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="infoBox hidden" id="hintBox"></div>
+    <div class="infoBox hidden" id="peekBox"></div>
+
+    <button class="green" onclick="check()">OK</button>
+
+    <button class="blue" id="hintBtn" onclick="showHint()">Ledtråd</button>
+    <button class="orange" id="peekBtn" onclick="showPeek()">Tjuvtitta</button>
+
+    <button class="secondary" onclick="go('start')">Avsluta</button>
+  </div>
+
+  <!-- ROUND DONE -->
+  <div id="roundDone" class="screen">
+    <h1>Rundan klar</h1>
+    <div class="stats" id="roundStats"></div>
+    <button class="green" onclick="restartSameMode()">Kör igen</button>
+    <button class="secondary" onclick="go('start')">Till start</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" class="screen">
+    <h1>Resultat</h1>
+    <div class="stats" id="score"></div>
+    <button class="green" onclick="go('start')">Start</button>
+  </div>
+
 </div>
 
 <script>
@@ -104,89 +202,260 @@ const data = {
   }
 };
 
-let currentCategory;
-let currentReligion;
-let correctAnswer;
-let score = 0;
-let total = 0;
-let testMode = false;
+const categoryNames = {
+  symbol: "symbol",
+  profet: "profet",
+  skrift: "helig skrift",
+  plats: "helig plats",
+  högtid: "högtid"
+};
 
-function go(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+let mode = "";
+let selectedTrainingCategory = "";
+let questionQueue = [];
+let currentQuestion = null;
+
+let stats = {
+  correct: 0,
+  wrong: 0,
+  total: 0
+};
+
+function go(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-function randomReligion(){
-  return Object.keys(data)[Math.floor(Math.random()*3)];
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-function setMode(rel, cat){
-  currentCategory = cat;
-  testMode = false;
+function normalize(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function resetStats() {
+  stats.correct = 0;
+  stats.wrong = 0;
+  stats.total = 0;
+}
+
+function updateLiveStats() {
+  const percent = stats.total === 0 ? 0 : Math.round((stats.correct / stats.total) * 100);
+  const left = questionQueue.length;
+  document.getElementById("liveStats").innerHTML =
+    "Rätt: <b>" + stats.correct + "</b><br>" +
+    "Fel: <b>" + stats.wrong + "</b><br>" +
+    "Svarade: <b>" + stats.total + "</b><br>" +
+    "Procent: <b>" + percent + "%</b><br>" +
+    "Kvar i rundan: <b>" + left + "</b>";
+}
+
+function buildTrainingQueue(category) {
+  const religions = Object.keys(data);
+  const categories = ["symbol", "profet", "skrift", "plats", "högtid"];
+  let list = [];
+
+  if (category === "alla") {
+    religions.forEach(religion => {
+      categories.forEach(cat => {
+        list.push({
+          religion,
+          category: cat,
+          answer: data[religion][cat]
+        });
+      });
+    });
+  } else {
+    religions.forEach(religion => {
+      list.push({
+        religion,
+        category,
+        answer: data[religion][category]
+      });
+    });
+  }
+
+  return shuffle(list);
+}
+
+function buildFinalTestQueue() {
+  const religions = Object.keys(data);
+  const categories = ["symbol", "profet", "skrift", "plats", "högtid"];
+  let list = [];
+
+  religions.forEach(religion => {
+    categories.forEach(cat => {
+      list.push({
+        religion,
+        category: cat,
+        answer: data[religion][cat]
+      });
+    });
+  });
+
+  return shuffle(list);
+}
+
+function buildQuickQueue() {
+  return shuffle(buildFinalTestQueue()).slice(0, 5);
+}
+
+function setTrainingMode(category) {
+  mode = "train";
+  selectedTrainingCategory = category;
+  resetStats();
+  questionQueue = buildTrainingQueue(category);
+  document.getElementById("modeTitle").innerText = "Träning";
   nextQuestion();
 }
 
-function nextQuestion(){
-  currentReligion = randomReligion();
-  correctAnswer = data[currentReligion][currentCategory];
-
-  document.getElementById('q').innerText =
-    "Vad är " + currentCategory + " i " + currentReligion + "?";
-
-  document.getElementById('answer').value = "";
-  go('question');
+function startFinalTest() {
+  mode = "final";
+  resetStats();
+  questionQueue = buildFinalTestQueue();
+  document.getElementById("modeTitle").innerText = "Slutprov";
+  nextQuestion();
 }
 
-function check(){
-  let input = document.getElementById('answer').value.toLowerCase();
+function startQuick() {
+  mode = "quick";
+  resetStats();
+  questionQueue = buildQuickQueue();
+  document.getElementById("modeTitle").innerText = "Snabbquiz";
+  nextQuestion();
+}
 
-  if(input.includes(correctAnswer)){
-    score++;
-    flash(true);
+function restartSameMode() {
+  if (mode === "train") {
+    questionQueue = buildTrainingQueue(selectedTrainingCategory);
+    resetStats();
+    nextQuestion();
+  } else if (mode === "quick") {
+    questionQueue = buildQuickQueue();
+    resetStats();
+    nextQuestion();
   } else {
-    flash(false);
+    questionQueue = buildFinalTestQueue();
+    resetStats();
+    nextQuestion();
   }
+}
 
-  total++;
-
-  if(testMode && total >= 10){
-    document.getElementById('score').innerText = score + " / " + total;
-    go('result');
+function nextQuestion() {
+  if (questionQueue.length === 0) {
+    finishRound();
     return;
   }
 
-  setTimeout(nextQuestion, 600);
+  currentQuestion = questionQueue.shift();
+
+  document.getElementById("q").innerText =
+    "Vad är " + categoryNames[currentQuestion.category] + " i " + currentQuestion.religion + "?";
+
+  document.getElementById("answer").value = "";
+  document.getElementById("feedback").innerText = "";
+  document.getElementById("hintBox").classList.add("hidden");
+  document.getElementById("peekBox").classList.add("hidden");
+  document.getElementById("hintBox").innerText = "";
+  document.getElementById("peekBox").innerText = "";
+
+  const trainingCheatsAllowed = (mode === "train" || mode === "quick");
+  document.getElementById("hintBtn").style.display = trainingCheatsAllowed ? "inline-block" : "none";
+  document.getElementById("peekBtn").style.display = trainingCheatsAllowed ? "inline-block" : "none";
+
+  updateLiveStats();
+  go("question");
+
+  setTimeout(() => {
+    document.getElementById("answer").focus();
+  }, 50);
 }
 
-function flash(ok){
-  document.body.style.background = ok ? "#2ecc71" : "#e74c3c";
-  setTimeout(()=>document.body.style.background="#f5f5f5", 400);
+function showHint() {
+  if (!(mode === "train" || mode === "quick")) return;
+
+  const answer = currentQuestion.answer;
+  let hintText = "";
+
+  if (answer.length <= 2) {
+    hintText = "Börjar på: " + answer.charAt(0).toUpperCase();
+  } else {
+    hintText = "Börjar på: " + answer.charAt(0).toUpperCase() +
+      " • Antal bokstäver: " + answer.length;
+  }
+
+  document.getElementById("hintBox").innerText = hintText;
+  document.getElementById("hintBox").classList.remove("hidden");
 }
 
-function enterCheck(e){
-  if(e.key === "Enter") check();
+function showPeek() {
+  if (!(mode === "train" || mode === "quick")) return;
+
+  document.getElementById("peekBox").innerText = "Rätt svar: " + currentQuestion.answer;
+  document.getElementById("peekBox").classList.remove("hidden");
 }
 
-function startTest(){
-  score = 0;
-  total = 0;
-  testMode = true;
-  currentCategory = ["symbol","profet","skrift","plats","högtid"][Math.floor(Math.random()*5)];
-  nextQuestion();
+function check() {
+  const input = normalize(document.getElementById("answer").value);
+  const correct = normalize(currentQuestion.answer);
+
+  if (input === correct) {
+    stats.correct++;
+    stats.total++;
+    document.getElementById("feedback").innerText = "Rätt";
+    flash(true);
+  } else {
+    stats.wrong++;
+    stats.total++;
+    document.getElementById("feedback").innerText = "Fel. Rätt svar: " + currentQuestion.answer;
+    flash(false);
+  }
+
+  updateLiveStats();
+  setTimeout(nextQuestion, 900);
 }
 
-function startQuick(){
-  score = 0;
-  total = 0;
-  testMode = false;
-  currentCategory = ["symbol","profet","skrift","plats","högtid"][Math.floor(Math.random()*5)];
-  nextQuestion();
+function finishRound() {
+  const percent = stats.total === 0 ? 0 : Math.round((stats.correct / stats.total) * 100);
+  const text =
+    "Rätt: <b>" + stats.correct + "</b><br>" +
+    "Fel: <b>" + stats.wrong + "</b><br>" +
+    "Totalt: <b>" + stats.total + "</b><br>" +
+    "Procent: <b>" + percent + "%</b>";
+
+  if (mode === "final") {
+    document.getElementById("score").innerHTML = text;
+    go("result");
+  } else {
+    document.getElementById("roundStats").innerHTML = text;
+    go("roundDone");
+  }
 }
 
-function startImage(){
-  alert("Bildläge kommer nästa version");
+function flash(ok) {
+  document.body.style.background = ok ? "#dff5e5" : "#fbe4e2";
+  setTimeout(() => {
+    document.body.style.background = "#f5f5f5";
+  }, 400);
+}
+
+function enterCheck(e) {
+  if (e.key === "Enter") check();
+}
+
+function startImage() {
+  alert("Bildläge kommer senare.");
 }
 </script>
-
 </body>
 </html>

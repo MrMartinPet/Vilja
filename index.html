@@ -29,18 +29,19 @@
     html,
     body{
       margin:0;
+      width:100%;
       height:100%;
       overflow:hidden;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background:linear-gradient(180deg,#dff0f6 0%,var(--bg) 48%);
       color:var(--text);
     }
 
     body.builder-open{
-      overflow:hidden;
       position:fixed;
       width:100%;
       height:100%;
+      overflow:hidden;
       touch-action:none;
       overscroll-behavior:none;
     }
@@ -61,7 +62,6 @@
       border-radius:var(--radius);
       padding:14px;
       box-shadow:var(--shadow);
-      flex:0 0 auto;
     }
 
     .topline{
@@ -161,11 +161,6 @@
 
     button.red{
       background:var(--red);
-    }
-
-    button.disabledTool{
-      opacity:.35;
-      pointer-events:none;
     }
 
     .menuBtn{
@@ -312,10 +307,7 @@
       display:none;
       flex-direction:column;
       background:#dff0f6;
-      padding:0;
-      border:0;
-      border-radius:0;
-      box-shadow:none;
+      overflow:hidden;
       touch-action:none;
       overscroll-behavior:none;
       user-select:none;
@@ -329,72 +321,39 @@
 
     .builderTop{
       flex:0 0 auto;
+      height:48px;
       display:flex;
       align-items:center;
-      gap:8px;
-      padding:8px;
-      background:rgba(255,255,255,.94);
+      gap:6px;
+      padding:6px;
+      background:rgba(255,255,255,.96);
       border-bottom:1px solid var(--border);
       overflow:auto;
     }
 
     .builderTop button{
-      min-height:38px;
-      padding:8px 11px;
-      font-size:13px;
-      border-radius:14px;
-      white-space:nowrap;
-    }
-
-    .builderInfo{
-      flex:1 0 auto;
-      min-width:190px;
+      min-height:34px;
+      padding:7px 10px;
       font-size:12px;
-      font-weight:850;
-      color:var(--muted);
+      border-radius:13px;
       white-space:nowrap;
     }
 
-    .builderLayout{
+    .builderTitle{
+      flex:1 0 auto;
+      min-width:120px;
+      font-size:13px;
+      font-weight:950;
+      color:var(--blue);
+      white-space:nowrap;
+    }
+
+    .builderCanvas{
+      position:relative;
       flex:1 1 auto;
       min-height:0;
-      display:grid;
-      grid-template-columns:130px 1fr;
-      background:#dff0f6;
-    }
-
-    .palette{
-      background:rgba(255,255,255,.95);
-      border-right:1px solid var(--border);
-      padding:8px;
-      overflow:auto;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      touch-action:none;
-    }
-
-    .paletteTitle{
-      font-size:12px;
-      font-weight:950;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      margin:2px 0;
-    }
-
-    .palette button{
-      min-height:38px;
-      padding:8px;
-      border-radius:14px;
-      font-size:13px;
-      text-align:left;
-    }
-
-    .canvasWrap{
-      position:relative;
       overflow:hidden;
-      background:linear-gradient(180deg,#cfefff 0%,#e8f8e8 62%,#c9955b 62%,#bd8548 100%);
+      background:linear-gradient(180deg,#cfefff 0%,#e8f8e8 63%,#c9955b 63%,#bd8548 100%);
       touch-action:none;
       overscroll-behavior:none;
     }
@@ -405,9 +364,6 @@
       overflow:hidden;
       touch-action:none;
       overscroll-behavior:none;
-      user-select:none;
-      -webkit-user-select:none;
-      -webkit-touch-callout:none;
     }
 
     #arrowLayer{
@@ -415,45 +371,45 @@
       inset:0;
       width:100%;
       height:100%;
-      pointer-events:none;
-      z-index:3;
-    }
-
-    .treeArt{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      width:270px;
-      height:320px;
-      z-index:1;
+      z-index:2;
       pointer-events:none;
     }
 
     .sunArt{
       position:absolute;
-      left:18px;
-      top:16px;
-      width:72px;
-      height:72px;
+      left:14px;
+      top:14px;
+      width:62px;
+      height:62px;
       border-radius:50%;
       background:#ffd84a;
-      box-shadow:0 0 0 12px rgba(255,216,74,.28);
+      box-shadow:0 0 0 10px rgba(255,216,74,.28);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:34px;
+      font-size:30px;
       font-weight:900;
-      z-index:1;
       pointer-events:none;
+      z-index:1;
+    }
+
+    .treeArt{
+      position:absolute;
+      left:50%;
+      top:49%;
+      transform:translate(-50%,-50%);
+      width:min(72vw,300px);
+      height:auto;
+      pointer-events:none;
+      z-index:1;
     }
 
     .node{
       position:absolute;
       z-index:5;
-      min-width:88px;
-      max-width:180px;
-      padding:9px 12px;
+      min-width:84px;
+      max-width:170px;
+      padding:9px 11px;
       border-radius:999px;
       background:white;
       border:2px solid transparent;
@@ -467,7 +423,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:5px;
+      gap:6px;
     }
 
     .node.selected{
@@ -476,26 +432,28 @@
     }
 
     .node.hasAudio::after{
-      content:" 🔊";
+      content:"🔊";
+      margin-left:4px;
+      font-size:14px;
     }
 
-    .nodeIcon{
+    .nodeSymbol{
       font-size:18px;
       line-height:1;
     }
 
     .arrowHandle{
       position:absolute;
-      width:22px;
-      height:22px;
-      margin-left:-11px;
-      margin-top:-11px;
+      width:24px;
+      height:24px;
+      margin-left:-12px;
+      margin-top:-12px;
       border-radius:50%;
       background:white;
       border:3px solid var(--blue);
+      box-shadow:0 3px 10px rgba(20,32,51,.2);
       z-index:7;
       touch-action:none;
-      box-shadow:0 3px 10px rgba(20,32,51,.2);
     }
 
     .arrowHandle.end{
@@ -506,19 +464,64 @@
       box-shadow:0 0 0 5px rgba(246,196,83,.35);
     }
 
-    .statusBar{
+    .toolTray{
       flex:0 0 auto;
+      height:118px;
+      background:rgba(255,255,255,.97);
+      border-top:1px solid var(--border);
       display:flex;
-      align-items:center;
       gap:8px;
       padding:8px;
-      background:rgba(255,255,255,.95);
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type:x proximity;
+    }
+
+    .toolTray button{
+      flex:0 0 auto;
+      min-width:104px;
+      max-width:130px;
+      min-height:44px;
+      padding:8px 10px;
+      border-radius:15px;
+      font-size:13px;
+      text-align:left;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:3px;
+      scroll-snap-align:start;
+    }
+
+    .toolTray button:disabled{
+      opacity:.42;
+      cursor:not-allowed;
+    }
+
+    .toolTray .toolIcon{
+      font-size:18px;
+      line-height:1;
+    }
+
+    .toolTray .toolText{
+      font-weight:950;
+      line-height:1.05;
+    }
+
+    .statusBar{
+      flex:0 0 auto;
+      height:52px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:6px;
+      background:rgba(255,255,255,.96);
       border-top:1px solid var(--border);
       overflow:auto;
     }
 
     .statusText{
-      flex:1 0 230px;
+      flex:1 0 150px;
       font-size:12px;
       font-weight:850;
       color:var(--muted);
@@ -526,60 +529,57 @@
     }
 
     .statusBar button{
-      min-height:38px;
-      padding:8px 10px;
-      font-size:13px;
-      border-radius:14px;
+      min-height:34px;
+      padding:7px 9px;
+      font-size:12px;
+      border-radius:13px;
       white-space:nowrap;
     }
 
+    .landscapeBlock{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:200;
+      background:#132033;
+      color:white;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:28px;
+      font-size:24px;
+      font-weight:950;
+    }
+
     @media(orientation:landscape){
-      .app{
-        max-width:100%;
-      }
-
-      .builderLayout{
-        grid-template-columns:136px 1fr;
-      }
-
-      .treeArt{
-        width:320px;
-        height:370px;
+      body.builder-open .landscapeBlock{
+        display:flex;
       }
     }
 
-    @media(max-width:420px) and (orientation:portrait){
-      .builderLayout{
-        grid-template-columns:1fr;
-        grid-template-rows:1fr 112px;
+    @media(max-width:380px){
+      .app{
+        padding:10px;
       }
 
-      .palette{
-        grid-row:2;
-        grid-column:1;
-        border-right:0;
-        border-top:1px solid var(--border);
-        flex-direction:row;
-        overflow:auto;
+      h1{
+        font-size:24px;
       }
 
-      .paletteTitle{
-        display:none;
+      .faceText{
+        font-size:24px;
       }
 
-      .palette button{
-        flex:0 0 auto;
-        white-space:nowrap;
+      .back .faceText{
+        font-size:18px;
       }
 
-      .canvasWrap{
-        grid-row:1;
-        grid-column:1;
+      .toolTray{
+        height:112px;
       }
 
-      .treeArt{
-        width:230px;
-        height:280px;
+      .toolTray button{
+        min-width:96px;
       }
     }
   </style>
@@ -607,12 +607,12 @@
         </button>
 
         <button class="menuBtn" onclick="startCategory('behov')">
-          Trädet behöver
+          Växten behöver
           <span>Vatten, solljus, koldioxid</span>
         </button>
 
         <button class="menuBtn green" onclick="startCategory('resultat')">
-          Trädet tillverkar
+          Växten tillverkar
           <span>Druvsocker och syre</span>
         </button>
 
@@ -623,7 +623,7 @@
 
         <button class="menuBtn yellow" onclick="openBuilder()">
           Bygg din bild
-          <span>Stor rityta och ljud</span>
+          <span>Stående rityta</span>
         </button>
 
         <button class="menuBtn yellow" onclick="startCategory('alla')">
@@ -671,45 +671,41 @@
 
   <section id="builderScreen">
     <div class="builderTop">
-      <button class="secondary" onclick="closeBuilder()">Till meny</button>
-      <button onclick="addArrow()">Ny pil</button>
+      <button class="secondary" onclick="closeBuilder()">Meny</button>
+      <button class="red" onclick="deleteSelectedItem()">Ta bort vald</button>
       <button class="green" onclick="saveBuilder()">Spara</button>
       <button class="secondary" onclick="loadBuilder()">Ladda</button>
       <button class="red" onclick="clearBuilder()">Rensa</button>
-      <div class="builderInfo">Vänd mobilen för större yta. Tryck på rubrik för ljud.</div>
+      <div class="builderTitle">Bygg fotosyntesen</div>
     </div>
 
-    <div class="builderLayout">
-      <div class="palette" id="palette">
-        <div class="paletteTitle">Rubriker</div>
-      </div>
+    <div class="builderCanvas">
+      <div id="workArea">
+        <svg id="arrowLayer">
+          <defs>
+            <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L9,3 z" fill="#156082"></path>
+            </marker>
+          </defs>
+        </svg>
 
-      <div class="canvasWrap">
-        <div id="workArea">
-          <svg id="arrowLayer">
-            <defs>
-              <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-                <path d="M0,0 L0,6 L9,3 z" fill="#156082"></path>
-              </marker>
-            </defs>
-          </svg>
+        <div class="sunArt">☀</div>
 
-          <div class="sunArt">☀️</div>
-
-          <svg class="treeArt" viewBox="0 0 260 310">
-            <ellipse cx="130" cy="95" rx="95" ry="70" fill="#2f9447"></ellipse>
-            <circle cx="80" cy="85" r="52" fill="#2d8a41"></circle>
-            <circle cx="130" cy="55" r="58" fill="#3ba653"></circle>
-            <circle cx="178" cy="92" r="55" fill="#2d8a41"></circle>
-            <circle cx="120" cy="120" r="62" fill="#3aa34f"></circle>
-            <rect x="112" y="130" width="38" height="115" rx="14" fill="#8b5a2b"></rect>
-            <path d="M130 225 C95 245 80 260 55 285" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
-            <path d="M130 225 C165 245 185 260 215 285" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
-            <path d="M130 225 C125 250 125 270 125 300" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
-          </svg>
-        </div>
+        <svg class="treeArt" viewBox="0 0 280 330">
+          <ellipse cx="140" cy="100" rx="100" ry="74" fill="#2f9447"></ellipse>
+          <circle cx="88" cy="92" r="56" fill="#2d8a41"></circle>
+          <circle cx="140" cy="60" r="62" fill="#3ba653"></circle>
+          <circle cx="194" cy="98" r="58" fill="#2d8a41"></circle>
+          <circle cx="130" cy="126" r="64" fill="#3aa34f"></circle>
+          <rect x="120" y="140" width="42" height="118" rx="15" fill="#8b5a2b"></rect>
+          <path d="M141 238 C108 255 90 276 60 305" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
+          <path d="M141 238 C170 255 196 276 225 305" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
+          <path d="M141 238 C138 260 138 282 138 315" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
+        </svg>
       </div>
     </div>
+
+    <div class="toolTray" id="toolTray"></div>
 
     <div class="statusBar">
       <div class="statusText" id="selectedInfo">Ingen rubrik vald</div>
@@ -720,128 +716,50 @@
     </div>
   </section>
 
+  <div class="landscapeBlock">
+    Vänd mobilen till stående läge.
+  </div>
+
   <script>
     const categories = {
       grunder:{
         title:"Grunder",
         cards:[
-          {
-            q:"Vad är fotosyntes?",
-            a:"En process i gröna växter och träd där vatten, solljus och koldioxid blir druvsocker och syre."
-          },
-          {
-            q:"Var sker fotosyntesen?",
-            a:"I gröna växter och träd, framför allt i bladen."
-          },
-          {
-            q:"Varför är fotosyntesen viktig?",
-            a:"Växter får energi och kan växa. Människor får syre att andas."
-          },
-          {
-            q:"Hur hjälper växter och människor varandra?",
-            a:"Växter ger syre. Människor andas ut koldioxid som växter behöver."
-          }
+          { q:"Vad är fotosyntes?", a:"En process i gröna växter där vatten, solljus och koldioxid blir druvsocker och syre." },
+          { q:"Var sker fotosyntesen?", a:"Framför allt i bladen." },
+          { q:"Varför är fotosyntesen viktig?", a:"Växter får energi att växa och människor får syre att andas." }
         ]
       },
 
       behov:{
-        title:"Trädet behöver",
+        title:"Växten behöver",
         cards:[
-          {
-            q:"Vad behöver trädet för fotosyntesen?",
-            a:"Vatten, solljus och koldioxid."
-          },
-          {
-            q:"Hur får trädet vatten och näring?",
-            a:"Genom rötterna från marken."
-          },
-          {
-            q:"Vad gör klorofyll?",
-            a:"Samlar in solljus i de gröna bladen."
-          },
-          {
-            q:"Varifrån kommer koldioxid?",
-            a:"Från luften. Människor andas ut koldioxid."
-          }
+          { q:"Vad behöver växten för fotosyntesen?", a:"Vatten, solljus och koldioxid." },
+          { q:"Hur får växten vatten och näring?", a:"Genom rötterna från marken." },
+          { q:"Vad gör klorofyll?", a:"Tar upp solljus i de gröna bladen." }
         ]
       },
 
       resultat:{
-        title:"Trädet tillverkar",
+        title:"Växten tillverkar",
         cards:[
-          {
-            q:"Vad tillverkar trädet i fotosyntesen?",
-            a:"Druvsocker och syre."
-          },
-          {
-            q:"Vad är druvsocker?",
-            a:"Trädets mat och energi. Det hjälper trädet att växa."
-          },
-          {
-            q:"Vad gör trädet med syret?",
-            a:"Släpper ut det i luften."
-          },
-          {
-            q:"Varför är syre viktigt?",
-            a:"Människor behöver syre för att andas och leva."
-          }
+          { q:"Vad tillverkar växten i fotosyntesen?", a:"Druvsocker och syre." },
+          { q:"Vad används druvsocker till?", a:"Som växtens mat och energi." },
+          { q:"Vad händer med syret?", a:"Det släpps ut i luften." }
         ]
       },
 
       begrepp:{
         title:"Begrepp",
         cards:[
-          {
-            q:"Solljus",
-            a:"Energi från solen som klorofyllet samlar in."
-          },
-          {
-            q:"Vatten",
-            a:"Tas upp från marken med rötterna."
-          },
-          {
-            q:"Koldioxid",
-            a:"Gas i luften som människor andas ut. Trädet behöver den."
-          },
-          {
-            q:"Syre",
-            a:"Gas som trädet släpper ut. Människor behöver den."
-          },
-          {
-            q:"Druvsocker",
-            a:"Trädets mat och energi."
-          },
-          {
-            q:"Näring",
-            a:"Tas upp från marken med rötterna och hjälper växten att växa."
-          },
-          {
-            q:"Klorofyll",
-            a:"Bladgrönt som samlar in solljus i bladen."
-          },
-          {
-            q:"Växt",
-            a:"Behöver vatten, solljus och koldioxid. Tillverkar druvsocker och syre."
-          },
-          {
-            q:"Människa",
-            a:"Andas in syre och andas ut koldioxid."
-          }
+          { q:"Koldioxid", a:"En gas i luften som växten behöver." },
+          { q:"Syre", a:"En gas som växten släpper ut och som människor behöver." },
+          { q:"Druvsocker", a:"Växtens mat och energi." },
+          { q:"Klorofyll", a:"Det gröna i bladen som tar upp solljus." },
+          { q:"Näring", a:"Ämnen från marken som hjälper växten att växa." }
         ]
       }
     };
-
-    const availableItems = [
-      {key:"manniska", label:"Människa", icon:"👧"},
-      {key:"klorofyll", label:"Klorofyll", icon:"🟢"},
-      {key:"vaxt", label:"Växt", icon:"🌳"},
-      {key:"druvsocker", label:"Druvsocker", icon:"🍬"},
-      {key:"solljus", label:"Solljus", icon:"☀️"},
-      {key:"vatten", label:"Vatten", icon:"💧"},
-      {key:"naring", label:"Näring", icon:"🌱"},
-      {key:"syre", label:"Syre", icon:"🫧"},
-      {key:"koldioxid", label:"Koldioxid", icon:"💨"}
-    ];
 
     let activeCards = [];
     let activeTitle = "";
@@ -851,7 +769,6 @@
       document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
       });
-
       document.getElementById('home').classList.add('active');
       document.getElementById('headerInfo').textContent = 'Start';
     }
@@ -859,7 +776,6 @@
     function startCategory(key){
       if(key === 'alla'){
         activeCards = [];
-
         Object.keys(categories).forEach(categoryKey => {
           categories[categoryKey].cards.forEach(card => {
             activeCards.push({
@@ -869,37 +785,29 @@
             });
           });
         });
-
         activeTitle = "Alla kort";
       }else{
-        activeCards = categories[key].cards.map(card => {
-          return {
-            q:card.q,
-            a:card.a,
-            category:categories[key].title
-          };
-        });
-
+        activeCards = categories[key].cards.map(card => ({
+          q:card.q,
+          a:card.a,
+          category:categories[key].title
+        }));
         activeTitle = categories[key].title;
       }
 
       currentIndex = 0;
-
       document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
       });
-
       document.getElementById('cards').classList.add('active');
       document.getElementById('headerInfo').textContent = activeTitle;
       document.getElementById('categoryTitle').textContent = activeTitle;
-
       renderCard();
     }
 
     function renderCard(){
       const card = activeCards[currentIndex];
       const progress = Math.round(((currentIndex + 1) / activeCards.length) * 100);
-
       document.getElementById('frontText').textContent = card.q;
       document.getElementById('backText').textContent = card.a;
       document.getElementById('frontCategory').textContent = card.category;
@@ -923,6 +831,18 @@
       renderCard();
     }
 
+    const nodeCatalog = [
+      { key:"manniska", label:"Människa", symbol:"👧" },
+      { key:"klorofyll", label:"Klorofyll", symbol:"🍃" },
+      { key:"vaxt", label:"Växt", symbol:"🌿" },
+      { key:"druvsocker", label:"Druvsocker", symbol:"🍬" },
+      { key:"solljus", label:"Solljus", symbol:"☀️" },
+      { key:"vatten", label:"Vatten", symbol:"💧" },
+      { key:"naring", label:"Näring", symbol:"🟤" },
+      { key:"syre", label:"Syre", symbol:"🫧" },
+      { key:"koldioxid", label:"Koldioxid", symbol:"CO₂" }
+    ];
+
     let nodes = [];
     let arrows = [];
     let selectedNodeId = null;
@@ -931,65 +851,75 @@
     let mediaRecorder = null;
     let audioChunks = [];
     let db = null;
+    let currentAudio = null;
 
     function openBuilder(){
       document.body.classList.add("builder-open");
       document.getElementById('builderScreen').classList.add('active');
+      lockPortrait();
       initDb();
+      renderToolTray();
       loadBuilder();
-      renderPalette();
     }
 
     function closeBuilder(){
       document.body.classList.remove("builder-open");
       document.getElementById('builderScreen').classList.remove('active');
+      stopCurrentAudio();
+    }
+
+    async function lockPortrait(){
+      try{
+        if(screen.orientation && screen.orientation.lock){
+          await screen.orientation.lock("portrait");
+        }
+      }catch(e){}
+    }
+
+    function renderToolTray(){
+      const tray = document.getElementById("toolTray");
+      tray.innerHTML = "";
+
+      const arrowBtn = document.createElement("button");
+      arrowBtn.className = "secondary";
+      arrowBtn.innerHTML = `<span class="toolIcon">➡️</span><span class="toolText">Pil</span>`;
+      arrowBtn.onclick = addArrow;
+      tray.appendChild(arrowBtn);
+
+      nodeCatalog.forEach(item => {
+        const exists = nodes.some(n => n.key === item.key);
+        const btn = document.createElement("button");
+        btn.disabled = exists;
+        btn.innerHTML = `<span class="toolIcon">${item.symbol}</span><span class="toolText">${item.label}</span>`;
+        btn.onclick = () => addNode(item.key);
+        tray.appendChild(btn);
+      });
     }
 
     function workRect(){
       return document.getElementById('workArea').getBoundingClientRect();
     }
 
-    function renderPalette(){
-      const palette = document.getElementById('palette');
-      palette.innerHTML = '<div class="paletteTitle">Rubriker</div>';
-
-      availableItems.forEach(item => {
-        const used = nodes.some(n => n.key === item.key);
-        const btn = document.createElement('button');
-
-        btn.textContent = item.icon + " " + item.label;
-        btn.className = used ? "disabledTool" : "";
-        btn.onclick = () => addNode(item.key);
-
-        palette.appendChild(btn);
-      });
-    }
-
     function addNode(key){
-      if(nodes.some(n => n.key === key)){
-        document.getElementById('selectedInfo').textContent = "Den rubriken finns redan på bilden.";
-        renderPalette();
-        return;
-      }
+      if(nodes.some(n => n.key === key)) return;
 
-      const item = availableItems.find(i => i.key === key);
+      const item = nodeCatalog.find(x => x.key === key);
       const rect = workRect();
 
       const node = {
         id:"n" + idCounter++,
         key:item.key,
-        text:item.label,
-        icon:item.icon,
+        label:item.label,
+        symbol:item.symbol,
         x:Math.max(20, rect.width * 0.42),
-        y:Math.max(20, rect.height * 0.42)
+        y:Math.max(20, rect.height * 0.38),
+        justDragged:false
       };
 
       nodes.push(node);
-      selectedNodeId = node.id;
-      selectedArrowId = null;
-
+      renderToolTray();
       renderBuilder();
-      renderPalette();
+      selectNode(node.id);
       saveBuilder();
     }
 
@@ -998,47 +928,48 @@
 
       const arrow = {
         id:"a" + idCounter++,
-        x1:rect.width * 0.22,
-        y1:rect.height * 0.28,
-        x2:rect.width * 0.48,
+        x1:rect.width * 0.24,
+        y1:rect.height * 0.22,
+        x2:rect.width * 0.56,
         y2:rect.height * 0.36
       };
 
       arrows.push(arrow);
-      selectedArrowId = arrow.id;
-      selectedNodeId = null;
-
       renderBuilder();
+      selectArrow(arrow.id);
       saveBuilder();
     }
 
     function renderBuilder(){
       const area = document.getElementById('workArea');
-
       area.querySelectorAll('.node,.arrowHandle').forEach(el => el.remove());
+
       renderArrows();
 
       nodes.forEach(node => {
         const el = document.createElement('div');
         el.className = "node";
-        el.innerHTML = '<span class="nodeIcon">' + node.icon + '</span><span>' + node.text + '</span>';
-        el.style.left = node.x + "px";
-        el.style.top = node.y + "px";
-        el.dataset.id = node.id;
 
         if(node.id === selectedNodeId){
           el.classList.add('selected');
         }
 
+        el.style.left = node.x + "px";
+        el.style.top = node.y + "px";
+        el.dataset.id = node.id;
+        el.innerHTML = `<span class="nodeSymbol">${node.symbol}</span><span>${node.label}</span>`;
+
         hasAudio(node.id).then(exists => {
           if(exists){
-            el.classList.add('hasAudio');
+            el.classList.add("hasAudio");
           }
         });
 
         el.addEventListener('pointerdown', e => startDragNode(e, node.id));
         el.addEventListener('click', e => {
           e.stopPropagation();
+          const n = nodes.find(x => x.id === node.id);
+          if(n && n.justDragged) return;
           selectNode(node.id);
           playAudio(node.id);
         });
@@ -1050,9 +981,6 @@
         createHandle(arrow, "start");
         createHandle(arrow, "end");
       });
-
-      updateSelectedText();
-      renderPalette();
     }
 
     function renderArrows(){
@@ -1076,13 +1004,13 @@
     function createHandle(arrow, end){
       const area = document.getElementById('workArea');
       const handle = document.createElement('div');
-
       handle.className = end === "end" ? "arrowHandle end" : "arrowHandle";
+
       handle.style.left = (end === "end" ? arrow.x2 : arrow.x1) + "px";
       handle.style.top = (end === "end" ? arrow.y2 : arrow.y1) + "px";
 
       if(arrow.id === selectedArrowId){
-        handle.classList.add('selected');
+        handle.classList.add("selected");
       }
 
       handle.addEventListener('pointerdown', e => startDragArrowHandle(e, arrow.id, end));
@@ -1097,70 +1025,71 @@
     function selectNode(id){
       selectedNodeId = id;
       selectedArrowId = null;
+      const node = nodes.find(n => n.id === id);
+      document.getElementById('selectedInfo').textContent = node ? `Vald: ${node.label}` : "Ingen rubrik vald";
       renderBuilder();
     }
 
     function selectArrow(id){
       selectedArrowId = id;
       selectedNodeId = null;
+      document.getElementById('selectedInfo').textContent = "Pil vald. Dra i ändarna.";
       renderBuilder();
     }
 
-    function updateSelectedText(){
-      const info = document.getElementById('selectedInfo');
-
-      if(selectedNodeId){
-        const node = nodes.find(n => n.id === selectedNodeId);
-        info.textContent = node ? "Vald: " + node.icon + " " + node.text : "Ingen rubrik vald";
-        return;
-      }
-
-      if(selectedArrowId){
-        info.textContent = "Pil vald. Dra start eller slutpunkt.";
-        return;
-      }
-
-      info.textContent = "Ingen rubrik vald";
-    }
-
     function startDragNode(e, id){
+      e.preventDefault();
       e.stopPropagation();
-      selectedNodeId = id;
-      selectedArrowId = null;
+      selectNode(id);
 
       const node = nodes.find(n => n.id === id);
       const rect = workRect();
-
       const startX = e.clientX;
       const startY = e.clientY;
       const originX = node.x;
       const originY = node.y;
+      let moved = false;
 
       const move = ev => {
-        node.x = clamp(originX + ev.clientX - startX, 0, rect.width - 90);
-        node.y = clamp(originY + ev.clientY - startY, 0, rect.height - 44);
+        ev.preventDefault();
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+
+        if(Math.abs(dx) > 4 || Math.abs(dy) > 4){
+          moved = true;
+        }
+
+        node.x = clamp(originX + dx, 0, rect.width - 92);
+        node.y = clamp(originY + dy, 0, rect.height - 48);
         renderBuilder();
       };
 
       const up = () => {
         window.removeEventListener('pointermove', move);
         window.removeEventListener('pointerup', up);
+
+        if(moved){
+          node.justDragged = true;
+          setTimeout(() => node.justDragged = false, 180);
+        }
+
         saveBuilder();
       };
 
-      window.addEventListener('pointermove', move);
+      window.addEventListener('pointermove', move, {passive:false});
       window.addEventListener('pointerup', up);
     }
 
     function startDragArrowHandle(e, id, end){
+      e.preventDefault();
       e.stopPropagation();
-      selectedArrowId = id;
-      selectedNodeId = null;
+      selectArrow(id);
 
       const arrow = arrows.find(a => a.id === id);
       const rect = workRect();
 
       const move = ev => {
+        ev.preventDefault();
         const localX = clamp(ev.clientX - rect.left, 0, rect.width);
         const localY = clamp(ev.clientY - rect.top, 0, rect.height);
 
@@ -1181,8 +1110,50 @@
         saveBuilder();
       };
 
-      window.addEventListener('pointermove', move);
+      window.addEventListener('pointermove', move, {passive:false});
       window.addEventListener('pointerup', up);
+    }
+
+    function deleteSelectedItem(){
+      if(selectedNodeId){
+        deleteAudioByNodeId(selectedNodeId).then(() => {
+          nodes = nodes.filter(n => n.id !== selectedNodeId);
+          selectedNodeId = null;
+          document.getElementById('selectedInfo').textContent = "Rubrik borttagen.";
+          renderToolTray();
+          renderBuilder();
+          saveBuilder();
+        });
+        return;
+      }
+
+      if(selectedArrowId){
+        arrows = arrows.filter(a => a.id !== selectedArrowId);
+        selectedArrowId = null;
+        document.getElementById('selectedInfo').textContent = "Pil borttagen.";
+        renderBuilder();
+        saveBuilder();
+        return;
+      }
+
+      document.getElementById('selectedInfo').textContent = "Välj först rubrik eller pil.";
+    }
+
+    function clearBuilder(){
+      if(!confirm("Rensa hela bilden?")){
+        return;
+      }
+
+      Promise.all(nodes.map(n => deleteAudioByNodeId(n.id))).then(() => {
+        nodes = [];
+        arrows = [];
+        selectedNodeId = null;
+        selectedArrowId = null;
+        renderToolTray();
+        renderBuilder();
+        saveBuilder();
+        document.getElementById('selectedInfo').textContent = "Allt rensat.";
+      });
     }
 
     function clamp(value, min, max){
@@ -1191,21 +1162,27 @@
 
     function saveBuilder(){
       const data = {
-        nodes:nodes,
+        nodes:nodes.map(n => ({
+          id:n.id,
+          key:n.key,
+          label:n.label,
+          symbol:n.symbol,
+          x:n.x,
+          y:n.y
+        })),
         arrows:arrows,
         idCounter:idCounter
       };
 
-      localStorage.setItem("viljaFotosyntesBuilderV2", JSON.stringify(data));
-      updateSelectedText();
+      localStorage.setItem("viljaFotosyntesBuilderPortrait", JSON.stringify(data));
     }
 
     function loadBuilder(){
-      const saved = localStorage.getItem("viljaFotosyntesBuilderV2");
+      const saved = localStorage.getItem("viljaFotosyntesBuilderPortrait");
 
       if(!saved){
+        renderToolTray();
         renderBuilder();
-        renderPalette();
         return;
       }
 
@@ -1216,27 +1193,13 @@
         idCounter = data.idCounter || 1;
         selectedNodeId = null;
         selectedArrowId = null;
-        renderBuilder();
-        renderPalette();
       }catch(e){
-        renderBuilder();
-        renderPalette();
-      }
-    }
-
-    function clearBuilder(){
-      if(!confirm("Rensa bilden? Ljudklipp sparas men rubriker och pilar tas bort.")){
-        return;
+        nodes = [];
+        arrows = [];
       }
 
-      nodes = [];
-      arrows = [];
-      selectedNodeId = null;
-      selectedArrowId = null;
-      localStorage.removeItem("viljaFotosyntesBuilderV2");
+      renderToolTray();
       renderBuilder();
-      renderPalette();
-      document.getElementById('selectedInfo').textContent = "Rensat.";
     }
 
     window.addEventListener('resize', () => {
@@ -1245,10 +1208,34 @@
       }
     });
 
+    document.addEventListener('gesturestart', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    document.addEventListener('gesturechange', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    document.addEventListener('gestureend', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    document.addEventListener('touchmove', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
     function initDb(){
       if(db) return;
 
-      const request = indexedDB.open("ViljaFotosyntesAudioV2", 1);
+      const request = indexedDB.open("ViljaFotosyntesAudioPortrait", 1);
 
       request.onupgradeneeded = event => {
         const database = event.target.result;
@@ -1274,7 +1261,7 @@
       }
 
       if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-        document.getElementById('selectedInfo').textContent = "Mikrofon stöds inte här. Öppna via HTTPS i Safari eller Chrome.";
+        document.getElementById('selectedInfo').textContent = "Mikrofon stöds inte här.";
         return;
       }
 
@@ -1284,13 +1271,10 @@
         audioChunks = [];
 
         let options = {};
-
         if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/mp4")){
           options = {mimeType:"audio/mp4"};
         }else if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/webm")){
           options = {mimeType:"audio/webm"};
-        }else if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/ogg")){
-          options = {mimeType:"audio/ogg"};
         }
 
         mediaRecorder = new MediaRecorder(stream, options);
@@ -1304,19 +1288,16 @@
         mediaRecorder.onstop = async () => {
           const mimeType = mediaRecorder.mimeType || "audio/mp4";
           const blob = new Blob(audioChunks, {type:mimeType});
-
           await saveAudio(nodeIdAtStart, blob);
-
           stream.getTracks().forEach(track => track.stop());
-
           document.getElementById('selectedInfo').textContent = "Ljud sparat.";
           renderBuilder();
         };
 
         mediaRecorder.start();
-        document.getElementById('selectedInfo').textContent = "Spelar in. Tryck Stoppa när du är klar.";
+        document.getElementById('selectedInfo').textContent = "Spelar in. Tryck Stoppa.";
       }catch(e){
-        document.getElementById('selectedInfo').textContent = "Mikrofon nekad eller fungerar inte i denna vy.";
+        document.getElementById('selectedInfo').textContent = "Mikrofon nekad eller fungerar inte här.";
       }
     }
 
@@ -1332,10 +1313,10 @@
           resolve();
           return;
         }
-
         const tx = db.transaction("audio", "readwrite");
         tx.objectStore("audio").put(blob, id);
         tx.oncomplete = resolve;
+        tx.onerror = resolve;
       });
     }
 
@@ -1345,7 +1326,6 @@
           resolve(null);
           return;
         }
-
         const tx = db.transaction("audio", "readonly");
         const request = tx.objectStore("audio").get(id);
         request.onsuccess = () => resolve(request.result || null);
@@ -1358,28 +1338,42 @@
       return !!blob;
     }
 
+    function stopCurrentAudio(){
+      if(currentAudio){
+        currentAudio.pause();
+        currentAudio.src = "";
+        currentAudio = null;
+      }
+    }
+
     async function playAudio(id){
       if(!id) return;
 
       const blob = await getAudio(id);
 
       if(!blob){
+        document.getElementById('selectedInfo').textContent = "Inget ljud på rubriken.";
         return;
       }
 
       try{
+        stopCurrentAudio();
         const url = URL.createObjectURL(blob);
         const audio = new Audio();
+        currentAudio = audio;
         audio.src = url;
 
         audio.onended = () => {
           URL.revokeObjectURL(url);
+          if(currentAudio === audio){
+            currentAudio = null;
+          }
         };
 
         await audio.play();
         document.getElementById('selectedInfo').textContent = "Spelar upp ljud.";
       }catch(e){
-        document.getElementById('selectedInfo').textContent = "Kunde inte spela upp ljud. Testa Safari eller Chrome via HTTPS.";
+        document.getElementById('selectedInfo').textContent = "Kunde inte spela upp ljud.";
       }
     }
 
@@ -1392,48 +1386,30 @@
       playAudio(selectedNodeId);
     }
 
+    function deleteAudioByNodeId(id){
+      return new Promise(resolve => {
+        if(!db){
+          resolve();
+          return;
+        }
+        const tx = db.transaction("audio", "readwrite");
+        tx.objectStore("audio").delete(id);
+        tx.oncomplete = resolve;
+        tx.onerror = resolve;
+      });
+    }
+
     function deleteSelectedAudio(){
       if(!selectedNodeId){
         document.getElementById('selectedInfo').textContent = "Välj en rubrik först.";
         return;
       }
 
-      if(!db){
-        return;
-      }
-
-      const tx = db.transaction("audio", "readwrite");
-      tx.objectStore("audio").delete(selectedNodeId);
-
-      tx.oncomplete = () => {
+      deleteAudioByNodeId(selectedNodeId).then(() => {
         document.getElementById('selectedInfo').textContent = "Ljud raderat.";
         renderBuilder();
-      };
+      });
     }
-
-    document.addEventListener('gesturestart', function(e){
-      if(document.body.classList.contains("builder-open")){
-        e.preventDefault();
-      }
-    }, {passive:false});
-
-    document.addEventListener('gesturechange', function(e){
-      if(document.body.classList.contains("builder-open")){
-        e.preventDefault();
-      }
-    }, {passive:false});
-
-    document.addEventListener('gestureend', function(e){
-      if(document.body.classList.contains("builder-open")){
-        e.preventDefault();
-      }
-    }, {passive:false});
-
-    document.addEventListener('touchmove', function(e){
-      if(document.body.classList.contains("builder-open") && e.touches.length > 1){
-        e.preventDefault();
-      }
-    }, {passive:false});
   </script>
 </body>
 </html>

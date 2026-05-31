@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Viljas Fotosyntes</title>
 
   <style>
@@ -26,14 +26,23 @@
       -webkit-tap-highlight-color:transparent;
     }
 
+    html,
     body{
       margin:0;
-      height:100vh;
-      height:100dvh;
+      height:100%;
       overflow:hidden;
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
       background:linear-gradient(180deg,#dff0f6 0%,var(--bg) 48%);
       color:var(--text);
+    }
+
+    body.builder-open{
+      overflow:hidden;
+      position:fixed;
+      width:100%;
+      height:100%;
+      touch-action:none;
+      overscroll-behavior:none;
     }
 
     .app{
@@ -152,6 +161,11 @@
 
     button.red{
       background:var(--red);
+    }
+
+    button.disabledTool{
+      opacity:.35;
+      pointer-events:none;
     }
 
     .menuBtn{
@@ -302,6 +316,11 @@
       border:0;
       border-radius:0;
       box-shadow:none;
+      touch-action:none;
+      overscroll-behavior:none;
+      user-select:none;
+      -webkit-user-select:none;
+      -webkit-touch-callout:none;
     }
 
     #builderScreen.active{
@@ -329,7 +348,7 @@
 
     .builderInfo{
       flex:1 0 auto;
-      min-width:150px;
+      min-width:190px;
       font-size:12px;
       font-weight:850;
       color:var(--muted);
@@ -340,7 +359,7 @@
       flex:1 1 auto;
       min-height:0;
       display:grid;
-      grid-template-columns:122px 1fr;
+      grid-template-columns:130px 1fr;
       background:#dff0f6;
     }
 
@@ -352,6 +371,7 @@
       display:flex;
       flex-direction:column;
       gap:8px;
+      touch-action:none;
     }
 
     .paletteTitle{
@@ -376,6 +396,7 @@
       overflow:hidden;
       background:linear-gradient(180deg,#cfefff 0%,#e8f8e8 62%,#c9955b 62%,#bd8548 100%);
       touch-action:none;
+      overscroll-behavior:none;
     }
 
     #workArea{
@@ -383,6 +404,10 @@
       inset:0;
       overflow:hidden;
       touch-action:none;
+      overscroll-behavior:none;
+      user-select:none;
+      -webkit-user-select:none;
+      -webkit-touch-callout:none;
     }
 
     #arrowLayer{
@@ -399,8 +424,8 @@
       left:50%;
       top:50%;
       transform:translate(-50%,-50%);
-      width:260px;
-      height:310px;
+      width:270px;
+      height:320px;
       z-index:1;
       pointer-events:none;
     }
@@ -423,27 +448,12 @@
       pointer-events:none;
     }
 
-    .groundLabel{
-      position:absolute;
-      left:50%;
-      bottom:18px;
-      transform:translateX(-50%);
-      background:rgba(255,255,255,.9);
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:6px 10px;
-      font-size:13px;
-      font-weight:950;
-      z-index:1;
-      pointer-events:none;
-    }
-
     .node{
       position:absolute;
       z-index:5;
-      min-width:76px;
-      max-width:155px;
-      padding:9px 11px;
+      min-width:88px;
+      max-width:180px;
+      padding:9px 12px;
       border-radius:999px;
       background:white;
       border:2px solid transparent;
@@ -454,6 +464,10 @@
       cursor:grab;
       user-select:none;
       touch-action:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
     }
 
     .node.selected{
@@ -465,11 +479,9 @@
       content:" 🔊";
     }
 
-    .node.figure{
-      font-size:28px;
-      min-width:56px;
-      max-width:70px;
-      padding:8px;
+    .nodeIcon{
+      font-size:18px;
+      line-height:1;
     }
 
     .arrowHandle{
@@ -506,7 +518,7 @@
     }
 
     .statusText{
-      flex:1 0 220px;
+      flex:1 0 230px;
       font-size:12px;
       font-weight:850;
       color:var(--muted);
@@ -527,19 +539,19 @@
       }
 
       .builderLayout{
-        grid-template-columns:130px 1fr;
+        grid-template-columns:136px 1fr;
       }
 
       .treeArt{
-        width:300px;
-        height:350px;
+        width:320px;
+        height:370px;
       }
     }
 
     @media(max-width:420px) and (orientation:portrait){
       .builderLayout{
         grid-template-columns:1fr;
-        grid-template-rows:1fr 116px;
+        grid-template-rows:1fr 112px;
       }
 
       .palette{
@@ -566,8 +578,8 @@
       }
 
       .treeArt{
-        width:220px;
-        height:270px;
+        width:230px;
+        height:280px;
       }
     }
   </style>
@@ -664,22 +676,12 @@
       <button class="green" onclick="saveBuilder()">Spara</button>
       <button class="secondary" onclick="loadBuilder()">Ladda</button>
       <button class="red" onclick="clearBuilder()">Rensa</button>
-      <div class="builderInfo">Vänd mobilen för större arbetsyta. Tryck på rubrik för att spela ljud.</div>
+      <div class="builderInfo">Vänd mobilen för större yta. Tryck på rubrik för ljud.</div>
     </div>
 
     <div class="builderLayout">
-      <div class="palette">
-        <div class="paletteTitle">Begrepp</div>
-        <button onclick="addNode('Solljus')">Solljus</button>
-        <button onclick="addNode('Vatten')">Vatten</button>
-        <button onclick="addNode('Näring')">Näring</button>
-        <button onclick="addNode('Koldioxid')">Koldioxid</button>
-        <button onclick="addNode('Klorofyll')">Klorofyll</button>
-        <button onclick="addNode('Druvsocker')">Druvsocker</button>
-        <button onclick="addNode('Syre')">Syre</button>
-        <button onclick="addNode('Växt')">Växt</button>
-        <button onclick="addFigure('👧','Människa')">Människa</button>
-        <button onclick="addFigure('🐇','Djur')">Djur</button>
+      <div class="palette" id="palette">
+        <div class="paletteTitle">Rubriker</div>
       </div>
 
       <div class="canvasWrap">
@@ -692,7 +694,7 @@
             </defs>
           </svg>
 
-          <div class="sunArt">☀</div>
+          <div class="sunArt">☀️</div>
 
           <svg class="treeArt" viewBox="0 0 260 310">
             <ellipse cx="130" cy="95" rx="95" ry="70" fill="#2f9447"></ellipse>
@@ -705,8 +707,6 @@
             <path d="M130 225 C165 245 185 260 215 285" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
             <path d="M130 225 C125 250 125 270 125 300" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
           </svg>
-
-          <div class="groundLabel">TRÄD</div>
         </div>
       </div>
     </div>
@@ -735,11 +735,11 @@
           },
           {
             q:"Varför är fotosyntesen viktig?",
-            a:"Växter får energi och kan växa. Människor och djur får syre att andas."
+            a:"Växter får energi och kan växa. Människor får syre att andas."
           },
           {
             q:"Hur hjälper växter och människor varandra?",
-            a:"Växter ger syre. Människor och djur andas ut koldioxid som växter behöver."
+            a:"Växter ger syre. Människor andas ut koldioxid som växter behöver."
           }
         ]
       },
@@ -761,7 +761,7 @@
           },
           {
             q:"Varifrån kommer koldioxid?",
-            a:"Från luften. Människor och djur andas ut koldioxid."
+            a:"Från luften. Människor andas ut koldioxid."
           }
         ]
       },
@@ -783,7 +783,7 @@
           },
           {
             q:"Varför är syre viktigt?",
-            a:"Människor och djur behöver syre för att andas och leva."
+            a:"Människor behöver syre för att andas och leva."
           }
         ]
       },
@@ -801,11 +801,11 @@
           },
           {
             q:"Koldioxid",
-            a:"Gas i luften som människor och djur andas ut. Trädet behöver den."
+            a:"Gas i luften som människor andas ut. Trädet behöver den."
           },
           {
             q:"Syre",
-            a:"Gas som trädet släpper ut. Människor och djur behöver den."
+            a:"Gas som trädet släpper ut. Människor behöver den."
           },
           {
             q:"Druvsocker",
@@ -820,16 +820,28 @@
             a:"Bladgrönt som samlar in solljus i bladen."
           },
           {
-            q:"Växter",
-            a:"Behöver vatten, solljus och koldioxid. Ger syre och druvsocker."
+            q:"Växt",
+            a:"Behöver vatten, solljus och koldioxid. Tillverkar druvsocker och syre."
           },
           {
-            q:"Människor och djur",
+            q:"Människa",
             a:"Andas in syre och andas ut koldioxid."
           }
         ]
       }
     };
+
+    const availableItems = [
+      {key:"manniska", label:"Människa", icon:"👧"},
+      {key:"klorofyll", label:"Klorofyll", icon:"🟢"},
+      {key:"vaxt", label:"Växt", icon:"🌳"},
+      {key:"druvsocker", label:"Druvsocker", icon:"🍬"},
+      {key:"solljus", label:"Solljus", icon:"☀️"},
+      {key:"vatten", label:"Vatten", icon:"💧"},
+      {key:"naring", label:"Näring", icon:"🌱"},
+      {key:"syre", label:"Syre", icon:"🫧"},
+      {key:"koldioxid", label:"Koldioxid", icon:"💨"}
+    ];
 
     let activeCards = [];
     let activeTitle = "";
@@ -921,12 +933,15 @@
     let db = null;
 
     function openBuilder(){
+      document.body.classList.add("builder-open");
       document.getElementById('builderScreen').classList.add('active');
       initDb();
       loadBuilder();
+      renderPalette();
     }
 
     function closeBuilder(){
+      document.body.classList.remove("builder-open");
       document.getElementById('builderScreen').classList.remove('active');
     }
 
@@ -934,38 +949,47 @@
       return document.getElementById('workArea').getBoundingClientRect();
     }
 
-    function addNode(text){
+    function renderPalette(){
+      const palette = document.getElementById('palette');
+      palette.innerHTML = '<div class="paletteTitle">Rubriker</div>';
+
+      availableItems.forEach(item => {
+        const used = nodes.some(n => n.key === item.key);
+        const btn = document.createElement('button');
+
+        btn.textContent = item.icon + " " + item.label;
+        btn.className = used ? "disabledTool" : "";
+        btn.onclick = () => addNode(item.key);
+
+        palette.appendChild(btn);
+      });
+    }
+
+    function addNode(key){
+      if(nodes.some(n => n.key === key)){
+        document.getElementById('selectedInfo').textContent = "Den rubriken finns redan på bilden.";
+        renderPalette();
+        return;
+      }
+
+      const item = availableItems.find(i => i.key === key);
       const rect = workRect();
 
       const node = {
         id:"n" + idCounter++,
-        text:text,
-        type:"word",
-        x:Math.max(20, rect.width * 0.44),
+        key:item.key,
+        text:item.label,
+        icon:item.icon,
+        x:Math.max(20, rect.width * 0.42),
         y:Math.max(20, rect.height * 0.42)
       };
 
       nodes.push(node);
+      selectedNodeId = node.id;
+      selectedArrowId = null;
+
       renderBuilder();
-      selectNode(node.id);
-      saveBuilder();
-    }
-
-    function addFigure(symbol, label){
-      const rect = workRect();
-
-      const node = {
-        id:"n" + idCounter++,
-        text:symbol,
-        label:label,
-        type:"figure",
-        x:Math.max(20, rect.width * 0.68),
-        y:Math.max(20, rect.height * 0.55)
-      };
-
-      nodes.push(node);
-      renderBuilder();
-      selectNode(node.id);
+      renderPalette();
       saveBuilder();
     }
 
@@ -981,8 +1005,10 @@
       };
 
       arrows.push(arrow);
+      selectedArrowId = arrow.id;
+      selectedNodeId = null;
+
       renderBuilder();
-      selectArrow(arrow.id);
       saveBuilder();
     }
 
@@ -994,8 +1020,8 @@
 
       nodes.forEach(node => {
         const el = document.createElement('div');
-        el.className = node.type === "figure" ? "node figure" : "node";
-        el.textContent = node.text;
+        el.className = "node";
+        el.innerHTML = '<span class="nodeIcon">' + node.icon + '</span><span>' + node.text + '</span>';
         el.style.left = node.x + "px";
         el.style.top = node.y + "px";
         el.dataset.id = node.id;
@@ -1024,11 +1050,13 @@
         createHandle(arrow, "start");
         createHandle(arrow, "end");
       });
+
+      updateSelectedText();
+      renderPalette();
     }
 
     function renderArrows(){
       const svg = document.getElementById('arrowLayer');
-
       Array.from(svg.querySelectorAll('line')).forEach(line => line.remove());
 
       arrows.forEach(arrow => {
@@ -1069,24 +1097,36 @@
     function selectNode(id){
       selectedNodeId = id;
       selectedArrowId = null;
-
-      const node = nodes.find(n => n.id === id);
-      const name = node ? (node.label || node.text) : "Ingen rubrik vald";
-      document.getElementById('selectedInfo').textContent = "Vald: " + name;
-
       renderBuilder();
     }
 
     function selectArrow(id){
       selectedArrowId = id;
       selectedNodeId = null;
-      document.getElementById('selectedInfo').textContent = "Pil vald. Dra start eller slutpunkt.";
       renderBuilder();
+    }
+
+    function updateSelectedText(){
+      const info = document.getElementById('selectedInfo');
+
+      if(selectedNodeId){
+        const node = nodes.find(n => n.id === selectedNodeId);
+        info.textContent = node ? "Vald: " + node.icon + " " + node.text : "Ingen rubrik vald";
+        return;
+      }
+
+      if(selectedArrowId){
+        info.textContent = "Pil vald. Dra start eller slutpunkt.";
+        return;
+      }
+
+      info.textContent = "Ingen rubrik vald";
     }
 
     function startDragNode(e, id){
       e.stopPropagation();
-      selectNode(id);
+      selectedNodeId = id;
+      selectedArrowId = null;
 
       const node = nodes.find(n => n.id === id);
       const rect = workRect();
@@ -1097,8 +1137,8 @@
       const originY = node.y;
 
       const move = ev => {
-        node.x = clamp(originX + ev.clientX - startX, 0, rect.width - 70);
-        node.y = clamp(originY + ev.clientY - startY, 0, rect.height - 40);
+        node.x = clamp(originX + ev.clientX - startX, 0, rect.width - 90);
+        node.y = clamp(originY + ev.clientY - startY, 0, rect.height - 44);
         renderBuilder();
       };
 
@@ -1114,7 +1154,8 @@
 
     function startDragArrowHandle(e, id, end){
       e.stopPropagation();
-      selectArrow(id);
+      selectedArrowId = id;
+      selectedNodeId = null;
 
       const arrow = arrows.find(a => a.id === id);
       const rect = workRect();
@@ -1155,15 +1196,16 @@
         idCounter:idCounter
       };
 
-      localStorage.setItem("viljaFotosyntesBuilder", JSON.stringify(data));
-      document.getElementById('selectedInfo').textContent = "Sparat lokalt på denna enhet.";
+      localStorage.setItem("viljaFotosyntesBuilderV2", JSON.stringify(data));
+      updateSelectedText();
     }
 
     function loadBuilder(){
-      const saved = localStorage.getItem("viljaFotosyntesBuilder");
+      const saved = localStorage.getItem("viljaFotosyntesBuilderV2");
 
       if(!saved){
         renderBuilder();
+        renderPalette();
         return;
       }
 
@@ -1175,8 +1217,10 @@
         selectedNodeId = null;
         selectedArrowId = null;
         renderBuilder();
+        renderPalette();
       }catch(e){
         renderBuilder();
+        renderPalette();
       }
     }
 
@@ -1189,8 +1233,9 @@
       arrows = [];
       selectedNodeId = null;
       selectedArrowId = null;
-      saveBuilder();
+      localStorage.removeItem("viljaFotosyntesBuilderV2");
       renderBuilder();
+      renderPalette();
       document.getElementById('selectedInfo').textContent = "Rensat.";
     }
 
@@ -1203,7 +1248,7 @@
     function initDb(){
       if(db) return;
 
-      const request = indexedDB.open("ViljaFotosyntesAudio", 1);
+      const request = indexedDB.open("ViljaFotosyntesAudioV2", 1);
 
       request.onupgradeneeded = event => {
         const database = event.target.result;
@@ -1234,21 +1279,37 @@
       }
 
       try{
+        const nodeIdAtStart = selectedNodeId;
         const stream = await navigator.mediaDevices.getUserMedia({audio:true});
         audioChunks = [];
-        mediaRecorder = new MediaRecorder(stream);
+
+        let options = {};
+
+        if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/mp4")){
+          options = {mimeType:"audio/mp4"};
+        }else if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/webm")){
+          options = {mimeType:"audio/webm"};
+        }else if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/ogg")){
+          options = {mimeType:"audio/ogg"};
+        }
+
+        mediaRecorder = new MediaRecorder(stream, options);
 
         mediaRecorder.ondataavailable = event => {
-          if(event.data.size > 0){
+          if(event.data && event.data.size > 0){
             audioChunks.push(event.data);
           }
         };
 
         mediaRecorder.onstop = async () => {
-          const blob = new Blob(audioChunks, {type:"audio/webm"});
-          await saveAudio(selectedNodeId, blob);
+          const mimeType = mediaRecorder.mimeType || "audio/mp4";
+          const blob = new Blob(audioChunks, {type:mimeType});
+
+          await saveAudio(nodeIdAtStart, blob);
+
           stream.getTracks().forEach(track => track.stop());
-          document.getElementById('selectedInfo').textContent = "Ljud sparat på vald rubrik.";
+
+          document.getElementById('selectedInfo').textContent = "Ljud sparat.";
           renderBuilder();
         };
 
@@ -1292,8 +1353,9 @@
       });
     }
 
-    function hasAudio(id){
-      return getAudio(id).then(blob => !!blob);
+    async function hasAudio(id){
+      const blob = await getAudio(id);
+      return !!blob;
     }
 
     async function playAudio(id){
@@ -1305,11 +1367,20 @@
         return;
       }
 
-      const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
+      try{
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio();
+        audio.src = url;
 
-      audio.onended = () => URL.revokeObjectURL(url);
-      audio.play();
+        audio.onended = () => {
+          URL.revokeObjectURL(url);
+        };
+
+        await audio.play();
+        document.getElementById('selectedInfo').textContent = "Spelar upp ljud.";
+      }catch(e){
+        document.getElementById('selectedInfo').textContent = "Kunde inte spela upp ljud. Testa Safari eller Chrome via HTTPS.";
+      }
     }
 
     function playSelectedAudio(){
@@ -1333,11 +1404,36 @@
 
       const tx = db.transaction("audio", "readwrite");
       tx.objectStore("audio").delete(selectedNodeId);
+
       tx.oncomplete = () => {
         document.getElementById('selectedInfo').textContent = "Ljud raderat.";
         renderBuilder();
       };
     }
+
+    document.addEventListener('gesturestart', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    document.addEventListener('gesturechange', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    document.addEventListener('gestureend', function(e){
+      if(document.body.classList.contains("builder-open")){
+        e.preventDefault();
+      }
+    }, {passive:false});
+
+    document.addEventListener('touchmove', function(e){
+      if(document.body.classList.contains("builder-open") && e.touches.length > 1){
+        e.preventDefault();
+      }
+    }, {passive:false});
   </script>
 </body>
 </html>

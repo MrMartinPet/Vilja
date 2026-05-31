@@ -1,1008 +1,883 @@
 <!doctype html>
 <html lang="sv">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Växter provträning</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Viljas Fotosyntes</title>
 
-<style>
-:root{
-  --bg:#f4faf8;
-  --card:#ffffff;
-  --ink:#10231f;
-  --muted:#5d6d68;
-  --brand:#007766;
-  --brand2:#0e9f8a;
-  --soft:#dff4ef;
-  --ok:#1b8f4d;
-  --bad:#c83a3a;
-  --line:#d7e5e1;
-  --shadow:0 10px 30px rgba(0,50,43,.10);
-  --radius:22px;
-}
+  <style>
+    :root{
+      --bg:#eef4f8;
+      --card:#ffffff;
+      --text:#132033;
+      --muted:#667085;
+      --blue:#156082;
+      --blueLight:#e7f3f7;
+      --green:#21803f;
+      --greenLight:#e9f7ef;
+      --yellow:#f6c453;
+      --brown:#8b5a2b;
+      --border:#d9e2ea;
+      --shadow:0 12px 28px rgba(20,32,51,.12);
+      --radius:24px;
+    }
 
-*{
-  box-sizing:border-box;
-}
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
 
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-  line-height:1.35;
-}
+    body{
+      margin:0;
+      height:100vh;
+      height:100dvh;
+      overflow:hidden;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      background:linear-gradient(180deg,#dff0f6 0%,var(--bg) 48%);
+      color:var(--text);
+    }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:5;
-  background:linear-gradient(135deg,var(--brand),#005f52);
-  color:white;
-  padding:18px 16px 16px;
-  box-shadow:var(--shadow);
-}
+    .app{
+      height:100dvh;
+      max-width:520px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      padding:14px;
+      gap:10px;
+    }
 
-header h1{
-  font-size:22px;
-  margin:0 0 4px;
-  font-weight:800;
-}
+    header{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow:var(--shadow);
+    }
 
-header p{
-  margin:0;
-  font-size:14px;
-  opacity:.9;
-}
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+    }
 
-main{
-  max-width:760px;
-  margin:0 auto;
-  padding:16px 14px 90px;
-}
+    .badge{
+      background:var(--blueLight);
+      color:var(--blue);
+      padding:5px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:850;
+      white-space:nowrap;
+    }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:16px;
-  margin:12px 0;
-}
+    .small{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:650;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
-}
+    h1{
+      margin:0;
+      font-size:27px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
 
-.cat{
-  border:none;
-  background:white;
-  text-align:left;
-  padding:16px;
-  border-radius:20px;
-  box-shadow:var(--shadow);
-  border-left:8px solid var(--brand);
-  min-height:92px;
-  color:var(--ink);
-}
+    h2{
+      margin:0 0 8px;
+      font-size:24px;
+      letter-spacing:-.02em;
+    }
 
-.cat b{
-  display:block;
-  font-size:18px;
-  margin-bottom:4px;
-}
+    p{
+      margin:6px 0;
+      line-height:1.35;
+    }
 
-.cat span{
-  display:block;
-  font-size:14px;
-  color:var(--muted);
-}
+    .screen{
+      display:none;
+      flex:1 1 auto;
+      min-height:0;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
 
-.small{
-  font-size:13px;
-  color:var(--muted);
-}
+    .screen.active{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
 
-.row{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-}
+    .menuGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      overflow:auto;
+      padding-bottom:2px;
+    }
 
-.btn{
-  appearance:none;
-  border:none;
-  border-radius:16px;
-  padding:13px 15px;
-  background:var(--brand);
-  color:white;
-  font-weight:800;
-  font-size:16px;
-  box-shadow:0 6px 14px rgba(0,119,102,.2);
-}
+    button{
+      border:0;
+      border-radius:18px;
+      padding:13px 14px;
+      font-size:15px;
+      font-weight:850;
+      background:var(--blue);
+      color:white;
+      cursor:pointer;
+      min-height:48px;
+    }
 
-.btn.secondary{
-  background:var(--soft);
-  color:var(--brand);
-  box-shadow:none;
-}
+    button.secondary{
+      background:#eef2f6;
+      color:var(--text);
+      border:1px solid var(--border);
+    }
 
-.btn.ghost{
-  background:white;
-  color:var(--brand);
-  border:1px solid var(--line);
-  box-shadow:none;
-}
+    button.green{
+      background:var(--green);
+    }
 
-.btn:active{
-  transform:scale(.98);
-}
+    button.yellow{
+      background:var(--yellow);
+      color:#302400;
+    }
 
-.hidden{
-  display:none!important;
-}
+    .menuBtn{
+      min-height:84px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      text-align:left;
+      gap:5px;
+    }
 
-.pill{
-  display:inline-block;
-  background:var(--soft);
-  color:var(--brand);
-  font-weight:800;
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:13px;
-}
+    .menuBtn span{
+      font-size:12px;
+      font-weight:650;
+      opacity:.88;
+    }
 
-.qtitle{
-  font-size:22px;
-  font-weight:850;
-  margin:8px 0 10px;
-}
+    .navRow{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:auto;
+    }
 
-.question{
-  font-size:20px;
-  font-weight:750;
-  margin:8px 0 16px;
-}
+    .counter{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
 
-.options{
-  display:grid;
-  gap:10px;
-}
+    .flashWrap{
+      perspective:1000px;
+      flex:1 1 auto;
+      min-height:260px;
+      display:flex;
+    }
 
-.option{
-  background:white;
-  border:2px solid var(--line);
-  border-radius:18px;
-  padding:14px;
-  text-align:left;
-  font-size:17px;
-  color:var(--ink);
-}
+    .flashCard{
+      width:100%;
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform .55s cubic-bezier(.2,.8,.2,1);
+      cursor:pointer;
+      min-height:260px;
+    }
 
-.option.correct{
-  border-color:var(--ok);
-  background:#e8f7ee;
-}
+    .flashCard.flipped{
+      transform:rotateY(180deg);
+    }
 
-.option.wrong{
-  border-color:var(--bad);
-  background:#fdecec;
-}
+    .face{
+      position:absolute;
+      inset:0;
+      border-radius:26px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      backface-visibility:hidden;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:22px;
+      overflow:hidden;
+    }
 
-.explain{
-  margin-top:12px;
-  padding:13px;
-  border-radius:16px;
-  background:#fff7e6;
-  color:#442b00;
-  font-size:15px;
-}
+    .front{
+      background:linear-gradient(180deg,#ffffff,#f7fafc);
+    }
 
-.progress{
-  height:12px;
-  background:#dce9e5;
-  border-radius:999px;
-  overflow:hidden;
-}
+    .back{
+      background:linear-gradient(180deg,var(--blueLight),#ffffff);
+      transform:rotateY(180deg);
+    }
 
-.bar{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,var(--brand),var(--brand2));
-  transition:.2s;
-}
+    .faceLabel{
+      position:absolute;
+      top:14px;
+      left:14px;
+      font-size:12px;
+      font-weight:950;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
 
-.flash{
-  min-height:210px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:25px;
-  font-weight:850;
-  padding:22px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#ffffff,#eaf8f5);
-  border:1px solid var(--line);
-}
+    .categoryLabel{
+      position:absolute;
+      top:14px;
+      right:14px;
+      font-size:12px;
+      font-weight:900;
+      background:#eef2f6;
+      color:var(--text);
+      border-radius:999px;
+      padding:5px 8px;
+      max-width:48%;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
 
-.flash.answer{
-  font-size:21px;
-  font-weight:700;
-  color:#163b34;
-}
+    .faceText{
+      font-size:27px;
+      font-weight:950;
+      line-height:1.12;
+      letter-spacing:-.03em;
+      max-width:100%;
+    }
 
-.modebar{
-  position:sticky;
-  bottom:0;
-  background:rgba(244,250,248,.96);
-  backdrop-filter:blur(8px);
-  border-top:1px solid var(--line);
-  padding:10px 12px;
-  display:flex;
-  gap:8px;
-  justify-content:center;
-}
+    .back .faceText{
+      font-size:20px;
+      font-weight:850;
+    }
 
-.modebar .btn{
-  font-size:14px;
-  padding:11px 12px;
-}
+    .tapHint{
+      position:absolute;
+      bottom:14px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:750;
+    }
 
-.matchGrid{
-  display:grid;
-  gap:10px;
-}
+    .progressWrap{
+      height:10px;
+      background:#e6edf3;
+      border-radius:999px;
+      overflow:hidden;
+    }
 
-.matchItem{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-}
+    .progress{
+      height:100%;
+      width:0%;
+      background:var(--blue);
+      transition:.25s;
+    }
 
-.matchItem select{
-  width:100%;
-  margin-top:8px;
-  padding:11px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  font-size:16px;
-  background:white;
-}
+    .treeBoard{
+      position:relative;
+      flex:1 1 auto;
+      min-height:0;
+      border:1px solid var(--border);
+      border-radius:22px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#dff4ff 0%,#eaf9e8 62%,#d6b58a 62%,#c9975d 100%);
+      touch-action:none;
+    }
 
-.orderList{
-  display:grid;
-  gap:8px;
-}
+    .sun{
+      position:absolute;
+      left:16px;
+      top:14px;
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      background:#ffd84a;
+      box-shadow:0 0 0 10px rgba(255,216,74,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:30px;
+      font-weight:900;
+    }
 
-.orderItem{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px;
-}
+    .tree{
+      position:absolute;
+      left:50%;
+      top:42%;
+      transform:translate(-50%,-50%);
+      width:210px;
+      height:250px;
+    }
 
-.orderItem span{
-  flex:1;
-}
+    .leaf{
+      position:absolute;
+      background:#2d8a41;
+      border-radius:50%;
+      box-shadow:
+        45px 5px 0 #3ba653,
+        80px 32px 0 #2f9447,
+        20px 38px 0 #257a38,
+        63px 65px 0 #3aa34f,
+        100px 70px 0 #2d8a41,
+        35px 95px 0 #2f9447;
+      width:78px;
+      height:78px;
+      left:26px;
+      top:12px;
+    }
 
-.miniBtn{
-  border:none;
-  border-radius:10px;
-  background:var(--soft);
-  color:var(--brand);
-  font-weight:900;
-  padding:8px 10px;
-}
+    .trunk{
+      position:absolute;
+      left:88px;
+      top:92px;
+      width:42px;
+      height:126px;
+      background:var(--brown);
+      border-radius:18px 18px 8px 8px;
+    }
 
-.result{
-  font-size:24px;
-  font-weight:900;
-}
+    .root{
+      position:absolute;
+      left:55px;
+      top:205px;
+      width:110px;
+      height:28px;
+      border-bottom:8px solid var(--brown);
+      border-radius:0 0 70px 70px;
+    }
 
-@media(min-width:640px){
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
+    .treeLabel{
+      position:absolute;
+      left:50%;
+      top:73%;
+      transform:translateX(-50%);
+      background:white;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:13px;
+      font-weight:900;
+    }
 
-  .cat{
-    min-height:118px;
-  }
+    .toolbox{
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      padding-bottom:2px;
+      flex:0 0 auto;
+    }
 
-  header h1{
-    font-size:28px;
-  }
-}
-</style>
+    .dragItem{
+      position:absolute;
+      min-width:70px;
+      max-width:150px;
+      padding:8px 10px;
+      border-radius:999px;
+      background:white;
+      border:1px solid var(--border);
+      box-shadow:0 6px 16px rgba(20,32,51,.12);
+      font-size:13px;
+      font-weight:900;
+      text-align:center;
+      cursor:grab;
+      user-select:none;
+      touch-action:none;
+    }
+
+    .arrowItem{
+      background:var(--blue);
+      color:white;
+      border-color:var(--blue);
+    }
+
+    .toolChip{
+      position:static;
+      flex:0 0 auto;
+      cursor:pointer;
+      background:white;
+    }
+
+    .toolChip.arrowItem{
+      background:var(--blue);
+      color:white;
+    }
+
+    .hintBox{
+      background:#f7fafc;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:10px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    @media(max-width:380px){
+      .app{
+        padding:10px;
+      }
+
+      h1{
+        font-size:24px;
+      }
+
+      .menuBtn{
+        min-height:74px;
+      }
+
+      .faceText{
+        font-size:24px;
+      }
+
+      .back .faceText{
+        font-size:18px;
+      }
+
+      .tree{
+        transform:translate(-50%,-50%) scale(.88);
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<header>
-  <h1>Växter provträning</h1>
-  <p>Träna i sex delar. Kort, quiz, matchning och livscykel.</p>
-</header>
-
-<main>
-
-<section id="home">
-  <div class="card">
-    <div class="row">
-      <div>
-        <b>Din träning</b>
-        <div class="small">Bästa resultat sparas automatiskt på mobilen.</div>
+  <div class="app">
+    <header>
+      <div class="topline">
+        <div class="badge">Fotosyntes</div>
+        <div class="small" id="headerInfo">Start</div>
       </div>
-      <span class="pill" id="scorePill">0 rätt</span>
-    </div>
 
-    <div class="progress" style="margin-top:12px">
-      <div class="bar" id="totalBar"></div>
-    </div>
-  </div>
-
-  <div class="grid" id="catGrid"></div>
-
-  <div class="card small">
-    <b>Tips:</b> Kör först träningskort. Gör sedan quiz. Avsluta med blandat prov.
-  </div>
-</section>
-
-<section id="category" class="hidden">
-  <button class="btn ghost" onclick="showHome()">‹ Tillbaka</button>
-
-  <div class="card">
-    <span class="pill" id="catSub"></span>
-    <div class="qtitle" id="catTitle"></div>
-    <div id="catSummary" class="small"></div>
-  </div>
-
-  <div class="grid">
-    <button class="cat" onclick="startFlash()">
-      <b>Träningskort</b>
-      <span>Vänd kort och repetera snabbt.</span>
-    </button>
-
-    <button class="cat" onclick="startQuiz()">
-      <b>Quiz</b>
-      <span>Få direkt svar och förklaring.</span>
-    </button>
-
-    <button class="cat" onclick="startSpecial()">
-      <b>Specialövning</b>
-      <span>Matcha eller lägg i rätt ordning.</span>
-    </button>
-  </div>
-</section>
-
-<section id="flash" class="hidden">
-  <button class="btn ghost" onclick="openCategory(currentCat)">‹ Tillbaka</button>
-
-  <div class="card">
-    <div class="row">
-      <span class="pill" id="flashCount"></span>
-      <button class="btn secondary" onclick="flipFlash()">Vänd</button>
-    </div>
-
-    <div class="flash" id="flashCard"></div>
-
-    <div class="row" style="margin-top:14px">
-      <button class="btn secondary" onclick="prevFlash()">Förra</button>
-      <button class="btn" onclick="nextFlash()">Nästa</button>
-    </div>
-  </div>
-</section>
-
-<section id="quiz" class="hidden">
-  <button class="btn ghost" onclick="openCategory(currentCat)">‹ Tillbaka</button>
-
-  <div class="card">
-    <div class="row">
-      <span class="pill" id="quizCount"></span>
-      <span class="pill" id="quizScore">0 rätt</span>
-    </div>
-
-    <div class="progress" style="margin:12px 0">
-      <div class="bar" id="quizBar"></div>
-    </div>
-
-    <div class="question" id="qText"></div>
-    <div class="options" id="options"></div>
-    <div id="explain" class="explain hidden"></div>
-
-    <div class="row" style="margin-top:14px">
-      <button class="btn secondary hidden" id="nextQ" onclick="nextQuestion()">Nästa</button>
-    </div>
-  </div>
-</section>
-
-<section id="special" class="hidden">
-  <button class="btn ghost" onclick="openCategory(currentCat)">‹ Tillbaka</button>
-  <div class="card" id="specialBox"></div>
-</section>
-
-<section id="mixed" class="hidden">
-  <button class="btn ghost" onclick="showHome()">‹ Tillbaka</button>
-
-  <div class="card">
-    <div class="row">
-      <span class="pill" id="mixCount"></span>
-      <span class="pill" id="mixScore">0 rätt</span>
-    </div>
-
-    <div class="progress" style="margin:12px 0">
-      <div class="bar" id="mixBar"></div>
-    </div>
-
-    <div class="question" id="mixText"></div>
-    <div class="options" id="mixOptions"></div>
-    <div id="mixExplain" class="explain hidden"></div>
-
-    <button class="btn secondary hidden" id="mixNext" onclick="nextMixed()" style="margin-top:14px">
-      Nästa
-    </button>
-  </div>
-</section>
-
-</main>
-
-<div class="modebar">
-  <button class="btn secondary" onclick="showHome()">Start</button>
-  <button class="btn" onclick="startMixed()">Blandat prov</button>
-  <button class="btn ghost" onclick="resetProgress()">Nollställ</button>
-</div>
-
-<script>
-const cats = [
-  {
-    id:'historia',
-    title:'Växthistoria',
-    sub:'Sidor 20 till 21',
-    summary:'Mossor kom först. Sedan ormbunksväxter, barrväxter och sist blomväxter.',
-    cards:[
-      ['Vilka var de första landväxterna?','Mossor. De lever gärna där det är fuktigt och förökar sig med sporer.'],
-      ['Vad skiljer ormbunksväxter från mossor?','Ormbunksväxter är kärlväxter. De har tunna rör i stammen som leder vatten.'],
-      ['Vad är speciellt med barrväxter?','De har kottar. I kottarna finns frön med skydd och näring.'],
-      ['Vilken växtgrupp utvecklades sist?','Blomväxterna. De har stor variation och fröna finns i frukten.']
-    ],
-    questions:[
-      ['Vilken växtgrupp kom först på land?',['Mossor','Barrväxter','Blomväxter','Lönnar'],0,'Mossor var de första landlevande växterna.'],
-      ['Vad använder mossor för att föröka sig?',['Sporer','Kottar','Bär','Nektar'],0,'Mossor förökar sig med sporer.'],
-      ['Vad finns i ormbunksväxters stammar?',['Tunna rör som leder vatten','Bär','Kottar','Frukt'],0,'De tunna rören gör dem till kärlväxter.'],
-      ['Var finns blomväxters frön ofta?',['Inne i frukten','Bara i roten','I mossan','På stenen'],0,'Blomväxters frön finns inne i själva frukten.']
-    ]
-  },
-  {
-    id:'delar',
-    title:'Växtens delar',
-    sub:'Sidor 24 till 25',
-    summary:'Blomma, blad, stjälk och rot har olika jobb.',
-    cards:[
-      ['Vad gör blomman?','Blomman gör nya frön och utvecklar frukt.'],
-      ['Vad gör bladen?','Bladen tillverkar maten som växten behöver.'],
-      ['Vad gör stjälken?','Den leder vatten och annat. Den ger också stöd.'],
-      ['Vad gör roten?','Roten suger upp vatten och näring och håller växten på plats.']
-    ],
-    questions:[
-      ['Vilken del gör nya frön?',['Blomman','Roten','Stjälken','Bladet'],0,'Blomman gör frön och kan utveckla frukt.'],
-      ['Vilken del tillverkar växtens mat?',['Bladen','Rötterna','Fröna','Kottarna'],0,'Bladen tillverkar maten som växten behöver.'],
-      ['Vilken del håller växten på plats?',['Roten','Blomman','Pollen','Nektar'],0,'Roten håller växten på plats och suger upp vatten.'],
-      ['Vad gör stjälken?',['Ger stöd och leder vatten','Gör pollen','Äter bär','Sprider frön med vinden'],0,'Stjälken fungerar som stöd och transportväg.']
-    ]
-  },
-  {
-    id:'spridning',
-    title:'Fröspridning',
-    sub:'Sidor 40 till 41',
-    summary:'Frön kan spridas med djur, vatten, vind, helikopterform eller av växten själv.',
-    cards:[
-      ['Hur sprids kardborre?','Den fastnar i djurs päls och lossnar senare.'],
-      ['Hur sprids rönn?','Djur äter bären och bajsar ut fröna.'],
-      ['Hur sprids al?','Alens kottar kan flyta iväg med vatten.'],
-      ['Hur sprids maskros?','Fröna sprids med vinden.'],
-      ['Hur sprids lönn?','Fröet snurrar som en helikopter.'],
-      ['Hur sprids vallmo?','Kapseln spricker och sprutar iväg frön.']
-    ],
-    questions:[
-      ['Vilken växt sprids med vinden?',['Maskros','Al','Rönn','Kardborre'],0,'Maskrosens frön kan flyga med vinden.'],
-      ['Vilken växt fastnar i djurs päls?',['Kardborre','Vallmo','Lönn','Al'],0,'Kardborre sprids genom att fastna i päls.'],
-      ['Vilken växt sprids genom att djur äter bären?',['Rönn','Maskros','Al','Vallmo'],0,'Rönnens bär äts av djur och fröna kommer ut senare.'],
-      ['Vilken växt sprids som en helikopter?',['Lönn','Kardborre','Rönn','Vallmo'],0,'Lönnens frön snurrar när de faller.'],
-      ['Vilken växt kan spridas med vatten?',['Al','Maskros','Solros','Vitsippa'],0,'Alens kottar kan flyta iväg med vatten.'],
-      ['Vilken växt sprider sig själv med en kapsel?',['Vallmo','Lönn','Rönn','Kardborre'],0,'Vallmons kapsel kan spricka och spruta iväg frön.']
-    ]
-  },
-  {
-    id:'livscykel',
-    title:'Växtens livscykel',
-    sub:'Sidor 38 till 39',
-    summary:'Frö, planta, blomma, pollinering, frukt, nya frön och spridning.',
-    cards:[
-      ['Steg 1 i bönans liv','Fröet ligger i jorden och gror.'],
-      ['Steg 2','En liten planta växer upp med stjälk och blad.'],
-      ['Steg 3','Blommor utvecklas med ståndare och pistill.'],
-      ['Steg 4','Insekter hjälper till med pollinering.'],
-      ['Steg 5','Frukt utvecklas.'],
-      ['Steg 6','I frukten finns nya frön.'],
-      ['Steg 7','Fröna sprids och nya växter kan uppstå.']
-    ],
-    questions:[
-      ['Vad händer först i livscykeln?',['Fröet gror','Frukt utvecklas','Insekter pollinerar','Blomman vissnar'],0,'Först ligger fröet i jorden och gror.'],
-      ['Vad växer efter att fröet gror?',['En liten planta','En färdig frukt','En kotte','Ett bär'],0,'En liten planta växer med stjälk och blad.'],
-      ['Vad hjälper ofta till med pollinering?',['Insekter','Stenar','Regnmaskar','Rötter'],0,'Insekter kan flytta pollen mellan blommor.'],
-      ['Vad finns i den färdiga frukten?',['Frön','Sporer','Nektar','Bara vatten'],0,'I den färdiga frukten finns frön.']
-    ]
-  },
-  {
-    id:'barn',
-    title:'Hur växter får barn',
-    sub:'Sidor 36 till 37',
-    summary:'Pollen, pistill, ståndare, nektar och insekter hänger ihop vid pollinering och befruktning.',
-    cards:[
-      ['Vad är pollen?','Små korn från ståndaren som behövs för att bilda frön.'],
-      ['Vad gör ståndaren?','Ståndaren bildar pollen.'],
-      ['Vad gör pistillen?','Pistillen tar emot pollen. Där kan befruktning ske.'],
-      ['Varför finns nektar?','Nektar lockar insekter till blomman.'],
-      ['Hur hjälper insekter växter?','De flyttar pollen mellan blommor när de söker nektar.']
-    ],
-    questions:[
-      ['Vilken del bildar pollen?',['Ståndare','Rot','Blad','Frukt'],0,'Ståndaren bildar pollen.'],
-      ['Vilken del tar emot pollen?',['Pistill','Stjälk','Blad','Kardborre'],0,'Pistillen tar emot pollen.'],
-      ['Vad lockar insekter till blomman?',['Nektar','Jord','Bark','Stenar'],0,'Nektar lockar insekter.'],
-      ['Vad kan hända när pollen hamnar rätt?',['Befruktning','Växten vissnar direkt','Roten försvinner','Bladet blir en kotte'],0,'När pollen hamnar på pistillen kan befruktning ske.']
-    ]
-  },
-  {
-    id:'vanliga',
-    title:'Vanliga blomväxter',
-    sub:'Sidor 32 till 33',
-    summary:'Känn igen några vanliga blomväxter och deras namn.',
-    cards:[
-      ['Exempel på vanlig blomväxt','Maskros. Gul blomma som ofta växer i gräsmattor.'],
-      ['Exempel på vanlig blomväxt','Vitsippa. Vit blomma som ofta syns på våren.'],
-      ['Exempel på vanlig blomväxt','Blåklocka. Blå eller lila klockformad blomma.'],
-      ['Exempel på vanlig blomväxt','Solros. Stor gul blomma.'],
-      ['Exempel på vanlig blomväxt','Smörblomma. Gul blomma med blanka kronblad.']
-    ],
-    questions:[
-      ['Vilken blomma är ofta vit och vanlig på våren?',['Vitsippa','Solros','Maskros','Lönn'],0,'Vitsippan är en vanlig vårblomma.'],
-      ['Vilken blomma är stor och gul?',['Solros','Blåklocka','Vitsippa','Al'],0,'Solrosen är stor och gul.'],
-      ['Vilken blomma har ofta klockform?',['Blåklocka','Rönn','Kardborre','Vallmo'],0,'Blåklockan har klockformad blomma.'],
-      ['Vilken gul blomma sprider frön med vinden?',['Maskros','Smörblomma','Solros','Vitsippa'],0,'Maskrosen sprider frön med vinden.']
-    ]
-  }
-];
-
-let currentCat = 'historia';
-let flashIndex = 0;
-let flipped = false;
-let quiz = [];
-let qi = 0;
-let score = 0;
-let mix = [];
-let mi = 0;
-let mixScore = 0;
-
-const $ = id => document.getElementById(id);
-
-function hideAll(){
-  ['home','category','flash','quiz','special','mixed'].forEach(id => {
-    $(id).classList.add('hidden');
-  });
-}
-
-function showHome(){
-  hideAll();
-  $('home').classList.remove('hidden');
-  renderHome();
-}
-
-function catById(id){
-  return cats.find(c => c.id === id);
-}
-
-function renderHome(){
-  const grid = $('catGrid');
-  grid.innerHTML = '';
-
-  cats.forEach(c => {
-    let b = document.createElement('button');
-    b.className = 'cat';
-    b.innerHTML = `<b>${c.title}</b><span>${c.summary}</span>`;
-    b.onclick = () => openCategory(c.id);
-    grid.appendChild(b);
-  });
-
-  let best = Number(localStorage.vaxterBest || 0);
-  $('scorePill').textContent = best + ' rätt bästa blandade prov';
-  $('totalBar').style.width = Math.min(100,best * 10) + '%';
-}
-
-function openCategory(id){
-  currentCat = id;
-  let c = catById(id);
-
-  hideAll();
-  $('category').classList.remove('hidden');
-  $('catTitle').textContent = c.title;
-  $('catSub').textContent = c.sub;
-  $('catSummary').textContent = c.summary;
-}
-
-function startFlash(){
-  flashIndex = 0;
-  flipped = false;
-
-  hideAll();
-  $('flash').classList.remove('hidden');
-  renderFlash();
-}
-
-function renderFlash(){
-  let c = catById(currentCat);
-  let card = c.cards[flashIndex];
-
-  $('flashCount').textContent = (flashIndex + 1) + ' av ' + c.cards.length;
-  $('flashCard').className = 'flash' + (flipped ? ' answer' : '');
-  $('flashCard').textContent = flipped ? card[1] : card[0];
-}
-
-function flipFlash(){
-  flipped = !flipped;
-  renderFlash();
-}
-
-function nextFlash(){
-  let c = catById(currentCat);
-  flashIndex = (flashIndex + 1) % c.cards.length;
-  flipped = false;
-  renderFlash();
-}
-
-function prevFlash(){
-  let c = catById(currentCat);
-  flashIndex = (flashIndex - 1 + c.cards.length) % c.cards.length;
-  flipped = false;
-  renderFlash();
-}
-
-function shuffle(a){
-  return [...a].sort(() => Math.random() - .5);
-}
-
-function prepQuestions(qs){
-  return shuffle(qs).map(q => ({
-    t:q[0],
-    ops:q[1],
-    a:q[2],
-    e:q[3]
-  }));
-}
-
-function startQuiz(){
-  quiz = prepQuestions(catById(currentCat).questions);
-  qi = 0;
-  score = 0;
-
-  hideAll();
-  $('quiz').classList.remove('hidden');
-  renderQ();
-}
-
-function renderQ(){
-  let q = quiz[qi];
-
-  $('quizCount').textContent = (qi + 1) + ' av ' + quiz.length;
-  $('quizScore').textContent = score + ' rätt';
-  $('quizBar').style.width = (qi / quiz.length * 100) + '%';
-  $('qText').textContent = q.t;
-  $('explain').classList.add('hidden');
-  $('nextQ').classList.add('hidden');
-
-  let ops = $('options');
-  ops.innerHTML = '';
-
-  q.ops.forEach((op,i) => {
-    let btn = document.createElement('button');
-    btn.className = 'option';
-    btn.textContent = op;
-    btn.onclick = () => answer(i);
-    ops.appendChild(btn);
-  });
-}
-
-function answer(i){
-  let q = quiz[qi];
-
-  Array.from($('options').children).forEach((b,idx) => {
-    b.disabled = true;
-
-    if(idx === q.a){
-      b.classList.add('correct');
-    }
-
-    if(idx === i && i !== q.a){
-      b.classList.add('wrong');
-    }
-  });
-
-  if(i === q.a){
-    score++;
-  }
-
-  $('quizScore').textContent = score + ' rätt';
-  $('explain').textContent = q.e;
-  $('explain').classList.remove('hidden');
-  $('nextQ').classList.remove('hidden');
-}
-
-function nextQuestion(){
-  qi++;
-
-  if(qi >= quiz.length){
-    $('qText').innerHTML = `<span class="result">Klart: ${score} av ${quiz.length}</span>`;
-    $('options').innerHTML = '';
-    $('explain').classList.add('hidden');
-    $('nextQ').classList.add('hidden');
-    $('quizBar').style.width = '100%';
-    return;
-  }
-
-  renderQ();
-}
-
-function startMixed(){
-  mix = prepQuestions(cats.flatMap(c => c.questions)).slice(0,10);
-  mi = 0;
-  mixScore = 0;
-
-  hideAll();
-  $('mixed').classList.remove('hidden');
-  renderMixed();
-}
-
-function renderMixed(){
-  let q = mix[mi];
-
-  $('mixCount').textContent = (mi + 1) + ' av ' + mix.length;
-  $('mixScore').textContent = mixScore + ' rätt';
-  $('mixBar').style.width = (mi / mix.length * 100) + '%';
-  $('mixText').textContent = q.t;
-  $('mixExplain').classList.add('hidden');
-  $('mixNext').classList.add('hidden');
-
-  let box = $('mixOptions');
-  box.innerHTML = '';
-
-  q.ops.forEach((op,i) => {
-    let btn = document.createElement('button');
-    btn.className = 'option';
-    btn.textContent = op;
-    btn.onclick = () => answerMixed(i);
-    box.appendChild(btn);
-  });
-}
-
-function answerMixed(i){
-  let q = mix[mi];
-
-  Array.from($('mixOptions').children).forEach((b,idx) => {
-    b.disabled = true;
-
-    if(idx === q.a){
-      b.classList.add('correct');
-    }
-
-    if(idx === i && i !== q.a){
-      b.classList.add('wrong');
-    }
-  });
-
-  if(i === q.a){
-    mixScore++;
-  }
-
-  $('mixScore').textContent = mixScore + ' rätt';
-  $('mixExplain').textContent = q.e;
-  $('mixExplain').classList.remove('hidden');
-  $('mixNext').classList.remove('hidden');
-}
-
-function nextMixed(){
-  mi++;
-
-  if(mi >= mix.length){
-    $('mixText').innerHTML = `<span class="result">Resultat: ${mixScore} av ${mix.length}</span>`;
-    $('mixOptions').innerHTML = '';
-    $('mixExplain').classList.add('hidden');
-    $('mixNext').classList.add('hidden');
-    $('mixBar').style.width = '100%';
-
-    let best = Math.max(Number(localStorage.vaxterBest || 0), mixScore);
-    localStorage.vaxterBest = best;
-    return;
-  }
-
-  renderMixed();
-}
-
-function startSpecial(){
-  hideAll();
-  $('special').classList.remove('hidden');
-
-  let c = catById(currentCat);
-
-  if(c.id === 'livscykel'){
-    orderExercise();
-  }else{
-    matchExercise(c);
-  }
-}
-
-function matchExercise(c){
-  let pairs = [];
-
-  if(c.id === 'delar'){
-    pairs = [
-      ['Blomma','Gör frön och frukt'],
-      ['Blad','Tillverkar mat'],
-      ['Stjälk','Leder vatten och ger stöd'],
-      ['Rot','Suger upp vatten och håller fast växten']
-    ];
-  }else if(c.id === 'spridning'){
-    pairs = [
-      ['Kardborre','Fastnar i päls'],
-      ['Rönn','Djur äter bären'],
-      ['Al','Flyter med vatten'],
-      ['Maskros','Flyger med vinden'],
-      ['Lönn','Snurrar som helikopter'],
-      ['Vallmo','Kapsel spricker och sprutar frön']
-    ];
-  }else if(c.id === 'barn'){
-    pairs = [
-      ['Ståndare','Bildar pollen'],
-      ['Pistill','Tar emot pollen'],
-      ['Nektar','Lockar insekter'],
-      ['Insekt','Flyttar pollen'],
-      ['Befruktning','Kan leda till frön']
-    ];
-  }else if(c.id === 'historia'){
-    pairs = [
-      ['Mossa','Första landväxten, sporer'],
-      ['Ormbunksväxt','Kärlväxt med rör'],
-      ['Barrväxt','Kottar med frön'],
-      ['Blomväxt','Frön inne i frukt']
-    ];
-  }else{
-    pairs = [
-      ['Maskros','Gul blomma, frön med vind'],
-      ['Vitsippa','Vit vårblomma'],
-      ['Blåklocka','Klockformad blomma'],
-      ['Solros','Stor gul blomma'],
-      ['Smörblomma','Gul med blanka kronblad']
-    ];
-  }
-
-  let answers = shuffle(pairs.map(p => p[1]));
-
-  $('specialBox').innerHTML = `
-    <div class="qtitle">Matcha rätt</div>
-
-    <div class="matchGrid">
-      ${pairs.map((p,i) => `
-        <div class="matchItem">
-          <b>${p[0]}</b>
-          <select id="m${i}">
-            <option value="">Välj svar</option>
-            ${answers.map(a => `<option>${a}</option>`).join('')}
-          </select>
+      <h1>Viljas Fotosyntes</h1>
+      <p class="small">Flashcards och bygg en bild runt trädet.</p>
+    </header>
+
+    <main id="home" class="screen active">
+      <h2>Välj träning</h2>
+
+      <div class="menuGrid">
+        <button class="menuBtn" onclick="startCategory('grunder')">
+          Grunder
+          <span>Vad fotosyntes är</span>
+        </button>
+
+        <button class="menuBtn" onclick="startCategory('behov')">
+          Trädet behöver
+          <span>Vatten, solljus, koldioxid</span>
+        </button>
+
+        <button class="menuBtn green" onclick="startCategory('resultat')">
+          Trädet tillverkar
+          <span>Druvsocker och syre</span>
+        </button>
+
+        <button class="menuBtn green" onclick="startCategory('begrepp')">
+          Begrepp
+          <span>Alla viktiga ord</span>
+        </button>
+
+        <button class="menuBtn yellow" onclick="startTree()">
+          Bygg bilden
+          <span>Dra ord och pilar</span>
+        </button>
+
+        <button class="menuBtn yellow" onclick="startCategory('alla')">
+          Alla kort
+          <span>Allt blandat</span>
+        </button>
+      </div>
+    </main>
+
+    <section id="cards" class="screen">
+      <h2 id="categoryTitle">Flashcards</h2>
+
+      <div class="counter" id="counter">1 av 1</div>
+
+      <div class="progressWrap">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <div class="flashWrap">
+        <div class="flashCard" id="flashCard" onclick="flipCard()">
+          <div class="face front">
+            <div class="faceLabel">Fråga</div>
+            <div class="categoryLabel" id="frontCategory">Kategori</div>
+            <div class="faceText" id="frontText"></div>
+            <div class="tapHint">Tryck för att vända</div>
+          </div>
+
+          <div class="face back">
+            <div class="faceLabel">Svar</div>
+            <div class="categoryLabel" id="backCategory">Kategori</div>
+            <div class="faceText" id="backText"></div>
+            <div class="tapHint">Tryck för att vända tillbaka</div>
+          </div>
         </div>
-      `).join('')}
-    </div>
+      </div>
 
-    <button class="btn" style="margin-top:14px" onclick='checkMatch(${JSON.stringify(pairs)})'>
-      Rätta
-    </button>
+      <div class="navRow">
+        <button class="secondary" onclick="previousCard()">Föregående</button>
+        <button onclick="nextCard()">Nästa kort</button>
+      </div>
 
-    <div id="specialResult" class="explain hidden"></div>
-  `;
-}
+      <button class="secondary" onclick="openHome()">Till meny</button>
+    </section>
 
-function checkMatch(pairs){
-  let r = 0;
+    <section id="treeScreen" class="screen">
+      <h2>Bygg fotosyntesen</h2>
 
-  pairs.forEach((p,i) => {
-    if($('m' + i).value === p[1]){
-      r++;
-    }
-  });
+      <div class="hintBox">
+        Dra begreppen och pilarna till rätt plats runt trädet. Säg högt hur allt hänger ihop.
+      </div>
 
-  $('specialResult').classList.remove('hidden');
-  $('specialResult').innerHTML = `Du fick <b>${r} av ${pairs.length}</b> rätt.`;
-}
+      <div class="treeBoard" id="treeBoard">
+        <div class="sun">☀</div>
 
-function orderExercise(){
-  let correct = [
-    'Frö i jorden. Fröet gror.',
-    'Liten planta växer med stjälk och blad.',
-    'Blommor utvecklas med ståndare och pistill.',
-    'Insekter hjälper till med pollinering.',
-    'Frukt utvecklas.',
-    'I frukten finns frön.',
-    'Frön sprids och nya växter kan uppstå.'
-  ];
-
-  let arr = shuffle(correct);
-  window.orderArr = arr;
-
-  renderOrder(correct);
-}
-
-function renderOrder(correct){
-  $('specialBox').innerHTML = `
-    <div class="qtitle">Lägg livscykeln i rätt ordning</div>
-
-    <div class="orderList">
-      ${orderArr.map((t,i) => `
-        <div class="orderItem">
-          <button class="miniBtn" onclick="moveOrder(${i},-1)">↑</button>
-          <button class="miniBtn" onclick="moveOrder(${i},1)">↓</button>
-          <span>${t}</span>
+        <div class="tree">
+          <div class="leaf"></div>
+          <div class="trunk"></div>
+          <div class="root"></div>
         </div>
-      `).join('')}
-    </div>
 
-    <button class="btn" style="margin-top:14px" onclick='checkOrder(${JSON.stringify(correct)})'>
-      Rätta
-    </button>
+        <div class="treeLabel">TRÄD</div>
+      </div>
 
-    <div id="specialResult" class="explain hidden"></div>
-  `;
-}
+      <div class="toolbox" id="toolbox"></div>
 
-function moveOrder(i,d){
-  let ni = i + d;
+      <div class="navRow">
+        <button class="secondary" onclick="resetTree()">Nollställ</button>
+        <button onclick="showSolution()">Visa lösning</button>
+      </div>
 
-  if(ni < 0 || ni >= orderArr.length){
-    return;
-  }
+      <button class="secondary" onclick="openHome()">Till meny</button>
+    </section>
+  </div>
 
-  [orderArr[i], orderArr[ni]] = [orderArr[ni], orderArr[i]];
+  <script>
+    const categories = {
+      grunder:{
+        title:"Grunder",
+        cards:[
+          {
+            q:"Vad är fotosyntes?",
+            a:"En process i gröna växter och träd där vatten, solljus och koldioxid blir druvsocker och syre."
+          },
+          {
+            q:"Var sker fotosyntesen?",
+            a:"I gröna växter och träd, framför allt i bladen."
+          },
+          {
+            q:"Varför är fotosyntesen viktig?",
+            a:"Växter får energi och kan växa. Människor och djur får syre att andas."
+          },
+          {
+            q:"Hur hjälper växter och människor varandra?",
+            a:"Växter ger syre. Människor och djur andas ut koldioxid som växter behöver."
+          }
+        ]
+      },
 
-  let correct = [
-    'Frö i jorden. Fröet gror.',
-    'Liten planta växer med stjälk och blad.',
-    'Blommor utvecklas med ståndare och pistill.',
-    'Insekter hjälper till med pollinering.',
-    'Frukt utvecklas.',
-    'I frukten finns frön.',
-    'Frön sprids och nya växter kan uppstå.'
-  ];
+      behov:{
+        title:"Trädet behöver",
+        cards:[
+          {
+            q:"Vad behöver trädet för fotosyntesen?",
+            a:"Vatten, solljus och koldioxid."
+          },
+          {
+            q:"Hur får trädet vatten och näring?",
+            a:"Genom rötterna från marken."
+          },
+          {
+            q:"Vad gör klorofyll?",
+            a:"Samlar in solljus i de gröna bladen."
+          },
+          {
+            q:"Varifrån kommer koldioxid?",
+            a:"Från luften. Människor och djur andas ut koldioxid."
+          }
+        ]
+      },
 
-  renderOrder(correct);
-}
+      resultat:{
+        title:"Trädet tillverkar",
+        cards:[
+          {
+            q:"Vad tillverkar trädet i fotosyntesen?",
+            a:"Druvsocker och syre."
+          },
+          {
+            q:"Vad är druvsocker?",
+            a:"Trädets mat och energi. Det hjälper trädet att växa."
+          },
+          {
+            q:"Vad gör trädet med syret?",
+            a:"Släpper ut det i luften."
+          },
+          {
+            q:"Varför är syre viktigt?",
+            a:"Människor och djur behöver syre för att andas och leva."
+          }
+        ]
+      },
 
-function checkOrder(correct){
-  let r = orderArr.filter((x,i) => x === correct[i]).length;
+      begrepp:{
+        title:"Begrepp",
+        cards:[
+          {
+            q:"Solljus",
+            a:"Energi från solen som klorofyllet samlar in."
+          },
+          {
+            q:"Vatten",
+            a:"Tas upp från marken med rötterna."
+          },
+          {
+            q:"Koldioxid",
+            a:"Gas i luften som människor och djur andas ut. Trädet behöver den."
+          },
+          {
+            q:"Syre",
+            a:"Gas som trädet släpper ut. Människor och djur behöver den."
+          },
+          {
+            q:"Druvsocker",
+            a:"Trädets mat och energi."
+          },
+          {
+            q:"Näring",
+            a:"Tas upp från marken med rötterna och hjälper växten att växa."
+          },
+          {
+            q:"Klorofyll",
+            a:"Bladgrönt som samlar in solljus i bladen."
+          },
+          {
+            q:"Växter",
+            a:"Behöver vatten, solljus och koldioxid. Ger syre och druvsocker."
+          },
+          {
+            q:"Människor och djur",
+            a:"Andas in syre och andas ut koldioxid."
+          }
+        ]
+      }
+    };
 
-  $('specialResult').classList.remove('hidden');
-  $('specialResult').innerHTML = `Du fick <b>${r} av ${correct.length}</b> på rätt plats.`;
-}
+    const treeItems = [
+      {text:"Solljus", type:"word", x:44, y:18},
+      {text:"Vatten", type:"word", x:30, y:235},
+      {text:"Näring", type:"word", x:220, y:250},
+      {text:"Koldioxid", type:"word", x:330, y:75},
+      {text:"Klorofyll", type:"word", x:155, y:75},
+      {text:"Druvsocker", type:"word", x:178, y:132},
+      {text:"Syre", type:"word", x:345, y:150},
+      {text:"Växt", type:"word", x:205, y:175},
+      {text:"Människa", type:"word", x:330, y:230},
+      {text:"→ till trädet", type:"arrow", x:88, y:88},
+      {text:"→ till blad", type:"arrow", x:120, y:204},
+      {text:"→ in", type:"arrow", x:300, y:115},
+      {text:"→ ut", type:"arrow", x:310, y:180},
+      {text:"→ andas in", type:"arrow", x:330, y:198},
+      {text:"→ andas ut", type:"arrow", x:350, y:105}
+    ];
 
-function resetProgress(){
-  localStorage.removeItem('vaxterBest');
-  renderHome();
-}
+    let activeCards = [];
+    let activeTitle = "";
+    let currentIndex = 0;
 
-renderHome();
-</script>
+    function openHome(){
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
 
+      document.getElementById('home').classList.add('active');
+      document.getElementById('headerInfo').textContent = 'Start';
+    }
+
+    function startCategory(key){
+      if(key === 'alla'){
+        activeCards = [];
+
+        Object.keys(categories).forEach(categoryKey => {
+          categories[categoryKey].cards.forEach(card => {
+            activeCards.push({
+              q:card.q,
+              a:card.a,
+              category:categories[categoryKey].title
+            });
+          });
+        });
+
+        activeTitle = "Alla kort";
+      }else{
+        activeCards = categories[key].cards.map(card => {
+          return {
+            q:card.q,
+            a:card.a,
+            category:categories[key].title
+          };
+        });
+
+        activeTitle = categories[key].title;
+      }
+
+      currentIndex = 0;
+
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+
+      document.getElementById('cards').classList.add('active');
+      document.getElementById('headerInfo').textContent = activeTitle;
+      document.getElementById('categoryTitle').textContent = activeTitle;
+
+      renderCard();
+    }
+
+    function renderCard(){
+      const card = activeCards[currentIndex];
+      const progress = Math.round(((currentIndex + 1) / activeCards.length) * 100);
+
+      document.getElementById('frontText').textContent = card.q;
+      document.getElementById('backText').textContent = card.a;
+      document.getElementById('frontCategory').textContent = card.category;
+      document.getElementById('backCategory').textContent = card.category;
+      document.getElementById('counter').textContent = (currentIndex + 1) + ' av ' + activeCards.length;
+      document.getElementById('progress').style.width = progress + '%';
+      document.getElementById('flashCard').classList.remove('flipped');
+    }
+
+    function flipCard(){
+      document.getElementById('flashCard').classList.toggle('flipped');
+    }
+
+    function nextCard(){
+      currentIndex = (currentIndex + 1) % activeCards.length;
+      renderCard();
+    }
+
+    function previousCard(){
+      currentIndex = (currentIndex - 1 + activeCards.length) % activeCards.length;
+      renderCard();
+    }
+
+    function startTree(){
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+
+      document.getElementById('treeScreen').classList.add('active');
+      document.getElementById('headerInfo').textContent = 'Bygg bilden';
+
+      if(document.querySelectorAll('#toolbox .dragItem').length === 0){
+        buildToolbox();
+      }
+    }
+
+    function buildToolbox(){
+      const toolbox = document.getElementById('toolbox');
+      toolbox.innerHTML = "";
+
+      treeItems.forEach((item, index) => {
+        const el = document.createElement('div');
+        el.className = item.type === "arrow" ? "dragItem toolChip arrowItem" : "dragItem toolChip";
+        el.textContent = item.text;
+        el.dataset.index = index;
+        el.onclick = () => placeOnBoard(index);
+        toolbox.appendChild(el);
+      });
+    }
+
+    function placeOnBoard(index){
+      const board = document.getElementById('treeBoard');
+      const item = treeItems[index];
+
+      const el = document.createElement('div');
+      el.className = item.type === "arrow" ? "dragItem arrowItem" : "dragItem";
+      el.textContent = item.text;
+      el.style.left = "14px";
+      el.style.top = "14px";
+      el.dataset.index = index;
+
+      board.appendChild(el);
+      makeDraggable(el);
+    }
+
+    function makeDraggable(el){
+      let startX = 0;
+      let startY = 0;
+      let originX = 0;
+      let originY = 0;
+      let active = false;
+
+      el.addEventListener('pointerdown', e => {
+        active = true;
+        el.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startY = e.clientY;
+        originX = parseFloat(el.style.left) || 0;
+        originY = parseFloat(el.style.top) || 0;
+        el.style.cursor = "grabbing";
+      });
+
+      el.addEventListener('pointermove', e => {
+        if(!active) return;
+
+        const board = document.getElementById('treeBoard');
+        const maxX = board.clientWidth - el.offsetWidth;
+        const maxY = board.clientHeight - el.offsetHeight;
+
+        let x = originX + e.clientX - startX;
+        let y = originY + e.clientY - startY;
+
+        x = Math.max(0, Math.min(maxX, x));
+        y = Math.max(0, Math.min(maxY, y));
+
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+      });
+
+      el.addEventListener('pointerup', e => {
+        active = false;
+        el.style.cursor = "grab";
+      });
+    }
+
+    function resetTree(){
+      document.querySelectorAll('#treeBoard .dragItem').forEach(el => el.remove());
+    }
+
+    function showSolution(){
+      resetTree();
+
+      const board = document.getElementById('treeBoard');
+
+      treeItems.forEach((item, index) => {
+        const el = document.createElement('div');
+        el.className = item.type === "arrow" ? "dragItem arrowItem" : "dragItem";
+        el.textContent = item.text;
+        el.style.left = item.x + "px";
+        el.style.top = item.y + "px";
+        el.dataset.index = index;
+        board.appendChild(el);
+        makeDraggable(el);
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-const CACHE = "viljas-laxa-cache-v2";
+const CACHE = "viljas-laxa-cache-v3";
 const ASSETS = [
   "./",
   "./index.html",

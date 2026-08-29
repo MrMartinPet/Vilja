@@ -2,1438 +2,295 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Viljas Fotosyntes</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#2563eb">
+  <title>Viljas läxa – 8 ord</title>
+  <link rel="manifest" href="manifest.json">
   <style>
     :root{
-      --bg:#eef4f8;
-      --card:#ffffff;
-      --text:#132033;
+      --bg:#f4f7fb;
+      --card:#fff;
+      --text:#172033;
       --muted:#667085;
-      --blue:#156082;
-      --blueLight:#e7f3f7;
-      --green:#21803f;
-      --yellow:#f6c453;
+      --blue:#2563eb;
+      --blue2:#dbeafe;
+      --green:#16803d;
+      --green2:#dcfce7;
       --red:#b42318;
-      --border:#d9e2ea;
-      --shadow:0 12px 28px rgba(20,32,51,.12);
+      --red2:#fee4e2;
+      --border:#d9e2ef;
+      --shadow:0 16px 38px rgba(23,32,51,.12);
       --radius:24px;
     }
-
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    html,
-    body{
-      margin:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      background:linear-gradient(180deg,#dff0f6 0%,var(--bg) 48%);
-      color:var(--text);
-    }
-
-    body.builder-open{
-      position:fixed;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-      touch-action:none;
-      overscroll-behavior:none;
-    }
-
-    .app{
-      height:100dvh;
-      max-width:520px;
-      margin:0 auto;
-      display:flex;
-      flex-direction:column;
-      padding:14px;
-      gap:10px;
-    }
-
-    header{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:14px;
-      box-shadow:var(--shadow);
-    }
-
-    .topline{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:8px;
-    }
-
-    .badge{
-      background:var(--blueLight);
-      color:var(--blue);
-      padding:5px 9px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:850;
-      white-space:nowrap;
-    }
-
-    .small{
-      color:var(--muted);
-      font-size:13px;
-      font-weight:650;
-    }
-
-    h1{
-      margin:0;
-      font-size:27px;
-      line-height:1.05;
-      letter-spacing:-.03em;
-    }
-
-    h2{
-      margin:0 0 8px;
-      font-size:24px;
-      letter-spacing:-.02em;
-    }
-
-    p{
-      margin:6px 0;
-      line-height:1.35;
-    }
-
-    .screen{
-      display:none;
-      flex:1 1 auto;
-      min-height:0;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:14px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .screen.active{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .menuGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      overflow:auto;
-      padding-bottom:2px;
-    }
-
-    button{
-      border:0;
-      border-radius:18px;
-      padding:13px 14px;
-      font-size:15px;
-      font-weight:850;
-      background:var(--blue);
-      color:white;
-      cursor:pointer;
-      min-height:48px;
-    }
-
-    button.secondary{
-      background:#eef2f6;
-      color:var(--text);
-      border:1px solid var(--border);
-    }
-
-    button.green{
-      background:var(--green);
-    }
-
-    button.yellow{
-      background:var(--yellow);
-      color:#302400;
-    }
-
-    button.red{
-      background:var(--red);
-    }
-
-    .menuBtn{
-      min-height:84px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:flex-start;
-      text-align:left;
-      gap:5px;
-    }
-
-    .menuBtn span{
-      font-size:12px;
-      font-weight:650;
-      opacity:.88;
-    }
-
-    .navRow{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:auto;
-    }
-
-    .counter{
-      text-align:center;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:850;
-    }
-
-    .flashWrap{
-      perspective:1000px;
-      flex:1 1 auto;
-      min-height:260px;
-      display:flex;
-    }
-
-    .flashCard{
-      width:100%;
-      position:relative;
-      transform-style:preserve-3d;
-      transition:transform .55s cubic-bezier(.2,.8,.2,1);
-      cursor:pointer;
-      min-height:260px;
-    }
-
-    .flashCard.flipped{
-      transform:rotateY(180deg);
-    }
-
-    .face{
-      position:absolute;
-      inset:0;
-      border-radius:26px;
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      backface-visibility:hidden;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:22px;
-      overflow:hidden;
-    }
-
-    .front{
-      background:linear-gradient(180deg,#ffffff,#f7fafc);
-    }
-
-    .back{
-      background:linear-gradient(180deg,var(--blueLight),#ffffff);
-      transform:rotateY(180deg);
-    }
-
-    .faceLabel{
-      position:absolute;
-      top:14px;
-      left:14px;
-      font-size:12px;
-      font-weight:950;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-
-    .categoryLabel{
-      position:absolute;
-      top:14px;
-      right:14px;
-      font-size:12px;
-      font-weight:900;
-      background:#eef2f6;
-      color:var(--text);
-      border-radius:999px;
-      padding:5px 8px;
-      max-width:48%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .faceText{
-      font-size:27px;
-      font-weight:950;
-      line-height:1.12;
-      letter-spacing:-.03em;
-      max-width:100%;
-    }
-
-    .back .faceText{
-      font-size:20px;
-      font-weight:850;
-    }
-
-    .tapHint{
-      position:absolute;
-      bottom:14px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:750;
-    }
-
-    .progressWrap{
-      height:10px;
-      background:#e6edf3;
-      border-radius:999px;
-      overflow:hidden;
-    }
-
-    .progress{
-      height:100%;
-      width:0%;
-      background:var(--blue);
-      transition:.25s;
-    }
-
-    #builderScreen{
-      position:fixed;
-      inset:0;
-      z-index:50;
-      display:none;
-      flex-direction:column;
-      background:#dff0f6;
-      overflow:hidden;
-      touch-action:none;
-      overscroll-behavior:none;
-      user-select:none;
-      -webkit-user-select:none;
-      -webkit-touch-callout:none;
-    }
-
-    #builderScreen.active{
-      display:flex;
-    }
-
-    .builderTop{
-      flex:0 0 auto;
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      gap:5px;
-      padding:6px 10px;
-      background:rgba(255,255,255,.96);
-      border-bottom:1px solid var(--border);
-      overflow-x:auto;
-      overflow-y:hidden;
-      touch-action:pan-x;
-      overscroll-behavior:contain;
-    }
-
-    .builderTop button{
-      min-height:32px;
-      padding:6px 8px;
-      font-size:11px;
-      border-radius:12px;
-      white-space:nowrap;
-    }
-
-    .builderTitle{
-      flex:1 0 auto;
-      min-width:120px;
-      font-size:12px;
-      font-weight:950;
-      color:var(--blue);
-      white-space:nowrap;
-    }
-
-    .builderCanvas{
-      position:relative;
-      flex:1 1 auto;
-      min-height:0;
-      overflow:hidden;
-      background:linear-gradient(180deg,#cfefff 0%,#e8f8e8 63%,#c9955b 63%,#bd8548 100%);
-      touch-action:none;
-      overscroll-behavior:none;
-    }
-
-    #workArea{
-      position:absolute;
-      inset:0;
-      overflow:hidden;
-      touch-action:none;
-      overscroll-behavior:none;
-    }
-
-    #arrowLayer{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      z-index:2;
-      pointer-events:none;
-    }
-
-    .sunArt{
-      position:absolute;
-      left:18px;
-      top:18px;
-      width:54px;
-      height:54px;
-      border-radius:50%;
-      background:#ffd84a;
-      box-shadow:0 0 0 8px rgba(255,216,74,.28);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:25px;
-      font-weight:900;
-      pointer-events:none;
-      z-index:1;
-    }
-
-    .treeArt{
-      position:absolute;
-      left:50%;
-      top:49%;
-      transform:translate(-50%,-50%);
-      width:min(68vw,275px);
-      height:auto;
-      pointer-events:none;
-      z-index:1;
-    }
-
-    .node{
-      position:absolute;
-      z-index:5;
-      min-width:62px;
-      max-width:118px;
-      padding:6px 8px;
-      border-radius:999px;
-      background:white;
-      border:2px solid transparent;
-      box-shadow:0 6px 14px rgba(20,32,51,.16);
-      font-size:12px;
-      font-weight:950;
-      text-align:center;
-      cursor:grab;
-      user-select:none;
-      touch-action:none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:4px;
-    }
-
-    .node.selected{
-      border-color:var(--yellow);
-      box-shadow:0 0 0 4px rgba(246,196,83,.35), 0 6px 14px rgba(20,32,51,.16);
-    }
-
-    .node.hasAudio::after{
-      content:"🔊";
-      margin-left:2px;
-      font-size:11px;
-    }
-
-    .nodeSymbol{
-      font-size:14px;
-      line-height:1;
-    }
-
-    .arrowHandle{
-      position:absolute;
-      width:22px;
-      height:22px;
-      margin-left:-11px;
-      margin-top:-11px;
-      border-radius:50%;
-      background:white;
-      border:3px solid var(--blue);
-      box-shadow:0 3px 10px rgba(20,32,51,.2);
-      z-index:7;
-      touch-action:none;
-    }
-
-    .arrowHandle.end{
-      border-color:var(--green);
-    }
-
-    .arrowHandle.selected{
-      box-shadow:0 0 0 5px rgba(246,196,83,.35);
-    }
-
-    .toolTray{
-      flex:0 0 auto;
-      height:142px;
-      background:rgba(255,255,255,.97);
-      border-top:1px solid var(--border);
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:88px;
-      grid-template-rows:1fr 1fr;
-      gap:7px;
-      padding:8px 12px 10px 12px;
-      overflow-x:auto;
-      overflow-y:hidden;
-      touch-action:pan-x;
-      overscroll-behavior:contain;
-      scroll-snap-type:x proximity;
-    }
-
-    .toolTray button{
-      min-width:0;
-      width:88px;
-      min-height:0;
-      padding:6px 7px;
-      border-radius:13px;
-      font-size:11px;
-      text-align:center;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:2px;
-      scroll-snap-align:start;
-    }
-
-    .toolTray button:disabled{
-      opacity:.42;
-      cursor:not-allowed;
-    }
-
-    .toolTray .toolIcon{
-      font-size:16px;
-      line-height:1;
-    }
-
-    .toolTray .toolText{
-      font-weight:950;
-      line-height:1.05;
-    }
-
-    .statusBar{
-      flex:0 0 auto;
-      min-height:50px;
-      display:flex;
-      align-items:center;
-      gap:5px;
-      padding:6px 10px;
-      background:rgba(255,255,255,.96);
-      border-top:1px solid var(--border);
-      overflow-x:auto;
-      overflow-y:hidden;
-      touch-action:pan-x;
-      overscroll-behavior:contain;
-    }
-
-    .statusText{
-      flex:1 0 120px;
-      font-size:11px;
-      font-weight:850;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .statusBar button{
-      min-height:32px;
-      padding:6px 8px;
-      font-size:11px;
-      border-radius:12px;
-      white-space:nowrap;
-    }
-
-    .landscapeBlock{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:200;
-      background:#132033;
-      color:white;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:28px;
-      font-size:24px;
-      font-weight:950;
-    }
-
-    @media(orientation:landscape){
-      body.builder-open .landscapeBlock{
-        display:flex;
-      }
-    }
-
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    body{min-height:100dvh}
+    button,input{font:inherit}
+    button{border:0;cursor:pointer}
+    .app{max-width:560px;min-height:100dvh;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+    header{padding:8px 4px 2px}
+    h1{margin:0;font-size:30px;line-height:1.05;letter-spacing:-.035em}
+    .sub{margin:7px 0 0;color:var(--muted);font-weight:650}
+    .screen{display:none;flex:1}
+    .screen.active{display:flex;flex-direction:column}
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .home{justify-content:center;gap:12px}
+    .homeBtn{width:100%;min-height:118px;border-radius:24px;padding:20px;text-align:left;color:white;background:var(--blue);box-shadow:var(--shadow)}
+    .homeBtn.secondary{background:#172033}
+    .homeBtn strong{display:block;font-size:24px;margin-bottom:6px}
+    .homeBtn span{font-size:15px;opacity:.9;font-weight:650}
+    .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .backBtn{background:#e9eef5;color:var(--text);border-radius:14px;padding:10px 13px;font-weight:850}
+    .counter{color:var(--muted);font-weight:800;font-size:14px}
+    .progress{height:9px;background:#e7edf5;border-radius:999px;overflow:hidden;margin-bottom:12px}
+    .progress>div{height:100%;background:var(--blue);width:0;transition:width .2s}
+    .flashWrap{perspective:1000px;flex:1;min-height:330px}
+    .flash{position:relative;width:100%;height:100%;min-height:330px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+    .flash.flipped{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:28px;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;background:var(--card)}
+    .face.back{transform:rotateY(180deg);background:linear-gradient(180deg,#eff6ff,#fff)}
+    .word{font-size:42px;font-weight:950;letter-spacing:-.04em;overflow-wrap:anywhere}
+    .definition{font-size:24px;line-height:1.35;font-weight:800}
+    .hint{position:absolute;bottom:18px;left:0;right:0;color:var(--muted);font-weight:700;font-size:13px}
+    .nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .btn{min-height:52px;border-radius:16px;padding:12px 14px;font-weight:900;background:var(--blue);color:#fff}
+    .btn.light{background:#e9eef5;color:var(--text)}
+    .spellPanel{display:flex;flex-direction:column;gap:14px;min-height:430px}
+    .speaker{width:116px;height:116px;border-radius:50%;margin:16px auto 4px;background:var(--blue);color:white;font-size:48px;box-shadow:var(--shadow)}
+    .listen{text-align:center;font-size:18px;font-weight:800}
+    .spellInput{width:100%;border:2px solid var(--border);border-radius:16px;padding:15px 16px;font-size:24px;text-align:center;font-weight:800;outline:none;background:#fff}
+    .spellInput:focus{border-color:var(--blue)}
+    .result{min-height:70px;border-radius:18px;padding:14px;display:none;align-items:center;justify-content:center;text-align:center;font-size:18px;font-weight:850}
+    .result.good{display:flex;background:var(--green2);color:var(--green)}
+    .result.bad{display:flex;background:var(--red2);color:var(--red)}
+    .spellActions{display:grid;grid-template-columns:1fr;gap:10px}
+    .scoreBox{text-align:center;margin:auto 0;padding:18px 10px}
+    .scoreBig{font-size:64px;font-weight:950;letter-spacing:-.05em}
+    .scoreText{font-size:19px;font-weight:800;color:var(--muted);margin-bottom:20px}
+    .tiny{text-align:center;color:var(--muted);font-size:13px;font-weight:650;margin-top:8px}
     @media(max-width:380px){
-      .app{
-        padding:10px;
-      }
-
-      h1{
-        font-size:24px;
-      }
-
-      .faceText{
-        font-size:24px;
-      }
-
-      .back .faceText{
-        font-size:18px;
-      }
-
-      .toolTray{
-        height:138px;
-        grid-auto-columns:82px;
-      }
-
-      .toolTray button{
-        width:82px;
-      }
-
-      .treeArt{
-        width:min(64vw,245px);
-      }
+      .app{padding:10px}
+      h1{font-size:27px}
+      .word{font-size:35px}
+      .definition{font-size:21px}
+      .flashWrap,.flash{min-height:300px}
+      .speaker{width:100px;height:100px;font-size:42px}
     }
   </style>
 </head>
-
 <body>
   <div class="app">
     <header>
-      <div class="topline">
-        <div class="badge">Fotosyntes</div>
-        <div class="small" id="headerInfo">Start</div>
-      </div>
-
-      <h1>Viljas Fotosyntes</h1>
-      <p class="small">Flashcards och bygg en egen bild.</p>
+      <h1>Viljas läxa</h1>
+      <p class="sub">8 ord att kunna förklara och stava</p>
     </header>
 
-    <main id="home" class="screen active">
-      <h2>Välj träning</h2>
+    <main id="home" class="screen active home">
+      <button class="homeBtn" id="flashStart">
+        <strong>🧠 Flashcards</strong>
+        <span>Se ordet, tryck på kortet och läs förklaringen.</span>
+      </button>
+      <button class="homeBtn secondary" id="spellStart">
+        <strong>🔊 Stava orden</strong>
+        <span>Lyssna på ordet och skriv hur det stavas.</span>
+      </button>
+    </main>
 
-      <div class="menuGrid">
-        <button class="menuBtn" onclick="startCategory('grunder')">
-          Grunder
-          <span>Vad fotosyntes är</span>
-        </button>
-
-        <button class="menuBtn" onclick="startCategory('behov')">
-          Växten behöver
-          <span>Vatten, solljus, koldioxid</span>
-        </button>
-
-        <button class="menuBtn green" onclick="startCategory('resultat')">
-          Växten tillverkar
-          <span>Druvsocker och syre</span>
-        </button>
-
-        <button class="menuBtn green" onclick="startCategory('begrepp')">
-          Begrepp
-          <span>Alla viktiga ord</span>
-        </button>
-
-        <button class="menuBtn yellow" onclick="openBuilder()">
-          Bygg din bild
-          <span>Stående rityta</span>
-        </button>
-
-        <button class="menuBtn yellow" onclick="startCategory('alla')">
-          Alla kort
-          <span>Allt blandat</span>
-        </button>
+    <main id="flashScreen" class="screen">
+      <div class="panel" style="display:flex;flex-direction:column;flex:1">
+        <div class="toprow">
+          <button class="backBtn" data-home>← Meny</button>
+          <div class="counter" id="flashCounter"></div>
+        </div>
+        <div class="progress"><div id="flashProgress"></div></div>
+        <div class="flashWrap">
+          <div class="flash" id="flashCard" role="button" tabindex="0" aria-label="Vänd kortet">
+            <div class="face front">
+              <div class="word" id="flashWord"></div>
+              <div class="hint">Tryck för förklaring</div>
+            </div>
+            <div class="face back">
+              <div class="definition" id="flashDefinition"></div>
+              <div class="hint">Tryck för att vända tillbaka</div>
+            </div>
+          </div>
+        </div>
+        <div class="nav">
+          <button class="btn light" id="prevCard">← Förra</button>
+          <button class="btn" id="nextCard">Nästa →</button>
+        </div>
       </div>
     </main>
 
-    <section id="cards" class="screen">
-      <h2 id="categoryTitle">Flashcards</h2>
+    <main id="spellScreen" class="screen">
+      <div class="panel spellPanel">
+        <div class="toprow">
+          <button class="backBtn" data-home>← Meny</button>
+          <div class="counter" id="spellCounter"></div>
+        </div>
+        <div class="progress"><div id="spellProgress"></div></div>
 
-      <div class="counter" id="counter">1 av 1</div>
-
-      <div class="progressWrap">
-        <div class="progress" id="progress"></div>
-      </div>
-
-      <div class="flashWrap">
-        <div class="flashCard" id="flashCard" onclick="flipCard()">
-          <div class="face front">
-            <div class="faceLabel">Fråga</div>
-            <div class="categoryLabel" id="frontCategory">Kategori</div>
-            <div class="faceText" id="frontText"></div>
-            <div class="tapHint">Tryck för att vända</div>
+        <div id="spellPlay">
+          <button class="speaker" id="speakBtn" aria-label="Lyssna på ordet">🔊</button>
+          <div class="listen">Tryck på högtalaren och skriv ordet.</div>
+          <input id="spellInput" class="spellInput" autocomplete="off" autocapitalize="none" spellcheck="false" inputmode="text" aria-label="Skriv ordet">
+          <div id="spellResult" class="result"></div>
+          <div class="spellActions" style="margin-top:12px">
+            <button class="btn" id="checkSpell">Kolla svaret</button>
+            <button class="btn light" id="nextSpell" style="display:none">Nästa ord →</button>
           </div>
+          <div class="tiny">Du får höra ordet hur många gånger du vill.</div>
+        </div>
 
-          <div class="face back">
-            <div class="faceLabel">Svar</div>
-            <div class="categoryLabel" id="backCategory">Kategori</div>
-            <div class="faceText" id="backText"></div>
-            <div class="tapHint">Tryck för att vända tillbaka</div>
-          </div>
+        <div id="spellDone" class="scoreBox" style="display:none">
+          <div class="scoreBig" id="scoreBig"></div>
+          <div class="scoreText" id="scoreText"></div>
+          <button class="btn" id="restartSpell">Kör igen</button>
         </div>
       </div>
-
-      <div class="navRow">
-        <button class="secondary" onclick="previousCard()">Föregående</button>
-        <button onclick="nextCard()">Nästa kort</button>
-      </div>
-
-      <button class="secondary" onclick="openHome()">Till meny</button>
-    </section>
+    </main>
   </div>
 
-  <section id="builderScreen">
-    <div class="builderTop">
-      <button class="secondary" onclick="closeBuilder()">Meny</button>
-      <button class="red" onclick="deleteSelectedItem()">Ta bort vald</button>
-      <button class="green" onclick="saveBuilder()">Spara</button>
-      <button class="secondary" onclick="loadBuilder()">Ladda</button>
-      <button class="red" onclick="clearBuilder()">Rensa</button>
-      <div class="builderTitle">Bygg fotosyntesen</div>
-    </div>
-
-    <div class="builderCanvas">
-      <div id="workArea">
-        <svg id="arrowLayer">
-          <defs>
-            <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-              <path d="M0,0 L0,6 L9,3 z" fill="#156082"></path>
-            </marker>
-          </defs>
-        </svg>
-
-        <div class="sunArt">☀</div>
-
-        <svg class="treeArt" viewBox="0 0 280 330">
-          <ellipse cx="140" cy="100" rx="100" ry="74" fill="#2f9447"></ellipse>
-          <circle cx="88" cy="92" r="56" fill="#2d8a41"></circle>
-          <circle cx="140" cy="60" r="62" fill="#3ba653"></circle>
-          <circle cx="194" cy="98" r="58" fill="#2d8a41"></circle>
-          <circle cx="130" cy="126" r="64" fill="#3aa34f"></circle>
-          <rect x="120" y="140" width="42" height="118" rx="15" fill="#8b5a2b"></rect>
-          <path d="M141 238 C108 255 90 276 60 305" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
-          <path d="M141 238 C170 255 196 276 225 305" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
-          <path d="M141 238 C138 260 138 282 138 315" stroke="#8b5a2b" stroke-width="10" fill="none" stroke-linecap="round"></path>
-        </svg>
-      </div>
-    </div>
-
-    <div class="toolTray" id="toolTray"></div>
-
-    <div class="statusBar">
-      <div class="statusText" id="selectedInfo">Ingen rubrik vald</div>
-      <button onclick="startRecording()">Spela in</button>
-      <button class="secondary" onclick="stopRecording()">Stoppa</button>
-      <button class="secondary" onclick="playSelectedAudio()">Spela upp</button>
-      <button class="red" onclick="deleteSelectedAudio()">Radera ljud</button>
-    </div>
-  </section>
-
-  <div class="landscapeBlock">
-    Vänd mobilen till stående läge.
-  </div>
-
-  <script>
-    const categories = {
-      grunder:{
-        title:"Grunder",
-        cards:[
-          { q:"Vad är fotosyntes?", a:"En process i gröna växter där vatten, solljus och koldioxid blir druvsocker och syre." },
-          { q:"Var sker fotosyntesen?", a:"Framför allt i bladen." },
-          { q:"Varför är fotosyntesen viktig?", a:"Växter får energi att växa och människor får syre att andas." }
-        ]
-      },
-
-      behov:{
-        title:"Växten behöver",
-        cards:[
-          { q:"Vad behöver växten för fotosyntesen?", a:"Vatten, solljus och koldioxid." },
-          { q:"Hur får växten vatten och näring?", a:"Genom rötterna från marken." },
-          { q:"Vad gör klorofyll?", a:"Tar upp solljus i de gröna bladen." }
-        ]
-      },
-
-      resultat:{
-        title:"Växten tillverkar",
-        cards:[
-          { q:"Vad tillverkar växten i fotosyntesen?", a:"Druvsocker och syre." },
-          { q:"Vad används druvsocker till?", a:"Som växtens mat och energi." },
-          { q:"Vad händer med syret?", a:"Det släpps ut i luften." }
-        ]
-      },
-
-      begrepp:{
-        title:"Begrepp",
-        cards:[
-          { q:"Koldioxid", a:"En gas i luften som växten behöver." },
-          { q:"Syre", a:"En gas som växten släpper ut och som människor behöver." },
-          { q:"Druvsocker", a:"Växtens mat och energi." },
-          { q:"Klorofyll", a:"Det gröna i bladen som tar upp solljus." },
-          { q:"Näring", a:"Ämnen från marken som hjälper växten att växa." }
-        ]
-      }
-    };
-
-    let activeCards = [];
-    let activeTitle = "";
-    let currentIndex = 0;
-
-    function openHome(){
-      document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-      });
-      document.getElementById('home').classList.add('active');
-      document.getElementById('headerInfo').textContent = 'Start';
-    }
-
-    function startCategory(key){
-      if(key === 'alla'){
-        activeCards = [];
-        Object.keys(categories).forEach(categoryKey => {
-          categories[categoryKey].cards.forEach(card => {
-            activeCards.push({
-              q:card.q,
-              a:card.a,
-              category:categories[categoryKey].title
-            });
-          });
-        });
-        activeTitle = "Alla kort";
-      }else{
-        activeCards = categories[key].cards.map(card => ({
-          q:card.q,
-          a:card.a,
-          category:categories[key].title
-        }));
-        activeTitle = categories[key].title;
-      }
-
-      currentIndex = 0;
-      document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-      });
-      document.getElementById('cards').classList.add('active');
-      document.getElementById('headerInfo').textContent = activeTitle;
-      document.getElementById('categoryTitle').textContent = activeTitle;
-      renderCard();
-    }
-
-    function renderCard(){
-      const card = activeCards[currentIndex];
-      const progress = Math.round(((currentIndex + 1) / activeCards.length) * 100);
-      document.getElementById('frontText').textContent = card.q;
-      document.getElementById('backText').textContent = card.a;
-      document.getElementById('frontCategory').textContent = card.category;
-      document.getElementById('backCategory').textContent = card.category;
-      document.getElementById('counter').textContent = (currentIndex + 1) + ' av ' + activeCards.length;
-      document.getElementById('progress').style.width = progress + '%';
-      document.getElementById('flashCard').classList.remove('flipped');
-    }
-
-    function flipCard(){
-      document.getElementById('flashCard').classList.toggle('flipped');
-    }
-
-    function nextCard(){
-      currentIndex = (currentIndex + 1) % activeCards.length;
-      renderCard();
-    }
-
-    function previousCard(){
-      currentIndex = (currentIndex - 1 + activeCards.length) % activeCards.length;
-      renderCard();
-    }
-
-    const nodeCatalog = [
-      { key:"manniska", label:"Människa", symbol:"👧" },
-      { key:"klorofyll", label:"Klorofyll", symbol:"🍃" },
-      { key:"vaxt", label:"Växt", symbol:"🌿" },
-      { key:"druvsocker", label:"Druvsocker", symbol:"🍬" },
-      { key:"solljus", label:"Solljus", symbol:"☀️" },
-      { key:"vatten", label:"Vatten", symbol:"💧" },
-      { key:"naring", label:"Näring", symbol:"🟤" },
-      { key:"syre", label:"Syre", symbol:"🫧" },
-      { key:"koldioxid", label:"Koldioxid", symbol:"CO₂" }
-    ];
-
-    let nodes = [];
-    let arrows = [];
-    let selectedNodeId = null;
-    let selectedArrowId = null;
-    let idCounter = 1;
-    let mediaRecorder = null;
-    let audioChunks = [];
-    let db = null;
-    let currentAudio = null;
-
-    function openBuilder(){
-      document.body.classList.add("builder-open");
-      document.getElementById('builderScreen').classList.add('active');
-      lockPortrait();
-      initDb();
-      renderToolTray();
-      loadBuilder();
-    }
-
-    function closeBuilder(){
-      document.body.classList.remove("builder-open");
-      document.getElementById('builderScreen').classList.remove('active');
-      stopCurrentAudio();
-    }
-
-    async function lockPortrait(){
-      try{
-        if(screen.orientation && screen.orientation.lock){
-          await screen.orientation.lock("portrait");
-        }
-      }catch(e){}
-    }
-
-    function renderToolTray(){
-      const tray = document.getElementById("toolTray");
-      tray.innerHTML = "";
-
-      const arrowBtn = document.createElement("button");
-      arrowBtn.className = "secondary";
-      arrowBtn.innerHTML = `<span class="toolIcon">➡️</span><span class="toolText">Pil</span>`;
-      arrowBtn.onclick = addArrow;
-      tray.appendChild(arrowBtn);
-
-      nodeCatalog.forEach(item => {
-        const exists = nodes.some(n => n.key === item.key);
-        const btn = document.createElement("button");
-        btn.disabled = exists;
-        btn.innerHTML = `<span class="toolIcon">${item.symbol}</span><span class="toolText">${item.label}</span>`;
-        btn.onclick = () => addNode(item.key);
-        tray.appendChild(btn);
-      });
-    }
-
-    function workRect(){
-      return document.getElementById('workArea').getBoundingClientRect();
-    }
-
-    function addNode(key){
-      if(nodes.some(n => n.key === key)) return;
-
-      const item = nodeCatalog.find(x => x.key === key);
-      const rect = workRect();
-
-      const node = {
-        id:"n" + idCounter++,
-        key:item.key,
-        label:item.label,
-        symbol:item.symbol,
-        x:clamp(rect.width * 0.38, 16, rect.width - 130),
-        y:clamp(rect.height * 0.34, 16, rect.height - 60),
-        justDragged:false
-      };
-
-      nodes.push(node);
-      renderToolTray();
-      renderBuilder();
-      selectNode(node.id);
-      saveBuilder();
-    }
-
-    function addArrow(){
-      const rect = workRect();
-
-      const arrow = {
-        id:"a" + idCounter++,
-        x1:rect.width * 0.22,
-        y1:rect.height * 0.24,
-        x2:rect.width * 0.52,
-        y2:rect.height * 0.34
-      };
-
-      arrows.push(arrow);
-      renderBuilder();
-      selectArrow(arrow.id);
-      saveBuilder();
-    }
-
-    function renderBuilder(){
-      const area = document.getElementById('workArea');
-      area.querySelectorAll('.node,.arrowHandle').forEach(el => el.remove());
-
-      renderArrows();
-
-      nodes.forEach(node => {
-        const el = document.createElement('div');
-        el.className = "node";
-
-        if(node.id === selectedNodeId){
-          el.classList.add('selected');
-        }
-
-        el.style.left = node.x + "px";
-        el.style.top = node.y + "px";
-        el.dataset.id = node.id;
-        el.innerHTML = `<span class="nodeSymbol">${node.symbol}</span><span>${node.label}</span>`;
-
-        hasAudio(node.id).then(exists => {
-          if(exists){
-            el.classList.add("hasAudio");
-          }
-        });
-
-        el.addEventListener('pointerdown', e => startDragNode(e, node.id));
-        el.addEventListener('click', e => {
-          e.stopPropagation();
-          const n = nodes.find(x => x.id === node.id);
-          if(n && n.justDragged) return;
-          selectNode(node.id);
-          playAudio(node.id);
-        });
-
-        area.appendChild(el);
-      });
-
-      arrows.forEach(arrow => {
-        createHandle(arrow, "start");
-        createHandle(arrow, "end");
-      });
-    }
-
-    function renderArrows(){
-      const svg = document.getElementById('arrowLayer');
-      Array.from(svg.querySelectorAll('line')).forEach(line => line.remove());
-
-      arrows.forEach(arrow => {
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", arrow.x1);
-        line.setAttribute("y1", arrow.y1);
-        line.setAttribute("x2", arrow.x2);
-        line.setAttribute("y2", arrow.y2);
-        line.setAttribute("stroke", "#156082");
-        line.setAttribute("stroke-width", arrow.id === selectedArrowId ? "6" : "4");
-        line.setAttribute("stroke-linecap", "round");
-        line.setAttribute("marker-end", "url(#arrowHead)");
-        svg.appendChild(line);
-      });
-    }
-
-    function createHandle(arrow, end){
-      const area = document.getElementById('workArea');
-      const handle = document.createElement('div');
-      handle.className = end === "end" ? "arrowHandle end" : "arrowHandle";
-
-      handle.style.left = (end === "end" ? arrow.x2 : arrow.x1) + "px";
-      handle.style.top = (end === "end" ? arrow.y2 : arrow.y1) + "px";
-
-      if(arrow.id === selectedArrowId){
-        handle.classList.add("selected");
-      }
-
-      handle.addEventListener('pointerdown', e => startDragArrowHandle(e, arrow.id, end));
-      handle.addEventListener('click', e => {
-        e.stopPropagation();
-        selectArrow(arrow.id);
-      });
-
-      area.appendChild(handle);
-    }
-
-    function selectNode(id){
-      selectedNodeId = id;
-      selectedArrowId = null;
-      const node = nodes.find(n => n.id === id);
-      document.getElementById('selectedInfo').textContent = node ? `Vald: ${node.label}` : "Ingen rubrik vald";
-      renderBuilder();
-    }
-
-    function selectArrow(id){
-      selectedArrowId = id;
-      selectedNodeId = null;
-      document.getElementById('selectedInfo').textContent = "Pil vald. Dra i ändarna.";
-      renderBuilder();
-    }
-
-    function startDragNode(e, id){
-      e.preventDefault();
-      e.stopPropagation();
-      selectNode(id);
-
-      const node = nodes.find(n => n.id === id);
-      const rect = workRect();
-      const startX = e.clientX;
-      const startY = e.clientY;
-      const originX = node.x;
-      const originY = node.y;
-      let moved = false;
-
-      const move = ev => {
-        ev.preventDefault();
-        const dx = ev.clientX - startX;
-        const dy = ev.clientY - startY;
-
-        if(Math.abs(dx) > 4 || Math.abs(dy) > 4){
-          moved = true;
-        }
-
-        node.x = clamp(originX + dx, 12, rect.width - 128);
-        node.y = clamp(originY + dy, 12, rect.height - 54);
-        renderBuilder();
-      };
-
-      const up = () => {
-        window.removeEventListener('pointermove', move);
-        window.removeEventListener('pointerup', up);
-
-        if(moved){
-          node.justDragged = true;
-          setTimeout(() => node.justDragged = false, 180);
-        }
-
-        saveBuilder();
-      };
-
-      window.addEventListener('pointermove', move, {passive:false});
-      window.addEventListener('pointerup', up);
-    }
-
-    function startDragArrowHandle(e, id, end){
-      e.preventDefault();
-      e.stopPropagation();
-      selectArrow(id);
-
-      const arrow = arrows.find(a => a.id === id);
-      const rect = workRect();
-
-      const move = ev => {
-        ev.preventDefault();
-        const localX = clamp(ev.clientX - rect.left, 12, rect.width - 12);
-        const localY = clamp(ev.clientY - rect.top, 12, rect.height - 12);
-
-        if(end === "end"){
-          arrow.x2 = localX;
-          arrow.y2 = localY;
-        }else{
-          arrow.x1 = localX;
-          arrow.y1 = localY;
-        }
-
-        renderBuilder();
-      };
-
-      const up = () => {
-        window.removeEventListener('pointermove', move);
-        window.removeEventListener('pointerup', up);
-        saveBuilder();
-      };
-
-      window.addEventListener('pointermove', move, {passive:false});
-      window.addEventListener('pointerup', up);
-    }
-
-    function deleteSelectedItem(){
-      if(selectedNodeId){
-        deleteAudioByNodeId(selectedNodeId).then(() => {
-          nodes = nodes.filter(n => n.id !== selectedNodeId);
-          selectedNodeId = null;
-          document.getElementById('selectedInfo').textContent = "Rubrik borttagen.";
-          renderToolTray();
-          renderBuilder();
-          saveBuilder();
-        });
-        return;
-      }
-
-      if(selectedArrowId){
-        arrows = arrows.filter(a => a.id !== selectedArrowId);
-        selectedArrowId = null;
-        document.getElementById('selectedInfo').textContent = "Pil borttagen.";
-        renderBuilder();
-        saveBuilder();
-        return;
-      }
-
-      document.getElementById('selectedInfo').textContent = "Välj först rubrik eller pil.";
-    }
-
-    function clearBuilder(){
-      if(!confirm("Rensa hela bilden?")){
-        return;
-      }
-
-      Promise.all(nodes.map(n => deleteAudioByNodeId(n.id))).then(() => {
-        nodes = [];
-        arrows = [];
-        selectedNodeId = null;
-        selectedArrowId = null;
-        renderToolTray();
-        renderBuilder();
-        saveBuilder();
-        document.getElementById('selectedInfo').textContent = "Allt rensat.";
-      });
-    }
-
-    function clamp(value, min, max){
-      return Math.max(min, Math.min(max, value));
-    }
-
-    function saveBuilder(){
-      const data = {
-        nodes:nodes.map(n => ({
-          id:n.id,
-          key:n.key,
-          label:n.label,
-          symbol:n.symbol,
-          x:n.x,
-          y:n.y
-        })),
-        arrows:arrows,
-        idCounter:idCounter
-      };
-
-      localStorage.setItem("viljaFotosyntesBuilderSafe", JSON.stringify(data));
-    }
-
-    function loadBuilder(){
-      const saved = localStorage.getItem("viljaFotosyntesBuilderSafe");
-
-      if(!saved){
-        renderToolTray();
-        renderBuilder();
-        return;
-      }
-
-      try{
-        const data = JSON.parse(saved);
-        nodes = data.nodes || [];
-        arrows = data.arrows || [];
-        idCounter = data.idCounter || 1;
-        selectedNodeId = null;
-        selectedArrowId = null;
-      }catch(e){
-        nodes = [];
-        arrows = [];
-      }
-
-      renderToolTray();
-      renderBuilder();
-    }
-
-    window.addEventListener('resize', () => {
-      if(document.getElementById('builderScreen').classList.contains('active')){
-        renderBuilder();
-      }
-    });
-
-    document.addEventListener('gesturestart', function(e){
-      if(document.body.classList.contains("builder-open")){
-        e.preventDefault();
-      }
-    }, {passive:false});
-
-    document.addEventListener('gesturechange', function(e){
-      if(document.body.classList.contains("builder-open")){
-        e.preventDefault();
-      }
-    }, {passive:false});
-
-    document.addEventListener('gestureend', function(e){
-      if(document.body.classList.contains("builder-open")){
-        e.preventDefault();
-      }
-    }, {passive:false});
-
-    document.addEventListener('touchmove', function(e){
-      if(!document.body.classList.contains("builder-open")){
-        return;
-      }
-
-      const allowScroll = e.target.closest('.toolTray, .builderTop, .statusBar');
-
-      if(allowScroll && e.touches.length === 1){
-        return;
-      }
-
-      e.preventDefault();
-    }, {passive:false});
-
-    function initDb(){
-      if(db) return;
-
-      const request = indexedDB.open("ViljaFotosyntesAudioSafe", 1);
-
-      request.onupgradeneeded = event => {
-        const database = event.target.result;
-        if(!database.objectStoreNames.contains("audio")){
-          database.createObjectStore("audio");
-        }
-      };
-
-      request.onsuccess = event => {
-        db = event.target.result;
-        renderBuilder();
-      };
-
-      request.onerror = () => {
-        document.getElementById('selectedInfo').textContent = "Kunde inte öppna ljudlagring.";
-      };
-    }
-
-    async function startRecording(){
-      if(!selectedNodeId){
-        document.getElementById('selectedInfo').textContent = "Välj en rubrik först.";
-        return;
-      }
-
-      if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-        document.getElementById('selectedInfo').textContent = "Mikrofon stöds inte här.";
-        return;
-      }
-
-      try{
-        const nodeIdAtStart = selectedNodeId;
-        const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-        audioChunks = [];
-
-        let options = {};
-        if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/mp4")){
-          options = {mimeType:"audio/mp4"};
-        }else if(window.MediaRecorder && MediaRecorder.isTypeSupported("audio/webm")){
-          options = {mimeType:"audio/webm"};
-        }
-
-        mediaRecorder = new MediaRecorder(stream, options);
-
-        mediaRecorder.ondataavailable = event => {
-          if(event.data && event.data.size > 0){
-            audioChunks.push(event.data);
-          }
-        };
-
-        mediaRecorder.onstop = async () => {
-          const mimeType = mediaRecorder.mimeType || "audio/mp4";
-          const blob = new Blob(audioChunks, {type:mimeType});
-          await saveAudio(nodeIdAtStart, blob);
-          stream.getTracks().forEach(track => track.stop());
-          document.getElementById('selectedInfo').textContent = "Ljud sparat.";
-          renderBuilder();
-        };
-
-        mediaRecorder.start();
-        document.getElementById('selectedInfo').textContent = "Spelar in. Tryck Stoppa.";
-      }catch(e){
-        document.getElementById('selectedInfo').textContent = "Mikrofon nekad eller fungerar inte här.";
-      }
-    }
-
-    function stopRecording(){
-      if(mediaRecorder && mediaRecorder.state === "recording"){
-        mediaRecorder.stop();
-      }
-    }
-
-    function saveAudio(id, blob){
-      return new Promise(resolve => {
-        if(!db){
-          resolve();
-          return;
-        }
-        const tx = db.transaction("audio", "readwrite");
-        tx.objectStore("audio").put(blob, id);
-        tx.oncomplete = resolve;
-        tx.onerror = resolve;
-      });
-    }
-
-    function getAudio(id){
-      return new Promise(resolve => {
-        if(!db){
-          resolve(null);
-          return;
-        }
-        const tx = db.transaction("audio", "readonly");
-        const request = tx.objectStore("audio").get(id);
-        request.onsuccess = () => resolve(request.result || null);
-        request.onerror = () => resolve(null);
-      });
-    }
-
-    async function hasAudio(id){
-      const blob = await getAudio(id);
-      return !!blob;
-    }
-
-    function stopCurrentAudio(){
-      if(currentAudio){
-        currentAudio.pause();
-        currentAudio.src = "";
-        currentAudio = null;
-      }
-    }
-
-    async function playAudio(id){
-      if(!id) return;
-
-      const blob = await getAudio(id);
-
-      if(!blob){
-        document.getElementById('selectedInfo').textContent = "Inget ljud på rubriken.";
-        return;
-      }
-
-      try{
-        stopCurrentAudio();
-        const url = URL.createObjectURL(blob);
-        const audio = new Audio();
-        currentAudio = audio;
-        audio.src = url;
-
-        audio.onended = () => {
-          URL.revokeObjectURL(url);
-          if(currentAudio === audio){
-            currentAudio = null;
-          }
-        };
-
-        await audio.play();
-        document.getElementById('selectedInfo').textContent = "Spelar upp ljud.";
-      }catch(e){
-        document.getElementById('selectedInfo').textContent = "Kunde inte spela upp ljud.";
-      }
-    }
-
-    function playSelectedAudio(){
-      if(!selectedNodeId){
-        document.getElementById('selectedInfo').textContent = "Välj en rubrik först.";
-        return;
-      }
-
-      playAudio(selectedNodeId);
-    }
-
-    function deleteAudioByNodeId(id){
-      return new Promise(resolve => {
-        if(!db){
-          resolve();
-          return;
-        }
-        const tx = db.transaction("audio", "readwrite");
-        tx.objectStore("audio").delete(id);
-        tx.oncomplete = resolve;
-        tx.onerror = resolve;
-      });
-    }
-
-    function deleteSelectedAudio(){
-      if(!selectedNodeId){
-        document.getElementById('selectedInfo').textContent = "Välj en rubrik först.";
-        return;
-      }
-
-      deleteAudioByNodeId(selectedNodeId).then(() => {
-        document.getElementById('selectedInfo').textContent = "Ljud raderat.";
-        renderBuilder();
-      });
-    }
-  </script>
+<script>
+const words = [
+  { word: "Skorpion", definition: "Ett litet djur med åtta ben, två klor och en böjd svans som kan sticka med gift." },
+  { word: "Regnskog", definition: "En varm och mycket fuktig skog där det regnar mycket och där många olika växter och djur lever." },
+  { word: "Kamouflage", definition: "Färger, mönster eller former som gör att ett djur eller en person blir svårare att upptäcka i sin omgivning." },
+  { word: "Anpassa", definition: "Att förändra något så att det passar bättre till en viss situation eller miljö." },
+  { word: "Demokrati", definition: "Ett sätt att styra ett land där folket får vara med och bestämma, bland annat genom fria val." },
+  { word: "Diktatur", definition: "Ett sätt att styra ett land där en person eller en liten grupp har nästan all makt och folket har liten möjlighet att påverka." },
+  { word: "Yttrandefrihet", definition: "Rätten att säga och uttrycka vad man tycker, så länge man följer lagen och inte hotar andra." },
+  { word: "Rösträtt", definition: "Rätten att vara med och välja vilka personer eller partier som ska bestämma i till exempel ett land." }
+];
+
+const screens = [...document.querySelectorAll('.screen')];
+function showScreen(id){
+  screens.forEach(s => s.classList.toggle('active', s.id === id));
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-home]').forEach(b => b.addEventListener('click', () => showScreen('home')));
+
+let flashIndex = 0;
+const flashCard = document.getElementById('flashCard');
+function renderFlash(){
+  const item = words[flashIndex];
+  flashCard.classList.remove('flipped');
+  document.getElementById('flashWord').textContent = item.word;
+  document.getElementById('flashDefinition').textContent = item.definition;
+  document.getElementById('flashCounter').textContent = `${flashIndex + 1} av ${words.length}`;
+  document.getElementById('flashProgress').style.width = `${((flashIndex + 1) / words.length) * 100}%`;
+}
+function flipFlash(){ flashCard.classList.toggle('flipped'); }
+flashCard.addEventListener('click', flipFlash);
+flashCard.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flipFlash(); }});
+document.getElementById('flashStart').addEventListener('click', () => { flashIndex = 0; renderFlash(); showScreen('flashScreen'); });
+document.getElementById('prevCard').addEventListener('click', () => { flashIndex = (flashIndex - 1 + words.length) % words.length; renderFlash(); });
+document.getElementById('nextCard').addEventListener('click', () => { flashIndex = (flashIndex + 1) % words.length; renderFlash(); });
+
+let spellOrder = [];
+let spellIndex = 0;
+let score = 0;
+let answered = false;
+const spellInput = document.getElementById('spellInput');
+const spellResult = document.getElementById('spellResult');
+const checkSpell = document.getElementById('checkSpell');
+const nextSpell = document.getElementById('nextSpell');
+
+function shuffle(array){
+  const a = [...array];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function normalize(s){ return s.trim().toLocaleLowerCase('sv-SE').normalize('NFC'); }
+function currentSpell(){ return spellOrder[spellIndex]; }
+
+function speakCurrent(){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(currentSpell().word);
+  u.lang = 'sv-SE';
+  u.rate = 0.82;
+  const voices = speechSynthesis.getVoices();
+  const sv = voices.find(v => /^sv[-_]/i.test(v.lang));
+  if(sv) u.voice = sv;
+  speechSynthesis.speak(u);
+}
+
+function renderSpell(){
+  answered = false;
+  spellInput.value = '';
+  spellInput.disabled = false;
+  spellResult.className = 'result';
+  spellResult.textContent = '';
+  checkSpell.style.display = '';
+  nextSpell.style.display = 'none';
+  document.getElementById('spellCounter').textContent = `${spellIndex + 1} av ${words.length}`;
+  document.getElementById('spellProgress').style.width = `${((spellIndex + 1) / words.length) * 100}%`;
+  spellInput.focus({preventScroll:true});
+}
+
+function startSpelling(){
+  spellOrder = shuffle(words);
+  spellIndex = 0;
+  score = 0;
+  document.getElementById('spellPlay').style.display = '';
+  document.getElementById('spellDone').style.display = 'none';
+  showScreen('spellScreen');
+  renderSpell();
+  setTimeout(speakCurrent, 120);
+}
+
+document.getElementById('spellStart').addEventListener('click', startSpelling);
+document.getElementById('restartSpell').addEventListener('click', startSpelling);
+document.getElementById('speakBtn').addEventListener('click', speakCurrent);
+
+function checkAnswer(){
+  if(answered) return;
+  const typed = normalize(spellInput.value);
+  if(!typed){
+    spellInput.focus();
+    return;
+  }
+  answered = true;
+  const correctWord = currentSpell().word;
+  const isCorrect = typed === normalize(correctWord);
+  if(isCorrect){
+    score++;
+    spellResult.className = 'result good';
+    spellResult.textContent = '✓ Rätt!';
+  }else{
+    spellResult.className = 'result bad';
+    spellResult.innerHTML = `Inte riktigt. Rätt stavning är <strong style="margin-left:5px">${correctWord}</strong>.`;
+  }
+  spellInput.disabled = true;
+  checkSpell.style.display = 'none';
+  nextSpell.style.display = '';
+  nextSpell.textContent = spellIndex === words.length - 1 ? 'Visa resultat' : 'Nästa ord →';
+}
+
+checkSpell.addEventListener('click', checkAnswer);
+spellInput.addEventListener('keydown', e => { if(e.key === 'Enter') checkAnswer(); });
+nextSpell.addEventListener('click', () => {
+  if(spellIndex < words.length - 1){
+    spellIndex++;
+    renderSpell();
+    setTimeout(speakCurrent, 100);
+  }else{
+    document.getElementById('spellPlay').style.display = 'none';
+    document.getElementById('spellDone').style.display = '';
+    document.getElementById('scoreBig').textContent = `${score}/${words.length}`;
+    document.getElementById('scoreText').textContent = score === words.length ? 'Alla rätt – snyggt!' : score >= 6 ? 'Nästan allt satt. Kör en gång till!' : 'Bra träning. Kör en runda till!';
+    document.getElementById('spellCounter').textContent = 'Klart';
+    document.getElementById('spellProgress').style.width = '100%';
+  }
+});
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+</script>
 </body>
 </html>

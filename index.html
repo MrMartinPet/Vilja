@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2563eb">
-  <title>Viljas läxa – 8 ord</title>
+  <title>Viljas läxa – 10 ord</title>
   <link rel="manifest" href="manifest.json">
   <style>
     :root{
@@ -47,7 +47,7 @@
     .flashWrap{perspective:1000px;flex:1;min-height:330px}
     .flash{position:relative;width:100%;height:100%;min-height:330px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
     .flash.flipped{transform:rotateY(180deg)}
-    .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:28px;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;background:var(--card)}
+    .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;background:var(--card)}
     .face.back{transform:rotateY(180deg);background:linear-gradient(180deg,#eff6ff,#fff)}
     .word{font-size:42px;font-weight:950;letter-spacing:-.04em;overflow-wrap:anywhere}
     .definition{font-size:24px;line-height:1.35;font-weight:800}
@@ -82,7 +82,7 @@
   <div class="app">
     <header>
       <h1>Viljas läxa</h1>
-      <p class="sub">8 ord att kunna förklara och stava</p>
+      <p class="sub">10 ord att kunna förklara och stava</p>
     </header>
 
     <main id="home" class="screen active home">
@@ -153,14 +153,16 @@
 
 <script>
 const words = [
-  { word: "Skorpion", definition: "Ett litet djur med åtta ben, två klor och en böjd svans som kan sticka med gift." },
-  { word: "Regnskog", definition: "En varm och mycket fuktig skog där det regnar mycket och där många olika växter och djur lever." },
-  { word: "Kamouflage", definition: "Färger, mönster eller former som gör att ett djur eller en person blir svårare att upptäcka i sin omgivning." },
-  { word: "Anpassa", definition: "Att förändra något så att det passar bättre till en viss situation eller miljö." },
-  { word: "Demokrati", definition: "Ett sätt att styra ett land där folket får vara med och bestämma, bland annat genom fria val." },
-  { word: "Diktatur", definition: "Ett sätt att styra ett land där en person eller en liten grupp har nästan all makt och folket har liten möjlighet att påverka." },
-  { word: "Yttrandefrihet", definition: "Rätten att säga och uttrycka vad man tycker, så länge man följer lagen och inte hotar andra." },
-  { word: "Rösträtt", definition: "Rätten att vara med och välja vilka personer eller partier som ska bestämma i till exempel ett land." }
+  { word: "Spärr", definition: "Något som stoppar, stänger av eller hindrar någon från att komma förbi." },
+  { word: "Folkomröstning", definition: "När människor i ett land får rösta ja eller nej i en särskild fråga." },
+  { word: "Minoritet", definition: "En mindre grupp i jämförelse med den största gruppen, som kallas majoritet." },
+  { word: "Mandat", definition: "Rätt eller uppdrag att representera andra och vara med och bestämma. I politik kan ett mandat vara en plats i en vald församling." },
+  { word: "Konservativ", definition: "Att vilja bevara mycket av det som redan finns och förändra samhället försiktigt eller långsamt." },
+  { word: "Signalera", definition: "Att visa eller meddela något med till exempel ett tecken, en rörelse, ett ljud eller ett ljus." },
+  { word: "Igenkänd", definition: "Att någon eller något blir känt igen eftersom man har sett, hört eller mött det tidigare." },
+  { word: "Giraff", definition: "Ett högt afrikanskt däggdjur med mycket lång hals och långa ben." },
+  { word: "Geting", definition: "En gulsvart flygande insekt som kan stickas." },
+  { word: "Fjällräv", definition: "En liten räv som lever i kalla fjäll- och polarområden och ofta får vit päls på vintern." }
 ];
 
 const screens = [...document.querySelectorAll('.screen')];
@@ -182,10 +184,25 @@ function renderFlash(){
 }
 function flipFlash(){ flashCard.classList.toggle('flipped'); }
 flashCard.addEventListener('click', flipFlash);
-flashCard.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flipFlash(); }});
-document.getElementById('flashStart').addEventListener('click', () => { flashIndex = 0; renderFlash(); showScreen('flashScreen'); });
-document.getElementById('prevCard').addEventListener('click', () => { flashIndex = (flashIndex - 1 + words.length) % words.length; renderFlash(); });
-document.getElementById('nextCard').addEventListener('click', () => { flashIndex = (flashIndex + 1) % words.length; renderFlash(); });
+flashCard.addEventListener('keydown', e => {
+  if(e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    flipFlash();
+  }
+});
+document.getElementById('flashStart').addEventListener('click', () => {
+  flashIndex = 0;
+  renderFlash();
+  showScreen('flashScreen');
+});
+document.getElementById('prevCard').addEventListener('click', () => {
+  flashIndex = (flashIndex - 1 + words.length) % words.length;
+  renderFlash();
+});
+document.getElementById('nextCard').addEventListener('click', () => {
+  flashIndex = (flashIndex + 1) % words.length;
+  renderFlash();
+});
 
 let spellOrder = [];
 let spellIndex = 0;
@@ -204,9 +221,12 @@ function shuffle(array){
   }
   return a;
 }
-function normalize(s){ return s.trim().toLocaleLowerCase('sv-SE').normalize('NFC'); }
-function currentSpell(){ return spellOrder[spellIndex]; }
-
+function normalize(s){
+  return s.trim().toLocaleLowerCase('sv-SE').normalize('NFC');
+}
+function currentSpell(){
+  return spellOrder[spellIndex];
+}
 function speakCurrent(){
   if(!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
@@ -218,7 +238,6 @@ function speakCurrent(){
   if(sv) u.voice = sv;
   speechSynthesis.speak(u);
 }
-
 function renderSpell(){
   answered = false;
   spellInput.value = '';
@@ -231,7 +250,6 @@ function renderSpell(){
   document.getElementById('spellProgress').style.width = `${((spellIndex + 1) / words.length) * 100}%`;
   spellInput.focus({preventScroll:true});
 }
-
 function startSpelling(){
   spellOrder = shuffle(words);
   spellIndex = 0;
@@ -242,7 +260,6 @@ function startSpelling(){
   renderSpell();
   setTimeout(speakCurrent, 120);
 }
-
 document.getElementById('spellStart').addEventListener('click', startSpelling);
 document.getElementById('restartSpell').addEventListener('click', startSpelling);
 document.getElementById('speakBtn').addEventListener('click', speakCurrent);
@@ -270,21 +287,25 @@ function checkAnswer(){
   nextSpell.style.display = '';
   nextSpell.textContent = spellIndex === words.length - 1 ? 'Visa resultat' : 'Nästa ord →';
 }
-
 checkSpell.addEventListener('click', checkAnswer);
-spellInput.addEventListener('keydown', e => { if(e.key === 'Enter') checkAnswer(); });
+spellInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    if(answered) nextSpell.click();
+    else checkAnswer();
+  }
+});
 nextSpell.addEventListener('click', () => {
   if(spellIndex < words.length - 1){
     spellIndex++;
     renderSpell();
-    setTimeout(speakCurrent, 100);
+    setTimeout(speakCurrent, 120);
   }else{
     document.getElementById('spellPlay').style.display = 'none';
     document.getElementById('spellDone').style.display = '';
     document.getElementById('scoreBig').textContent = `${score}/${words.length}`;
-    document.getElementById('scoreText').textContent = score === words.length ? 'Alla rätt – snyggt!' : score >= 6 ? 'Nästan allt satt. Kör en gång till!' : 'Bra träning. Kör en runda till!';
-    document.getElementById('spellCounter').textContent = 'Klart';
-    document.getElementById('spellProgress').style.width = '100%';
+    document.getElementById('scoreText').textContent = score === words.length
+      ? 'Perfekt! Alla rätt.'
+      : `${words.length - score} ord behöver tränas lite till.`;
   }
 });
 

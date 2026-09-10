@@ -1,4 +1,4 @@
-const CACHE = "viljas-laxa-cache-v4";
+const CACHE = "viljas-laxa-cache-v5-week38";
 const ASSETS = [
   "./",
   "./index.html",

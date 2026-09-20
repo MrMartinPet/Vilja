@@ -4,77 +4,85 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2563eb">
-  <title>Viljas läxa – vecka 38</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Viljas läxa – vecka 39</title>
   <link rel="manifest" href="manifest.json">
   <style>
     :root{
-      --bg:#f4f7fb;
-      --card:#fff;
-      --text:#172033;
-      --muted:#667085;
-      --blue:#2563eb;
-      --blue2:#dbeafe;
-      --green:#16803d;
-      --green2:#dcfce7;
-      --red:#b42318;
-      --red2:#fee4e2;
-      --border:#d9e2ef;
-      --shadow:0 16px 38px rgba(23,32,51,.12);
-      --radius:24px;
+      --bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;
+      --blue:#2563eb;--blue2:#dbeafe;--green:#16803d;--green2:#dcfce7;
+      --red:#b42318;--red2:#fee4e2;--border:#d9e2ef;
+      --shadow:0 16px 38px rgba(23,32,51,.12);--radius:24px;
     }
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
     body{min-height:100dvh}
-    button,input{font:inherit}
-    button{border:0;cursor:pointer}
+    button{font:inherit;border:0;cursor:pointer}
     .app{max-width:560px;min-height:100dvh;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:12px}
     header{padding:8px 4px 2px}
     h1{margin:0;font-size:30px;line-height:1.05;letter-spacing:-.035em}
     .sub{margin:7px 0 0;color:var(--muted);font-weight:650}
     .screen{display:none;flex:1}
     .screen.active{display:flex;flex-direction:column}
+    .home{gap:12px;padding-bottom:10px}
+    .sectionCard{background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:16px}
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+    .sectionTitle strong{font-size:22px}
+    .pill{font-size:12px;font-weight:900;color:var(--blue);background:var(--blue2);padding:7px 10px;border-radius:999px}
+    .homeGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .homeBtn{min-height:112px;border-radius:20px;padding:16px;text-align:left;color:white;background:var(--blue);box-shadow:0 10px 22px rgba(37,99,235,.18)}
+    .homeBtn.secondary{background:#172033;box-shadow:none}
+    .homeBtn strong{display:block;font-size:20px;margin-bottom:5px}
+    .homeBtn span{font-size:13px;opacity:.92;font-weight:650;line-height:1.3}
     .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
-    .home{justify-content:center;gap:12px}
-    .homeBtn{width:100%;min-height:118px;border-radius:24px;padding:20px;text-align:left;color:white;background:var(--blue);box-shadow:var(--shadow)}
-    .homeBtn.secondary{background:#172033}
-    .homeBtn strong{display:block;font-size:24px;margin-bottom:6px}
-    .homeBtn span{font-size:15px;opacity:.9;font-weight:650}
     .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
     .backBtn{background:#e9eef5;color:var(--text);border-radius:14px;padding:10px 13px;font-weight:850}
     .counter{color:var(--muted);font-weight:800;font-size:14px}
     .progress{height:9px;background:#e7edf5;border-radius:999px;overflow:hidden;margin-bottom:12px}
     .progress>div{height:100%;background:var(--blue);width:0;transition:width .2s}
+    .modeLabel{text-align:center;color:var(--blue);font-size:13px;font-weight:950;margin-bottom:8px}
     .flashWrap{perspective:1000px;flex:1;min-height:330px}
     .flash{position:relative;width:100%;height:100%;min-height:330px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
     .flash.flipped{transform:rotateY(180deg)}
     .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;background:var(--card)}
     .face.back{transform:rotateY(180deg);background:linear-gradient(180deg,#eff6ff,#fff)}
-    .word{font-size:42px;font-weight:950;letter-spacing:-.04em;overflow-wrap:anywhere}
-    .definition{font-size:24px;line-height:1.35;font-weight:800}
+    .word{font-size:40px;font-weight:950;letter-spacing:-.04em;overflow-wrap:anywhere}
+    .definition{font-size:23px;line-height:1.35;font-weight:800}
     .hint{position:absolute;bottom:18px;left:0;right:0;color:var(--muted);font-weight:700;font-size:13px}
     .nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
     .btn{min-height:52px;border-radius:16px;padding:12px 14px;font-weight:900;background:var(--blue);color:#fff}
     .btn.light{background:#e9eef5;color:var(--text)}
-    .spellPanel{display:flex;flex-direction:column;gap:14px;min-height:430px}
-    .speaker{width:116px;height:116px;border-radius:50%;margin:16px auto 4px;background:var(--blue);color:white;font-size:48px;box-shadow:var(--shadow)}
-    .listen{text-align:center;font-size:18px;font-weight:800}
-    .spellInput{width:100%;border:2px solid var(--border);border-radius:16px;padding:15px 16px;font-size:24px;text-align:center;font-weight:800;outline:none;background:#fff}
-    .spellInput:focus{border-color:var(--blue)}
-    .result{min-height:70px;border-radius:18px;padding:14px;display:none;align-items:center;justify-content:center;text-align:center;font-size:18px;font-weight:850}
+    .spellPanel{display:flex;flex-direction:column;gap:12px;min-height:520px}
+    .speaker{width:104px;height:104px;border-radius:50%;margin:8px auto 0;background:var(--blue);color:white;font-size:44px;box-shadow:var(--shadow)}
+    .listen{text-align:center;font-size:17px;font-weight:800}
+    .answerDisplay{width:100%;min-height:62px;border:2px solid var(--border);border-radius:16px;padding:13px 14px;font-size:24px;text-align:center;font-weight:850;background:#fff;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}
+    .answerDisplay.empty{color:#98a2b3;font-size:15px;font-weight:700}
+    .result{min-height:60px;border-radius:18px;padding:12px;display:none;align-items:center;justify-content:center;text-align:center;font-size:17px;font-weight:850;line-height:1.35}
     .result.good{display:flex;background:var(--green2);color:var(--green)}
     .result.bad{display:flex;background:var(--red2);color:var(--red)}
-    .spellActions{display:grid;grid-template-columns:1fr;gap:10px}
+    .keyboard{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;user-select:none}
+    .key{min-height:42px;border-radius:11px;background:#eef2f7;color:var(--text);font-weight:900;font-size:17px;border:1px solid #dce3ec}
+    .key:active{transform:scale(.97)}
+    .key.space{grid-column:span 4;font-size:14px}
+    .key.backspace{grid-column:span 3;background:#dde5ef}
+    .keyboard.disabled{opacity:.45;pointer-events:none}
+    .spellActions{display:grid;grid-template-columns:1fr;gap:8px}
     .scoreBox{text-align:center;margin:auto 0;padding:18px 10px}
     .scoreBig{font-size:64px;font-weight:950;letter-spacing:-.05em}
     .scoreText{font-size:19px;font-weight:800;color:var(--muted);margin-bottom:20px}
-    .tiny{text-align:center;color:var(--muted);font-size:13px;font-weight:650;margin-top:8px}
-    @media(max-width:380px){
+    .tiny{text-align:center;color:var(--muted);font-size:12px;font-weight:650;margin-top:2px}
+    @media(max-width:430px){
       .app{padding:10px}
       h1{font-size:27px}
+      .homeBtn{min-height:104px;padding:13px}
+      .homeBtn strong{font-size:18px}
       .word{font-size:35px}
       .definition{font-size:21px}
       .flashWrap,.flash{min-height:300px}
-      .speaker{width:100px;height:100px;font-size:42px}
+      .speaker{width:92px;height:92px;font-size:39px}
+      .keyboard{gap:5px}
+      .key{min-height:40px;font-size:16px}
     }
   </style>
 </head>
@@ -82,18 +90,43 @@
   <div class="app">
     <header>
       <h1>Viljas läxa</h1>
-      <p class="sub">Vecka 38 · 10 ord att förklara och stava</p>
+      <p class="sub">Vecka 39 · Svenska begrepp + engelska yrken</p>
     </header>
 
     <main id="home" class="screen active home">
-      <button class="homeBtn" id="flashStart">
-        <strong>🧠 Flashcards</strong>
-        <span>Se ordet, tryck på kortet och läs förklaringen.</span>
-      </button>
-      <button class="homeBtn secondary" id="spellStart">
-        <strong>🔊 Stava orden</strong>
-        <span>Lyssna på ordet och skriv hur det stavas.</span>
-      </button>
+      <section class="sectionCard">
+        <div class="sectionTitle">
+          <strong>🇸🇪 Svenska</strong>
+          <span class="pill">10 begrepp</span>
+        </div>
+        <div class="homeGrid">
+          <button class="homeBtn" data-start="flash" data-set="sv">
+            <strong>🧠 Förklara</strong>
+            <span>Vänd korten och träna vad orden betyder.</span>
+          </button>
+          <button class="homeBtn secondary" data-start="spell" data-set="sv">
+            <strong>🔊 Stava</strong>
+            <span>Lyssna och stava med appens egna bokstäver.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="sectionCard">
+        <div class="sectionTitle">
+          <strong>🇬🇧 Engelska</strong>
+          <span class="pill">18 yrken</span>
+        </div>
+        <div class="homeGrid">
+          <button class="homeBtn" data-start="flash" data-set="en">
+            <strong>🧠 Glosor</strong>
+            <span>Engelska på framsidan, svenska på baksidan.</span>
+          </button>
+          <button class="homeBtn secondary" data-start="spell" data-set="en">
+            <strong>🔊 Stava</strong>
+            <span>Lyssna på engelska ordet och stava rätt.</span>
+          </button>
+        </div>
+      </section>
     </main>
 
     <main id="flashScreen" class="screen">
@@ -103,11 +136,12 @@
           <div class="counter" id="flashCounter"></div>
         </div>
         <div class="progress"><div id="flashProgress"></div></div>
+        <div class="modeLabel" id="flashMode"></div>
         <div class="flashWrap">
           <div class="flash" id="flashCard" role="button" tabindex="0" aria-label="Vänd kortet">
             <div class="face front">
               <div class="word" id="flashWord"></div>
-              <div class="hint">Tryck för förklaring</div>
+              <div class="hint" id="frontHint">Tryck för förklaring</div>
             </div>
             <div class="face back">
               <div class="definition" id="flashDefinition"></div>
@@ -129,17 +163,19 @@
           <div class="counter" id="spellCounter"></div>
         </div>
         <div class="progress"><div id="spellProgress"></div></div>
+        <div class="modeLabel" id="spellMode"></div>
 
         <div id="spellPlay">
           <button class="speaker" id="speakBtn" aria-label="Lyssna på ordet">🔊</button>
-          <div class="listen">Tryck på högtalaren och skriv ordet.</div>
-          <input id="spellInput" class="spellInput" autocomplete="off" autocapitalize="none" spellcheck="false" inputmode="text" aria-label="Skriv ordet">
+          <div class="listen">Tryck på högtalaren och stava ordet.</div>
+          <div id="answerDisplay" class="answerDisplay empty" aria-live="polite">Skriv med bokstäverna nedan</div>
           <div id="spellResult" class="result"></div>
-          <div class="spellActions" style="margin-top:12px">
+          <div id="keyboard" class="keyboard" style="margin-top:10px"></div>
+          <div class="spellActions" style="margin-top:10px">
             <button class="btn" id="checkSpell">Kolla svaret</button>
             <button class="btn light" id="nextSpell" style="display:none">Nästa ord →</button>
           </div>
-          <div class="tiny">Du får höra ordet hur många gånger du vill.</div>
+          <div class="tiny">iPhone-tangentbordet används inte här, så autocorrect och ordförslag kan inte visa svaret.</div>
         </div>
 
         <div id="spellDone" class="scoreBox" style="display:none">
@@ -152,84 +188,89 @@
   </div>
 
 <script>
-const words = [
-  {
-    "word": "regering",
-    "definition": "De som styr landet och ser till att riksdagens beslut genomförs."
+const sets = {
+  sv: {
+    label: "Svenska · Begrepp",
+    lang: "sv-SE",
+    hint: "Tryck för förklaring",
+    words: [
+      {word:"kommun", back:"Ett område med lokalt självstyre. Kommunen ansvarar bland annat för skola, äldreomsorg och mycket av servicen där man bor."},
+      {word:"skatt", back:"Pengar som människor och företag betalar till samhället. Skatten används till exempel till skola, vård, vägar och annan gemensam service."},
+      {word:"invånare", back:"En person som bor i ett visst område, till exempel i en kommun, stad eller ett land."},
+      {word:"region", back:"Ett större område som består av flera kommuner. I Sverige ansvarar regionerna bland annat för sjukvård och kollektivtrafik."},
+      {word:"medlem", back:"En person som tillhör en grupp, förening eller organisation."},
+      {word:"groddjur", back:"Ryggradsdjur som ofta lever både i vatten och på land, till exempel grodor, paddor och salamandrar."},
+      {word:"mångfotingar", back:"Små leddjur med många ben, till exempel tusenfotingar och enkelfotingar."},
+      {word:"utrotningshotad", back:"När en djur- eller växtart riskerar att försvinna helt."},
+      {word:"jämnvarm", back:"Ett djur som håller ungefär samma kroppstemperatur även när temperaturen runt omkring ändras, till exempel fåglar och däggdjur."},
+      {word:"rovdjur", back:"Ett djur som jagar och äter andra djur."}
+    ]
   },
-  {
-    "word": "riksdag",
-    "definition": "De folkvalda politiker som beslutar om Sveriges lagar och hur statens pengar ska användas."
-  },
-  {
-    "word": "lagstiftning",
-    "definition": "Att skapa nya lagar eller ändra lagar som redan finns."
-  },
-  {
-    "word": "censur",
-    "definition": "När den som har makten granskar och stoppar information eller åsikter från att spridas."
-  },
-  {
-    "word": "statschef",
-    "definition": "Den person som är landets högsta representant, till exempel en kung, drottning eller president."
-  },
-  {
-    "word": "släktträd",
-    "definition": "En bild som visar hur människor i en släkt är släkt med varandra. Det kan också visa hur olika arter är släkt."
-  },
-  {
-    "word": "sjöstjärna",
-    "definition": "Ett djur som lever i havet, saknar ryggrad och oftast har fem armar."
-  },
-  {
-    "word": "ryggradslös",
-    "definition": "Ett djur som saknar ryggrad, till exempel en mask, insekt eller sjöstjärna."
-  },
-  {
-    "word": "växelvarm",
-    "definition": "Att kroppstemperaturen ändras med omgivningens temperatur, som hos fiskar och kräldjur."
-  },
-  {
-    "word": "däggdjur",
-    "definition": "Djur vars ungar får mjölk från mammans kropp. De andas med lungor och har oftast päls eller hår."
+  en: {
+    label: "Engelska · Yrken",
+    lang: "en-GB",
+    hint: "Tryck för svensk översättning",
+    words: [
+      {word:"factory worker", back:"fabriksarbetare"},
+      {word:"teacher", back:"lärare"},
+      {word:"office worker", back:"kontorsarbetare"},
+      {word:"engineer", back:"ingenjör"},
+      {word:"farmer", back:"bonde"},
+      {word:"waiter", back:"servitör"},
+      {word:"chef", back:"kock"},
+      {word:"shop assistant", back:"butiksbiträde"},
+      {word:"doctor", back:"doktor"},
+      {word:"mechanic", back:"mekaniker"},
+      {word:"police officer", back:"polis"},
+      {word:"nurse", back:"sjuksköterska"},
+      {word:"electrician", back:"elektriker"},
+      {word:"bricklayer", back:"murare"},
+      {word:"journalist", back:"journalist"},
+      {word:"tourist guide", back:"turistguide"},
+      {word:"lawyer", back:"advokat"},
+      {word:"actress", back:"skådespelare"}
+    ]
   }
-];
+};
 
-const screens = [...document.querySelectorAll('.screen')];
+const screens = Array.from(document.querySelectorAll(".screen"));
 function showScreen(id){
-  screens.forEach(s => s.classList.toggle('active', s.id === id));
+  screens.forEach(function(s){ s.classList.toggle("active", s.id === id); });
   window.scrollTo(0,0);
 }
-document.querySelectorAll('[data-home]').forEach(b => b.addEventListener('click', () => showScreen('home')));
+document.querySelectorAll("[data-home]").forEach(function(b){
+  b.addEventListener("click", function(){ showScreen("home"); });
+});
 
+let activeSet = "sv";
 let flashIndex = 0;
-const flashCard = document.getElementById('flashCard');
+const flashCard = document.getElementById("flashCard");
+
+function currentWords(){ return sets[activeSet].words; }
+
 function renderFlash(){
+  const words = currentWords();
   const item = words[flashIndex];
-  flashCard.classList.remove('flipped');
-  document.getElementById('flashWord').textContent = item.word;
-  document.getElementById('flashDefinition').textContent = item.definition;
-  document.getElementById('flashCounter').textContent = `${flashIndex + 1} av ${words.length}`;
-  document.getElementById('flashProgress').style.width = `${((flashIndex + 1) / words.length) * 100}%`;
+  flashCard.classList.remove("flipped");
+  document.getElementById("flashWord").textContent = item.word;
+  document.getElementById("flashDefinition").textContent = item.back;
+  document.getElementById("flashCounter").textContent = (flashIndex + 1) + " av " + words.length;
+  document.getElementById("flashProgress").style.width = (((flashIndex + 1) / words.length) * 100) + "%";
+  document.getElementById("flashMode").textContent = sets[activeSet].label;
+  document.getElementById("frontHint").textContent = sets[activeSet].hint;
 }
-function flipFlash(){ flashCard.classList.toggle('flipped'); }
-flashCard.addEventListener('click', flipFlash);
-flashCard.addEventListener('keydown', e => {
-  if(e.key === 'Enter' || e.key === ' '){
-    e.preventDefault();
-    flipFlash();
-  }
+function flipFlash(){ flashCard.classList.toggle("flipped"); }
+flashCard.addEventListener("click", flipFlash);
+flashCard.addEventListener("keydown", function(e){
+  if(e.key === "Enter" || e.key === " "){ e.preventDefault(); flipFlash(); }
 });
-document.getElementById('flashStart').addEventListener('click', () => {
-  flashIndex = 0;
-  renderFlash();
-  showScreen('flashScreen');
-});
-document.getElementById('prevCard').addEventListener('click', () => {
+document.getElementById("prevCard").addEventListener("click", function(){
+  const words = currentWords();
   flashIndex = (flashIndex - 1 + words.length) % words.length;
   renderFlash();
 });
-document.getElementById('nextCard').addEventListener('click', () => {
+document.getElementById("nextCard").addEventListener("click", function(){
+  const words = currentWords();
   flashIndex = (flashIndex + 1) % words.length;
   renderFlash();
 });
@@ -238,109 +279,160 @@ let spellOrder = [];
 let spellIndex = 0;
 let score = 0;
 let answered = false;
-const spellInput = document.getElementById('spellInput');
-const spellResult = document.getElementById('spellResult');
-const checkSpell = document.getElementById('checkSpell');
-const nextSpell = document.getElementById('nextSpell');
+let typedAnswer = "";
+
+const answerDisplay = document.getElementById("answerDisplay");
+const spellResult = document.getElementById("spellResult");
+const checkSpell = document.getElementById("checkSpell");
+const nextSpell = document.getElementById("nextSpell");
+const keyboard = document.getElementById("keyboard");
 
 function shuffle(array){
-  const a = [...array];
+  const a = array.slice();
   for(let i = a.length - 1; i > 0; i--){
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
   }
   return a;
 }
 function normalize(s){
-  return s.trim().toLocaleLowerCase('sv-SE').normalize('NFC');
+  return s.trim().toLocaleLowerCase(activeSet === "sv" ? "sv-SE" : "en-GB").replace(/\s+/g," ").normalize("NFC");
 }
-function currentSpell(){
-  return spellOrder[spellIndex];
-}
+function currentSpell(){ return spellOrder[spellIndex]; }
+
 function speakCurrent(){
-  if(!('speechSynthesis' in window)) return;
-  speechSynthesis.cancel();
+  if(!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(currentSpell().word);
-  u.lang = 'sv-SE';
-  u.rate = 0.82;
-  const voices = speechSynthesis.getVoices();
-  const sv = voices.find(v => /^sv[-_]/i.test(v.lang));
-  if(sv) u.voice = sv;
-  speechSynthesis.speak(u);
+  u.lang = sets[activeSet].lang;
+  u.rate = activeSet === "en" ? 0.78 : 0.82;
+  const voices = window.speechSynthesis.getVoices();
+  const exact = voices.find(function(v){ return v.lang.toLowerCase() === u.lang.toLowerCase(); });
+  const prefix = voices.find(function(v){ return v.lang.toLowerCase().startsWith(u.lang.slice(0,2).toLowerCase()); });
+  if(exact || prefix) u.voice = exact || prefix;
+  window.speechSynthesis.speak(u);
 }
+
+function updateAnswerDisplay(){
+  if(typedAnswer){
+    answerDisplay.textContent = typedAnswer;
+    answerDisplay.classList.remove("empty");
+  }else{
+    answerDisplay.textContent = "Skriv med bokstäverna nedan";
+    answerDisplay.classList.add("empty");
+  }
+}
+
+function addKey(label, value, extraClass){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "key" + (extraClass ? " " + extraClass : "");
+  b.textContent = label;
+  b.addEventListener("click", function(){
+    if(answered) return;
+    if(value === "__back__"){
+      typedAnswer = typedAnswer.slice(0,-1);
+    }else if(value === " "){
+      if(typedAnswer && !typedAnswer.endsWith(" ")) typedAnswer += " ";
+    }else{
+      typedAnswer += value;
+    }
+    updateAnswerDisplay();
+  });
+  keyboard.appendChild(b);
+}
+
+function buildKeyboard(){
+  keyboard.innerHTML = "";
+  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+  if(activeSet === "sv") letters.push("å","ä","ö");
+  letters.forEach(function(ch){ addKey(ch.toUpperCase(), ch, ""); });
+  addKey("Mellanslag", " ", "space");
+  addKey("⌫ Radera", "__back__", "backspace");
+}
+
 function renderSpell(){
+  const words = currentWords();
   answered = false;
-  spellInput.value = '';
-  spellInput.disabled = false;
-  spellResult.className = 'result';
-  spellResult.textContent = '';
-  checkSpell.style.display = '';
-  nextSpell.style.display = 'none';
-  document.getElementById('spellCounter').textContent = `${spellIndex + 1} av ${words.length}`;
-  document.getElementById('spellProgress').style.width = `${((spellIndex + 1) / words.length) * 100}%`;
-  spellInput.focus({preventScroll:true});
+  typedAnswer = "";
+  updateAnswerDisplay();
+  spellResult.className = "result";
+  spellResult.textContent = "";
+  checkSpell.style.display = "";
+  nextSpell.style.display = "none";
+  keyboard.classList.remove("disabled");
+  document.getElementById("spellCounter").textContent = (spellIndex + 1) + " av " + words.length;
+  document.getElementById("spellProgress").style.width = (((spellIndex + 1) / words.length) * 100) + "%";
+  document.getElementById("spellMode").textContent = sets[activeSet].label + " · Stavning";
+  buildKeyboard();
 }
+
 function startSpelling(){
-  spellOrder = shuffle(words);
+  spellOrder = shuffle(currentWords());
   spellIndex = 0;
   score = 0;
-  document.getElementById('spellPlay').style.display = '';
-  document.getElementById('spellDone').style.display = 'none';
-  showScreen('spellScreen');
+  document.getElementById("spellPlay").style.display = "";
+  document.getElementById("spellDone").style.display = "none";
+  showScreen("spellScreen");
   renderSpell();
-  setTimeout(speakCurrent, 120);
 }
-document.getElementById('spellStart').addEventListener('click', startSpelling);
-document.getElementById('restartSpell').addEventListener('click', startSpelling);
-document.getElementById('speakBtn').addEventListener('click', speakCurrent);
 
 function checkAnswer(){
   if(answered) return;
-  const typed = normalize(spellInput.value);
-  if(!typed){
-    spellInput.focus();
-    return;
-  }
+  const typed = normalize(typedAnswer);
+  if(!typed) return;
   answered = true;
-  const correctWord = currentSpell().word;
+  const item = currentSpell();
+  const correctWord = item.word;
   const isCorrect = typed === normalize(correctWord);
   if(isCorrect){
     score++;
-    spellResult.className = 'result good';
-    spellResult.textContent = '✓ Rätt!';
+    spellResult.className = "result good";
+    spellResult.textContent = "✓ Rätt! " + (activeSet === "en" ? "Svenska: " + item.back : item.back);
   }else{
-    spellResult.className = 'result bad';
-    spellResult.innerHTML = `Inte riktigt. Rätt stavning är <strong style="margin-left:5px">${correctWord}</strong>.`;
+    spellResult.className = "result bad";
+    spellResult.textContent = "Inte riktigt. Rätt stavning är: " + correctWord + ". " + (activeSet === "en" ? "Svenska: " + item.back : item.back);
   }
-  spellInput.disabled = true;
-  checkSpell.style.display = 'none';
-  nextSpell.style.display = '';
-  nextSpell.textContent = spellIndex === words.length - 1 ? 'Visa resultat' : 'Nästa ord →';
+  keyboard.classList.add("disabled");
+  checkSpell.style.display = "none";
+  nextSpell.style.display = "";
+  nextSpell.textContent = spellIndex === spellOrder.length - 1 ? "Visa resultat" : "Nästa ord →";
 }
-checkSpell.addEventListener('click', checkAnswer);
-spellInput.addEventListener('keydown', e => {
-  if(e.key === 'Enter'){
-    if(answered) nextSpell.click();
-    else checkAnswer();
-  }
-});
-nextSpell.addEventListener('click', () => {
-  if(spellIndex < words.length - 1){
+
+checkSpell.addEventListener("click", checkAnswer);
+nextSpell.addEventListener("click", function(){
+  if(spellIndex < spellOrder.length - 1){
     spellIndex++;
     renderSpell();
-    setTimeout(speakCurrent, 120);
   }else{
-    document.getElementById('spellPlay').style.display = 'none';
-    document.getElementById('spellDone').style.display = '';
-    document.getElementById('scoreBig').textContent = `${score}/${words.length}`;
-    document.getElementById('scoreText').textContent = score === words.length
-      ? 'Perfekt! Alla rätt.'
-      : `${words.length - score} ord behöver tränas lite till.`;
+    document.getElementById("spellPlay").style.display = "none";
+    document.getElementById("spellDone").style.display = "";
+    document.getElementById("scoreBig").textContent = score + "/" + spellOrder.length;
+    document.getElementById("scoreText").textContent = score === spellOrder.length
+      ? "Perfekt! Alla rätt."
+      : (spellOrder.length - score) + " ord behöver tränas lite till.";
   }
 });
+document.getElementById("restartSpell").addEventListener("click", startSpelling);
+document.getElementById("speakBtn").addEventListener("click", speakCurrent);
 
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+document.querySelectorAll("[data-start]").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    activeSet = btn.getAttribute("data-set");
+    if(btn.getAttribute("data-start") === "flash"){
+      flashIndex = 0;
+      renderFlash();
+      showScreen("flashScreen");
+    }else{
+      startSpelling();
+    }
+  });
+});
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("./sw.js").catch(function(){});
+  });
 }
 </script>
 </body>

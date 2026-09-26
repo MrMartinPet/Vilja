@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#2563eb">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Viljas läxa – vecka 39</title>
+  <title>Viljas läxa – vecka 40</title>
   <link rel="manifest" href="manifest.json">
   <style>
     :root{
@@ -56,7 +56,8 @@
     .spellPanel{display:flex;flex-direction:column;gap:12px;min-height:520px}
     .speaker{width:104px;height:104px;border-radius:50%;margin:8px auto 0;background:var(--blue);color:white;font-size:44px;box-shadow:var(--shadow)}
     .listen{text-align:center;font-size:17px;font-weight:800}
-    .answerDisplay{width:100%;min-height:62px;border:2px solid var(--border);border-radius:16px;padding:13px 14px;font-size:24px;text-align:center;font-weight:850;background:#fff;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}
+    .answerDisplay{width:100%;min-height:62px;border:2px solid var(--border);border-radius:16px;padding:13px 14px;font-size:24px;text-align:center;font-weight:850;background:#fff;display:block;outline:none}
+    .answerDisplay:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue2)}
     .answerDisplay.empty{color:#98a2b3;font-size:15px;font-weight:700}
     .result{min-height:60px;border-radius:18px;padding:12px;display:none;align-items:center;justify-content:center;text-align:center;font-size:17px;font-weight:850;line-height:1.35}
     .result.good{display:flex;background:var(--green2);color:var(--green)}
@@ -90,13 +91,13 @@
   <div class="app">
     <header>
       <h1>Viljas läxa</h1>
-      <p class="sub">Vecka 39 · Svenska begrepp + engelska yrken</p>
+      <p class="sub">Vecka 40 · Begreppsläxa · stava och förklara</p>
     </header>
 
     <main id="home" class="screen active home">
       <section class="sectionCard">
         <div class="sectionTitle">
-          <strong>🇸🇪 Svenska</strong>
+          <strong>📘 Begreppsläxa v. 40</strong>
           <span class="pill">10 begrepp</span>
         </div>
         <div class="homeGrid">
@@ -106,24 +107,7 @@
           </button>
           <button class="homeBtn secondary" data-start="spell" data-set="sv">
             <strong>🔊 Stava</strong>
-            <span>Lyssna och stava med appens egna bokstäver.</span>
-          </button>
-        </div>
-      </section>
-
-      <section class="sectionCard">
-        <div class="sectionTitle">
-          <strong>🇬🇧 Engelska</strong>
-          <span class="pill">18 yrken</span>
-        </div>
-        <div class="homeGrid">
-          <button class="homeBtn" data-start="flash" data-set="en">
-            <strong>🧠 Glosor</strong>
-            <span>Engelska på framsidan, svenska på baksidan.</span>
-          </button>
-          <button class="homeBtn secondary" data-start="spell" data-set="en">
-            <strong>🔊 Stava</strong>
-            <span>Lyssna på engelska ordet och stava rätt.</span>
+            <span>Lyssna på ordet och skriv med iPhone-tangentbordet.</span>
           </button>
         </div>
       </section>
@@ -168,14 +152,24 @@
         <div id="spellPlay">
           <button class="speaker" id="speakBtn" aria-label="Lyssna på ordet">🔊</button>
           <div class="listen">Tryck på högtalaren och stava ordet.</div>
-          <div id="answerDisplay" class="answerDisplay empty" aria-live="polite">Skriv med bokstäverna nedan</div>
+          <input
+            id="answerDisplay"
+            class="answerDisplay"
+            type="text"
+            placeholder="Skriv ordet här"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="none"
+            spellcheck="false"
+            enterkeyhint="done"
+            aria-label="Skriv ordet"
+          >
           <div id="spellResult" class="result"></div>
-          <div id="keyboard" class="keyboard" style="margin-top:10px"></div>
           <div class="spellActions" style="margin-top:10px">
             <button class="btn" id="checkSpell">Kolla svaret</button>
             <button class="btn light" id="nextSpell" style="display:none">Nästa ord →</button>
           </div>
-          <div class="tiny">iPhone-tangentbordet används inte här, så autocorrect och ordförslag kan inte visa svaret.</div>
+          <div class="tiny">Rättstavning och automatiska textförslag är avstängda för svarsfältet.</div>
         </div>
 
         <div id="spellDone" class="scoreBox" style="display:none">
@@ -190,45 +184,20 @@
 <script>
 const sets = {
   sv: {
-    label: "Svenska · Begrepp",
+    label: "Svenska · Begrepp v. 40",
     lang: "sv-SE",
     hint: "Tryck för förklaring",
     words: [
-      {word:"kommun", back:"Ett område med lokalt självstyre. Kommunen ansvarar bland annat för skola, äldreomsorg och mycket av servicen där man bor."},
-      {word:"skatt", back:"Pengar som människor och företag betalar till samhället. Skatten används till exempel till skola, vård, vägar och annan gemensam service."},
-      {word:"invånare", back:"En person som bor i ett visst område, till exempel i en kommun, stad eller ett land."},
-      {word:"region", back:"Ett större område som består av flera kommuner. I Sverige ansvarar regionerna bland annat för sjukvård och kollektivtrafik."},
-      {word:"medlem", back:"En person som tillhör en grupp, förening eller organisation."},
-      {word:"groddjur", back:"Ryggradsdjur som ofta lever både i vatten och på land, till exempel grodor, paddor och salamandrar."},
-      {word:"mångfotingar", back:"Små leddjur med många ben, till exempel tusenfotingar och enkelfotingar."},
-      {word:"utrotningshotad", back:"När en djur- eller växtart riskerar att försvinna helt."},
-      {word:"jämnvarm", back:"Ett djur som håller ungefär samma kroppstemperatur även när temperaturen runt omkring ändras, till exempel fåglar och däggdjur."},
-      {word:"rovdjur", back:"Ett djur som jagar och äter andra djur."}
-    ]
-  },
-  en: {
-    label: "Engelska · Yrken",
-    lang: "en-GB",
-    hint: "Tryck för svensk översättning",
-    words: [
-      {word:"factory worker", back:"fabriksarbetare"},
-      {word:"teacher", back:"lärare"},
-      {word:"office worker", back:"kontorsarbetare"},
-      {word:"engineer", back:"ingenjör"},
-      {word:"farmer", back:"bonde"},
-      {word:"waiter", back:"servitör"},
-      {word:"chef", back:"kock"},
-      {word:"shop assistant", back:"butiksbiträde"},
-      {word:"doctor", back:"doktor"},
-      {word:"mechanic", back:"mekaniker"},
-      {word:"police officer", back:"polis"},
-      {word:"nurse", back:"sjuksköterska"},
-      {word:"electrician", back:"elektriker"},
-      {word:"bricklayer", back:"murare"},
-      {word:"journalist", back:"journalist"},
-      {word:"tourist guide", back:"turistguide"},
-      {word:"lawyer", back:"advokat"},
-      {word:"actress", back:"skådespelare"}
+      {word:"kandidat", back:"En person som söker eller föreslås till en plats, ett uppdrag eller ett jobb. Till exempel en kandidat i ett val."},
+      {word:"landshövding", back:"Chefen för en länsstyrelse och statens högsta representant i ett län."},
+      {word:"Europeiska unionen", back:"EU. Ett samarbete mellan europeiska länder som bland annat arbetar med gemensamma regler, handel och frågor som länderna löser tillsammans."},
+      {word:"världskrig", back:"Ett krig där många länder i flera delar av världen är inblandade."},
+      {word:"projekt", back:"Ett planerat arbete med ett tydligt mål som ska bli klart inom en viss tid."},
+      {word:"tjänsteman", back:"En person som arbetar med till exempel administration, planering eller beslut på en myndighet, kommun eller ett företag."},
+      {word:"snäcka", back:"Ett blötdjur som ofta har ett hårt, spiralformat skal och rör sig med en mjuk fot."},
+      {word:"tentakler", back:"Långa och böjliga utskott som vissa djur använder för att känna, fånga mat eller hålla fast saker."},
+      {word:"australisk taipan", back:"En mycket giftig orm som lever i Australien."},
+      {word:"fasettögon", back:"Ögon som består av många små delar. De finns bland annat hos insekter och hjälper dem att upptäcka rörelser."}
     ]
   }
 };
@@ -279,13 +248,11 @@ let spellOrder = [];
 let spellIndex = 0;
 let score = 0;
 let answered = false;
-let typedAnswer = "";
 
 const answerDisplay = document.getElementById("answerDisplay");
 const spellResult = document.getElementById("spellResult");
 const checkSpell = document.getElementById("checkSpell");
 const nextSpell = document.getElementById("nextSpell");
-const keyboard = document.getElementById("keyboard");
 
 function shuffle(array){
   const a = array.slice();
@@ -295,8 +262,8 @@ function shuffle(array){
   }
   return a;
 }
-function normalize(s){
-  return s.trim().toLocaleLowerCase(activeSet === "sv" ? "sv-SE" : "en-GB").replace(/\s+/g," ").normalize("NFC");
+function normalize(text){
+  return text.trim().toLocaleLowerCase("sv-SE").replace(/\s+/g," ").normalize("NFC");
 }
 function currentSpell(){ return spellOrder[spellIndex]; }
 
@@ -305,66 +272,27 @@ function speakCurrent(){
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(currentSpell().word);
   u.lang = sets[activeSet].lang;
-  u.rate = activeSet === "en" ? 0.78 : 0.82;
+  u.rate = 0.82;
   const voices = window.speechSynthesis.getVoices();
   const exact = voices.find(function(v){ return v.lang.toLowerCase() === u.lang.toLowerCase(); });
-  const prefix = voices.find(function(v){ return v.lang.toLowerCase().startsWith(u.lang.slice(0,2).toLowerCase()); });
+  const prefix = voices.find(function(v){ return v.lang.toLowerCase().startsWith("sv"); });
   if(exact || prefix) u.voice = exact || prefix;
   window.speechSynthesis.speak(u);
-}
-
-function updateAnswerDisplay(){
-  if(typedAnswer){
-    answerDisplay.textContent = typedAnswer;
-    answerDisplay.classList.remove("empty");
-  }else{
-    answerDisplay.textContent = "Skriv med bokstäverna nedan";
-    answerDisplay.classList.add("empty");
-  }
-}
-
-function addKey(label, value, extraClass){
-  const b = document.createElement("button");
-  b.type = "button";
-  b.className = "key" + (extraClass ? " " + extraClass : "");
-  b.textContent = label;
-  b.addEventListener("click", function(){
-    if(answered) return;
-    if(value === "__back__"){
-      typedAnswer = typedAnswer.slice(0,-1);
-    }else if(value === " "){
-      if(typedAnswer && !typedAnswer.endsWith(" ")) typedAnswer += " ";
-    }else{
-      typedAnswer += value;
-    }
-    updateAnswerDisplay();
-  });
-  keyboard.appendChild(b);
-}
-
-function buildKeyboard(){
-  keyboard.innerHTML = "";
-  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
-  if(activeSet === "sv") letters.push("å","ä","ö");
-  letters.forEach(function(ch){ addKey(ch.toUpperCase(), ch, ""); });
-  addKey("Mellanslag", " ", "space");
-  addKey("⌫ Radera", "__back__", "backspace");
 }
 
 function renderSpell(){
   const words = currentWords();
   answered = false;
-  typedAnswer = "";
-  updateAnswerDisplay();
+  answerDisplay.value = "";
+  answerDisplay.readOnly = false;
   spellResult.className = "result";
   spellResult.textContent = "";
   checkSpell.style.display = "";
   nextSpell.style.display = "none";
-  keyboard.classList.remove("disabled");
   document.getElementById("spellCounter").textContent = (spellIndex + 1) + " av " + words.length;
   document.getElementById("spellProgress").style.width = (((spellIndex + 1) / words.length) * 100) + "%";
   document.getElementById("spellMode").textContent = sets[activeSet].label + " · Stavning";
-  buildKeyboard();
+  setTimeout(function(){ answerDisplay.focus(); }, 80);
 }
 
 function startSpelling(){
@@ -379,32 +307,39 @@ function startSpelling(){
 
 function checkAnswer(){
   if(answered) return;
-  const typed = normalize(typedAnswer);
+  const typed = normalize(answerDisplay.value);
   if(!typed) return;
   answered = true;
+  answerDisplay.readOnly = true;
   const item = currentSpell();
   const correctWord = item.word;
   const isCorrect = typed === normalize(correctWord);
   if(isCorrect){
     score++;
     spellResult.className = "result good";
-    spellResult.textContent = "✓ Rätt! " + (activeSet === "en" ? "Svenska: " + item.back : item.back);
+    spellResult.textContent = "✓ Rätt! " + item.back;
   }else{
     spellResult.className = "result bad";
-    spellResult.textContent = "Inte riktigt. Rätt stavning är: " + correctWord + ". " + (activeSet === "en" ? "Svenska: " + item.back : item.back);
+    spellResult.textContent = "Inte riktigt. Rätt stavning är: " + correctWord + ". " + item.back;
   }
-  keyboard.classList.add("disabled");
   checkSpell.style.display = "none";
   nextSpell.style.display = "";
   nextSpell.textContent = spellIndex === spellOrder.length - 1 ? "Visa resultat" : "Nästa ord →";
 }
 
 checkSpell.addEventListener("click", checkAnswer);
+answerDisplay.addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    e.preventDefault();
+    checkAnswer();
+  }
+});
 nextSpell.addEventListener("click", function(){
   if(spellIndex < spellOrder.length - 1){
     spellIndex++;
     renderSpell();
   }else{
+    answerDisplay.blur();
     document.getElementById("spellPlay").style.display = "none";
     document.getElementById("spellDone").style.display = "";
     document.getElementById("scoreBig").textContent = score + "/" + spellOrder.length;

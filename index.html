@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#2563eb">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Viljas läxa – vecka 40</title>
+  <title>Viljas läxa – vecka 41</title>
   <link rel="manifest" href="manifest.json">
   <style>
     :root{
@@ -91,13 +91,13 @@
   <div class="app">
     <header>
       <h1>Viljas läxa</h1>
-      <p class="sub">Vecka 40 · Begreppsläxa · stava och förklara</p>
+      <p class="sub">Vecka 41 · Begreppsläxa · stava och förklara</p>
     </header>
 
     <main id="home" class="screen active home">
       <section class="sectionCard">
         <div class="sectionTitle">
-          <strong>📘 Begreppsläxa v. 40</strong>
+          <strong>📘 Begreppsläxa v. 41</strong>
           <span class="pill">10 begrepp</span>
         </div>
         <div class="homeGrid">
@@ -184,21 +184,52 @@
 <script>
 const sets = {
   sv: {
-    label: "Svenska · Begrepp v. 40",
+    label: "Svenska · Begrepp v. 41",
     lang: "sv-SE",
     hint: "Tryck för förklaring",
     words: [
-      {word:"kandidat", back:"En person som söker eller föreslås till en plats, ett uppdrag eller ett jobb. Till exempel en kandidat i ett val."},
-      {word:"landshövding", back:"Chefen för en länsstyrelse och statens högsta representant i ett län."},
-      {word:"Europeiska unionen", back:"EU. Ett samarbete mellan europeiska länder som bland annat arbetar med gemensamma regler, handel och frågor som länderna löser tillsammans."},
-      {word:"världskrig", back:"Ett krig där många länder i flera delar av världen är inblandade."},
-      {word:"projekt", back:"Ett planerat arbete med ett tydligt mål som ska bli klart inom en viss tid."},
-      {word:"tjänsteman", back:"En person som arbetar med till exempel administration, planering eller beslut på en myndighet, kommun eller ett företag."},
-      {word:"snäcka", back:"Ett blötdjur som ofta har ett hårt, spiralformat skal och rör sig med en mjuk fot."},
-      {word:"tentakler", back:"Långa och böjliga utskott som vissa djur använder för att känna, fånga mat eller hålla fast saker."},
-      {word:"australisk taipan", back:"En mycket giftig orm som lever i Australien."},
-      {word:"fasettögon", back:"Ögon som består av många små delar. De finns bland annat hos insekter och hjälper dem att upptäcka rörelser."}
-    ]
+      {
+            "word": "opinion",
+            "back": "Vad människor tycker i en fråga. Till exempel vad de tycker om en ny regel."
+      },
+      {
+            "word": "styrelse",
+            "back": "En grupp personer som leder en förening eller ett företag och fattar beslut."
+      },
+      {
+            "word": "bestämmer",
+            "back": "Beslutar hur något ska vara eller vad som ska göras."
+      },
+      {
+            "word": "kommunfullmäktige",
+            "back": "Politiker som kommunens invånare väljer. De fattar kommunens viktigaste beslut, till exempel om hur pengarna ska användas."
+      },
+      {
+            "word": "Storbritannien",
+            "back": "Ön där England, Skottland och Wales ligger. Namnet skrivs med stort S.",
+            "caseSensitive": true
+      },
+      {
+            "word": "gräshoppa",
+            "back": "En insekt med sex ben och starka bakben som gör att den kan hoppa långt."
+      },
+      {
+            "word": "befruktning",
+            "back": "När en spermie förenas med en äggcell. Då kan en ny individ börja utvecklas."
+      },
+      {
+            "word": "förvandling",
+            "back": "När något ändrar form eller utseende. Till exempel när en larv blir en fjäril."
+      },
+      {
+            "word": "bläckfisk",
+            "back": "Ett blötdjur som lever i havet och har åtta eller tio armar. Många kan släppa ut bläck för att skydda sig."
+      },
+      {
+            "word": "sjöjungfru",
+            "back": "En sagovarelse med en människas överkropp och en fiskstjärt istället för ben."
+      }
+]
   }
 };
 
@@ -313,7 +344,8 @@ function checkAnswer(){
   answerDisplay.readOnly = true;
   const item = currentSpell();
   const correctWord = item.word;
-  const isCorrect = typed === normalize(correctWord);
+  const isCorrect = typed === normalize(correctWord) &&
+    (!item.caseSensitive || answerDisplay.value.trim().normalize("NFC") === correctWord);
   if(isCorrect){
     score++;
     spellResult.className = "result good";

@@ -85,13 +85,24 @@
       .keyboard{gap:5px}
       .key{min-height:40px;font-size:16px}
     }
+    .mathPanel{display:flex;flex-direction:column;gap:16px;flex:1}
+    .mathPanel p,.sectionCard p{font-size:16px;line-height:1.5;margin:0 0 12px}
+    .mathQuestion{font-size:clamp(36px,9vw,52px);font-weight:950;text-align:center;padding:24px 0;letter-spacing:-.025em}
+    .mathTimer{font-size:30px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .mathTimer[hidden]{display:none}
+    .mathHistory{font-size:16px;line-height:1.6;color:var(--muted)}
+    .mathPanel .scoreBig{text-align:center}
+    .mathPanel summary{font-size:16px;font-weight:800;padding:16px 0;cursor:pointer}
+    .mathReviewRow{padding:10px 0;border-bottom:1px solid var(--border);font-size:16px}
+    .mathReviewRow.wrong{color:var(--red)}
+    button:disabled{opacity:.45;cursor:default}
   </style>
 </head>
 <body>
   <div class="app">
     <header>
       <h1>Viljas läxa</h1>
-      <p class="sub">Vecka 41 · Begreppsläxa · stava och förklara</p>
+      <p class="sub">Begreppsläxa v. 41 · Huvudräkning</p>
     </header>
 
     <main id="home" class="screen active home">
@@ -111,7 +122,42 @@
           </button>
         </div>
       </section>
+      <section class="sectionCard">
+        <div class="sectionTitle"><strong>🔢 Huvudräkning</strong><span class="pill">40 tal</span></div>
+        <p>Räkna i huvudet. Målet är alla rätt på under 5 minuter. Du får fortsätta så länge du behöver.</p>
+        <div class="homeGrid">
+          <button class="homeBtn" data-math="hidden"><strong>Dold timer</strong><span>Se tiden när du är klar.</span></button>
+          <button class="homeBtn secondary" data-math="visible"><strong>Synlig timer</strong><span>Samma tal, med tiden synlig.</span></button>
+        </div>
+      </section>
     </main>
+
+    <main id="mathSetup" class="screen"><div class="panel mathPanel">
+      <div class="toprow"><button class="backBtn" data-home>Meny</button><span class="counter">Huvudräkning</span></div>
+      <h2 id="mathModeTitle">Dold timer</h2>
+      <p>20 additioner och 20 subtraktioner från läxan, i samma ordning. Räkna i huvudet och skriv ditt svar.</p>
+      <p>Tiden börjar när du trycker på Starta. Inget stopp efter fem minuter. Alla svar rättas när du är klar.</p>
+      <div id="mathPrevious" class="mathHistory"></div>
+      <button class="btn" id="mathStart">Starta</button>
+    </div></main>
+    <main id="mathScreen" class="screen"><div class="panel mathPanel">
+      <div class="toprow"><button class="backBtn" id="mathExit">Avbryt</button><span class="counter" id="mathCounter"></span></div>
+      <div class="progress"><div id="mathProgress"></div></div>
+      <div id="mathTimer" class="mathTimer" hidden></div>
+      <div class="modeLabel" id="mathCategory"></div>
+      <div class="mathQuestion" id="mathQuestion"></div>
+      <form id="mathForm">
+        <input class="answerDisplay" id="mathAnswer" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-label="Ditt svar" placeholder="Ditt svar" required>
+        <div class="nav"><button class="btn light" id="mathPrev" type="button">Förra</button><button class="btn" id="mathNext" type="submit">Nästa</button></div>
+      </form>
+    </div></main>
+    <main id="mathDone" class="screen"><div class="panel mathPanel">
+      <div class="toprow"><button class="backBtn" data-home>Meny</button><span class="counter">Resultat</span></div>
+      <div class="scoreBig" id="mathScore"></div><div class="mathTimer" id="mathFinalTime"></div>
+      <p id="mathSummary" role="status"></p><div id="mathComparison"></div>
+      <button class="btn" id="mathAgain">Försök igen</button>
+      <details><summary>Visa alla svar</summary><div id="mathReview"></div></details>
+    </div></main>
 
     <main id="flashScreen" class="screen">
       <div class="panel" style="display:flex;flex-direction:column;flex:1">
@@ -395,6 +441,76 @@ document.querySelectorAll("[data-start]").forEach(function(btn){
     }
   });
 });
+
+
+// Exact worksheet questions. Both modes share the same sequence.
+const mathQuestions = [
+[27,8,'+'],[46,7,'+'],[35,9,'+'],[58,6,'+'],[67,8,'+'],
+[29,15,'+'],[47,16,'+'],[38,25,'+'],[56,17,'+'],[68,24,'+'],
+[75,18,'+'],[86,17,'+'],[125,8,'+'],[147,6,'+'],[158,17,'+'],
+[267,35,'+'],[384,29,'+'],[475,38,'+'],[586,27,'+'],[697,46,'+'],
+[32,7,'−'],[41,6,'−'],[53,8,'−'],[62,7,'−'],[71,9,'−'],
+[43,16,'−'],[52,18,'−'],[64,27,'−'],[75,38,'−'],[83,46,'−'],
+[92,17,'−'],[104,28,'−'],[123,7,'−'],[142,16,'−'],[153,27,'−'],
+[264,38,'−'],[375,49,'−'],[482,57,'−'],[593,68,'−'],[704,86,'−']
+];
+const mathEl = id => document.getElementById(id);
+const mathSolution = q => q[2] === '+' ? q[0]+q[1] : q[0]-q[1];
+const mathTime = ms => {const seconds=Math.floor(ms/1000);return Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');};
+let mathVisible=false, mathIndex=0, mathAnswers=[], mathStarted=null, mathInterval=null;
+const mathHistoryKey='vilja-head-math-worksheet-v1';
+function readMathHistory(){try{const h=JSON.parse(localStorage.getItem(mathHistoryKey)||'[]');return Array.isArray(h)?h.filter(r=>Number.isFinite(r.ms)&&r.ms>=0&&Number.isInteger(r.score)&&r.score>=0&&r.score<=40):[];}catch(e){return [];}}
+function stopMathTimer(){clearInterval(mathInterval);mathInterval=null;}
+function prepareMath(visible){
+  stopMathTimer();mathStarted=null;mathVisible=visible;
+  mathEl('mathModeTitle').textContent=visible?'Synlig timer':'Dold timer';
+  const history=readMathHistory(), last=history[history.length-1], perfect=history.filter(r=>r.score===40);
+  mathEl('mathPrevious').textContent=last?'Senast: '+mathTime(last.ms)+' · '+last.score+'/40 rätt'+(perfect.length?' · Bästa med alla rätt: '+mathTime(Math.min(...perfect.map(r=>r.ms))):''):'';
+  showScreen('mathSetup');
+}
+function updateMathTimer(){if(mathStarted!==null && mathVisible)mathEl('mathTimer').textContent=mathTime(Date.now()-mathStarted);}
+function renderMath(){
+  const q=mathQuestions[mathIndex];
+  mathEl('mathCounter').textContent=(mathIndex+1)+' av 40';
+  mathEl('mathProgress').style.width=(mathIndex/40*100)+'%';
+  mathEl('mathCategory').textContent=mathIndex<20?'Addition':'Subtraktion';
+  mathEl('mathQuestion').textContent=q[0]+' '+q[2]+' '+q[1]+' = ?';
+  mathEl('mathAnswer').value=mathAnswers[mathIndex]??'';
+  mathEl('mathPrev').disabled=mathIndex===0;
+  mathEl('mathNext').textContent=mathIndex===39?'Klar – visa resultat':'Nästa';
+  mathEl('mathAnswer').focus();
+}
+function startMath(){
+  mathIndex=0;mathAnswers=[];stopMathTimer();
+  mathEl('mathTimer').hidden=!mathVisible;
+  mathStarted=Date.now();showScreen('mathScreen');updateMathTimer();
+  if(mathVisible)mathInterval=setInterval(updateMathTimer,250);
+  renderMath();
+}
+function finishMath(){
+  const elapsed=Date.now()-mathStarted;stopMathTimer();mathStarted=null;
+  const right=mathQuestions.reduce((n,q,i)=>n+(Number(mathAnswers[i])===mathSolution(q)?1:0),0);
+  const history=readMathHistory(), last=history[history.length-1];
+  mathEl('mathScore').textContent=right+'/40 rätt';
+  mathEl('mathFinalTime').textContent='Din tid: '+mathTime(elapsed);
+  mathEl('mathSummary').textContent=right===40?(elapsed<300000?'Alla rätt på under fem minuter!':'Alla rätt! Fortsätt träna mot fem minuter.'):'Bra jobbat! Träna på de '+(40-right)+' talen som blev fel och försök igen.';
+  const best=history.filter(r=>r.score===40);
+  const comparison=[];
+  if(last){const delta=elapsed-last.ms;comparison.push(Math.abs(delta)<1000?'Samma tid som senast.':mathTime(Math.abs(delta))+(delta<0?' snabbare':' långsammare')+' än senast ('+last.score+'/40 rätt).');}
+  if(best.length)comparison.push('Tidigare bästa med alla rätt: '+mathTime(Math.min(...best.map(r=>r.ms)))+'.');
+  mathEl('mathComparison').textContent=comparison.join(' ');
+  mathEl('mathReview').replaceChildren();
+  mathQuestions.forEach((q,i)=>{const solution=mathSolution(q),correct=Number(mathAnswers[i])===solution,row=document.createElement('div');row.className='mathReviewRow'+(correct?'':' wrong');row.textContent=(i+1)+'. '+q[0]+' '+q[2]+' '+q[1]+' = '+mathAnswers[i]+(correct?' ✓':' · Rätt svar: '+solution);mathEl('mathReview').appendChild(row);});
+  try{history.push({ms:elapsed,score:right,date:new Date().toISOString()});localStorage.setItem(mathHistoryKey,JSON.stringify(history));}catch(e){}
+  mathEl('mathAnswer').blur();showScreen('mathDone');
+}
+document.querySelectorAll('[data-math]').forEach(b=>b.addEventListener('click',()=>prepareMath(b.dataset.math==='visible')));
+mathEl('mathStart').addEventListener('click',startMath);
+mathEl('mathAgain').addEventListener('click',()=>prepareMath(mathVisible));
+mathEl('mathForm').addEventListener('submit',e=>{e.preventDefault();const value=mathEl('mathAnswer').value.trim();if(!/^\d+$/.test(value)){mathEl('mathAnswer').focus();return;}mathAnswers[mathIndex]=value;if(mathIndex===39)finishMath();else{mathIndex++;renderMath();}});
+mathEl('mathPrev').addEventListener('click',()=>{if(mathIndex>0){mathAnswers[mathIndex]=mathEl('mathAnswer').value.trim();mathIndex--;renderMath();}});
+mathEl('mathExit').addEventListener('click',()=>{if(confirm('Avbryta försöket? Tiden sparas först när alla 40 tal är klara.')){stopMathTimer();mathStarted=null;showScreen('home');}});
+document.addEventListener('visibilitychange',updateMathTimer);
 
 if("serviceWorker" in navigator){
   window.addEventListener("load", function(){

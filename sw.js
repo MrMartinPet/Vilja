@@ -1,4 +1,4 @@
-const CACHE = "viljas-laxa-cache-v10-democracy";
+const CACHE = "viljas-laxa-cache-v11-democracy";
 const ASSETS = ["./", "./index.html", "./manifest.json", "./demokrati.html", "./democracy-data.js", "./democracy.js", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", function(e){ e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); })); self.skipWaiting(); });
 self.addEventListener("activate", function(e){ e.waitUntil(caches.keys().then(function(keys){ return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); })); })); self.clients.claim(); });

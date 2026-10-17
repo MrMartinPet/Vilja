@@ -1,4 +1,4 @@
-const CACHE = "viljas-laxa-cache-v13-matteprov";
+const CACHE = "viljas-laxa-cache-v14-multiplication-carries";
 const ASSETS = ["./", "./index.html", "./matteprov.html", "./matteprov.css", "./matteprov.js", "./manifest.json", "./demokrati.html", "./mattespel.html", "./mattespel.js", "./democracy-data.js", "./democracy.js", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", function(e){ e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); })); self.skipWaiting(); });
 self.addEventListener("activate", function(e){ e.waitUntil(caches.keys().then(function(keys){ return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); })); })); self.clients.claim(); });

@@ -21,7 +21,24 @@ let state={page:0,values:{},submitted:false}, selected=0;
 try{const saved=JSON.parse(localStorage.getItem(key));if(saved&&saved.values&&typeof saved.values==='object'&&Number.isInteger(saved.page)&&saved.page>=0&&saved.page<11)state=saved;}catch(e){}
 function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(e){$('storage').textContent='Svaren kan inte sparas på den här enheten. Håll sidan öppen tills du är klar.';}}
 function field(id,label,cls='answer',extra=''){return `<input class="${cls}" data-key="${id}" aria-label="${esc(label)}" value="${esc(state.values[id]??'')}" type="text" inputmode="decimal" autocomplete="off" ${extra}>`;}
-function grid(g,i,multiply=false){const cols=7,rows=multiply?7:4,id=`${g}-${i}`,preset=multiply?groups[g].items[i][2]:null;let html='<p class="small">Minnessiffror överst · Skriv svaret på sista raden'+(multiply?' · Använd mellanraderna för delprodukter':'')+'</p><div class="grid" style="--cols:7">';for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){let fixed=(!multiply&&g===4&&r===2&&c===0)?(i===2?'−':'+'):null;if(preset&&(r===1||r===2)){const text=(r===2?'·':'')+preset[r-1];fixed=text.padStart(cols,' ')[c].trim();}const k=`${id}-cell-${r}-${c}`,cl=r===0?'carry':r===rows-1?'total':'';html+=fixed!==null?`<input aria-label="${r===1?'Första':'Andra'} talet, ruta ${c+1}" value="${esc(fixed)}" readonly tabindex="-1">`:field(k,`Fråga ${g+1}${String.fromCharCode(97+i)}, ${r===0?'minnessiffra':r===rows-1?'svar':'rad '+r}, ruta ${c+1}`,cl,'maxlength="1"').replace('inputmode="decimal"',r===2&&c===0?'inputmode="text"':'inputmode="decimal"');}return html+'</div>';}
+function grid(g,i,multiply=false){
+ const cols=7,rows=multiply?7:4,id=`${g}-${i}`,preset=multiply?groups[g].items[i][2]:null;
+ let html='<p class="small">'+(multiply?'Minnessiffror kan skrivas över och på båda sidor om talen. Använd mellanraderna för delprodukter.':'Minnessiffror överst.')+' Skriv svaret på sista raden.</p><div class="grid'+(multiply?' multiplyGrid':'')+'" style="--cols:7">';
+ for(let r=0;r<rows;r++){
+  for(let c=0;c<cols;c++){
+   let fixed=(!multiply&&g===4&&r===2&&c===0)?(i===2?'−':'+'):null;
+   if(preset&&(r===1||r===2)){
+    const text=(r===2?'·':'')+preset[r-1];
+    fixed=text.padStart(cols,' ')[c].trim()||null;
+   }
+   const k=`${id}-cell-${r}-${c}`,cl=r===0?'carry':r===rows-1?'total':multiply&&preset&&(r===1||r===2)&&fixed===null?'sideCarry':'';
+   html+=fixed!==null?`<input aria-label="${r===1?'Första':'Andra'} talet, ruta ${c+1}" value="${esc(fixed)}" readonly tabindex="-1">`:field(k,`Fråga ${g+1}${String.fromCharCode(97+i)}, ${cl==='sideCarry'?'minnessiffra bredvid talet':r===0?'minnessiffra':r===rows-1?'svar':'rad '+r}, ruta ${c+1}`,cl,'maxlength="1"').replace('inputmode="decimal"',r===2&&c===0?'inputmode="text"':'inputmode="decimal"');
+  }
+  if(multiply)html+=(r<=2?field(`${id}-side-${r}`,`Fråga ${g+1}${String.fromCharCode(97+i)}, minnessiffra till höger om ${r===2?'andra':'första'} talet`,'sideCarry','maxlength="1"'):'<span class="gridSpacer" aria-hidden="true"></span>');
+ }
+ return html+'</div>';
+}
+
 function answer(g,i){const t=groups[g].type;if(t==='grid'||t==='dogs'||t==='multiply'){const row=t==='multiply'?6:3;return Array.from({length:7},(_,c)=>state.values[`${g}-${i}-cell-${row}-${c}`]??'').join('');}if(t==='places')return `${state.values[`${g}-${i}-p0`]??''},${[1,2,3].map(c=>state.values[`${g}-${i}-p${c}`]??'').join('')}`;return state.values[`${g}-${i}`]??'';}
 function entries(){return groups.flatMap((g,n)=>g.items.flatMap((q,i)=>g.type==='sequence'?q[1].map((a,j)=>({label:`${n+1}${String.fromCharCode(97+i)} · lucka ${j+1}`,value:state.values[`${n}-${i}-${j}`]??'',expected:a,g:n,i})):({label:`${n+1}${String.fromCharCode(97+i)}`,value:answer(n,i),expected:q[1],g:n,i})));}
 function answered(e){return String(e.value).trim()!==''&&!(groups[e.g].type==='places'&&e.value===',');}

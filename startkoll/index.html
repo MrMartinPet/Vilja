@@ -24,6 +24,7 @@
 .focus-main[data-stage="late"]{background:linear-gradient(120deg,#802a25,#b34c37)}
 .focus-main[data-stage="done"]{background:linear-gradient(120deg,#12684e,#218b67)}
 .focus-main[data-stage="skip"]{background:linear-gradient(120deg,#57626e,#7b8790)}
+.focus-main[data-stage="late"] .focus-count,.focus-main[data-stage="done"] .focus-count,.focus-main[data-stage="skip"] .focus-count{font-size:clamp(25px,5.5vw,43px);letter-spacing:-1px;white-space:normal}
 .focus-eyebrow{font-size:12px;letter-spacing:1.7px;text-transform:uppercase;font-weight:850;opacity:.85}
 .focus-count{font-size:clamp(45px,9vw,76px);line-height:1.12;font-variant-numeric:tabular-nums;letter-spacing:-2.5px;font-weight:850;margin:13px 0 7px;white-space:nowrap}
 .focus-subline{font-size:13px;opacity:.9;font-weight:650}
@@ -178,7 +179,7 @@ function focusCountdownTick(){
  if(wcard)wcard.classList.toggle('active',!r.passed&&!r.skip&&now<warm);
  if(scard)scard.classList.toggle('active',!r.passed&&!r.skip&&now>=warm&&now<r.start);
  const pct=r.passed?100:r.skip?0:Math.max(0,Math.min(100,(now-(warm-15*60000))/(r.start-(warm-15*60000))*100));
- const bar=document.getElementById('focusLaneFill');if(bar)bar.style.width=pct.toFixed(1)+'%';
+ const bar=document.getElementById('focusLaneFill');if(bar){bar.style.width=pct.toFixed(1)+'%';const track=bar.parentElement;if(track)track.setAttribute('aria-valuenow',String(Math.round(pct)));}
  put('focusClockNow',fmt(now));
 }
 function favoriteCard(s){

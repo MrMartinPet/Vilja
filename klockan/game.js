@@ -55,7 +55,10 @@ $('clock').addEventListener('pointerdown', e => {
   const point = clockPoint(e);
   const radius = Math.hypot(point.x - 180, point.y - 180);
   const hand = e.target.closest('.hand');
-  const factor = hand ? (hand.id === 'hourHand' ? 12 : 1) : (radius < 100 ? 12 : 1);
+  const hourAngle = T.angles(time).hour * Math.PI / 180;
+  const nearHourGrip = Math.hypot(point.x - 180 - Math.sin(hourAngle) * 82, point.y - 180 + Math.cos(hourAngle) * 82) < 24;
+  // Keep the short hand catchable when the hands overlap.
+  const factor = nearHourGrip ? 12 : hand ? (hand.id === 'hourHand' ? 12 : 1) : (radius < 100 ? 12 : 1);
   drag = {id: e.pointerId, previous: pointerAngle(e), value: time, factor};
   $('clock').setPointerCapture(e.pointerId);
 });

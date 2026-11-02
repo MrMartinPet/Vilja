@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#4f46e5">
+<title>Klockmästaren · Viljas läxa</title><link rel="stylesheet" href="style.css"><link rel="manifest" href="../manifest.json">
+<script defer src="time.js"></script><script defer src="game.js"></script>
+</head>
+<body>
+<div class="app">
+<header><a class="back" href="../">← Viljas läxa</a><span class="badge">DIN TID ATT LÄRA</span></header>
+<div class="intro"><div><p class="eyebrow">ANALOGT + DIGITALT</p><h1>Klockmästaren<span>.<i>◷</i></span></h1><p>Vrid, upptäck och få koll på tiden.</p></div><div class="total" id="total">★ 0 lösta</div></div>
+<nav aria-label="Välj aktivitet"><button id="practiceTab" class="active" aria-pressed="true">✦ Träna</button><button id="exploreTab" aria-pressed="false">◷ Upptäck klockan</button></nav>
+<section id="setup" class="panel">
+<div class="section-heading"><h2>Ditt nästa uppdrag</h2><span>8 frågor · ingen tidspress</span></div>
+<div class="settings"><label>Vad vill du träna?<select id="mode"><option value="set">Ställ klockan – digital tid</option><option value="words">Ställ klockan – med ord</option><option value="read">Läs klockan – skriv digitalt</option><option value="mix">Blanda alla övningar</option></select></label><label>Välj steg<select id="level"><option value="0">1 · Hela och halva timmar</option><option value="1">2 · Kvart i och kvart över</option><option value="2" selected>3 · Fem i, fem över och halv</option><option value="3">4 · Dygnets alla minuter</option></select></label></div>
+<p id="levelHelp" class="muted"></p><button class="primary" id="start">Starta uppdraget →</button><p id="saved" class="small"></p>
+</section>
+<section id="play" class="panel" hidden>
+<div id="sessionHeader"><div class="session-row"><button id="quit" class="quiet">← Byt övning</button><span id="counter"></span></div><div class="progress"><div id="bar"></div></div></div>
+<div class="question"><p id="questionType" class="eyebrow"></p><h2 id="question"></h2><p id="context"></p><button id="speak" class="quiet">♬ Läs upp frågan</button></div>
+<div class="clock-layout">
+<div class="clock-area"><svg id="clock" viewBox="0 0 360 360" aria-label="Analog klocka" role="group">
+<circle cx="180" cy="180" r="173" class="clock-rim"/><circle cx="180" cy="180" r="156" fill="white"/>
+<g id="ticks" aria-hidden="true"></g><g id="numbers" aria-hidden="true"></g><g id="minuteNumbers" aria-hidden="true"></g>
+<g id="solution" hidden opacity=".3"><line id="ghostHour" x1="180" y1="180" x2="180" y2="98" stroke="#14a676" stroke-width="11" stroke-linecap="round"/><line id="ghostMinute" x1="180" y1="180" x2="180" y2="56" stroke="#14a676" stroke-width="7" stroke-linecap="round"/></g>
+<g id="hourHand" class="hand" tabindex="0" role="slider" aria-label="Timvisare" aria-valuemin="0" aria-valuemax="1439"><line x1="180" y1="193" x2="180" y2="98" class="hour-line"/><line x1="180" y1="175" x2="180" y2="93" class="hit"/></g>
+<g id="minuteHand" class="hand" tabindex="0" role="slider" aria-label="Minutvisare" aria-valuemin="0" aria-valuemax="1439"><line x1="180" y1="196" x2="180" y2="56" class="minute-line"/><circle cx="180" cy="56" r="8" fill="#4f46e5"/><line x1="180" y1="165" x2="180" y2="50" class="hit"/></g>
+<circle cx="180" cy="180" r="10" fill="#24314d"/><circle cx="180" cy="180" r="4" fill="white"/>
+</svg><div class="legend"><span><i class="dot hour"></i>Kort = timmar</span><span><i class="dot minute"></i>Lång = minuter</span></div></div>
+<div class="controls">
+<div id="live" class="digital-card"><span>DIN KLOCKA VISAR</span><strong id="liveTime"></strong><p id="liveWords"></p></div>
+<div id="moveControls"><p class="instruction">Dra i en visare. Den andra följer med!</p><div class="stepper"><span>Timmar</span><button data-step="-60" aria-label="En timme bakåt">−</button><button data-step="60" aria-label="En timme framåt">+</button></div><div class="stepper"><span>Minuter</span><button data-step="-1" aria-label="En minut bakåt">−</button><button data-step="1" aria-label="En minut framåt">+</button></div><button id="period" class="period"></button><p class="small">Urtavlan visar 12 timmar. Välj också rätt halva av dygnet.</p></div>
+<form id="answerForm" hidden><label for="hours">Vilken digital tid visar klockan?</label><div class="time-input"><input id="hours" inputmode="numeric" maxlength="2" placeholder="TT" aria-label="Timmar, 00 till 23" autocomplete="off"><b>:</b><input id="minutes" inputmode="numeric" maxlength="2" placeholder="MM" aria-label="Minuter, 00 till 59" autocomplete="off"></div><p class="small">Skriv tiden med 24-timmarsklocka.</p></form>
+<label class="check"><input type="checkbox" id="showMinutes"> Visa minutstöd (5, 10, 15 …)</label>
+</div></div>
+<div id="feedback" role="status" aria-live="polite"></div>
+<div id="challengeActions" class="actions"><button id="check" class="primary">Kolla mitt svar ✓</button><button id="hint" class="quiet">Ge mig en ledtråd</button><button id="reveal" class="quiet" hidden>Visa lösningen</button><button id="next" class="primary" hidden>Nästa fråga →</button></div>
+</section>
+<section id="summary" class="panel summary" hidden><p class="eyebrow">UPPDRAGET KLART</p><div class="trophy">✦</div><h2 id="resultTitle"></h2><p id="resultText"></p><div class="actions"><button id="retry" class="primary">Träna på det svåra igen</button><button id="again" class="quiet">Ny omgång</button></div><p class="small">Dina framsteg sparas i den här webbläsaren.</p></section>
+<section class="panel learn"><h2>Tre knep att ha med sig</h2><div class="tips"><div><b>01 / Följ timmen</b><p>Korta visaren glider hela tiden. Vid 13:45 är den mellan 1 och 2, närmast 2.</p></div><div><b>02 / Räkna fem i taget</b><p>1 betyder 5 minuter, 2 betyder 10. Ett helt varv är 60 minuter och flyttar timvisaren en timme.</p></div><div><b>03 / Halv är på väg</b><p>Halv två = 01:30 eller 13:30. Kvart i två = 01:45 eller 13:45. Vi pratar om nästa timme.</p></div></div>
+<details><summary>Så tränar du smart</summary><p>Prova först under Upptäck. Börja på ett steg som känns lagom och träna 5–10 minuter åt gången. Växla mellan att ställa visarna och att läsa av dem. Säg hur du tänker. Fortsätt en annan dag och repetera det som var svårt.</p><p>Övningarna går från timmar och minuter till svenska tidsuttryck och 24-timmarstid. Upplägget är vår anpassning för Vilja, med stöd av <a href="https://www.ncetm.org.uk/classroom-resources/cp-year-3-unit-11-time/">NCETM:s material om analog och digital tid</a> och <a href="https://www.ncetm.org.uk/features/teaching-time-without-tears-rethinking-how-we-teach-time-in-key-stages-1-and-2/">deras resonemang om att dela upp lärandet</a>. Ingen metod passar alla; välj steg efter vad du redan kan.</p></details></section>
+<footer>Viljas läxa · Lite träning, mer tidskoll.</footer>
+</div></body></html>

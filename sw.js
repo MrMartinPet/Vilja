@@ -1,5 +1,5 @@
-const CACHE = "viljas-laxa-cache-v18";
-const ASSETS = ["./ponnyforsvaret/", "./ponnyforsvaret/index.html", "./ponnyforsvaret/game.css", "./ponnyforsvaret/game.js", "./", "./index.html", "./matteprov.html", "./matteprov.css", "./matteprov.js", "./manifest.json", "./demokrati.html", "./mattespel.html", "./mattespel.js", "./democracy-data.js", "./democracy.js", "./icon-192.png", "./icon-512.png"];
+const CACHE = "viljas-laxa-cache-v19";
+const ASSETS = ["./klockan/", "./klockan/index.html", "./klockan/style.css", "./klockan/time.js", "./klockan/game.js", "./ponnyforsvaret/", "./ponnyforsvaret/index.html", "./ponnyforsvaret/game.css", "./ponnyforsvaret/game.js", "./", "./index.html", "./matteprov.html", "./matteprov.css", "./matteprov.js", "./manifest.json", "./demokrati.html", "./mattespel.html", "./mattespel.js", "./democracy-data.js", "./democracy.js", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", function(e){ e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); })); self.skipWaiting(); });
 self.addEventListener("activate", function(e){ e.waitUntil(caches.keys().then(function(keys){ return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); })); })); self.clients.claim(); });
 self.addEventListener("fetch", function(e){

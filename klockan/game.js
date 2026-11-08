@@ -38,37 +38,66 @@ function render() {
   $('minuteNumbers').style.display = $('showMinutes').checked ? '' : 'none';
 }
 function setTime(value) { if (canMove()) { time = T.normalize(value); render(); } }
+// A stable, finger-friendly control: five-minute stops except in the
+// optional "Alla minuter" exercise, where single minutes remain necessary.
+function minuteStep() {
+  return !exploring && Number($('level').value) === 3 ? 1 : 5;
+}
 function clockPoint(e) {
   const p = $('clock').createSVGPoint();
   p.x = e.clientX; p.y = e.clientY;
   return p.matrixTransform($('clock').getScreenCTM().inverse());
 }
-function pointerAngle(e) {
-  const p = clockPoint(e);
+function pointAngle(p) {
   return T.mod(Math.atan2(p.x - 180, 180 - p.y) * 30 / Math.PI, 60);
 }
-// The whole dial owns touch gestures, including a touch just beside a hand.
-// A wide invisible hit area and visible grips make both hands easy to catch.
+function radiusOf(p) { return Math.hypot(p.x - 180, p.y - 180); }
+function nearHand(p, mark, inner, outer, tolerance) {
+  const r = radiusOf(p), offset = T.delta(mark, pointAngle(p));
+  // Test the visible, outward-facing hand; avoid the unstable hub of the clock.
+  return r >= inner && r <= outer && Math.abs(offset) < 8 &&
+    Math.abs(Math.sin(offset * Math.PI / 30) * r) <= tolerance;
+}
+// Tapping the outer dial sets the long hand immediately. Dragging afterwards
+// tracks the finger's actual angular travel and snaps to five-minute marks.
 $('clock').addEventListener('pointerdown', e => {
   if (!canMove() || drag || e.button !== 0) return;
+  const p = clockPoint(e), r = radiusOf(p);
+  if (r < 55) return; // Near the centre, tiny movements create huge angle changes.
   e.preventDefault();
-  const point = clockPoint(e);
-  const radius = Math.hypot(point.x - 180, point.y - 180);
-  const hand = e.target.closest('.hand');
-  const hourAngle = T.angles(time).hour * Math.PI / 180;
-  const nearHourGrip = Math.hypot(point.x - 180 - Math.sin(hourAngle) * 82, point.y - 180 + Math.cos(hourAngle) * 82) < 24;
-  // Keep the short hand catchable when the hands overlap.
-  const factor = nearHourGrip ? 12 : hand ? (hand.id === 'hourHand' ? 12 : 1) : (radius < 100 ? 12 : 1);
-  drag = {id: e.pointerId, previous: pointerAngle(e), value: time, factor};
+  const angle = pointAngle(p), hands = T.angles(time);
+  const hour = nearHand(p, hands.hour / 6, 55, 111, 21);
+  const minute = nearHand(p, hands.minute / 6, 89, 153, 23);
+  const selected = hour ? 'hour' : 'minute';
+  if (selected === 'minute' && !minute) {
+    const minuteValue = Math.round(angle / minuteStep()) * minuteStep() % 60;
+    setTime(Math.floor(time / 60) * 60 + minuteValue);
+  }
+  drag = {id: e.pointerId, hand: selected, previous: angle, travel: 0, startTime: time};
   $('clock').setPointerCapture(e.pointerId);
 });
 $('clock').addEventListener('pointermove', e => {
   if (!drag || drag.id !== e.pointerId) return;
   e.preventDefault();
-  const angle = pointerAngle(e);
-  drag.value += T.delta(drag.previous, angle) * drag.factor;
+  const p = clockPoint(e);
+  if (radiusOf(p) < 60) {
+    // Suspend movement through the middle instead of interpreting wild rotations.
+    drag.previous = null;
+    return;
+  }
+  const angle = pointAngle(p);
+  if (drag.previous === null) { drag.previous = angle; return; }
+  const difference = T.delta(drag.previous, angle);
   drag.previous = angle;
-  setTime(drag.value);
+  if (Math.abs(difference) > 15) return; // Discard impossible pointer jumps.
+  drag.travel += difference;
+  if (drag.hand === 'minute') {
+    const step = minuteStep();
+    setTime(Math.round((drag.startTime + drag.travel) / step) * step);
+  } else {
+    // Move whole hours, keeping the chosen minutes exactly as they were.
+    setTime(drag.startTime + Math.round(drag.travel / 5) * 60);
+  }
 });
 for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
   $('clock').addEventListener(name, e => { if (drag?.id === e.pointerId) drag = null; });
@@ -78,7 +107,7 @@ $('clock').addEventListener('touchmove', e => e.preventDefault(), {passive: fals
 for (const id of ['minuteHand', 'hourHand']) {
   $(id).addEventListener('keydown', e => {
     const step = {ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1}[e.key];
-    if (step) { e.preventDefault(); setTime(time + step * (id === 'hourHand' ? 60 : 1) * (e.shiftKey ? 5 : 1)); }
+    if (step) { e.preventDefault(); setTime(time + step * (id === 'hourHand' ? 60 : minuteStep()) * (e.shiftKey ? 5 : 1)); }
   });
 }
 $('morning').onclick = () => setTime(time % 720);
@@ -118,7 +147,7 @@ function showMode(explore) {
     $('question').textContent = 'Utforska klockan';
     $('context').textContent = '';
     $('check').hidden = $('next').hidden = $('hint').hidden = true;
-    $('instruction').textContent = 'Dra i visarna och se hur tiden ändras.';
+    $('instruction').textContent = 'Dra minutvisaren i steg om 5 minuter. Timvisaren flyttas en timme i taget.';
     feedback(); render();
   } else start();
 }
@@ -143,7 +172,7 @@ function showTask() {
   $('check').hidden = $('hint').hidden = false;
   $('hint').textContent = 'Ledtråd';
   $('next').hidden = true;
-  $('instruction').textContent = task.mode === 'read' ? 'Skriv timmar och minuter.' : 'Dra i visarna för att ställa klockan.';
+  $('instruction').textContent = task.mode === 'read' ? 'Skriv timmar och minuter.' : minuteStep() === 5 ? 'Minutvisaren hoppar 5 minuter i taget. Timvisaren flyttas en timme i taget.' : 'Dra visarna. På den här nivån kan du ställa enskilda minuter.';
   feedback();
   time = task.mode === 'read' ? task.target : T.normalize(task.target + 130);
   render();

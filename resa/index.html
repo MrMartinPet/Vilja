@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#083e47">
+  <meta name="description" content="Familjens planering för Filippinerna 2027: Bohol, Boracay, flyg, boenden, checklistor och karta.">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Filippinerna 2027 · Resedashboard</title>
+  <link rel="stylesheet" href="style.css?v=1">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
+  <script src="app.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#oversikt">Hoppa till innehållet</a>
+  <header class="site-head">
+    <div class="shell header-inner">
+      <a class="back-link" href="../" aria-label="Till startsidan"><span aria-hidden="true">←</span> Start</a>
+      <a class="brand" href="#oversikt"><span class="brand-mark">✦</span><span>Resa <b>2027</b></span></a>
+      <div class="head-actions">
+        <span id="dataState" class="small-sync">Läser resplan …</span>
+        <button class="btn btn-dark btn-small" id="openEditor" type="button">✎ Redigera</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="errorBanner" class="shell error-banner" hidden></div>
+  <div id="syncBanner" class="shell info-banner" hidden></div>
+  <main class="shell" id="oversikt">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="glow-dot"></span> FAMILJERESAN · 8–24 FEBRUARI 2027</div>
+        <h1 id="heroTitle">Filippinerna<span class="hero-dot">.</span><br><em>Bohol → Boracay</em></h1>
+        <p>Först sköldpaddor och tropisk natur. Sedan vita stränder, pool och långa kvällar tillsammans.</p>
+        <div class="hero-meta"><span>👨‍👩‍👧‍👦 4 vuxna · 3 barn</span><span>🌴 7 + 6 nätter på öarna</span></div>
+        <div class="hero-actions">
+          <a class="btn btn-teal" href="#uppgifter">Se nästa steg <span>↗</span></a>
+          <a class="btn btn-outline" href="#resplan">Hela resplanen</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div><div class="island-back"></div><div class="island-front"></div><div class="palm palm-a">✳</div><div class="palm palm-b">✳</div>
+        <div class="hero-art-text"><span>BOHOL</span><span>01</span><div class="hero-arrow">→</div><span>BORACAY</span><span>02</span></div>
+        <div class="sea-line sea-line-one"></div><div class="sea-line sea-line-two"></div>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="Avsnitt">
+      <a href="#oversikt" class="active">Översikt</a>
+      <a href="#resplan">Resplan</a>
+      <a href="#uppgifter">Att göra</a>
+      <a href="#beslut">Beslut</a>
+      <a href="#bokningar">Bokningar</a>
+      <a href="#karta">Karta</a>
+      <a href="#upplevelser">Aktiviteter</a>
+      <a href="#anteckningar">Anteckningar</a>
+    </nav>
+
+    <section class="summary-strip" aria-label="Resans status">
+      <article class="metric"><span>Fram till avresa</span><strong id="daysLeft">–</strong><small>dagar</small></article>
+      <article class="metric"><span>Övernattningar på öarna</span><strong>13</strong><small>7 Bohol · 6 Boracay</small></article>
+      <article class="metric"><span>Att göra</span><strong id="tasksOpen">–</strong><small id="tasksDone">0 klara</small></article>
+      <article class="metric"><span>Väntande beslut</span><strong id="decisionsOpen">–</strong><small>innan vi bokar allt</small></article>
+    </section>
+
+    <section class="overview-grid" aria-label="Nästa steg och bokningsöversikt">
+      <article class="panel priority-panel">
+        <div class="section-kicker">PRIORITET JUST NU</div>
+        <div class="panel-heading"><h2>Det viktigaste härnäst</h2><span class="subtle">Saker att låsa först</span></div>
+        <div id="priorityTasks" class="priority-list"><div class="skeleton"></div></div>
+        <a class="text-link" href="#uppgifter">Visa hela checklistan <span>↗</span></a>
+      </article>
+      <article class="panel decision-feature">
+        <div class="section-kicker">STORA VÄGVALET</div>
+        <h2>Hur åker vi från Bohol till Boracay?</h2>
+        <p>Två rimliga alternativ: billigare via Cebu och färja, eller enklare flyg via Manila. Vi väljer först när vi jämfört totalpris och risken vid separata biljetter.</p>
+        <div class="compare-mini"><span>⛴️ Via Cebu</span><span>✈️ Via Manila</span></div>
+        <a class="btn btn-deep" href="#beslut">Jämför alternativen <span>↗</span></a>
+      </article>
+    </section>
+
+    <section id="resplan" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">VÅR RESA</div><h2>Resplanen, dag för dag</h2><p>Beslutade datum, vad som är bokat och vad vi fortfarande behöver ordna.</p></div><span class="section-tag">8–24 februari 2027</span></div>
+      <div class="journey-rail"><div><small>09–10 FEB</small><b>Manila</b><span>1 natt</span></div><i>→</i><div><small>10–17 FEB</small><b>Bohol</b><span>7 nätter</span></div><i>→</i><div><small>17–23 FEB</small><b>Boracay</b><span>6 nätter</span></div><i>→</i><div><small>23–24 FEB</small><b>Manila</b><span>1 natt</span></div></div>
+      <div class="stay-grid" id="stayGrid"></div>
+      <div class="panel route-panel"><div class="panel-heading"><h3>Alla resdagar och transporter</h3><span class="subtle">Preliminära tider – kontrollera vid bokning</span></div><div id="legList" class="leg-list"></div></div>
+    </section>
+
+    <section id="uppgifter" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">PLANERING</div><h2>Att göra</h2><p>Vi kryssar av efter hand. Det som markeras sparas på den här enheten tills vi delar ändringen.</p></div><button class="btn btn-deep" id="addTaskTop" type="button">+ Ny uppgift</button></div>
+      <div class="panel">
+        <div class="task-tools"><div class="progress-wrap"><div class="progress-top"><b id="taskProgressLabel">0 % klart</b><span id="taskProgressCaption">–</span></div><div class="progress-track"><div id="taskProgressBar"></div></div></div><div class="filter-chips" id="taskFilters"><button type="button" class="chip active" data-filter="open">Kvar</button><button type="button" class="chip" data-filter="all">Alla</button><button type="button" class="chip" data-filter="done">Klara</button></div></div>
+        <div id="taskList" class="task-list"></div>
+      </div>
+    </section>
+
+    <section id="beslut" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">STÄM AV TILLSAMMANS</div><h2>Beslut som återstår</h2><p>Välj ett alternativ direkt på sidan. Den som beställer biljetterna kan sedan följa den beslutade planen.</p></div></div>
+      <div id="decisionsGrid" class="decision-grid"></div>
+      <div class="panel comparison-panel"><div class="panel-heading"><h3>17 februari – jämför resvägen</h3><span class="section-tag">Vårt största beslut</span></div><div id="routeCompare" class="compare-grid"></div></div>
+    </section>
+
+    <section id="bokningar" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">PENGAR & BILJETTER</div><h2>Bokningar och budget</h2><p>Allt som är betalt, valt eller ännu inte bokat. Separata offerter för fem får inte förväxlas med totalpris för sju.</p></div><button class="btn btn-deep" id="addBudget" type="button">+ Lägg till kostnad</button></div>
+      <div class="budget-head">
+        <article class="budget-total"><small>Registrerad totalbudget</small><strong id="budgetTotal">Ej ifyllt</strong><span>Endast egna inmatade belopp för hela sällskapet</span></article>
+        <article class="budget-paid"><small>Registrerat betalt</small><strong id="budgetPaid">Ej ifyllt</strong><span>Uppdateras när ni registrerar betalningar</span></article>
+      </div>
+      <div class="panel table-wrap"><table class="budget-table"><thead><tr><th>Del av resan</th><th>Status</th><th>Budget, SEK</th><th>Betalt, SEK</th><th></th></tr></thead><tbody id="budgetRows"></tbody></table></div>
+      <div class="panel quotes-panel"><div class="panel-heading"><h3>Senaste flygpriserna – endast fem personer</h3><span class="section-tag amber">Sökpriser · inte bokat</span></div><p class="subtle">Priserna nedan gäller 2 vuxna + 3 barn. De två extra vuxna, bagage och eventuella avgifter är inte inkluderade. Kontrollerade 14 november 2026.</p><div id="quoteList" class="quote-list"></div></div>
+    </section>
+
+    <section id="karta" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">ÖAR & TRANSFER</div><h2>Hela resan på kartan</h2><p>Se öarna, flygplatserna, hamnarna och upplevelserna. Linjerna är schematiska – inte faktiska färdvägar.</p></div></div>
+      <div class="panel map-panel"><div class="map-toolbar"><button id="mapAll" class="chip active" type="button">Hela resan</button><button id="mapBohol" class="chip" type="button">Bohol</button><button id="mapBoracay" class="chip" type="button">Boracay</button><a href="https://www.google.com/maps/search/?api=1&query=Alona+Beach+Panglao+Philippines" target="_blank" rel="noopener">Öppna Google Maps ↗</a></div><div id="map" role="region" aria-label="Karta över resan"><div class="map-fallback">Kartan laddas …</div></div><div class="legend"><span><i class="legend-dot ocean"></i>Flygplats</span><span><i class="legend-dot coral"></i>Boende</span><span><i class="legend-dot sun-legend"></i>Utflykt</span><span><i class="legend-dot port"></i>Hamn/färja</span></div></div>
+    </section>
+
+    <section id="upplevelser" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">ATT LÄNGTA TILL</div><h2>Upplevelser vi vill göra</h2><p>Idéer som passar vår familj. Aktiviteter är inte bokade och sköldpaddor eller delfiner kan aldrig garanteras.</p></div><div class="filter-chips" id="activityFilters"><button type="button" class="chip active" data-island="Alla">Alla</button><button type="button" class="chip" data-island="Bohol">Bohol</button><button type="button" class="chip" data-island="Boracay">Boracay</button></div></div>
+      <div class="activity-grid" id="activityGrid"></div>
+    </section>
+
+    <section id="anteckningar" class="page-section">
+      <div class="section-intro"><div><div class="section-kicker">SAMARBETE</div><h2>Anteckningar & uppdatering</h2><p>Skriv direkt i appen. För gemensam uppdatering exporterar du planen eller skickar ändringarna till ChatGPT.</p></div></div>
+      <div class="notes-grid">
+        <div class="panel"><label for="familyNotes" class="field-label">Familjens anteckningar</label><textarea id="familyNotes" rows="10" placeholder="Skriv något ni bestämt, en fråga eller idé …"></textarea><p class="hint">Ändringar sparas automatiskt i den här webbläsaren.</p></div>
+        <div class="panel update-panel"><h3>Så fungerar uppdateringar</h3><div class="update-steps"><div><b>1</b><p>Ändra uppgifter, beslut, status och budget direkt här. Det sparas på din enhet.</p></div><div><b>2</b><p>Kopiera en uppdatering och klistra in i ChatGPT. Då kan jag publicera samma ändringar i GitHub åt hela familjen.</p></div><div><b>3</b><p>Hämta senaste publicerade planen på andra enheter. Exportera först om ni har egna osynkade ändringar.</p></div></div><div class="button-stack"><button class="btn btn-teal" id="copyReport" type="button">Kopiera uppdatering till ChatGPT</button><button class="btn btn-light" id="exportPlan" type="button">Ladda ned plan.json</button><label class="btn btn-light upload-label" for="importPlan">Importera plan.json</label><input id="importPlan" type="file" accept=".json,application/json" hidden><button class="btn btn-ghost" id="resetPlan" type="button">Hämta om publicerad plan</button><a class="text-link" href="https://github.com/MrMartinPet/Vilja/edit/main/resa/plan.json" target="_blank" rel="noopener">Redigera masterplanen direkt på GitHub ↗</a></div><p class="hint privacy-note">Obs: GitHub Pages är offentligt. Spara inga passnummer, bokningskoder, privata adresser eller personliga kontaktuppgifter i den publicerade planen.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-foot"><div class="shell footer-inner"><div>✦ Familjeresan 2027 <span>· Bohol + Boracay</span></div><div id="lastUpdated">Uppdateras från GitHub</div></div></footer>
+
+  <dialog id="editDialog" class="edit-dialog" aria-labelledby="editorTitle"><form id="editorForm"><div class="dialog-head"><div><div class="section-kicker">REDIGERA</div><h2 id="editorTitle">Uppgift</h2></div><button type="button" class="dialog-close" id="closeDialog" aria-label="Stäng">✕</button></div><div id="editorFields" class="editor-fields"></div><div class="dialog-actions"><button class="btn btn-light" type="button" id="cancelDialog">Avbryt</button><button class="btn btn-teal" type="submit">Spara ändringar</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

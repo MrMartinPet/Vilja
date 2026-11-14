@@ -1,0 +1,811 @@
+{
+  "version": "2026-11-14-1",
+  "updated": "2026-11-14",
+  "title": "Filippinerna 2027",
+  "subtitle": "Bohol + Boracay",
+  "party": {
+    "adults": 4,
+    "children": [
+      6,
+      9,
+      11
+    ],
+    "total": 7,
+    "flightQuotesFor": "2 vuxna + 3 barn"
+  },
+  "trip": {
+    "departure": "2027-02-08",
+    "arrival": "2027-02-10T00:05",
+    "return": "2027-02-24T06:20",
+    "timezone": "Asia/Manila"
+  },
+  "stays": [
+    {
+      "id": "stay-manila-first",
+      "from": "2027-02-09",
+      "to": "2027-02-10",
+      "nights": 1,
+      "place": "Manila · flygplatsen",
+      "area": "Vid NAIA Terminal 3",
+      "kind": "hotell",
+      "status": "todo",
+      "details": "Incheckning efter midnatt 10/2 cirka 01–02. Boka natten 9–10 februari, inte 10–11. Säkerställ reception dygnet runt.",
+      "suggestion": "Belmont Hotel Manila / Savoy Hotel Manila",
+      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-09&checkout=2027-02-10&group_adults=4&group_children=3&age=6&age=9&age=11"
+    },
+    {
+      "id": "stay-bohol",
+      "from": "2027-02-10",
+      "to": "2027-02-17",
+      "nights": 7,
+      "place": "Bohol · Panglao",
+      "area": "Alona Beach / Tawala / Danao",
+      "kind": "villa",
+      "status": "todo",
+      "details": "Lyxigt privat hus med pool, 3–4 sovrum för 7. Kontrollera gångavstånd till restauranger, badbar strand, AC och riktig sovplatsfördelning.",
+      "suggestion": "En villa nära Alona Beach",
+      "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17&group_adults=4&group_children=3&age=6&age=9&age=11"
+    },
+    {
+      "id": "stay-boracay",
+      "from": "2027-02-17",
+      "to": "2027-02-23",
+      "nights": 6,
+      "place": "Boracay",
+      "area": "White Beach · Station 1 / norra Station 2",
+      "kind": "villa",
+      "status": "todo",
+      "details": "Hus med pool, 3–4 sovrum. Prioritera gångavstånd till strand, restauranger och gärna D'Mall utan att hamna mitt i nattlivet.",
+      "suggestion": "Villa runt Station 1–2",
+      "link": "https://www.booking.com/searchresults.html?ss=Boracay%2C+Philippines&checkin=2027-02-17&checkout=2027-02-23&group_adults=4&group_children=3&age=6&age=9&age=11"
+    },
+    {
+      "id": "stay-manila-last",
+      "from": "2027-02-23",
+      "to": "2027-02-24",
+      "nights": 1,
+      "place": "Manila · flygplatsen",
+      "area": "Vid NAIA Terminal 3",
+      "kind": "hotell",
+      "status": "todo",
+      "details": "För tidigt Air China-flyg 24/2 kl. 06.20. Planera att vara på terminalen omkring 03.20. Kontrollera aktuell terminal före bokning.",
+      "suggestion": "Belmont / Savoy",
+      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-23&checkout=2027-02-24&group_adults=4&group_children=3&age=6&age=9&age=11"
+    }
+  ],
+  "legs": [
+    {
+      "id": "flight-international-in",
+      "date": "2027-02-08",
+      "type": "flyg",
+      "title": "Sverige → Manila",
+      "route": "ARN → PEK → MNL",
+      "time": "Ankomst Manila 10 feb kl. 00.05",
+      "duration": "Bokat internationellt",
+      "status": "booked",
+      "details": "Air China. Befintlig resa ändras inte. Ankomsttid utgår från er bokning. Inga bokningsreferenser publiceras."
+    },
+    {
+      "id": "hotel-first-checkin",
+      "date": "2027-02-10",
+      "type": "hotell",
+      "title": "Sova direkt efter landningen",
+      "route": "MNL Terminal 3 → flygplatshotell",
+      "time": "Cirka 01.00–02.00",
+      "duration": "Kort transfer från flygplatsen",
+      "status": "todo",
+      "details": "Hotellnatten ska bokas 9–10 februari."
+    },
+    {
+      "id": "flight-mnl-tag",
+      "date": "2027-02-10",
+      "type": "flyg",
+      "title": "Manila → Bohol",
+      "route": "MNL → TAG",
+      "time": "14.05–15.40",
+      "duration": "1 h 35 min, direkt",
+      "status": "selected",
+      "details": "Cebu Pacific. Vald avgång, ännu inte bokad. Senaste priset är för fem personer, inte sju.",
+      "url": "https://flights.booking.com/flights/MNL.AIRPORT-TAG.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=MNL.AIRPORT&to=TAG.AIRPORT&depart=2027-02-10&children=6%2C9%2C11&sort=BEST"
+    },
+    {
+      "id": "tag-alona",
+      "date": "2027-02-10",
+      "type": "bil",
+      "title": "Flygplats → villa",
+      "route": "TAG → Alona Beach / Panglao",
+      "time": "Efter 15.40",
+      "duration": "Ungefär 15–30 min med bil",
+      "status": "todo",
+      "details": "Privat bil med plats för sju och kabinväskor; invänta villans adress."
+    },
+    {
+      "id": "bohol-boracay",
+      "date": "2027-02-17",
+      "type": "val",
+      "title": "Bohol → Boracay",
+      "route": "Antingen via Cebu eller flyg via Manila",
+      "time": "Resdag 17 feb",
+      "duration": "Cirka 8–13 h boende till boende via Cebu; kortare med bra flygbyte",
+      "status": "decision",
+      "details": "Huvudbeslut: färja Tagbilaran–Cebu och flyg CEB→MPH sparar pengar men är separata bokningar. Alternativ: flyg TAG→MNL→MPH på genomgående biljett."
+    },
+    {
+      "id": "cebu-air",
+      "date": "2027-02-17",
+      "type": "flyg",
+      "title": "Cebu → Caticlan (alternativ)",
+      "route": "CEB → MPH",
+      "time": "15.50–16.50",
+      "duration": "1 h, direkt",
+      "status": "selected",
+      "details": "Philippine Airlines, ENDAST om Cebu-färjealternativet väljs. Boka inte innan färja och säkerhetsmarginal är accepterade.",
+      "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
+    },
+    {
+      "id": "caticlan-transfer",
+      "date": "2027-02-17",
+      "type": "båt",
+      "title": "Caticlan → Boracay",
+      "route": "MPH → hamn → båt → White Beach",
+      "time": "Efter ankomst Caticlan",
+      "duration": "Ungefär 1–2 h totalt med köer",
+      "status": "todo",
+      "details": "Boka helst en samlad transfer med båt- och terminalavgifter för alla sju."
+    },
+    {
+      "id": "return-from-island",
+      "date": "2027-02-23",
+      "type": "båt",
+      "title": "Boracay → Caticlan flygplats",
+      "route": "White Beach → Cagban → Caticlan → MPH",
+      "time": "Avresa från villan på förmiddagen",
+      "duration": "Avsätt cirka 3–4 h före flygets avgång",
+      "status": "todo",
+      "details": "Förbokad bil+båt+bil. Säkerhetsmarginal för check-in på MPH."
+    },
+    {
+      "id": "flight-mph-mnl",
+      "date": "2027-02-23",
+      "type": "flyg",
+      "title": "Boracay → Manila",
+      "route": "MPH → MNL",
+      "time": "13.10–14.25",
+      "duration": "1 h 15 min, direkt",
+      "status": "selected",
+      "details": "Cebu Pacific. Föreslagen bekväm avgång, ännu inte bokad. Förmiddag med båt från Boracay.",
+      "url": "https://flights.booking.com/flights/MPH.AIRPORT-MNL.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=MPH.AIRPORT&to=MNL.AIRPORT&depart=2027-02-23&children=6%2C9%2C11&sort=CHEAPEST"
+    },
+    {
+      "id": "last-hotel-checkin",
+      "date": "2027-02-23",
+      "type": "hotell",
+      "title": "Flygplatshotell i Manila",
+      "route": "MNL → hotell nära Terminal 3",
+      "time": "Efter ankomst Manila",
+      "duration": "Kort transfer / beroende på terminal",
+      "status": "todo",
+      "details": "En övernattning. Kontrollera terminal och hotelltransfer."
+    },
+    {
+      "id": "flight-international-out",
+      "date": "2027-02-24",
+      "type": "flyg",
+      "title": "Manila → Sverige",
+      "route": "MNL → PEK → ARN",
+      "time": "Avgång 06.20",
+      "duration": "Bokat internationellt",
+      "status": "booked",
+      "details": "Air China. Siktar på flygplatsen cirka 03.20. Kontrollera terminal i biljetten igen före avresa."
+    }
+  ],
+  "routeOptions": [
+    {
+      "id": "via-cebu",
+      "title": "Via Cebu med färja och direktflyg",
+      "tag": "Budgetalternativ",
+      "duration": "Cirka 10–13 h boende till boende",
+      "description": "Villa på Panglao → bil till Tagbilaran hamn → OceanJet omkring 08.20–10.20 → bil till Cebu flygplats → flyg 15.50–16.50 CEB–MPH → båt till Boracay.",
+      "benefit": "Betydligt billigare flyg, direktflyg från Cebu till Caticlan.",
+      "risk": "Färja och flyg är separata bokningar. Väderinställd färja kan leda till missat flyg. För fem: flyg senast sökt 4 576 kr, exkl färja/bilar/bagage.",
+      "status": "unselected",
+      "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
+    },
+    {
+      "id": "via-manila",
+      "title": "Flyg via Manila på samma bokning",
+      "tag": "Enklare logistiskt",
+      "duration": "Flygrutt cirka 4 h 10 min + transporterna på öarna",
+      "description": "Villa på Panglao → TAG flygplats → flyg via MNL → Caticlan (MPH) → båt till Boracay. Exempel på dagflyg 11.40–15.50.",
+      "benefit": "Ingen färja mellan Bohol och Cebu; färre olika transportslag.",
+      "risk": "Dyrare. Säkerställ att anslutningen är på samma biljett och att det är en skyddad transfer. Senast sökt för fem: 11 472 kr, exkl båt/bilar/bagage.",
+      "status": "unselected",
+      "url": "https://flights.booking.com/flights/TAG.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=TAG.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "q1",
+      "leg": "Manila → Bohol, 10 feb, 14.05",
+      "people": 5,
+      "amount": 4328,
+      "source": "Cebu Pacific via flygsökning",
+      "note": "Sökpris för 2 vuxna + 3 barn. Inte bokat, bagagetillägg kan tillkomma."
+    },
+    {
+      "id": "q2",
+      "leg": "Cebu → Caticlan, 17 feb, 15.50",
+      "people": 5,
+      "amount": 4576,
+      "source": "Philippine Airlines via flygsökning",
+      "note": "Endast för Cebu-alternativet. Färja och båtar tillkommer."
+    },
+    {
+      "id": "q3",
+      "leg": "Bohol → Caticlan via Manila, 17 feb",
+      "people": 5,
+      "amount": 11472,
+      "source": "Flygsökning, dagflyg",
+      "note": "Alternativ till Cebu. Kontrollera skyddad anslutning på en bokning."
+    },
+    {
+      "id": "q4",
+      "leg": "Caticlan → Manila, 23 feb, 13.10",
+      "people": 5,
+      "amount": 4667,
+      "source": "Cebu Pacific via flygsökning",
+      "note": "Föreslagen avgång, inte bokat."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t01",
+      "title": "Välj och boka hotell vid Manila T3 för 9–10 feb",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "Boka 9–10 feb trots ankomst efter midnatt. 24-timmarsreception. 7 gäster."
+    },
+    {
+      "id": "t02",
+      "title": "Boka MNL → TAG den 10 feb kl. 14.05 för alla 7",
+      "category": "Flyg",
+      "priority": "high",
+      "done": false,
+      "note": "Vald avgång Cebu Pacific. Kontrollera flygnummer och handbagage."
+    },
+    {
+      "id": "t03",
+      "title": "Besluta om Bohol → Boracay: via Cebu eller Manila",
+      "category": "Beslut",
+      "priority": "high",
+      "done": false,
+      "note": "Jämför total dörr-till-dörr-tid, slutpris för 7 och färjerisk."
+    },
+    {
+      "id": "t04",
+      "title": "Boka transportkedjan Bohol → Boracay 17 feb",
+      "category": "Transport",
+      "priority": "high",
+      "done": false,
+      "note": "Om Cebu: färja OceanJet + minibuss + flyg. Annars skyddad flygförbindelse via Manila."
+    },
+    {
+      "id": "t05",
+      "title": "Boka MPH → MNL den 23 feb för alla 7",
+      "category": "Flyg",
+      "priority": "high",
+      "done": false,
+      "note": "13.10–14.25 är preliminärt favoritflyg."
+    },
+    {
+      "id": "t06",
+      "title": "Välj och boka villa på Panglao 10–17 feb",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "7 personer, pool, 3–4 sovrum, gångavstånd till restauranger."
+    },
+    {
+      "id": "t07",
+      "title": "Välj och boka villa på Boracay 17–23 feb",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "Station 1–2, pool, nära White Beach och restauranger."
+    },
+    {
+      "id": "t08",
+      "title": "Boka flygplatshotell Manila 23–24 feb",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "06.20 internationell avgång 24 feb."
+    },
+    {
+      "id": "t09",
+      "title": "Verifiera barn- och vuxenpriser för sju platser",
+      "category": "Flyg",
+      "priority": "high",
+      "done": false,
+      "note": "Senaste sökpriser gäller 5, räkna alltid med de extra 2 vuxna."
+    },
+    {
+      "id": "t10",
+      "title": "Kontrollera kabinbagagevillkor på alla flyg",
+      "category": "Flyg",
+      "priority": "medium",
+      "done": false,
+      "note": "Normal kabinväska per resenär. Regler kan variera med flygnummer och biljettyp."
+    },
+    {
+      "id": "t11",
+      "title": "Boka privat transfer TAG → villan",
+      "category": "Transport",
+      "priority": "medium",
+      "done": false,
+      "note": "Räckvidd 7 personer samt bagage."
+    },
+    {
+      "id": "t12",
+      "title": "Boka privat transfer Bohol-villa → Tagbilaran hamn",
+      "category": "Transport",
+      "priority": "medium",
+      "done": false,
+      "note": "Endast om Cebu-färjan väljs."
+    },
+    {
+      "id": "t13",
+      "title": "Verifiera OceanJet 08.20–10.20 för 17 februari",
+      "category": "Transport",
+      "priority": "high",
+      "done": false,
+      "note": "Publicerad tidtabell, inte bekräftad för 2027. Avbokningsvillkor och sjöväder."
+    },
+    {
+      "id": "t14",
+      "title": "Boka privat minibuss Cebu Pier 1 → CEB",
+      "category": "Transport",
+      "priority": "medium",
+      "done": false,
+      "note": "Endast om via Cebu. Stor väder- och trafikbuffert."
+    },
+    {
+      "id": "t15",
+      "title": "Boka komplett transfer Caticlan → Boracay → villa",
+      "category": "Transport",
+      "priority": "medium",
+      "done": false,
+      "note": "Bil, båttur, terminal-/miljöavgifter, 7 personer."
+    },
+    {
+      "id": "t16",
+      "title": "Boka returtransfer Boracay-villa → MPH 23 feb",
+      "category": "Transport",
+      "priority": "medium",
+      "done": false,
+      "note": "Båt och bil till flygplats, gott om tid."
+    },
+    {
+      "id": "t17",
+      "title": "Boka sköldpaddssnorkling vid Balicasag",
+      "category": "Aktivitet",
+      "priority": "medium",
+      "done": false,
+      "note": "Säker lokal operatör, väderreservdag och barnutrustning."
+    },
+    {
+      "id": "t18",
+      "title": "Planera heldag med Loboc River och Chocolate Hills",
+      "category": "Aktivitet",
+      "priority": "low",
+      "done": false,
+      "note": "Eventuellt privat chaufför, tarsierreservat."
+    },
+    {
+      "id": "t19",
+      "title": "Samla förbetalda bokningsbekräftelser och kontaktuppgifter",
+      "category": "Dokument",
+      "priority": "medium",
+      "done": false,
+      "note": "Lägg inga bokningsnummer eller passuppgifter på den offentliga sidan."
+    },
+    {
+      "id": "t20",
+      "title": "Kontrollera pass, försäkring och inresevillkor",
+      "category": "Dokument",
+      "priority": "medium",
+      "done": false,
+      "note": "Etravel via officiell portal inom 72 timmar före ankomst."
+    },
+    {
+      "id": "t21",
+      "title": "Fyll i verkliga kostnader och vem som betalat",
+      "category": "Budget",
+      "priority": "medium",
+      "done": false,
+      "note": "I SEK, hela gruppen (7) och separat övrig 5-personsgrupp vid behov."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "d1",
+      "title": "Bohol → Boracay 17 feb",
+      "priority": "high",
+      "options": [
+        "Färja + direktflyg via Cebu",
+        "Flyg på en biljett via Manila"
+      ],
+      "choice": "",
+      "note": "Kostnad kontra komfort och väderrisk. Inget bokat.",
+      "why": "Styr hela transportbokningen och eventuell färjeanslutning."
+    },
+    {
+      "id": "d2",
+      "title": "Första och sista hotellet i Manila",
+      "priority": "high",
+      "options": [
+        "Belmont Hotel",
+        "Savoy Hotel",
+        "Annat nära Terminal 3"
+      ],
+      "choice": "",
+      "note": "Boka första natten 9–10 feb, check-in efter midnatt.",
+      "why": "Viktigast med lätt incheckning och lite sömn."
+    },
+    {
+      "id": "d3",
+      "title": "Villa på Panglao",
+      "priority": "high",
+      "options": [
+        "Alona / Tawala",
+        "Danao",
+        "Dumaluan / Bolod"
+      ],
+      "choice": "",
+      "note": "Pool + 3–4 sovrum + restauranger utan bil.",
+      "why": "Bestämmer läget för 7 nätter."
+    },
+    {
+      "id": "d4",
+      "title": "Villa på Boracay",
+      "priority": "high",
+      "options": [
+        "Station 1",
+        "Norra Station 2",
+        "Annat nära White Beach"
+      ],
+      "choice": "",
+      "note": "Nära stranden och gångavstånd till restauranger.",
+      "why": "Bestämmer läget för 6 nätter."
+    },
+    {
+      "id": "d5",
+      "title": "Boracay → Manila 23 feb",
+      "priority": "medium",
+      "options": [
+        "Cebu Pacific 13.10–14.25",
+        "Tidigare förmiddagsflyg",
+        "Annat direktflyg"
+      ],
+      "choice": "Cebu Pacific 13.10–14.25",
+      "note": "Föreslagen avgång, ännu inte bokad.",
+      "why": "Vi vill hinna till flygplatshotellet i god tid."
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "island": "Bohol",
+      "icon": "🐢",
+      "title": "Balicasag – sköldpaddssnorkling",
+      "priority": "måste",
+      "duration": "Halv-/heldag",
+      "desc": "Båt från Panglao till snorkelområdet. Vilda sköldpaddor är målet, men observation kan inte garanteras.",
+      "location": "Balicasag Island, Bohol, Philippines"
+    },
+    {
+      "id": "a2",
+      "island": "Bohol",
+      "icon": "🌿",
+      "title": "Loboc River och tropiskt inland",
+      "priority": "måste",
+      "duration": "Heldag",
+      "desc": "Flod, gröna vyer och natur. Kombinera med en chaufför från Panglao.",
+      "location": "Loboc River, Bohol, Philippines"
+    },
+    {
+      "id": "a3",
+      "island": "Bohol",
+      "icon": "⛰️",
+      "title": "Chocolate Hills",
+      "priority": "vill",
+      "duration": "Heldag ihop med Loboc",
+      "desc": "Utsikt över Bohols karakteristiska kullar.",
+      "location": "Chocolate Hills, Carmen, Bohol, Philippines"
+    },
+    {
+      "id": "a4",
+      "island": "Bohol",
+      "icon": "🐒",
+      "title": "Tarsierreservatet i Corella",
+      "priority": "vill",
+      "duration": "Stopp på inlandstur",
+      "desc": "Se de små spökdjuren på respektfullt avstånd.",
+      "location": "Philippine Tarsier Sanctuary, Corella, Bohol, Philippines"
+    },
+    {
+      "id": "a5",
+      "island": "Bohol",
+      "icon": "🐬",
+      "title": "Pamilacan – delfinsafari",
+      "priority": "bonus",
+      "duration": "Heldag",
+      "desc": "Båtutflykt och möjlighet att se vilda delfiner från båten. Inte ett krav.",
+      "location": "Pamilacan Island, Bohol, Philippines"
+    },
+    {
+      "id": "a6",
+      "island": "Boracay",
+      "icon": "🏖️",
+      "title": "White Beach & Station 1–2",
+      "priority": "måste",
+      "duration": "Flera dagar",
+      "desc": "Strand, bad, pool och restauranger. Huvudsyftet med Boracay.",
+      "location": "White Beach, Boracay, Aklan, Philippines"
+    },
+    {
+      "id": "a7",
+      "island": "Boracay",
+      "icon": "⛵",
+      "title": "Paraw-segling i solnedgången",
+      "priority": "vill",
+      "duration": "1–2 h",
+      "desc": "Traditionell segelbåt längs stranden, väderberoende.",
+      "location": "White Beach, Boracay, Philippines"
+    },
+    {
+      "id": "a8",
+      "island": "Boracay",
+      "icon": "🌊",
+      "title": "Nabaoy River – flodäventyr",
+      "priority": "vill",
+      "duration": "Halv-/heldag",
+      "desc": "Dagsutflykt till Panays fastland med natur och flodaktiviteter. Åldersgräns kontrolleras.",
+      "location": "Nabaoy River, Malay, Aklan, Philippines"
+    },
+    {
+      "id": "a9",
+      "island": "Boracay",
+      "icon": "🏝️",
+      "title": "Carabao Island – båtutflykt",
+      "priority": "bonus",
+      "duration": "Heldag",
+      "desc": "Lugn grannö med bad, beroende på sjöförhållandena.",
+      "location": "Carabao Island, Romblon, Philippines"
+    }
+  ],
+  "places": [
+    {
+      "id": "mnl",
+      "name": "Manila · NAIA T3",
+      "lat": 14.514,
+      "long": 121.019,
+      "kind": "flyg",
+      "description": "Första och sista hotellnatten nära flygplatsen"
+    },
+    {
+      "id": "tag",
+      "name": "Bohol–Panglao (TAG)",
+      "lat": 9.575,
+      "long": 123.77,
+      "kind": "flyg",
+      "description": "Flyget från Manila landar här"
+    },
+    {
+      "id": "alona",
+      "name": "Alona Beach",
+      "lat": 9.55,
+      "long": 123.772,
+      "kind": "boende",
+      "description": "Prioriterat villaområde på Panglao"
+    },
+    {
+      "id": "balicasag",
+      "name": "Balicasag Island",
+      "lat": 9.517,
+      "long": 123.683,
+      "kind": "aktivitet",
+      "description": "Snorkling med havssköldpaddor"
+    },
+    {
+      "id": "pamilacan",
+      "name": "Pamilacan Island",
+      "lat": 9.487,
+      "long": 123.923,
+      "kind": "aktivitet",
+      "description": "Möjlig delfinsafari"
+    },
+    {
+      "id": "loboc",
+      "name": "Loboc River",
+      "lat": 9.64,
+      "long": 124.028,
+      "kind": "aktivitet",
+      "description": "Flod och grönskande inland"
+    },
+    {
+      "id": "chocolate",
+      "name": "Chocolate Hills",
+      "lat": 9.815,
+      "long": 124.165,
+      "kind": "aktivitet",
+      "description": "Kullandskap"
+    },
+    {
+      "id": "tagport",
+      "name": "Tagbilaran hamn",
+      "lat": 9.654,
+      "long": 123.843,
+      "kind": "båt",
+      "description": "OceanJet-färjan avgår här"
+    },
+    {
+      "id": "cebport",
+      "name": "Cebu Pier 1",
+      "lat": 10.291,
+      "long": 123.901,
+      "kind": "båt",
+      "description": "Ankomst färja från Bohol"
+    },
+    {
+      "id": "ceb",
+      "name": "Cebu flygplats (CEB)",
+      "lat": 10.307,
+      "long": 123.979,
+      "kind": "flyg",
+      "description": "Direktflyg till Caticlan"
+    },
+    {
+      "id": "mph",
+      "name": "Caticlan flygplats (MPH)",
+      "lat": 11.924,
+      "long": 121.955,
+      "kind": "flyg",
+      "description": "Flygplats nära Boracay"
+    },
+    {
+      "id": "caticlanport",
+      "name": "Caticlan Jetty Port",
+      "lat": 11.931,
+      "long": 121.944,
+      "kind": "båt",
+      "description": "Båt till Boracay"
+    },
+    {
+      "id": "cagban",
+      "name": "Cagban Port",
+      "lat": 11.94,
+      "long": 121.947,
+      "kind": "båt",
+      "description": "Ankomst på Boracay"
+    },
+    {
+      "id": "white",
+      "name": "White Beach, Boracay",
+      "lat": 11.957,
+      "long": 121.925,
+      "kind": "boende",
+      "description": "Prioriterat villaområde, Station 1–2"
+    },
+    {
+      "id": "nabaoy",
+      "name": "Nabaoy River",
+      "lat": 11.947,
+      "long": 121.986,
+      "kind": "aktivitet",
+      "description": "Djungel- och flodutflykt"
+    },
+    {
+      "id": "carabao",
+      "name": "Carabao Island",
+      "lat": 12.052,
+      "long": 121.926,
+      "kind": "aktivitet",
+      "description": "Möjlig dagsutflykt"
+    }
+  ],
+  "budget": [
+    {
+      "id": "b1",
+      "name": "Internationella flyg (redan bokade)",
+      "category": "Flyg",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "booked"
+    },
+    {
+      "id": "b2",
+      "name": "Flyg MNL → TAG",
+      "category": "Flyg",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b3",
+      "name": "Boende Manila 9–10 feb",
+      "category": "Boende",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b4",
+      "name": "Villa Bohol 10–17 feb",
+      "category": "Boende",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b5",
+      "name": "Bohol → Boracay inkl. färja/bil/flyg",
+      "category": "Transport",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b6",
+      "name": "Villa Boracay 17–23 feb",
+      "category": "Boende",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b7",
+      "name": "Flyg MPH → MNL",
+      "category": "Flyg",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b8",
+      "name": "Boende Manila 23–24 feb",
+      "category": "Boende",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b9",
+      "name": "Övriga bil- och båttransporter",
+      "category": "Transport",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    },
+    {
+      "id": "b10",
+      "name": "Aktiviteter och utflykter",
+      "category": "Aktiviteter",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "todo"
+    }
+  ],
+  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel, restauranger samt bekväma villor med privat pool. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan."
+}

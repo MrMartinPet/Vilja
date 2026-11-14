@@ -1,10 +1,23 @@
-const CACHE = "viljas-laxa-cache-v22";
-const ASSETS = ["./klockan/", "./klockan/index.html", "./klockan/style.css", "./klockan/time.js", "./klockan/game.js", "./ponnyforsvaret/", "./ponnyforsvaret/index.html", "./ponnyforsvaret/game.css", "./ponnyforsvaret/game.js", "./", "./index.html", "./matteprov.html", "./matteprov.css", "./matteprov.js", "./manifest.json", "./demokrati.html", "./mattespel.html", "./mattespel.js", "./democracy-data.js", "./democracy.js", "./icon-192.png", "./icon-512.png"];
-self.addEventListener("install", function(e){ e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); })); self.skipWaiting(); });
-self.addEventListener("activate", function(e){ e.waitUntil(caches.keys().then(function(keys){ return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); })); })); self.clients.claim(); });
-self.addEventListener("fetch", function(e){
- if(e.request.mode === "navigate"){
-  e.respondWith(fetch(e.request).then(function(r){ const copy = r.clone(); caches.open(CACHE).then(function(c){ c.put(e.request, copy); }); return r; }).catch(function(){ return caches.match(e.request).then(function(r){ return r || caches.match("./index.html"); }); })); return;
+const CACHE="vilja-portal-v23";
+const ASSETS=[
+ "./","./index.html","./viljas-appar.html",
+ "./resa/","./resa/index.html","./resa/style.css","./resa/app.js","./resa/plan.json",
+ "./klockan/","./klockan/index.html","./klockan/style.css","./klockan/time.js","./klockan/game.js",
+ "./ponnyforsvaret/","./ponnyforsvaret/index.html","./ponnyforsvaret/game.css","./ponnyforsvaret/game.js",
+ "./matteprov.html","./matteprov.css","./matteprov.js","./manifest.json",
+ "./demokrati.html","./mattespel.html","./mattespel.js","./democracy-data.js","./democracy.js",
+ "./icon-192.png","./icon-512.png"
+];
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
+self.addEventListener("fetch",e=>{
+ const r=e.request;if(r.method!=="GET")return;
+ const url=new URL(r.url);if(url.origin!==self.location.origin)return;
+ const travelAsset=/\/resa\/(plan\.json|app\.js|style\.css)$/.test(url.pathname);
+ if(r.mode==="navigate"||travelAsset){
+  e.respondWith(fetch(r).then(response=>{if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(r,copy)).catch(()=>{});}return response;})
+   .catch(()=>caches.match(r).then(cached=>cached||caches.match("./index.html"))));
+  return;
  }
- e.respondWith(caches.match(e.request).then(function(r){ return r || fetch(e.request); }));
+ e.respondWith(caches.match(r).then(cached=>cached||fetch(r)));
 });

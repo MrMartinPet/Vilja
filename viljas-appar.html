@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Viljas appar</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root{
+      --bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;
+      --blue:#2563eb;--blue2:#dbeafe;--green:#16803d;--green2:#dcfce7;
+      --red:#b42318;--red2:#fee4e2;--border:#d9e2ef;
+      --shadow:0 16px 38px rgba(23,32,51,.12);--radius:24px;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    body{min-height:100dvh}
+    button{font:inherit;border:0;cursor:pointer}
+    .app{max-width:560px;min-height:100dvh;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+    header{padding:8px 4px 2px}
+    h1{margin:0;font-size:30px;line-height:1.05;letter-spacing:-.035em}
+    .sub{margin:7px 0 0;color:var(--muted);font-weight:650}
+    .screen{display:none;flex:1}
+    .screen.active{display:flex;flex-direction:column}
+    .home{gap:12px;padding-bottom:10px}
+    .sectionCard{background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:16px}
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+    .sectionTitle strong{font-size:22px}
+    .pill{font-size:12px;font-weight:900;color:var(--blue);background:var(--blue2);padding:7px 10px;border-radius:999px}
+    .homeGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .homeBtn{min-height:112px;border-radius:20px;padding:16px;text-align:left;color:white;background:var(--blue);box-shadow:0 10px 22px rgba(37,99,235,.18)}
+    .homeBtn.secondary{background:#172033;box-shadow:none}
+    .homeBtn strong{display:block;font-size:20px;margin-bottom:5px}
+    .homeBtn span{font-size:13px;opacity:.92;font-weight:650;line-height:1.3}
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .backBtn{background:#e9eef5;color:var(--text);border-radius:14px;padding:10px 13px;font-weight:850}
+    .counter{color:var(--muted);font-weight:800;font-size:14px}
+    .progress{height:9px;background:#e7edf5;border-radius:999px;overflow:hidden;margin-bottom:12px}
+    .progress>div{height:100%;background:var(--blue);width:0;transition:width .2s}
+    .modeLabel{text-align:center;color:var(--blue);font-size:13px;font-weight:950;margin-bottom:8px}
+    .flashWrap{perspective:1000px;flex:1;min-height:330px}
+    .flash{position:relative;width:100%;height:100%;min-height:330px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+    .flash.flipped{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;background:var(--card)}
+    .face.back{transform:rotateY(180deg);background:linear-gradient(180deg,#eff6ff,#fff)}
+    .word{font-size:40px;font-weight:950;letter-spacing:-.04em;overflow-wrap:anywhere}
+    .definition{font-size:23px;line-height:1.35;font-weight:800}
+    .hint{position:absolute;bottom:18px;left:0;right:0;color:var(--muted);font-weight:700;font-size:13px}
+    .nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .btn{min-height:52px;border-radius:16px;padding:12px 14px;font-weight:900;background:var(--blue);color:#fff}
+    .btn.light{background:#e9eef5;color:var(--text)}
+    .spellPanel{display:flex;flex-direction:column;gap:12px;min-height:520px}
+    .speaker{width:104px;height:104px;border-radius:50%;margin:8px auto 0;background:var(--blue);color:white;font-size:44px;box-shadow:var(--shadow)}
+    .listen{text-align:center;font-size:17px;font-weight:800}
+    .answerDisplay{width:100%;min-height:62px;border:2px solid var(--border);border-radius:16px;padding:13px 14px;font-size:24px;text-align:center;font-weight:850;background:#fff;display:block;outline:none}
+    .answerDisplay:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue2)}
+    .answerDisplay.empty{color:#98a2b3;font-size:15px;font-weight:700}
+    .result{min-height:60px;border-radius:18px;padding:12px;display:none;align-items:center;justify-content:center;text-align:center;font-size:17px;font-weight:850;line-height:1.35}
+    .result.good{display:flex;background:var(--green2);color:var(--green)}
+    .result.bad{display:flex;background:var(--red2);color:var(--red)}
+    .keyboard{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;user-select:none}
+    .key{min-height:42px;border-radius:11px;background:#eef2f7;color:var(--text);font-weight:900;font-size:17px;border:1px solid #dce3ec}
+    .key:active{transform:scale(.97)}
+    .key.space{grid-column:span 4;font-size:14px}
+    .key.backspace{grid-column:span 3;background:#dde5ef}
+    .keyboard.disabled{opacity:.45;pointer-events:none}
+    .spellActions{display:grid;grid-template-columns:1fr;gap:8px}
+    .scoreBox{text-align:center;margin:auto 0;padding:18px 10px}
+    .scoreBig{font-size:64px;font-weight:950;letter-spacing:-.05em}
+    .scoreText{font-size:19px;font-weight:800;color:var(--muted);margin-bottom:20px}
+    .tiny{text-align:center;color:var(--muted);font-size:12px;font-weight:650;margin-top:2px}
+    @media(max-width:430px){
+      .app{padding:10px}
+      h1{font-size:27px}
+      .homeBtn{min-height:104px;padding:13px}
+      .homeBtn strong{font-size:18px}
+      .word{font-size:35px}
+      .definition{font-size:21px}
+      .flashWrap,.flash{min-height:300px}
+      .speaker{width:92px;height:92px;font-size:39px}
+      .keyboard{gap:5px}
+      .key{min-height:40px;font-size:16px}
+    }
+    .mathPanel{display:flex;flex-direction:column;gap:16px;flex:1}
+    .mathPanel p,.sectionCard p{font-size:16px;line-height:1.5;margin:0 0 12px}
+    .mathQuestion{font-size:clamp(36px,9vw,52px);font-weight:950;text-align:center;padding:24px 0;letter-spacing:-.025em}
+    .mathTimer{font-size:30px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;color:var(--blue)}
+    .mathTimer[hidden]{display:none}
+    .mathHistory{font-size:16px;line-height:1.6;color:var(--muted)}
+    .mathPanel .scoreBig{text-align:center}
+    .mathPanel summary{font-size:16px;font-weight:800;padding:16px 0;cursor:pointer}
+    .mathReviewRow{padding:10px 0;border-bottom:1px solid var(--border);font-size:16px}
+    .mathReviewRow.wrong{color:var(--red)}
+    button:disabled{opacity:.45;cursor:default}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <a href="./" style="display:inline-block;margin-bottom:10px;color:#2563eb;font-weight:750;text-decoration:none">← Start · Välj app</a>
+      <h1>Viljas appar</h1>
+      <p class="sub">Begreppsläxa · Huvudräkning · Demokrati · Mattespel · Matteprov · Klockan</p>
+    </header>
+
+    <main id="home" class="screen active home">
+      <section class="sectionCard" style="background:#082f3a;color:#e8fbf8;border-color:#1f5b66">
+        <div class="sectionTitle"><strong>🏝️ Filippinerna 2027</strong><span class="pill" style="background:#134f5b;color:#aef7ec">Resplan</span></div>
+        <p>Familjens dashboard: resrutt, flyg, boenden, beslut, budget, bokningar och att göra.</p>
+        <a class="btn" href="resa/" style="display:block;text-decoration:none;text-align:center;background:#2bb89f;color:#062b30">Öppna resedashboarden →</a>
+      </section>
+
+      <section class="sectionCard">
+        <div class="sectionTitle"><strong>◷ Klockmästaren</strong><span class="pill">Analogt + digitalt</span></div>
+        <p>Ställ klockan på tiden du får, eller utforska fritt genom att dra visarna.</p>
+        <a class="btn" href="klockan/" style="display:block;text-decoration:none;text-align:center;background:#4f46e5">Träna klockan →</a>
+      </section>
+      <section class="sectionCard">
+        <div class="sectionTitle"><strong>📝 Matteprov</strong><span class="pill">11 frågor</span></div>
+        <p>Prov på avsnitt 1 och 2 i Mitt i prick 5a. Decimaler, tallinje och multiplikation med uppställning. Se ditt resultat efter inlämning.</p>
+        <a class="btn" href="matteprov.html" style="display:block;text-decoration:none;text-align:center">Öppna matteprovet →</a>
+      </section>
+
+      <section class="sectionCard">
+        <div class="sectionTitle">
+          <strong>📘 Begreppsläxa v. 46</strong>
+          <span class="pill">12 begrepp</span>
+        </div>
+        <div class="homeGrid">
+          <button class="homeBtn" data-start="flash" data-set="sv">
+            <strong>🧠 Förklara</strong>
+            <span>Vänd korten och träna vad orden betyder.</span>
+          </button>
+          <button class="homeBtn secondary" data-start="spell" data-set="sv">
+            <strong>🔊 Stava</strong>
+            <span>Lyssna på ordet och skriv med iPhone-tangentbordet.</span>
+          </button>
+        </div>
+      </section>
+      <section class="sectionCard">
+        <div class="sectionTitle"><strong>🔢 Huvudräkning</strong><span class="pill">40 tal</span></div>
+        <p>Räkna i huvudet. Målet är alla rätt på under 5 minuter. Du får fortsätta så länge du behöver.</p>
+        <div class="homeGrid">
+          <button class="homeBtn" data-math="hidden"><strong>Dold timer</strong><span>Se tiden när du är klar.</span></button>
+          <button class="homeBtn secondary" data-math="visible"><strong>Synlig timer</strong><span>Samma tal, med tiden synlig.</span></button>
+        </div>
+      </section>
+      <section class="sectionCard">
+        <div class="sectionTitle"><strong>🗳️ Demokrati</strong><span class="pill">Provträning</span></div>
+        <p>Sex områden inför provet. Träna begrepp, svara med egna ord och testa vad du kan.</p>
+        <a class="btn" href="demokrati.html" style="display:block;text-decoration:none;text-align:center">Öppna demokrati →</a>
+      </section>
+      <section class="sectionCard">
+        <div class="sectionTitle"><strong>🚀 Stjärnjakten</strong><span class="pill">Cirka 7 år</span></div>
+        <p>Ett mattespel med addition, tre nivåer och tio stjärnor att samla. Små tal först, högst 9 + 9. Räknehjälp finns!</p>
+        <a class="btn" href="mattespel.html" style="display:block;text-decoration:none;text-align:center;background:#4338ca">Spela mattespelet →</a>
+      </section>
+      <section class="sectionCard" style="background:#18352e;color:#f3e6c5;border-color:#45624d">
+        <div class="sectionTitle"><strong>🌲 Vilja &amp; Vildponnyerna</strong><span class="pill" style="background:#3c5137;color:#efc46c">10 banor</span></div>
+        <p>Försvara ponnyflocken! Bygg knasiga torn, uppgradera till superel och stoppa hästfångarna i Skarpemons skogar.</p>
+        <a class="btn" href="ponnyforsvaret/" style="display:block;text-decoration:none;text-align:center;background:#efc46c;color:#24342a">Spela ponnyförsvaret →</a>
+      </section>
+    </main>
+
+    <main id="mathSetup" class="screen"><div class="panel mathPanel">
+      <div class="toprow"><button class="backBtn" data-home>Meny</button><span class="counter">Huvudräkning</span></div>
+      <h2 id="mathModeTitle">Dold timer</h2>
+      <p>20 additioner och 20 subtraktioner från läxan, i samma ordning. Räkna i huvudet och skriv ditt svar.</p>
+      <p>Tiden börjar när du trycker på Starta. Inget stopp efter fem minuter. Alla svar rättas när du är klar.</p>
+      <div id="mathPrevious" class="mathHistory"></div>
+      <button class="btn" id="mathStart">Starta</button>
+    </div></main>
+    <main id="mathScreen" class="screen"><div class="panel mathPanel">
+      <div class="toprow"><button class="backBtn" id="mathExit">Avbryt</button><span class="counter" id="mathCounter"></span></div>
+      <div class="progress"><div id="mathProgress"></div></div>
+      <div id="mathTimer" class="mathTimer" hidden></div>
+      <div class="modeLabel" id="mathCategory"></div>
+      <div class="mathQuestion" id="mathQuestion"></div>
+      <form id="mathForm">
+        <input class="answerDisplay" id="mathAnswer" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-label="Ditt svar" placeholder="Ditt svar" required>
+        <div class="nav"><button class="btn light" id="mathPrev" type="button">Förra</button><button class="btn" id="mathNext" type="submit">Nästa</button></div>
+      </form>
+    </div></main>
+    <main id="mathDone" class="screen"><div class="panel mathPanel">
+      <div class="toprow"><button class="backBtn" data-home>Meny</button><span class="counter">Resultat</span></div>
+      <div class="scoreBig" id="mathScore"></div><div class="mathTimer" id="mathFinalTime"></div>
+      <p id="mathSummary" role="status"></p><div id="mathComparison"></div>
+      <button class="btn" id="mathAgain">Försök igen</button>
+      <details><summary>Visa alla svar</summary><div id="mathReview"></div></details>
+    </div></main>
+
+    <main id="flashScreen" class="screen">
+      <div class="panel" style="display:flex;flex-direction:column;flex:1">
+        <div class="toprow">
+          <button class="backBtn" data-home>← Meny</button>
+          <div class="counter" id="flashCounter"></div>
+        </div>
+        <div class="progress"><div id="flashProgress"></div></div>
+        <div class="modeLabel" id="flashMode"></div>
+        <div class="flashWrap">
+          <div class="flash" id="flashCard" role="button" tabindex="0" aria-label="Vänd kortet">
+            <div class="face front">
+              <div class="word" id="flashWord"></div>
+              <div class="hint" id="frontHint">Tryck för förklaring</div>
+            </div>
+            <div class="face back">
+              <div class="definition" id="flashDefinition"></div>
+              <div class="hint">Tryck för att vända tillbaka</div>
+            </div>
+          </div>
+        </div>
+        <div class="nav">
+          <button class="btn light" id="prevCard">← Förra</button>
+          <button class="btn" id="nextCard">Nästa →</button>
+        </div>
+      </div>
+    </main>
+
+    <main id="spellScreen" class="screen">
+      <div class="panel spellPanel">
+        <div class="toprow">
+          <button class="backBtn" data-home>← Meny</button>
+          <div class="counter" id="spellCounter"></div>
+        </div>
+        <div class="progress"><div id="spellProgress"></div></div>
+        <div class="modeLabel" id="spellMode"></div>
+
+        <div id="spellPlay">
+          <button class="speaker" id="speakBtn" aria-label="Lyssna på ordet">🔊</button>
+          <div class="listen">Tryck på högtalaren och stava ordet.</div>
+          <input
+            id="answerDisplay"
+            class="answerDisplay"
+            type="text"
+            placeholder="Skriv ordet här"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="none"
+            spellcheck="false"
+            enterkeyhint="done"
+            aria-label="Skriv ordet"
+          >
+          <div id="spellResult" class="result"></div>
+          <div class="spellActions" style="margin-top:10px">
+            <button class="btn" id="checkSpell">Kolla svaret</button>
+            <button class="btn light" id="nextSpell" style="display:none">Nästa ord →</button>
+          </div>
+          <div class="tiny">Rättstavning och automatiska textförslag är avstängda för svarsfältet.</div>
+        </div>
+
+        <div id="spellDone" class="scoreBox" style="display:none">
+          <div class="scoreBig" id="scoreBig"></div>
+          <div class="scoreText" id="scoreText"></div>
+          <button class="btn" id="restartSpell">Kör igen</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script>
+const sets = {
+  sv: {
+    label: "Svenska · Begrepp v. 46",
+    lang: "sv-SE",
+    hint: "Tryck för förklaring",
+    words: [
+        {
+            "word": "kloster",
+            "back": "En plats där munkar eller nunnor bor tillsammans och ägnar sig åt bön och arbete."
+        },
+        {
+            "word": "ärkebiskop",
+            "back": "En biskop som har en särskilt hög ställning och leder ett ärkestift inom kyrkan."
+        },
+        {
+            "word": "Olof Skötkonung",
+            "back": "En svensk kung för ungefär 1 000 år sedan. Han var en av Sveriges första kristna kungar.",
+            "caseSensitive": true
+        },
+        {
+            "word": "missionär",
+            "back": "En person som reser till andra platser för att berätta om och sprida sin religion."
+        },
+        {
+            "word": "socken",
+            "back": "Ett äldre område där människorna hörde till samma kyrka och församling."
+        },
+        {
+            "word": "historia",
+            "back": "Kunskap om och berättelser om sådant som har hänt förr i tiden."
+        },
+        {
+            "word": "tornerspel",
+            "back": "En tävling på medeltiden där riddare bland annat red mot varandra med lansar."
+        },
+        {
+            "word": "bergsgorilla",
+            "back": "En stor människoapa som lever i bergsskogar i centrala Afrika."
+        },
+        {
+            "word": "späckhuggare",
+            "back": "En stor svartvit tandval som lever i havet och jagar fisk och andra djur."
+        },
+        {
+            "word": "flimmernäbbmus",
+            "back": "En av världens minsta däggdjursarter. Den lilla näbbmusen blir ungefär 3,5–5 cm lång utan svansen."
+        },
+        {
+            "word": "sjöleopard",
+            "back": "En stor säl som lever i havet runt Antarktis och kan jaga bland annat pingviner."
+        },
+        {
+            "word": "muskulös",
+            "back": "Att ha stora, välutvecklade eller tydliga muskler."
+        }
+    ]
+  }
+};
+
+const screens = Array.from(document.querySelectorAll(".screen"));
+function showScreen(id){
+  screens.forEach(function(s){ s.classList.toggle("active", s.id === id); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("[data-home]").forEach(function(b){
+  b.addEventListener("click", function(){ showScreen("home"); });
+});
+
+let activeSet = "sv";
+let flashIndex = 0;
+const flashCard = document.getElementById("flashCard");
+
+function currentWords(){ return sets[activeSet].words; }
+
+function renderFlash(){
+  const words = currentWords();
+  const item = words[flashIndex];
+  flashCard.classList.remove("flipped");
+  document.getElementById("flashWord").textContent = item.word;
+  document.getElementById("flashDefinition").textContent = item.back;
+  document.getElementById("flashCounter").textContent = (flashIndex + 1) + " av " + words.length;
+  document.getElementById("flashProgress").style.width = (((flashIndex + 1) / words.length) * 100) + "%";
+  document.getElementById("flashMode").textContent = sets[activeSet].label;
+  document.getElementById("frontHint").textContent = sets[activeSet].hint;
+}
+function flipFlash(){ flashCard.classList.toggle("flipped"); }
+flashCard.addEventListener("click", flipFlash);
+flashCard.addEventListener("keydown", function(e){
+  if(e.key === "Enter" || e.key === " "){ e.preventDefault(); flipFlash(); }
+});
+document.getElementById("prevCard").addEventListener("click", function(){
+  const words = currentWords();
+  flashIndex = (flashIndex - 1 + words.length) % words.length;
+  renderFlash();
+});
+document.getElementById("nextCard").addEventListener("click", function(){
+  const words = currentWords();
+  flashIndex = (flashIndex + 1) % words.length;
+  renderFlash();
+});
+
+let spellOrder = [];
+let spellIndex = 0;
+let score = 0;
+let answered = false;
+
+const answerDisplay = document.getElementById("answerDisplay");
+const spellResult = document.getElementById("spellResult");
+const checkSpell = document.getElementById("checkSpell");
+const nextSpell = document.getElementById("nextSpell");
+
+function shuffle(array){
+  const a = array.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+function normalize(text){
+  return text.trim().toLocaleLowerCase("sv-SE").replace(/\s+/g," ").normalize("NFC");
+}
+function currentSpell(){ return spellOrder[spellIndex]; }
+
+function speakCurrent(){
+  if(!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(currentSpell().word);
+  u.lang = sets[activeSet].lang;
+  u.rate = 0.82;
+  const voices = window.speechSynthesis.getVoices();
+  const exact = voices.find(function(v){ return v.lang.toLowerCase() === u.lang.toLowerCase(); });
+  const prefix = voices.find(function(v){ return v.lang.toLowerCase().startsWith("sv"); });
+  if(exact || prefix) u.voice = exact || prefix;
+  window.speechSynthesis.speak(u);
+}
+
+function renderSpell(){
+  const words = currentWords();
+  answered = false;
+  answerDisplay.value = "";
+  answerDisplay.readOnly = false;
+  spellResult.className = "result";
+  spellResult.textContent = "";
+  checkSpell.style.display = "";
+  nextSpell.style.display = "none";
+  document.getElementById("spellCounter").textContent = (spellIndex + 1) + " av " + words.length;
+  document.getElementById("spellProgress").style.width = (((spellIndex + 1) / words.length) * 100) + "%";
+  document.getElementById("spellMode").textContent = sets[activeSet].label + " · Stavning";
+  setTimeout(function(){ answerDisplay.focus(); }, 80);
+}
+
+function startSpelling(){
+  spellOrder = shuffle(currentWords());
+  spellIndex = 0;
+  score = 0;
+  document.getElementById("spellPlay").style.display = "";
+  document.getElementById("spellDone").style.display = "none";
+  showScreen("spellScreen");
+  renderSpell();
+}
+
+function checkAnswer(){
+  if(answered) return;
+  const typed = normalize(answerDisplay.value);
+  if(!typed) return;
+  answered = true;
+  answerDisplay.readOnly = true;
+  const item = currentSpell();
+  const correctWord = item.word;
+  const isCorrect = typed === normalize(correctWord) &&
+    (!item.caseSensitive || answerDisplay.value.trim().normalize("NFC") === correctWord);
+  if(isCorrect){
+    score++;
+    spellResult.className = "result good";
+    spellResult.textContent = "✓ Rätt! " + item.back;
+  }else{
+    spellResult.className = "result bad";
+    spellResult.textContent = "Inte riktigt. Rätt stavning är: " + correctWord + ". " + item.back;
+  }
+  checkSpell.style.display = "none";
+  nextSpell.style.display = "";
+  nextSpell.textContent = spellIndex === spellOrder.length - 1 ? "Visa resultat" : "Nästa ord →";
+}
+
+checkSpell.addEventListener("click", checkAnswer);
+answerDisplay.addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    e.preventDefault();
+    checkAnswer();
+  }
+});
+nextSpell.addEventListener("click", function(){
+  if(spellIndex < spellOrder.length - 1){
+    spellIndex++;
+    renderSpell();
+  }else{
+    answerDisplay.blur();
+    document.getElementById("spellPlay").style.display = "none";
+    document.getElementById("spellDone").style.display = "";
+    document.getElementById("scoreBig").textContent = score + "/" + spellOrder.length;
+    document.getElementById("scoreText").textContent = score === spellOrder.length
+      ? "Perfekt! Alla rätt."
+      : (spellOrder.length - score) + " ord behöver tränas lite till.";
+  }
+});
+document.getElementById("restartSpell").addEventListener("click", startSpelling);
+document.getElementById("speakBtn").addEventListener("click", speakCurrent);
+
+document.querySelectorAll("[data-start]").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    activeSet = btn.getAttribute("data-set");
+    if(btn.getAttribute("data-start") === "flash"){
+      flashIndex = 0;
+      renderFlash();
+      showScreen("flashScreen");
+    }else{
+      startSpelling();
+    }
+  });
+});
+
+
+// Exact worksheet questions. Both modes share the same sequence.
+const mathQuestions = [
+[27,8,'+'],[46,7,'+'],[35,9,'+'],[58,6,'+'],[67,8,'+'],
+[29,15,'+'],[47,16,'+'],[38,25,'+'],[56,17,'+'],[68,24,'+'],
+[75,18,'+'],[86,17,'+'],[125,8,'+'],[147,6,'+'],[158,17,'+'],
+[267,35,'+'],[384,29,'+'],[475,38,'+'],[586,27,'+'],[697,46,'+'],
+[32,7,'−'],[41,6,'−'],[53,8,'−'],[62,7,'−'],[71,9,'−'],
+[43,16,'−'],[52,18,'−'],[64,27,'−'],[75,38,'−'],[83,46,'−'],
+[92,17,'−'],[104,28,'−'],[123,7,'−'],[142,16,'−'],[153,27,'−'],
+[264,38,'−'],[375,49,'−'],[482,57,'−'],[593,68,'−'],[704,86,'−']
+];
+const mathEl = id => document.getElementById(id);
+const mathSolution = q => q[2] === '+' ? q[0]+q[1] : q[0]-q[1];
+const mathTime = ms => {const seconds=Math.floor(ms/1000);return Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');};
+let mathVisible=false, mathIndex=0, mathAnswers=[], mathStarted=null, mathInterval=null;
+const mathHistoryKey='vilja-head-math-worksheet-v1';
+function readMathHistory(){try{const h=JSON.parse(localStorage.getItem(mathHistoryKey)||'[]');return Array.isArray(h)?h.filter(r=>Number.isFinite(r.ms)&&r.ms>=0&&Number.isInteger(r.score)&&r.score>=0&&r.score<=40):[];}catch(e){return [];}}
+function stopMathTimer(){clearInterval(mathInterval);mathInterval=null;}
+function prepareMath(visible){
+  stopMathTimer();mathStarted=null;mathVisible=visible;
+  mathEl('mathModeTitle').textContent=visible?'Synlig timer':'Dold timer';
+  const history=readMathHistory(), last=history[history.length-1], perfect=history.filter(r=>r.score===40);
+  mathEl('mathPrevious').textContent=last?'Senast: '+mathTime(last.ms)+' · '+last.score+'/40 rätt'+(perfect.length?' · Bästa med alla rätt: '+mathTime(Math.min(...perfect.map(r=>r.ms))):''):'';
+  showScreen('mathSetup');
+}
+function updateMathTimer(){if(mathStarted!==null && mathVisible)mathEl('mathTimer').textContent=mathTime(Date.now()-mathStarted);}
+function renderMath(){
+  const q=mathQuestions[mathIndex];
+  mathEl('mathCounter').textContent=(mathIndex+1)+' av 40';
+  mathEl('mathProgress').style.width=(mathIndex/40*100)+'%';
+  mathEl('mathCategory').textContent=mathIndex<20?'Addition':'Subtraktion';
+  mathEl('mathQuestion').textContent=q[0]+' '+q[2]+' '+q[1]+' = ?';
+  mathEl('mathAnswer').value=mathAnswers[mathIndex]??'';
+  mathEl('mathPrev').disabled=mathIndex===0;
+  mathEl('mathNext').textContent=mathIndex===39?'Klar – visa resultat':'Nästa';
+  mathEl('mathAnswer').focus();
+}
+function startMath(){
+  mathIndex=0;mathAnswers=[];stopMathTimer();
+  mathEl('mathTimer').hidden=!mathVisible;
+  mathStarted=Date.now();showScreen('mathScreen');updateMathTimer();
+  if(mathVisible)mathInterval=setInterval(updateMathTimer,250);
+  renderMath();
+}
+function finishMath(){
+  const elapsed=Date.now()-mathStarted;stopMathTimer();mathStarted=null;
+  const right=mathQuestions.reduce((n,q,i)=>n+(Number(mathAnswers[i])===mathSolution(q)?1:0),0);
+  const history=readMathHistory(), last=history[history.length-1];
+  mathEl('mathScore').textContent=right+'/40 rätt';
+  mathEl('mathFinalTime').textContent='Din tid: '+mathTime(elapsed);
+  mathEl('mathSummary').textContent=right===40?(elapsed<300000?'Alla rätt på under fem minuter!':'Alla rätt! Fortsätt träna mot fem minuter.'):'Bra jobbat! Träna på de '+(40-right)+' talen som blev fel och försök igen.';
+  const best=history.filter(r=>r.score===40);
+  const comparison=[];
+  if(last){const delta=elapsed-last.ms;comparison.push(Math.abs(delta)<1000?'Samma tid som senast.':mathTime(Math.abs(delta))+(delta<0?' snabbare':' långsammare')+' än senast ('+last.score+'/40 rätt).');}
+  if(best.length)comparison.push('Tidigare bästa med alla rätt: '+mathTime(Math.min(...best.map(r=>r.ms)))+'.');
+  mathEl('mathComparison').textContent=comparison.join(' ');
+  mathEl('mathReview').replaceChildren();
+  mathQuestions.forEach((q,i)=>{const solution=mathSolution(q),correct=Number(mathAnswers[i])===solution,row=document.createElement('div');row.className='mathReviewRow'+(correct?'':' wrong');row.textContent=(i+1)+'. '+q[0]+' '+q[2]+' '+q[1]+' = '+mathAnswers[i]+(correct?' ✓':' · Rätt svar: '+solution);mathEl('mathReview').appendChild(row);});
+  try{history.push({ms:elapsed,score:right,date:new Date().toISOString()});localStorage.setItem(mathHistoryKey,JSON.stringify(history));}catch(e){}
+  mathEl('mathAnswer').blur();showScreen('mathDone');
+}
+document.querySelectorAll('[data-math]').forEach(b=>b.addEventListener('click',()=>prepareMath(b.dataset.math==='visible')));
+mathEl('mathStart').addEventListener('click',startMath);
+mathEl('mathAgain').addEventListener('click',()=>prepareMath(mathVisible));
+mathEl('mathForm').addEventListener('submit',e=>{e.preventDefault();const value=mathEl('mathAnswer').value.trim();if(!/^\d+$/.test(value)){mathEl('mathAnswer').focus();return;}mathAnswers[mathIndex]=value;if(mathIndex===39)finishMath();else{mathIndex++;renderMath();}});
+mathEl('mathPrev').addEventListener('click',()=>{if(mathIndex>0){mathAnswers[mathIndex]=mathEl('mathAnswer').value.trim();mathIndex--;renderMath();}});
+mathEl('mathExit').addEventListener('click',()=>{if(confirm('Avbryta försöket? Tiden sparas först när alla 40 tal är klara.')){stopMathTimer();mathStarted=null;showScreen('home');}});
+document.addEventListener('visibilitychange',updateMathTimer);
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("./sw.js").catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

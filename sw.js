@@ -1,11 +1,12 @@
-const CACHE="vilja-portal-v24";
+const CACHE="vilja-portal-v25";
 const ASSETS=[
  "./","./index.html","./viljas-appar.html",
  "./resa/","./resa/index.html","./resa/style.css","./resa/app.js","./resa/plan.json",
  "./klockan/","./klockan/index.html","./klockan/style.css","./klockan/time.js","./klockan/game.js",
  "./ponnyforsvaret/","./ponnyforsvaret/index.html","./ponnyforsvaret/game.css","./ponnyforsvaret/game.js",
  "./matteprov.html","./matteprov.css","./matteprov.js","./manifest.json",
- "./demokrati.html","./mattespel.html","./mattespel.js","./democracy-data.js","./democracy.js",
+ "./djur.html","./djur.css","./djur-data.js","./djur.js",
+ "./mattespel.html","./mattespel.js",
  "./icon-192.png","./icon-512.png"
 ];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});

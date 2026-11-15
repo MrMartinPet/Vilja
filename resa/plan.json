@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15-boracay-booked-no-film",
+  "version": "2026-11-15-boracay-hotel-map",
   "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -748,6 +748,14 @@
       "long": 121.926,
       "kind": "aktivitet",
       "description": "Möjlig dagsutflykt"
+    },
+    {
+      "id": "twoseasons",
+      "name": "Two Seasons Boracay Resort · bokat",
+      "lat": 11.9722,
+      "long": 121.9162,
+      "kind": "boende",
+      "description": "Bekräftad bokning 17–23 februari 2027, Family Grand Suite with Pool Access · White Beach, Station 1. Markören är ungefärlig."
     }
   ],
   "budget": [

@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15-cebu-route",
+  "version": "2026-11-15-film-prep",
   "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -42,8 +42,8 @@
       "area": "Alona Beach / Tawala / Danao",
       "kind": "villa",
       "status": "todo",
-      "details": "Lyxigt privat hus med pool, 3–4 sovrum för 7. Kontrollera gångavstånd till restauranger, badbar strand, AC och riktig sovplatsfördelning.",
-      "suggestion": "En villa nära Alona Beach",
+      "details": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll. På Bohol prioriterar vi Alona Beach/Tawala.",
+      "suggestion": "Privat rymlig villa för 7 – eller flera markplansrum nära poolen och stranden.",
       "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17&group_adults=4&group_children=3&age=6&age=9&age=11"
     },
     {
@@ -55,8 +55,8 @@
       "area": "White Beach · Station 1 / norra Station 2",
       "kind": "villa",
       "status": "todo",
-      "details": "Hus med pool, 3–4 sovrum. Prioritera gångavstånd till strand, restauranger och gärna D'Mall utan att hamna mitt i nattlivet.",
-      "suggestion": "Villa runt Station 1–2",
+      "details": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll. På Boracay prioriterar vi White Beach Station 1/norra Station 2.",
+      "suggestion": "Privat rymlig villa för 7 – eller flera markplansrum nära poolen och stranden.",
       "link": "https://www.booking.com/searchresults.html?ss=Boracay%2C+Philippines&checkin=2027-02-17&checkout=2027-02-23&group_adults=4&group_children=3&age=6&age=9&age=11",
       "alternatives": [
         {
@@ -313,7 +313,7 @@
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "7 personer, pool, 3–4 sovrum, gångavstånd till restauranger."
+      "note": "Alona/Tawala. Helst en stor egen villa med pool för alla sju; annars flera rum i markplan, nära pool, strand och restauranger."
     },
     {
       "id": "t07",
@@ -321,7 +321,7 @@
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Station 1–2, pool, nära White Beach och restauranger. Kandidat: Sitio Paraiso Villa 3, Station 1 (Airbnb). Kontrollera pris och ledighet 17–23 feb."
+      "note": "Station 1–2 och White Beach. Kandidat: Sitio Paraiso Villa 3 (Airbnb), ännu inte bokad. Helst en stor egen villa med pool för alla sju; annars flera rum i markplan, nära pool, strand och restauranger."
     },
     {
       "id": "t08",
@@ -562,16 +562,6 @@
       "duration": "Flera dagar",
       "desc": "Strand, bad, pool och restauranger. Huvudsyftet med Boracay.",
       "location": "White Beach, Boracay, Aklan, Philippines"
-    },
-    {
-      "id": "a7",
-      "island": "Boracay",
-      "icon": "⛵",
-      "title": "Paraw-segling i solnedgången",
-      "priority": "vill",
-      "duration": "1–2 h",
-      "desc": "Traditionell segelbåt längs stranden, väderberoende.",
-      "location": "White Beach, Boracay, Philippines"
     },
     {
       "id": "a8",
@@ -816,5 +806,6 @@
       "status": "todo"
     }
   ],
-  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel, restauranger samt bekväma villor med privat pool. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan."
+  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel, restauranger samt rymlig privat villa för sju eller flera rum i markplan nära poolen, stranden och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
+  "stayPreference": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll."
 }

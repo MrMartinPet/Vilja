@@ -1,10 +1,5 @@
 name: Build Philippines family travel film
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - ".github/workflows/build-travel-film.yml"
-      - "resa/film/build.py"
   workflow_dispatch:
 
 permissions:
@@ -28,7 +23,7 @@ jobs:
           pip install --disable-pip-version-check pillow requests
       - name: Render two-minute film with ElevenLabs narration
         env:
-          VOICE_URL: 'https://elevenlabsusercontent.com/database/workspace/2b4562f7b9644c1d8d0e99590f0f7631/content_generation/k0IO6F4vBQDZcMtCy511/MxugJEVCCpsMA9CRxZvk/content.mp3?Expires=1794780000&KeyName=assets-cdn-key-1&Signature=UepevC0OtI8MNW3l4hUlmd-JtiE='
+          VOICE_URL: ${{ secrets.FILIPPINERNA_VOICE_URL }}
         run: |
           python resa/film/build.py
           ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 resa/film/filippinerna-2027.mp4

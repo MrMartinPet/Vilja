@@ -44,6 +44,7 @@ function renderStays(){
     '<div>'+badge(stay.status)+'</div><h3>'+esc(stay.place)+'</h3>'+
     '<p>'+esc(dateLabel(stay.from))+'–'+esc(dateLabel(stay.to))+' · '+esc(stay.area)+'</p>'+
     '<p>'+esc(stay.suggestion||"")+'</p>'+
+    (stay.alternatives&&stay.alternatives.length?'<div class="stay-alternatives"><strong>Boenden att jämföra</strong>'+stay.alternatives.map(function(a){return '<div class="stay-alt"><div>'+link(a.url,a.name)+'</div><small>'+esc(a.status||"Ej bokat")+'</small><p>'+esc(a.details||"")+'</p></div>';}).join("")+'</div>':"")+
     '<div class="stay-footer">'+link(stay.link,"Sök boende")+'<button class="edit-icon" data-edit="stay" data-id="'+esc(stay.id)+'">Ändra</button></div></article>';
  }).join("");
 }
@@ -297,7 +298,18 @@ async function init(){
   var local=locallySaved();
   if(local&&local.plan){
     data=local.plan;
-    if(local.version!==published.version)notice("Det finns en ny publicerad version. Dina lokala ändringar visas fortfarande. Exportera dem först om du vill hämta den nya planen.","sync");
+    // Always show newly published accommodation candidates without overwriting
+    // this device's private task, budget or booking-status changes.
+    (published.stays||[]).forEach(function(masterStay){
+      var localStay=(data.stays||[]).find(function(s){return s.id===masterStay.id;});
+      if(!localStay)return;
+      var alternatives=localStay.alternatives||[];
+      (masterStay.alternatives||[]).forEach(function(option){
+        if(!alternatives.some(function(a){return a.id===option.id;}))alternatives.push(clone(option));
+      });
+      localStay.alternatives=alternatives;
+    });
+    if(local.version!==published.version)notice("Det finns en ny publicerad version. Dina lokala ändringar visas fortfarande. Nya boendekandidater har lagts till automatiskt. Exportera innan du återställer resten.","sync");
     byId("dataState").textContent="Lokalt redigerad";
   }else{data=clone(published);byId("dataState").textContent="Synkad med GitHub";}
   render();setupMap();

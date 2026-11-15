@@ -39,13 +39,26 @@ function renderStats(){
 }
 function renderStays(){
  var list=data.stays||[];
- byId("stayGrid").innerHTML=list.map(function(stay,i){
-  return '<article class="stay-card"><div class="stay-graphic"><span>'+esc(stayIcon[stay.kind]||"🏝️")+'</span><b>'+esc(stay.nights)+' natt'+(stay.nights===1?"":"er")+'</b></div>'+
-    '<div>'+badge(stay.status)+'</div><h3>'+esc(stay.place)+'</h3>'+
-    '<p>'+esc(dateLabel(stay.from))+'–'+esc(dateLabel(stay.to))+' · '+esc(stay.area)+'</p>'+
-    '<p>'+esc(stay.suggestion||"")+'</p>'+
-    (stay.alternatives&&stay.alternatives.length?'<div class="stay-alternatives"><strong>Boenden att jämföra</strong>'+stay.alternatives.map(function(a){return '<div class="stay-alt"><div>'+link(a.url,a.name)+'</div><small>'+esc(a.status||"Ej bokat")+'</small><p>'+esc(a.details||"")+'</p></div>';}).join("")+'</div>':"")+
-    '<div class="stay-footer">'+link(stay.link,"Sök boende")+'<button class="edit-icon" data-edit="stay" data-id="'+esc(stay.id)+'">Ändra</button></div></article>';
+ byId("stayGrid").innerHTML=list.map(function(stay){
+  var b=stay.booking||null, booked=stay.status==="booked"||stay.status==="paid";
+  var stayBody='<article class="stay-card'+(booked?' stay-card-booked':'')+'"><div class="stay-graphic"><span>'+esc(stayIcon[stay.kind]||"🏝️")+'</span><b>'+esc(stay.nights)+' natt'+(stay.nights===1?"":"er")+'</b></div>'+
+   '<div>'+badge(stay.status)+'</div><h3>'+esc(stay.place)+'</h3>'+
+   '<p>'+esc(dateLabel(stay.from))+'–'+esc(dateLabel(stay.to))+' · '+esc(stay.area)+'</p>'+
+   '<p>'+esc(stay.suggestion||"")+'</p>';
+  if(b&&b.confirmed){
+   stayBody+='<div class="stay-booked-info">'+
+     '<strong>✓ Bekräftad hotellbokning</strong>'+
+     '<div class="stay-booked-row">🛏️ '+esc(b.roomCount)+' rum · '+esc(b.roomType)+'</div>'+
+     '<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.adults)+' vuxna och '+esc((b.childrenAgesOnBooking||[]).length)+' barn · 6 nätter</div>'+
+     '<div class="stay-booked-row">🕒 Incheckning från '+esc(b.checkInFrom)+' · utcheckning före '+esc(b.checkOutBefore)+'</div>'+
+     '<div class="stay-booked-row">☕ Inkluderat: '+esc((b.included||[]).join(", "))+'</div>'+
+     '<div class="stay-booked-row">🏝️ Direkt poolaccess, markplan och White Beach vid hotellet</div>'+
+     '<div class="stay-booked-note">Badrumsfråga kvar: det är ännu inte bekräftat om sviten har två badrum.</div>'+
+     '</div>';
+  }
+  stayBody+=(stay.alternatives&&stay.alternatives.length&&!booked?'<div class="stay-alternatives"><strong>Boenden att jämföra</strong>'+stay.alternatives.map(function(a){return '<div class="stay-alt"><div>'+link(a.url,a.name)+'</div><small>'+esc(a.status||"Ej bokat")+'</small><p>'+esc(a.details||"")+'</p></div>';}).join("")+'</div>':"");
+  stayBody+='<div class="stay-footer">'+link(stay.link,booked?"Visa bokade sviten":"Sök boende")+'<button class="edit-icon" data-edit="stay" data-id="'+esc(stay.id)+'">Ändra</button></div></article>';
+  return stayBody;
  }).join("");
 }
 function renderLegs(){
@@ -309,8 +322,25 @@ async function init(){
         if(!alternatives.some(function(a){return a.id===option.id;}))alternatives.push(clone(option));
       });
       localStay.alternatives=alternatives;
+      // Hotel reservations recorded on GitHub supersede older local choices.
+      if(masterStay.booking&&masterStay.booking.confirmed){
+        Object.assign(localStay,clone(masterStay));
+        if(!masterStay.alternatives)delete localStay.alternatives;
+      }
     });
-    if(local.version!==published.version)notice("Det finns en ny publicerad version. Dina lokala ändringar visas fortfarande. Nya boendekandidater har lagts till automatiskt. Exportera innan du återställer resten.","sync");
+    ["t07"].forEach(function(id){
+      var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
+      var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
+      if(masterTask&&localTask&&masterTask.done)Object.assign(localTask,clone(masterTask));
+    });
+    ["d4"].forEach(function(id){
+      var masterDecision=(published.decisions||[]).find(function(d){return d.id===id;});
+      var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
+      if(masterDecision&&localDecision&&masterDecision.choice)Object.assign(localDecision,clone(masterDecision));
+    });
+    if(published.stayPreference)data.stayPreference=published.stayPreference;
+    delete data.film;
+    if(local.version!==published.version)notice("En ny version finns på GitHub. Bekräftade bokningar har uppdaterats även här. Övriga lokala ändringar finns kvar.","sync");
     byId("dataState").textContent="Lokalt redigerad";
   }else{data=clone(published);byId("dataState").textContent="Synkad med GitHub";}
   render();setupMap();

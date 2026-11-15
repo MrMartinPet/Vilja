@@ -108,6 +108,7 @@ function renderActivities(){
 function render(){
  if(!data)return;
  renderStats();renderStays();renderLegs();renderTasks();renderDecisions();renderBudget();renderActivities();freshness();
+ var preference=byId("stayPreferenceDisplay");if(preference)preference.textContent=data.stayPreference||(published&&published.stayPreference)||"Rymlig villa eller rum i markplan nära pool, strand och restauranger för alla sju.";
  if(document.activeElement!==byId("familyNotes"))byId("familyNotes").value=data.notes||"";
  if(map)drawMap();
 }

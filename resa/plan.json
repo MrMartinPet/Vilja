@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15-film-prep",
+  "version": "2026-11-15-film-candidates",
   "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -44,7 +44,30 @@
       "status": "todo",
       "details": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll. På Bohol prioriterar vi Alona Beach/Tawala.",
       "suggestion": "Privat rymlig villa för 7 – eller flera markplansrum nära poolen och stranden.",
-      "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17&group_adults=4&group_children=3&age=6&age=9&age=11"
+      "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17&group_adults=4&group_children=3&age=6&age=9&age=11",
+      "alternatives": [
+        {
+          "id": "bohol-aman-sinaya",
+          "name": "Aman Sinaya Private Pool Villas – exempel nära Alona",
+          "url": "https://amansinayavillas.com/reservation",
+          "status": "Inspiration / kandidat – ej bokad",
+          "details": "Modern villa med privat pool; kontrollera pris och ledighet 10–17 februari 2027, sju gäster samt sovplatser. Utvärdera verkligt gångavstånd till strand och restauranger."
+        },
+        {
+          "id": "bohol-villa-sima",
+          "name": "Villa Sima – större villa med pool",
+          "url": "https://www.airbnb.com/rooms/1455540384833879662",
+          "status": "Inspiration / kandidat – ej bokad",
+          "details": "Större villaboende i samma lyxiga stil som Villa Tawala. Ingen verifierad ledighet eller totalpris för era datum. Kontrollera boendets exakta läge och gångavstånd."
+        },
+        {
+          "id": "bohol-casa-mel-mar",
+          "name": "Casa Mel Mar – villa med 3 sovrum och privat pool",
+          "url": "https://www.booking.com/hotel/ph/casa-mel-mar-luxurious-3br-3fullbr-villa-with-pool.html?checkin=2027-02-10&checkout=2027-02-17&no_rooms=1&group_adults=4&group_children=3&age=6&age=9&age=11&selected_currency=SEK",
+          "status": "Kandidat – ej bokad",
+          "details": "Tre sovrum, privat pool. Cirka 2,3 km till Alona Beach; inte optimal för promenad till stranden. Tidigare sökpris ej garanterat."
+        }
+      ]
     },
     {
       "id": "stay-boracay",
@@ -807,5 +830,15 @@
     }
   ],
   "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel, restauranger samt rymlig privat villa för sju eller flera rum i markplan nära poolen, stranden och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
-  "stayPreference": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll."
+  "stayPreference": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll.",
+  "film": {
+    "title": "Filippinerna 2027 – vår resa",
+    "durationSeconds": 114,
+    "voiceover": "Svensk berättarröst genererad med ElevenLabs",
+    "mediaPath": "film/filippinerna-2027.mp4",
+    "posterSource": "Wikimedia Commons",
+    "status": "produktion",
+    "credits": "film/BILDKALLOR.md",
+    "details": "Inspirationsfilm med autentiska resmålsbilder och tydligt markerade generella poolvilla-bilder. Visar önskemål, inte bokningsstatus."
+  }
 }

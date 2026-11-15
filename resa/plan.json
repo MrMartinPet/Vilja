@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15-movie-published",
+  "version": "2026-11-15-boracay-booked-no-film",
   "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -74,22 +74,37 @@
       "from": "2027-02-17",
       "to": "2027-02-23",
       "nights": 6,
-      "place": "Boracay",
-      "area": "White Beach · Station 1 / norra Station 2",
-      "kind": "villa",
-      "status": "todo",
-      "details": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll. På Boracay prioriterar vi White Beach Station 1/norra Station 2.",
-      "suggestion": "Privat rymlig villa för 7 – eller flera markplansrum nära poolen och stranden.",
-      "link": "https://www.booking.com/searchresults.html?ss=Boracay%2C+Philippines&checkin=2027-02-17&checkout=2027-02-23&group_adults=4&group_children=3&age=6&age=9&age=11",
-      "alternatives": [
-        {
-          "id": "boracay-sitio-paraiso-villa-3",
-          "name": "Sitio Paraiso Villa 3 with pool, Station 1 Boracay",
-          "url": "https://www.airbnb.com/rooms/1266278914626241221",
-          "status": "Kandidat – ej bokad",
-          "details": "Airbnb: 2 sovrum, 2 badrum, 9 sängar, upp till 12 gäster. Cirka 40 m till White Beach vid Station 1 enligt annonsen. Pool inom anläggningen – inte verifierat privat pool. Pris och ledighet för 17–23 februari 2027 samt 7 personer måste kontrolleras."
-        }
-      ]
+      "place": "Boracay · Two Seasons Boracay Resort",
+      "area": "White Beach, Station 1 · direkt vid stranden",
+      "kind": "hotell",
+      "status": "booked",
+      "details": "BEKRÄFTAD BOKNING enligt hotellbekräftelsen: 1 Family Grand Suite with Pool Access, 6 nätter 17–23 februari 2027 för 4 vuxna och 3 barn (åldrar 10, 6 och 11 år enligt bokningen). Incheckning efter 14.00, utcheckning före 12.00. Gratis Wi-Fi, frukost, kaffe och te ingår. Rökfritt rum önskat och beräknad ankomst 18.00–19.00. Hotellet ligger vid White Beach i Station 1. Enligt hotellets webbplats är sviten 70 m² med en king size-säng och tre queen size-sängar samt direkt poolaccess. ANTAL BADRUM: ännu inte bekräftat – fråga skickad till hotellet.",
+      "suggestion": "Family Grand Suite with Pool Access · 70 m² · markplan · direkt tillgång till hotellets pool",
+      "link": "https://twoseasonsresorts.com/boracay/accommodation/family-grand-suite-with-pool-access/",
+      "booking": {
+        "accommodation": "Two Seasons Boracay Resort",
+        "roomType": "Family Grand Suite with Pool Access",
+        "confirmed": true,
+        "roomCount": 1,
+        "nights": 6,
+        "adults": 4,
+        "childrenAgesOnBooking": [
+          10,
+          6,
+          11
+        ],
+        "checkInFrom": "14:00",
+        "checkOutBefore": "12:00",
+        "arrivalWindow": "18:00–19:00",
+        "included": [
+          "Frukost",
+          "Wi-Fi",
+          "Kaffe och te"
+        ],
+        "nonSmokingRequested": true,
+        "bathrooms": "Ej verifierat – inväntar svar från boendet",
+        "notes": "70 m² på markplan, direkt poolaccess. Hotellets pool är gemensam. Antal badrum ej bekräftat. Totalkostnad saknas i underlaget."
+      }
     },
     {
       "id": "stay-manila-last",
@@ -340,11 +355,11 @@
     },
     {
       "id": "t07",
-      "title": "Välj och boka villa på Boracay 17–23 feb",
+      "title": "Bokat: Two Seasons Boracay Resort 17–23 feb",
       "category": "Boende",
       "priority": "high",
-      "done": false,
-      "note": "Station 1–2 och White Beach. Kandidat: Sitio Paraiso Villa 3 (Airbnb), ännu inte bokad. Helst en stor egen villa med pool för alla sju; annars flera rum i markplan, nära pool, strand och restauranger."
+      "done": true,
+      "note": "Bekräftat: 1 Family Grand Suite with Pool Access, 4 vuxna + 3 barn, 6 nätter, frukost inkluderad. Kontrollera antal badrum med hotellet."
     },
     {
       "id": "t08",
@@ -503,12 +518,10 @@
       "title": "Villa på Boracay",
       "priority": "high",
       "options": [
-        "Station 1",
-        "Norra Station 2",
-        "Annat nära White Beach"
+        "Two Seasons Boracay Resort – Family Grand Suite with Pool Access"
       ],
-      "choice": "",
-      "note": "Nära stranden och gångavstånd till restauranger.",
+      "choice": "Two Seasons Boracay Resort – Family Grand Suite with Pool Access",
+      "note": "Bekräftad bokning 17–23 februari 2027. Station 1, direkt vid White Beach, markplan med poolaccess.",
       "why": "Bestämmer läget för 6 nätter."
     },
     {
@@ -829,16 +842,6 @@
       "status": "todo"
     }
   ],
-  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel, restauranger samt rymlig privat villa för sju eller flera rum i markplan nära poolen, stranden och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
-  "stayPreference": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll.",
-  "film": {
-    "title": "Filippinerna 2027 – vår resa",
-    "durationSeconds": 114,
-    "voiceover": "Svensk berättarröst genererad med ElevenLabs",
-    "mediaPath": "film/filippinerna-2027.mp4",
-    "posterSource": "Wikimedia Commons",
-    "status": "publicerad",
-    "credits": "film/BILDKALLOR.md",
-    "details": "Inspirationsfilm med autentiska resmålsbilder och tydligt markerade generella poolvilla-bilder. Visar önskemål, inte bokningsstatus."
-  }
+  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
+  "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad."
 }

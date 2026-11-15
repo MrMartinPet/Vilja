@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-14-1",
-  "updated": "2026-11-14",
+  "version": "2026-11-15-boracay-1",
+  "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -57,7 +57,16 @@
       "status": "todo",
       "details": "Hus med pool, 3–4 sovrum. Prioritera gångavstånd till strand, restauranger och gärna D'Mall utan att hamna mitt i nattlivet.",
       "suggestion": "Villa runt Station 1–2",
-      "link": "https://www.booking.com/searchresults.html?ss=Boracay%2C+Philippines&checkin=2027-02-17&checkout=2027-02-23&group_adults=4&group_children=3&age=6&age=9&age=11"
+      "link": "https://www.booking.com/searchresults.html?ss=Boracay%2C+Philippines&checkin=2027-02-17&checkout=2027-02-23&group_adults=4&group_children=3&age=6&age=9&age=11",
+      "alternatives": [
+        {
+          "id": "boracay-sitio-paraiso-villa-3",
+          "name": "Sitio Paraiso Villa 3 with pool, Station 1 Boracay",
+          "url": "https://www.airbnb.com/rooms/1266278914626241221",
+          "status": "Kandidat – ej bokad",
+          "details": "Airbnb: 2 sovrum, 2 badrum, 9 sängar, upp till 12 gäster. Cirka 40 m till White Beach vid Station 1 enligt annonsen. Pool inom anläggningen – inte verifierat privat pool. Pris och ledighet för 17–23 februari 2027 samt 7 personer måste kontrolleras."
+        }
+      ]
     },
     {
       "id": "stay-manila-last",
@@ -312,7 +321,7 @@
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Station 1–2, pool, nära White Beach och restauranger."
+      "note": "Station 1–2, pool, nära White Beach och restauranger. Kandidat: Sitio Paraiso Villa 3, Station 1 (Airbnb). Kontrollera pris och ledighet 17–23 feb."
     },
     {
       "id": "t08",

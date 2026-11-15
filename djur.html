@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f0f5fb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="Viljas biologiövningar om djur med faktagenomgångar, minneskort, quiz, sant/falskt, begreppsmatch och slutprov.">
+  <title>Djurens värld · Viljas appar</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./djur.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a href="./viljas-appar.html" class="backlink" aria-label="Tillbaka till Viljas appar"><span aria-hidden="true">←</span> Viljas appar</a>
+    <div class="topbrand"><span class="brandicon" aria-hidden="true">🦋</span> <span>Djurens värld</span></div>
+    <span class="grade">BIOLOGI · PROVTRÄNING</span>
+  </header>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="heroCopy">
+      <div class="eyebrow"><span class="dot"></span> DITT NYA PLUGGÄVENTYR</div>
+      <h1 id="heroTitle">Bli expert på <em>djurens värld!</em></h1>
+      <p>Träna lite i taget, öva på det som känns svårt och visa vad du kan på slutprovet. Du klarar det här, Vilja! 💛</p>
+      <div class="heroButtons">
+        <button class="primary" data-nav="study">📖 Börja plugga <span aria-hidden="true">→</span></button>
+        <button class="secondary" data-nav="exam">🎓 Gör slutprovet</button>
+      </div>
+    </div>
+    <div class="heroArt" aria-hidden="true">
+      <span class="artOrbit orbitA">🐢</span><span class="artOrbit orbitB">🦉</span><span class="artOrbit orbitC">🐠</span><div class="artMain">🦋</div>
+      <span class="artStar">✦</span><span class="artStar two">✧</span>
+    </div>
+  </section>
+  <div class="stats" id="stats" aria-label="Dina framsteg"></div>
+  <nav id="navigation" class="tabs" aria-label="Välj övning">
+    <button data-nav="home" class="active">🏠 Översikt</button>
+    <button data-nav="study">📖 Lär dig</button>
+    <button data-nav="cards">🧠 Minneskort</button>
+    <button data-nav="quiz">⚡ Snabbquiz</button>
+    <button data-nav="tf">✅ Sant eller falskt</button>
+    <button data-nav="match">🧩 Para ihop</button>
+    <button data-nav="essay">✍️ Resonera</button>
+    <button data-nav="exam">🎓 Slutprov</button>
+  </nav>
+  <main id="view" tabindex="-1" aria-label="Övningsinnehåll"></main>
+  <footer>🌿 Byggd för Vilja · Träna i din egen takt. Dina resultat sparas på den här enheten.</footer>
+</div>
+<script src="./djur-data.js"></script>
+<script src="./djur.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+</body>
+</html>

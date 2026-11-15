@@ -96,72 +96,174 @@
     .mathReviewRow{padding:10px 0;border-bottom:1px solid var(--border);font-size:16px}
     .mathReviewRow.wrong{color:var(--red)}
     button:disabled{opacity:.45;cursor:default}
-  </style>
+  
+/* Ny organiserad läxdashboard – övriga övningsskärmar behålls orörda. */
+body.dashboard{background:linear-gradient(180deg,#f3f8fc,#f7f8fc 380px,#f5f7fb)}
+body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
+.dashAppHeader{display:flex;justify-content:space-between;align-items:center;gap:13px;padding:5px 2px 23px;color:#213648}
+.dashAppHeader strong{font-weight:940;font-size:19px;letter-spacing:-.04em}
+.dashBackLink{font-size:13px;font-weight:820;text-decoration:none;color:#417d82;white-space:nowrap}
+.dashBackLink:hover{text-decoration:underline}
+.dashHeaderHint{font-size:11px;font-weight:950;color:#8395a6;letter-spacing:.11em;white-space:nowrap}
+.dashHome{display:flex;flex-direction:column;gap:0}
+.dashIntro{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#e1f4ee,#e8eafc 80%,#f6ebf7);border:1px solid #d9e9e7;border-radius:28px;padding:30px 35px;overflow:hidden;position:relative;min-height:190px}
+.dashIntro:after{content:"";height:210px;width:230px;background:#fff5;border-radius:50%;position:absolute;right:-90px;bottom:-115px}
+.dashEyebrow{font-size:11px;letter-spacing:.12em;font-weight:950;color:#2b8e8c;text-transform:uppercase}
+.dashIntro h1{font-size:clamp(34px,4.5vw,52px);line-height:1.05;margin:12px 0 7px;letter-spacing:-.06em}
+.dashIntro p{font-size:14px;color:#607588;line-height:1.6;margin:0}
+.dashAvatar{height:135px;width:158px;display:flex;align-items:center;justify-content:center;flex-direction:column;transform:rotate(-9deg);position:relative;z-index:1}
+.dashAvatar span{font-size:85px;filter:drop-shadow(0 10px 10px #1f68721c)}
+.dashAvatar b{font-size:10px;color:#35777c;letter-spacing:.1em}
+.dashAnchor{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;margin:14px 0 24px}
+.dashAnchor a{text-decoration:none;border-radius:999px;border:1px solid #dce8ef;background:#fff;color:#586f7d;font-size:12px;font-weight:840;padding:11px 15px;white-space:nowrap;min-height:42px}
+.dashAnchor a:hover{border-color:#90c9c7;background:#f2fbf8}
+.dashSection{margin:0 0 28px;scroll-margin-top:16px}
+.dashSectionHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.dashSectionHead h2{font-size:clamp(22px,2.6vw,28px);letter-spacing:-.045em;margin:5px 0 0;line-height:1.14}
+.dashSectionTag{background:#e9eafa;color:#565d9c;font-weight:900;font-size:12px;padding:8px 12px;border-radius:99px;white-space:nowrap}
+.dashPriorityGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.dashHeroCard{min-height:302px;border-radius:24px;padding:24px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 9px 28px #3549610b}
+.dashHeroCard:after{content:"";position:absolute;right:-85px;top:30px;background:#ffffff36;width:200px;height:200px;border-radius:50%;pointer-events:none}
+.dashHeroCard.words{background:linear-gradient(135deg,#f7e9fb,#fcf1e6);border:1px solid #f0d8e9}
+.dashHeroCard.animals{background:linear-gradient(135deg,#dcf5e9,#ddecfa);border:1px solid #cae7e6}
+.dashCardTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.dashCardBadge{font-size:10px;font-weight:950;letter-spacing:.09em;color:#75639d;position:relative;z-index:2}
+.dashHeroCard.animals .dashCardBadge{color:#21766c}
+.dashCardMascot{font-size:58px;line-height:1;transform:rotate(9deg);filter:drop-shadow(0 10px 7px #344c5a12);position:relative;z-index:1}
+.dashHeroCard h3{font-size:clamp(24px,2.7vw,31px);line-height:1.12;letter-spacing:-.055em;margin:8px 0 8px}
+.dashHeroCard p{font-size:13px;line-height:1.62;color:#526577;margin:0 0 15px;max-width:440px;flex:1;position:relative;z-index:1}
+.dashCardMeta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:15px}
+.dashCardMeta span{background:#ffffff9e;padding:7px 11px;border-radius:999px;font-weight:830;font-size:11px;color:#46617b}
+.dashCardActions{display:flex;gap:8px;flex-wrap:wrap}
+.dashCardActions button,.dashHeroLink{border:0;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:880;min-height:44px;cursor:pointer;flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;background:#433e80;color:#fff}
+.dashCardActions button:nth-child(2){background:#fff;color:#4e487b;border:1px solid #cfcbe3}
+.dashCardActions button:hover,.dashHeroLink:hover{filter:brightness(1.07)}
+.dashHeroLink{background:#086f70;flex:none}
+.dashAnimalProgress{margin:0 0 13px}
+.dashAnimalProgressTop{font-size:11px;font-weight:830;color:#477775;display:flex;justify-content:space-between;gap:7px;margin-bottom:5px}
+.dashMeter{height:8px;border-radius:15px;background:#ffffffb9;overflow:hidden}
+.dashMeter span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#1c9c87,#80c9a2);border-radius:15px;transition:width .25s}
+.dashStudyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.dashTaskCard{background:#fff;border:1px solid #e0e8f1;border-radius:21px;padding:19px;box-shadow:0 5px 23px #2b3f5609;display:flex;flex-direction:column;gap:12px}
+.dashTaskIcon{width:54px;height:54px;display:grid;place-items:center;border-radius:16px;font-size:28px}
+.dashTaskIcon.clock{background:#eae8ff}.dashTaskIcon.mental{background:#e0f6f2}.dashTaskIcon.math{background:#fff0df}
+.dashTaskBody{flex:1}
+.dashTaskType{color:#7d8a9d;font-size:10px;font-weight:950;letter-spacing:.09em}
+.dashTaskCard h3{font-size:20px;letter-spacing:-.04em;margin:7px 0 5px}
+.dashTaskCard p{font-size:13px;color:#6a7b8a;line-height:1.55;margin:0}
+.dashTaskLink{font-size:13px;font-weight:890;color:#166d7c;text-decoration:none;display:inline-block;padding:5px 0}
+.dashTaskLink:hover{text-decoration:underline}
+.dashCardActions .dashSmallButton{background:#1f6e7a;color:#fff;font-size:12px;padding:10px;white-space:nowrap}
+.dashCardActions .dashSmallButton.other{background:#e6f3f1;color:#175b66;border:0}
+.dashGamesGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.dashGameCard{display:flex;align-items:center;gap:14px;padding:20px;border-radius:21px;text-decoration:none;min-height:151px;position:relative;overflow:hidden;box-shadow:0 6px 19px #2538540e}
+.dashGameCard.pony{background:#253d34;color:#fff}
+.dashGameCard.space{background:linear-gradient(120deg,#293779,#6660bb);color:#fff}
+.dashGameEmoji{font-size:53px;flex-shrink:0}
+.dashGameCard div{flex:1;position:relative;z-index:1}
+.dashGameCard div span{font-size:10px;letter-spacing:.09em;font-weight:950;color:#e7d0ac}
+.dashGameCard.space div span{color:#dad5ff}
+.dashGameCard h3{font-size:20px;line-height:1.17;letter-spacing:-.04em;margin:7px 0}
+.dashGameCard p{margin:0;font-size:12px;color:#e6f1e8}
+.dashGameCard.space p{color:#e7e7ff}
+.dashGameCard>b{font-size:21px;align-self:flex-start}
+.dashFamilyCard{display:flex;align-items:center;gap:15px;text-decoration:none;padding:16px 20px;border-radius:18px;background:#fff;border:1px solid #dbe8eb;min-height:91px}
+.dashFamilyEmoji{font-size:40px}
+.dashFamilyCard div{flex:1}
+.dashFamilyCard b{font-size:16px;letter-spacing:-.03em}
+.dashFamilyCard p{font-size:12px;color:#738693;margin:4px 0 0}
+.dashFamilyArrow{font-size:20px;color:#218184}
+@media(max-width:750px){.dashPriorityGrid,.dashGamesGrid{grid-template-columns:1fr}.dashStudyGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashHeroCard{min-height:280px}.dashHeroCard p{flex:0 1 auto}}
+@media(max-width:530px){
+ body.dashboard .app{padding:11px 9px 30px}
+ .dashAppHeader{padding:7px 4px 18px}
+ .dashAppHeader strong{font-size:17px}
+ .dashHeaderHint{display:none}
+ .dashBackLink{font-size:12px}
+ .dashIntro{padding:24px 20px;border-radius:22px;min-height:163px}
+ .dashIntro h1{font-size:37px}
+ .dashIntro p{max-width:250px;font-size:12px}
+ .dashAvatar{position:absolute;right:-12px;bottom:2px;opacity:.5}
+ .dashAvatar span{font-size:79px}
+ .dashAvatar b{display:none}
+ .dashAnchor{margin:12px 0 22px}
+ .dashAnchor a{font-size:11px;padding:10px 12px}
+ .dashSection{margin-bottom:25px}
+ .dashSectionHead h2{font-size:23px}
+ .dashHeroCard{min-height:0;padding:20px;border-radius:20px}
+ .dashHeroCard h3{font-size:27px}
+ .dashHeroCard p{font-size:13px}
+ .dashStudyGrid{grid-template-columns:1fr 1fr;gap:8px}
+ .dashTaskCard{padding:13px;border-radius:17px}
+ .dashTaskCard h3{font-size:17px}
+ .dashTaskCard p{font-size:11px}
+ .dashTaskIcon{width:43px;height:43px;font-size:23px;border-radius:12px}
+ .dashCardActions .dashSmallButton{padding:10px 6px;font-size:11px}
+ .dashGameCard{padding:15px;min-height:125px;border-radius:17px}
+ .dashGameEmoji{font-size:44px}
+ .dashGameCard h3{font-size:18px}
+}
+@media(max-width:360px){.dashStudyGrid{grid-template-columns:1fr}.dashHeroCard h3{font-size:23px}.dashCardActions{flex-direction:column}}
+</style>
 </head>
-<body>
+<body class="dashboard">
   <div class="app">
-    <header>
-      <a href="./" style="display:inline-block;margin-bottom:10px;color:#2563eb;font-weight:750;text-decoration:none">← Start · Välj app</a>
-      <h1>Viljas appar</h1>
-      <p class="sub">Begreppsläxa · Huvudräkning · Demokrati · Mattespel · Matteprov · Klockan</p>
+    <header class="dashAppHeader">
+      <a href="./" class="dashBackLink">← Familjeportalen</a>
+      <strong>✦ Viljas appar</strong>
+      <span class="dashHeaderHint">LÄR · ÖVA · SPELA</span>
     </header>
 
-    <main id="home" class="screen active home">
-      <section class="sectionCard" style="background:#082f3a;color:#e8fbf8;border-color:#1f5b66">
-        <div class="sectionTitle"><strong>🏝️ Filippinerna 2027</strong><span class="pill" style="background:#134f5b;color:#aef7ec">Resplan</span></div>
-        <p>Familjens dashboard: resrutt, flyg, boenden, beslut, budget, bokningar och att göra.</p>
-        <a class="btn" href="resa/" style="display:block;text-decoration:none;text-align:center;background:#2bb89f;color:#062b30">Öppna resedashboarden →</a>
+    <main id="home" class="screen active home dashHome">
+      <section class="dashIntro" aria-label="Viljas läxöversikt">
+        <div><span class="dashEyebrow">✦ DIN EGEN LÄXHÖRNA</span><h1>Hej Vilja! <span aria-hidden="true">👋</span></h1><p>Vad vill du träna på idag? Här hittar du allt på ett ställe.</p></div>
+        <div class="dashAvatar" aria-hidden="true"><span>📚</span><b>DU KAN DET HÄR!</b></div>
+      </section>
+      <nav class="dashAnchor" aria-label="Hoppa till avsnitt">
+        <a href="#dashWeek">⭐ Aktuellt</a><a href="#dashPractice">⌚ Träna</a><a href="#dashGames">🎮 Spela</a><a href="#dashFamily">🏝️ Familjen</a>
+      </nav>
+
+      <section id="dashWeek" class="dashSection">
+        <div class="dashSectionHead"><div><span class="dashEyebrow">DET VIKTIGASTE JUST NU</span><h2>⭐ Den här veckans läxor</h2></div><span class="dashSectionTag">Vecka 47</span></div>
+        <div class="dashPriorityGrid">
+          <article class="dashHeroCard words">
+            <div class="dashCardTop"><span class="dashCardBadge">📖 SVENSKA · VECKANS ORD</span><span class="dashCardMascot" aria-hidden="true">✏️</span></div>
+            <h3>Veckans begrepp</h3>
+            <p>12 ord att kunna förklara och stava. Blanda mellan kunskapskort och lyssna-och-skriv!</p>
+            <div class="dashCardMeta"><span>📅 v. 47</span><span>📘 12 begrepp</span></div>
+            <div class="dashCardActions"><button type="button" data-start="flash" data-set="sv">🧠 Förklara orden</button><button type="button" data-start="spell" data-set="sv">🔊 Träna stavning</button></div>
+          </article>
+          <article class="dashHeroCard animals">
+            <div class="dashCardTop"><span class="dashCardBadge">🧬 BIOLOGI · AKTUELLT PROV</span><span class="dashCardMascot" aria-hidden="true">🦋</span></div>
+            <h3>Prov: Djurens värld</h3>
+            <p>Lär dig om djur, spela övningar och testa dig med ett riktigt slutprov med både faktafrågor och resonemang.</p>
+            <div class="dashCardMeta"><span>🌿 9 områden</span><span>🎓 Slutprov</span></div>
+            <div class="dashAnimalProgress"><div class="dashAnimalProgressTop"><span>Din inlärning</span><b id="animalsDashCount">0 av 9 kapitel</b></div><div class="dashMeter"><span id="animalsDashMeter"></span></div></div>
+            <a class="dashHeroLink" href="djur.html">Öppna djurträningen <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
       </section>
 
-      <section class="sectionCard">
-        <div class="sectionTitle"><strong>◷ Klockmästaren</strong><span class="pill">Analogt + digitalt</span></div>
-        <p>Ställ klockan på tiden du får, eller utforska fritt genom att dra visarna.</p>
-        <a class="btn" href="klockan/" style="display:block;text-decoration:none;text-align:center;background:#4f46e5">Träna klockan →</a>
-      </section>
-      <section class="sectionCard">
-        <div class="sectionTitle"><strong>📝 Matteprov</strong><span class="pill">11 frågor</span></div>
-        <p>Prov på avsnitt 1 och 2 i Mitt i prick 5a. Decimaler, tallinje och multiplikation med uppställning. Se ditt resultat efter inlämning.</p>
-        <a class="btn" href="matteprov.html" style="display:block;text-decoration:none;text-align:center">Öppna matteprovet →</a>
+      <section id="dashPractice" class="dashSection">
+        <div class="dashSectionHead"><div><span class="dashEyebrow">BRA ATT ÖVA LITE PÅ OFTA</span><h2>⌚ Matte &amp; klockan</h2></div></div>
+        <div class="dashStudyGrid">
+          <article class="dashTaskCard"><div class="dashTaskIcon clock">🕒</div><div class="dashTaskBody"><span class="dashTaskType">TIDEN</span><h3>Klockmästaren</h3><p>Ställ visarna, träna analog och digital klocka.</p></div><a class="dashTaskLink" href="klockan/">Öva klockan →</a></article>
+          <article class="dashTaskCard"><div class="dashTaskIcon mental">🔢</div><div class="dashTaskBody"><span class="dashTaskType">MATEMATIK</span><h3>Huvudräkning</h3><p>40 tal med synlig eller dold timer.</p></div><div class="dashCardActions"><button class="dashSmallButton" data-math="hidden" type="button">Dold tid</button><button class="dashSmallButton other" data-math="visible" type="button">Synlig tid</button></div></article>
+          <article class="dashTaskCard"><div class="dashTaskIcon math">📝</div><div class="dashTaskBody"><span class="dashTaskType">EXTRA REPETITION</span><h3>Matteprov</h3><p>11 frågor om decimaler, tallinje och uppställning.</p></div><a class="dashTaskLink" href="matteprov.html">Öppna matteprovet →</a></article>
+        </div>
       </section>
 
-      <section class="sectionCard">
-        <div class="sectionTitle">
-          <strong>📘 Begreppsläxa v. 47</strong>
-          <span class="pill">12 begrepp</span>
-        </div>
-        <div class="homeGrid">
-          <button class="homeBtn" data-start="flash" data-set="sv">
-            <strong>🧠 Förklara</strong>
-            <span>Vänd korten och träna vad orden betyder.</span>
-          </button>
-          <button class="homeBtn secondary" data-start="spell" data-set="sv">
-            <strong>🔊 Stava</strong>
-            <span>Lyssna på ordet och skriv med iPhone-tangentbordet.</span>
-          </button>
+      <section id="dashGames" class="dashSection">
+        <div class="dashSectionHead"><div><span class="dashEyebrow">LÄRANDE KAN VARA KUL</span><h2>🎮 Spel &amp; äventyr</h2></div></div>
+        <div class="dashGamesGrid">
+          <a class="dashGameCard pony" href="ponnyforsvaret/"><span class="dashGameEmoji" aria-hidden="true">🐴</span><div><span>STRATEGISPEL · 10 BANOR</span><h3>Vilja &amp; Vildponnyerna</h3><p>Rädda ponnyflocken i skogen!</p></div><b aria-hidden="true">↗</b></a>
+          <a class="dashGameCard space" href="mattespel.html"><span class="dashGameEmoji" aria-hidden="true">🚀</span><div><span>MATTESPEL · TRE NIVÅER</span><h3>Stjärnjakten</h3><p>Samla stjärnor med addition.</p></div><b aria-hidden="true">↗</b></a>
         </div>
       </section>
-      <section class="sectionCard">
-        <div class="sectionTitle"><strong>🔢 Huvudräkning</strong><span class="pill">40 tal</span></div>
-        <p>Räkna i huvudet. Målet är alla rätt på under 5 minuter. Du får fortsätta så länge du behöver.</p>
-        <div class="homeGrid">
-          <button class="homeBtn" data-math="hidden"><strong>Dold timer</strong><span>Se tiden när du är klar.</span></button>
-          <button class="homeBtn secondary" data-math="visible"><strong>Synlig timer</strong><span>Samma tal, med tiden synlig.</span></button>
-        </div>
-      </section>
-      <section class="sectionCard">
-        <div class="sectionTitle"><strong>🗳️ Demokrati</strong><span class="pill">Provträning</span></div>
-        <p>Sex områden inför provet. Träna begrepp, svara med egna ord och testa vad du kan.</p>
-        <a class="btn" href="demokrati.html" style="display:block;text-decoration:none;text-align:center">Öppna demokrati →</a>
-      </section>
-      <section class="sectionCard">
-        <div class="sectionTitle"><strong>🚀 Stjärnjakten</strong><span class="pill">Cirka 7 år</span></div>
-        <p>Ett mattespel med addition, tre nivåer och tio stjärnor att samla. Små tal först, högst 9 + 9. Räknehjälp finns!</p>
-        <a class="btn" href="mattespel.html" style="display:block;text-decoration:none;text-align:center;background:#4338ca">Spela mattespelet →</a>
-      </section>
-      <section class="sectionCard" style="background:#18352e;color:#f3e6c5;border-color:#45624d">
-        <div class="sectionTitle"><strong>🌲 Vilja &amp; Vildponnyerna</strong><span class="pill" style="background:#3c5137;color:#efc46c">10 banor</span></div>
-        <p>Försvara ponnyflocken! Bygg knasiga torn, uppgradera till superel och stoppa hästfångarna i Skarpemons skogar.</p>
-        <a class="btn" href="ponnyforsvaret/" style="display:block;text-decoration:none;text-align:center;background:#efc46c;color:#24342a">Spela ponnyförsvaret →</a>
+
+      <section id="dashFamily" class="dashSection">
+        <div class="dashSectionHead"><div><span class="dashEyebrow">UTANFÖR SKOLAN</span><h2>🏝️ Familjens äventyr</h2></div></div>
+        <a class="dashFamilyCard" href="resa/"><span class="dashFamilyEmoji" aria-hidden="true">🌴</span><div><b>Filippinerna 2027</b><p>Resplan, boenden, flyg och roliga saker att se.</p></div><span class="dashFamilyArrow" aria-hidden="true">→</span></a>
       </section>
     </main>
 
@@ -325,8 +427,23 @@ const sets = {
 const screens = Array.from(document.querySelectorAll(".screen"));
 function showScreen(id){
   screens.forEach(function(s){ s.classList.toggle("active", s.id === id); });
+  document.body.classList.toggle("dashboard", id === "home");
+  if(id === "home") refreshAnimalDashboard();
   window.scrollTo(0,0);
 }
+function refreshAnimalDashboard(){
+  try{
+    const saved = JSON.parse(localStorage.getItem("vilja-biologi-djur-v1") || "{}");
+    const count = Array.isArray(saved.studied) ? saved.studied.length : 0;
+    const label = document.getElementById("animalsDashCount");
+    const meter = document.getElementById("animalsDashMeter");
+    if(label) label.textContent = count + " av 9 kapitel";
+    if(meter) meter.style.width = (Math.min(9,count) / 9 * 100) + "%";
+  }catch(e){}
+}
+window.addEventListener("pageshow", refreshAnimalDashboard);
+window.addEventListener("focus", refreshAnimalDashboard);
+
 document.querySelectorAll("[data-home]").forEach(function(b){
   b.addEventListener("click", function(){ showScreen("home"); });
 });

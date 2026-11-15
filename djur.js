@@ -95,12 +95,10 @@ function renderPractice(){
 }
 function renderPracticeDone(){
  const total=practice.items.length,score=practiceScore();
- saved.quizHistory.push({date:new Date().toISOString(),kind:practice.kind,score,total});saved.quizHistory=saved.quizHistory.slice(-40);store();
- // Avoid duplicate history write on rerender
- practice.finished=true;
+ if(!practice.finished){saved.quizHistory.push({date:new Date().toISOString(),kind:practice.kind,score,total});saved.quizHistory=saved.quizHistory.slice(-40);store();practice.finished=true;}
  const misses=practice.responses.filter(x=>!x.correct);
  place('<section class="testCard"><div class="scoreHero"><div class="scoreDial" style="--percent:'+percent(score,total)+'%"><span>'+score+' / '+total+'<small>RÄTT</small></span></div><div><div class="eyeline">ÖVNING KLAR!</div><h2 style="font-size:29px;margin:6px 0">'+(score===total?'Full pott! 🌟':'Bra jobbat, Vilja! 🌟')+'</h2><p style="margin:0;color:var(--muted)">'+(misses.length?'Här är frågorna att öva lite extra på.':'Du satte alla frågorna – snyggt!')+'</p></div></div><div class="actions">'+button("Gör en ny omgång","practiceRestart")+button("Välj annan övning","homeAction",'','secondary')+(saved.bad.length?button("Träna svåra frågor","review",'','softBtn'):'')+'</div></section>'+
- (misses.length?'<section class="surface"><div class="sectionHead"><h3>Det här vill vi repetera</h3><span class="badge gold">'+misses.length+' frågor</span></div>'+misses.map(r=>{const q=(DJUR.quiz.find(x=>x.id===r.id)||DJUR.trueFalse.find(x=>x.id===r.id));return '<div class="reviewItem isWrong"><b>'+esc(prompt(q))+'</b><p>Rätt svar: '+esc(choices(q)[expected(q)])+'</p><p>'+esc(q.why)+'</p></div>';}).join('')+'</section>':'');
+ (misses.length?'<section class="surface"><div class="sectionHead"><h3>Det här vill vi repetera</h3><span class="badge gold">'+misses.length+' frågor</span></div>'+misses.map(r=>{const q=(DJUR.quiz.find(x=>x.id===r.id)||DJUR.trueFalse.find(x=>x.id===r.id));return '<div class="reviewItem isWrong"><b>'+esc(prompt(q))+'</b><p>Rätt svar: '+esc(choices(q)[expected(q)])+'</p><p>'+esc(q.why)+'</p></div>';}).join('')+'</section>':''));
 }
 function newMatch(){
  const items=shuffle(DJUR.terms).slice(0,6);

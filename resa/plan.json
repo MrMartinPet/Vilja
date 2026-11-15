@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15-film-candidates",
+  "version": "2026-11-15-movie-published",
   "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -837,7 +837,7 @@
     "voiceover": "Svensk berättarröst genererad med ElevenLabs",
     "mediaPath": "film/filippinerna-2027.mp4",
     "posterSource": "Wikimedia Commons",
-    "status": "produktion",
+    "status": "publicerad",
     "credits": "film/BILDKALLOR.md",
     "details": "Inspirationsfilm med autentiska resmålsbilder och tydligt markerade generella poolvilla-bilder. Visar önskemål, inte bokningsstatus."
   }

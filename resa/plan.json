@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15-boracay-1",
+  "version": "2026-11-15-cebu-route",
   "updated": "2026-11-15",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -133,11 +133,11 @@
       "date": "2027-02-17",
       "type": "val",
       "title": "Bohol → Boracay",
-      "route": "Antingen via Cebu eller flyg via Manila",
-      "time": "Resdag 17 feb",
-      "duration": "Cirka 8–13 h boende till boende via Cebu; kortare med bra flygbyte",
-      "status": "decision",
-      "details": "Huvudbeslut: färja Tagbilaran–Cebu och flyg CEB→MPH sparar pengar men är separata bokningar. Alternativ: flyg TAG→MNL→MPH på genomgående biljett."
+      "route": "Panglao → Tagbilaran hamn → OceanJet till Cebu → CEB flygplats → Caticlan → Boracay",
+      "time": "17 feb: färja ca 08.20–10.20; flyg CEB–MPH 15.50–16.50",
+      "duration": "Cirka 11–13 h från villa till villa med marginaler",
+      "status": "selected",
+      "details": "Valt som preliminär resväg, INTE bokat. Ingen natt i Cebu. Privat transport till Tagbilaran hamn, färja OceanJet, privat transfer Cebu Pier 1 till flygplats, direktflyg och kort båt till Boracay. Säkerställ väderbuffert och hantera risken för separata biljetter."
     },
     {
       "id": "cebu-air",
@@ -217,7 +217,7 @@
       "description": "Villa på Panglao → bil till Tagbilaran hamn → OceanJet omkring 08.20–10.20 → bil till Cebu flygplats → flyg 15.50–16.50 CEB–MPH → båt till Boracay.",
       "benefit": "Betydligt billigare flyg, direktflyg från Cebu till Caticlan.",
       "risk": "Färja och flyg är separata bokningar. Väderinställd färja kan leda till missat flyg. För fem: flyg senast sökt 4 576 kr, exkl färja/bilar/bagage.",
-      "status": "unselected",
+      "status": "selected",
       "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
     },
     {
@@ -445,8 +445,8 @@
         "Färja + direktflyg via Cebu",
         "Flyg på en biljett via Manila"
       ],
-      "choice": "",
-      "note": "Kostnad kontra komfort och väderrisk. Inget bokat.",
+      "choice": "Färja + direktflyg via Cebu",
+      "note": "Preliminärt vald resväg 17 februari: färja från Tagbilaran till Cebu City utan övernattning, privat transfer till CEB, och direktflyg CEB–MPH 15.50–16.50. Inte bokat. Bekräfta färja, bil, flyg och risken vid separata biljetter före betalning.",
       "why": "Styr hela transportbokningen och eventuell färjeanslutning."
     },
     {

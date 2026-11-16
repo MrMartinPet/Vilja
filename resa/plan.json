@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-sj-trains-and-airport-bus",
+  "version": "2026-11-16-simplified-pending-decisions",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -530,20 +530,20 @@
     },
     {
       "id": "d2",
-      "title": "Första och sista hotellet i Manila",
+      "title": "Sista flygplatshotellet i Manila 23–24 feb",
       "priority": "high",
       "options": [
-        "Belmont Hotel",
-        "Savoy Hotel",
-        "Annat nära Terminal 3"
+        "Belmont Hotel Manila",
+        "Savoy Hotel Manila",
+        "Annat hotell nära flygplatsen"
       ],
       "choice": "",
-      "note": "Boka första natten 9–10 feb, check-in efter midnatt.",
-      "why": "Viktigast med lätt incheckning och lite sömn."
+      "note": "Första natten 9–10 februari på Belmont är redan bokad. Endast sista natten 23–24 februari återstår.",
+      "why": "Flyget från Manila avgår 24 februari kl. 06.20, så ett hotell nära rätt terminal behövs."
     },
     {
       "id": "d3",
-      "title": "Villa på Panglao",
+      "title": "Boende på Bohol 10–17 februari",
       "priority": "high",
       "options": [
         "Alona / Tawala",
@@ -551,8 +551,8 @@
         "Dumaluan / Bolod"
       ],
       "choice": "",
-      "note": "Pool + 3–4 sovrum + restauranger utan bil.",
-      "why": "Bestämmer läget för 7 nätter."
+      "note": "Sök rymlig villa med pool för sju, alternativt flera rum i markplan nära pool, strand och restauranger.",
+      "why": "Sju nätter på Panglao. Vi vill ha gott om plats och kort avstånd till strand och restauranger."
     },
     {
       "id": "d4",

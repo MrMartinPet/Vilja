@@ -64,19 +64,24 @@ function renderStays(){
 function renderDomesticBaggage(){
  var host=byId("confirmedDomesticPanel");if(!host)return;
  var b=data.domesticBaggage||(published&&published.domesticBaggage);
- if(!b){host.hidden=true;return;}
- var legs=(b.flightIds||[]).map(function(id){return (data.legs||[]).find(function(l){return l.id===id;});}).filter(Boolean);
- var flightRows=legs.map(function(l){
-  return '<div class="booked-flight-row"><span><strong>'+esc(l.route)+'</strong><small>'+esc(dateLabel(l.date))+' · '+esc(l.airline||"")+' '+esc(l.flightNumber||"")+'</small></span><b>'+esc(l.time)+'</b></div>';
+ if(!b||!Array.isArray(b.byFlight)){host.hidden=true;return;}
+ var flights=b.byFlight.map(function(bag){
+  var l=(data.legs||[]).find(function(f){return f.id===bag.id;})||{};
+  return '<article class="domestic-flight-card'+(bag.checked.perPieceKg===10?' tight-baggage':'')+'">'+
+    '<div class="domestic-flight-head"><div><strong>'+esc(bag.route)+'</strong><small>'+esc(dateLabel(bag.date))+' · '+esc(bag.carrier)+' '+esc(bag.flightNumber)+'</small></div><b>'+esc(l.time||"")+'</b></div>'+
+    '<div class="domestic-flight-bags">'+
+      '<div><span>🎒 Handbagage</span><b>'+esc(bag.cabin.pieces)+' × '+esc(bag.cabin.perPassengerKg)+' kg</b><small>'+esc(bag.cabin.dimensionsCm.join(" × "))+' cm</small></div>'+
+      '<div><span>🧳 Incheckat totalt</span><b>'+esc(bag.checked.pieces)+' × '+esc(bag.checked.perPieceKg)+' kg</b><small>'+esc(bag.checked.dimensionsCm.join(" × "))+' cm</small></div>'+
+      (bag.personal?'<div><span>👜 Personligt föremål</span><b>'+esc(bag.personal.pieces)+' × '+esc(bag.personal.perPassengerKg)+' kg</b><small>'+esc(bag.personal.dimensionsCm.join(" × "))+' cm · enligt återförsäljarens översikt</small></div>':'')+
+    '</div>'+
+    (bag.checked.perPieceKg===10?'<div class="domestic-flight-caution">Viktgräns på detta flyg: endast 10 kg per incheckad väska!</div>':'')+
+  '</article>';
  }).join("");
  host.hidden=false;
- host.innerHTML='<div class="booked-trips-heading"><span class="booked-trips-tick">✓</span><div><h3>Bekräftade inrikesflyg</h3><p>'+esc(b.passengers)+' resenärer · båda flygen bokade</p></div></div>'+
-  '<div class="booked-flight-list">'+flightRows+'</div>'+
-  '<div class="booked-luggage-grid">'+
-   '<div><span class="luggage-emoji">🎒</span><strong>'+esc(b.cabin.pieces)+' × '+esc(b.cabin.perPassengerKg)+' kg</strong><small>Handbagage · per person<br>'+esc(b.cabin.dimensionsCm.join(" × "))+' cm</small></div>'+
-   '<div><span class="luggage-emoji">🧳</span><strong>'+esc(b.checked.pieces)+' × '+esc(b.checked.perPieceKg)+' kg</strong><small>Incheckade väskor · totalt<br>'+esc(b.checked.dimensionsCm.join(" × "))+' cm</small></div>'+
-  '</div>'+
-  '<p class="booked-trips-warning">Obs! Bagage på det separata flyget Cebu → Caticlan 17 februari måste kontrolleras och bokas separat. Inga passagerarnamn eller bokningsreferenser publiceras här.</p>';
+ host.innerHTML='<div class="booked-trips-heading"><span class="booked-trips-tick">✓</span><div><h3>Alla tre inrikesflyg bokade</h3><p>'+esc(b.passengers)+' resenärer · bagage enligt bokningsöversikterna</p></div></div>'+
+   '<div class="domestic-flights-list">'+flights+'</div>'+
+   '<p class="booked-trips-warning"><strong>Viktigt:</strong> På Cebu → Caticlan gäller 2 × 10 kg incheckat, men på de övriga två flygen 2 × 20 kg. Packa inte mer än 10 kg per incheckad väska under hela resan utan att först köpa till mer bagage för 17 februari. Den planerade OceanJet-färjan har normalt 10 kg per person i turistklass.</p>'+
+   '<div class="domestic-intl-note"><strong>Flygen Sverige ↔ Manila (Air China)</strong><p>I Economy är handbagagets normalgräns 5 kg (55 × 40 × 20 cm). Normalt ingår minst 1 incheckad väska à 23 kg; exakt antal beror på biljettyp och ska kontrolleras i Air China-biljetten. Reglerna är alltså inte samma som på inrikesflygen.</p><a href="https://ru.airchina.com/JP/GB/info/carry-on-baggage/" target="_blank" rel="noopener">Air Chinas handbagageregler ↗</a></div>';
 }
 function renderLegs(){
  var legs=data.legs||[];
@@ -346,29 +351,32 @@ async function init(){
       }
     });
     // Reconcile newly confirmed travel details with older private on-device copies.
-    ["flight-mnl-tag","flight-mph-mnl","return-from-island","last-hotel-checkin","cebu-air"].forEach(function(id){
+    ["flight-mnl-tag","flight-mph-mnl","return-from-island","last-hotel-checkin","cebu-air","bohol-boracay"].forEach(function(id){
       var masterLeg=(published.legs||[]).find(function(l){return l.id===id;});
       var localLeg=(data.legs||[]).find(function(l){return l.id===id;});
       if(masterLeg&&localLeg)Object.assign(localLeg,clone(masterLeg));
     });
-    ["t02","t03","t05","t07","t09","t10"].forEach(function(id){
+    ["t02","t03","t04","t05","t07","t09","t10"].forEach(function(id){
       var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
       var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
       if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
     });
-    ["d4","d5"].forEach(function(id){
+    ["d1","d4","d5"].forEach(function(id){
       var masterDecision=(published.decisions||[]).find(function(d){return d.id===id;});
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
       if(masterDecision&&localDecision&&masterDecision.choice)Object.assign(localDecision,clone(masterDecision));
     });
-    ["b2","b6","b7"].forEach(function(id){
+    ["b2","b5","b6","b7","b11"].forEach(function(id){
       var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
       var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
-      if(masterBudget&&localBudget){localBudget.status=masterBudget.status;localBudget.name=masterBudget.name;}
+      if(masterBudget&&localBudget){
+        localBudget.status=masterBudget.status;
+        localBudget.name=masterBudget.name;
+      }else if(masterBudget&&data.budget){data.budget.push(clone(masterBudget));}
     });
     if(published.domesticBaggage)data.domesticBaggage=clone(published.domesticBaggage);
     // Remove historical price estimates for flights that are now confirmed.
-    data.quotes=(data.quotes||[]).filter(function(q){return ["q1","q4"].indexOf(q.id)===-1;});
+    data.quotes=(data.quotes||[]).filter(function(q){return ["q1","q2","q3","q4"].indexOf(q.id)===-1;});
     if(published.stayPreference)data.stayPreference=published.stayPreference;
     var mappedHotel=(published.places||[]).find(function(p){return p.id==="twoseasons";});
     if(mappedHotel){data.places=data.places||[];if(!data.places.some(function(p){return p.id==="twoseasons";}))data.places.push(clone(mappedHotel));}

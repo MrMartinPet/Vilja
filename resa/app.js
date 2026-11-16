@@ -1,7 +1,7 @@
 (function(){
 "use strict";
 var PLAN_FILE="plan.json", LOCAL_KEY="vilja-philippines-2027-local-v1";
-var data=null, published=null, map=null, markerLayer=null, routeLayer=null, taskFilter="open", activityFilter="Alla", modalSave=null, toastTimer=null;
+var data=null, published=null, map=null, markerLayer=null, routeLayer=null, taskFilter="open", activityFilter="Alla", modalSave=null, toastTimer=null, activeView="overview";
 var byId=function(id){return document.getElementById(id);};
 var clone=function(o){return JSON.parse(JSON.stringify(o));};
 var esc=function(x){return String(x===null||x===undefined?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});};
@@ -111,6 +111,32 @@ function renderDecisions(){
    return '<article class="pending-decision"><div class="pending-decision-text"><strong>'+esc(d.title)+'</strong><p>'+esc(d.note||d.why||"")+'</p></div><button type="button" class="edit-icon" data-edit="decision" data-id="'+esc(d.id)+'">Ändra</button></article>';
  }).join("") || '<p class="subtle">Inga öppna beslut just nu.</p>';
 }
+function showView(view){
+ var allowed=["overview","plan","tasks","costs","details"];
+ if(allowed.indexOf(view)<0)view="overview";
+ activeView=view;
+ document.body.setAttribute("data-active-view",view);
+ Array.from(document.querySelectorAll("[data-view-button]")).forEach(function(b){
+   var on=b.getAttribute("data-view-button")===view;
+   b.classList.toggle("active",on);
+   if(on)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");
+ });
+ if(view==="details"&&map&&typeof map.invalidateSize==="function")setTimeout(function(){map.invalidateSize();},80);
+ window.scrollTo({top:0,behavior:"instant"});
+}
+function renderCostOverview(){
+ var rows=(published&&published.publicCostOverview)||data.publicCostOverview||[];
+ var fmt=function(n){return Number.isFinite(n)?new Intl.NumberFormat("sv-SE",{minimumFractionDigits:0,maximumFractionDigits:2}).format(n)+" kr":"Pris saknas";};
+ var five=rows.filter(function(x){return x.amountSEK!==null&&x.scope==="Familjen, 5 personer";}).reduce(function(a,x){return a+x.amountSEK;},0);
+ var seven=rows.filter(function(x){return x.amountSEK!==null&&x.scope==="Alla 7 personer";}).reduce(function(a,x){return a+x.amountSEK;},0);
+ byId("familyCostTotal").textContent=fmt(five);
+ byId("groupCostTotal").textContent=fmt(seven);
+ byId("costOverviewList").innerHTML=rows.map(function(x){
+  var unknown=x.amountSEK===null;
+  var state=x.status==="paid"?"Betalt":x.status==="booked"?"Bokat":"Ej bokat";
+  return '<div class="cost-line"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>'+esc(x.scope)+' · '+esc(state)+'</small></div><b class="'+(unknown?'cost-unknown':'')+'">'+esc(fmt(x.amountSEK))+'</b></div>';
+ }).join("");
+}
 function renderBudget(){
  var rows=data.budget||[];
  var totals=rows.filter(function(x){return Number.isFinite(x.totalSEK);}).map(function(x){return x.totalSEK;});
@@ -138,7 +164,7 @@ function renderActivities(){
 }
 function render(){
  if(!data)return;
- renderStats();renderStays();renderLegs();renderDomesticBaggage();renderTasks();renderDecisions();renderBudget();renderActivities();freshness();
+ renderStats();renderStays();renderLegs();renderDomesticBaggage();renderTasks();renderDecisions();renderBudget();renderCostOverview();renderActivities();freshness();
  var preference=byId("stayPreferenceDisplay");if(preference)preference.textContent=data.stayPreference||(published&&published.stayPreference)||"Rymlig villa eller rum i markplan nära pool, strand och restauranger för alla sju.";
  if(document.activeElement!==byId("familyNotes"))byId("familyNotes").value=data.notes||"";
  if(map)drawMap();
@@ -295,6 +321,9 @@ function setupMap(){
 }
 function bind(){
  document.addEventListener("click",function(e){
+  var viewButton=e.target.closest("[data-view-button],[data-go-view]");
+  if(viewButton){showView(viewButton.getAttribute("data-view-button")||viewButton.getAttribute("data-go-view"));return;}
+
   var button=e.target.closest("[data-edit]");if(button){openModal(button.dataset.edit,button.dataset.id);return;}
   var filter=e.target.closest("[data-filter]");if(filter){taskFilter=filter.dataset.filter;renderTasks();return;}
   var island=e.target.closest("[data-island]");if(island){activityFilter=island.dataset.island;renderActivities();return;}
@@ -303,7 +332,7 @@ function bind(){
   if(e.target.dataset.task){var item=(data.tasks||[]).find(function(t){return t.id===e.target.dataset.task;});if(item){item.done=!!e.target.checked;save(true);}return;}
   if(e.target.dataset.decision){var d=(data.decisions||[]).find(function(x){return x.id===e.target.dataset.decision;});if(d){d.choice=e.target.value;save(true);toast("Beslutet sparat på den här enheten.");}}
  });
- byId("openEditor").addEventListener("click",function(){document.getElementById("anteckningar").scrollIntoView({behavior:"smooth"});});
+ byId("openEditor").addEventListener("click",function(){showView("details");document.getElementById("anteckningar").scrollIntoView({behavior:"smooth"});});
  byId("addTaskTop").addEventListener("click",function(){openModal("task");});
  byId("addBudget").addEventListener("click",function(){openModal("budget");});
  byId("editorForm").addEventListener("submit",function(e){e.preventDefault();if(modalSave&&modalSave())byId("editDialog").close();});
@@ -372,7 +401,7 @@ async function init(){
       return d+"-40";
     };
     data.legs.sort(function(a,b){return sortKey(a).localeCompare(sortKey(b));});
-    ["t01","t02","t03","t04","t05","t07","t09","t10","t22","t23"].forEach(function(id){
+    ["t01","t02","t03","t04","t05","t07","t09","t10","t22","t23","t24"].forEach(function(id){
       var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
       var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
       if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
@@ -397,6 +426,11 @@ async function init(){
       if(localOpt)Object.assign(localOpt,clone(masterOpt));
     });
     if(published.domesticBaggage)data.domesticBaggage=clone(published.domesticBaggage);
+    if(published.publicCostOverview)data.publicCostOverview=clone(published.publicCostOverview);
+    var masterBoracay=(published.stays||[]).find(function(x){return x.id==="stay-boracay";});
+    var localBoracay=(data.stays||[]).find(function(x){return x.id==="stay-boracay";});
+    if(masterBoracay&&localBoracay)Object.assign(localBoracay,clone(masterBoracay));
+
     // Do not carry previously published personal cost-sharing or exact child-age
     // records into the active browser copy after the privacy cleanup.
     delete data.costSharing;
@@ -417,10 +451,10 @@ async function init(){
     if(local.version!==published.version)notice("En ny version finns på GitHub. Bekräftade bokningar har uppdaterats även här. Övriga lokala ändringar finns kvar.","sync");
     byId("dataState").textContent="Lokalt redigerad";
   }else{data=clone(published);byId("dataState").textContent="Synkad med GitHub";}
-  render();setupMap();
+  render();setupMap();showView(activeView);
  }catch(e){
   var previous=locallySaved();
-  if(previous&&previous.plan){data=previous.plan;render();setupMap();notice("GitHub-planen gick inte att läsa. Visar sparad kopia på den här enheten.","error");}
+  if(previous&&previous.plan){data=previous.plan;render();setupMap();showView(activeView);notice("GitHub-planen gick inte att läsa. Visar sparad kopia på den här enheten.","error");}
   else{notice("Kunde inte läsa resa/plan.json. Kontrollera uppkopplingen eller uppdatera sidan. "+e.message,"error");byId("dataState").textContent="Kan inte läsa data";}
  }
 }

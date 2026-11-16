@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-public-privacy-cleanup",
+  "version": "2026-11-16-belmont-first-night-confirmed",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -20,13 +20,31 @@
       "from": "2027-02-09",
       "to": "2027-02-10",
       "nights": 1,
-      "place": "Manila · flygplatsen",
-      "area": "Vid NAIA Terminal 3",
+      "place": "Manila · Belmont Hotel Manila",
+      "area": "Newport City, Pasay · nära NAIA Terminal 3",
       "kind": "hotell",
-      "status": "todo",
-      "details": "Incheckning efter midnatt 10/2 cirka 01–02. Boka natten 9–10 februari, inte 10–11. Säkerställ reception dygnet runt.",
-      "suggestion": "Belmont Hotel Manila / Savoy Hotel Manila",
-      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-09&checkout=2027-02-10"
+      "status": "booked",
+      "details": "Bekräftad Agoda-bokning 9–10 februari 2027: 2 Standard Twin-rum, 1 natt. Två enkelsängar per rum, cirka 23 m² per rum. Bokningen visar kapacitet upp till 4 vuxna och 4 barn totalt samt möjlighet till anslutande rum. Sen incheckning efter midnatt den 10 februari, cirka 01–02, bör meddelas hotellet. Fri avbokning före 7 februari 2027.",
+      "suggestion": "Belmont Hotel Manila · 2 × Standard Twin · 1 natt",
+      "link": "https://www.google.com/maps/search/?api=1&query=Belmont+Hotel+Manila+Newport+City+Pasay",
+      "booking": {
+        "confirmed": true,
+        "accommodation": "Belmont Hotel Manila near NAIA Terminal 3 MNL",
+        "checkIn": "2027-02-09",
+        "checkOut": "2027-02-10",
+        "nights": 1,
+        "rooms": 2,
+        "roomType": "Standard Twin",
+        "bedsPerRoom": "2 enkelsängar",
+        "roomSizeSqm": 23,
+        "maximumOccupancyShown": "4 vuxna och 4 barn totalt för två rum",
+        "connectingRoomsListed": true,
+        "lateCheckin": "Efter midnatt 10 februari, cirka 01–02; meddela hotellet",
+        "freeCancellationBefore": "2027-02-07",
+        "paymentScheduledDate": "2027-02-04",
+        "paymentStatus": "Betalning planerad via bokningsplattformen; ej debiterad vid bokningstillfället",
+        "note": "Inga personnamn, bokningsnummer eller faktiska betalningsbelopp publiceras."
+      }
     },
     {
       "id": "stay-bohol",
@@ -125,12 +143,12 @@
       "id": "hotel-first-checkin",
       "date": "2027-02-10",
       "type": "hotell",
-      "title": "Sova direkt efter landningen",
-      "route": "MNL Terminal 3 → flygplatshotell",
-      "time": "Cirka 01.00–02.00",
-      "duration": "Kort transfer från flygplatsen",
-      "status": "todo",
-      "details": "Hotellnatten ska bokas 9–10 februari."
+      "title": "Incheckning Belmont Hotel Manila",
+      "route": "MNL → Belmont Hotel Manila, Newport City",
+      "time": "Efter midnatt 10 feb · cirka 01–02",
+      "duration": "1 natt · 2 Standard Twin-rum",
+      "status": "booked",
+      "details": "Bokat 9–10 februari. Två rum för gruppen, nära NAIA Terminal 3. Sen ankomst behöver meddelas hotellet. Gratis avbokning före 7 februari."
     },
     {
       "id": "flight-mnl-tag",
@@ -269,11 +287,11 @@
   "tasks": [
     {
       "id": "t01",
-      "title": "Välj och boka hotell vid Manila T3 för 9–10 feb",
+      "title": "Bokat: Belmont Hotel Manila · 2 rum 9–10 feb",
       "category": "Boende",
       "priority": "high",
-      "done": false,
-      "note": "Boka 9–10 feb trots ankomst efter midnatt. 24-timmarsreception. 7 gäster."
+      "done": true,
+      "note": "2 Standard Twin-rum för gruppen, 1 natt. Gratis avbokning före 7 feb. Planerad debitering 4 feb. Meddela hotellet sen ankomst efter midnatt 10 feb."
     },
     {
       "id": "t02",
@@ -739,12 +757,12 @@
     },
     {
       "id": "b3",
-      "name": "Boende Manila 9–10 feb",
+      "name": "Belmont Hotel Manila · 2 rum 9–10 feb",
       "category": "Boende",
       "totalSEK": null,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "todo"
+      "status": "booked"
     },
     {
       "id": "b4",

@@ -127,9 +127,12 @@ function renderBudget(){
  byId("budgetRows").innerHTML=rows.map(function(b){
   return '<tr><td>'+esc(b.name)+'</td><td>'+badge(b.status)+'</td><td class="numeric">'+money(b.totalSEK)+'</td><td class="numeric">'+money(b.paidSEK)+'</td><td><button class="edit-icon" data-edit="budget" data-id="'+esc(b.id)+'">Ändra</button></td></tr>';
  }).join("");
- byId("quoteList").innerHTML=(data.quotes||[]).map(function(q){
-  return '<article class="quote-card"><small>'+esc(q.leg)+' · '+esc(q.people)+' personer</small><b>'+money(q.amount)+'</b><p>'+esc(q.note)+'</p></article>';
- }).join("");
+ var quotes=(data.quotes||[]);
+ var qel=byId("quoteList");
+ if(qel){
+  qel.innerHTML=quotes.map(function(q){return '<article class="quote-card"><small>'+esc(q.leg)+' · '+esc(q.people)+' personer</small><b>'+money(q.amount)+'</b><p>'+esc(q.note)+'</p></article>';}).join("");
+  var qpanel=qel.closest(".quotes-panel");if(qpanel)qpanel.hidden=!quotes.length;
+ }
 }
 function renderActivities(){
  var rows=(data.activities||[]).filter(function(a){return activityFilter==="Alla"||a.island===activityFilter;});
@@ -373,6 +376,11 @@ async function init(){
         localBudget.status=masterBudget.status;
         localBudget.name=masterBudget.name;
       }else if(masterBudget&&data.budget){data.budget.push(clone(masterBudget));}
+    });
+    // Route-description facts from GitHub override obsolete old-device text.
+    (published.routeOptions||[]).forEach(function(masterOpt){
+      var localOpt=(data.routeOptions||[]).find(function(o){return o.id===masterOpt.id;});
+      if(localOpt)Object.assign(localOpt,clone(masterOpt));
     });
     if(published.domesticBaggage)data.domesticBaggage=clone(published.domesticBaggage);
     // Remove historical price estimates for flights that are now confirmed.

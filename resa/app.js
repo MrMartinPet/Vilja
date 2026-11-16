@@ -6,7 +6,7 @@ var byId=function(id){return document.getElementById(id);};
 var clone=function(o){return JSON.parse(JSON.stringify(o));};
 var esc=function(x){return String(x===null||x===undefined?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});};
 var safeUrl=function(u){try{var url=new URL(u,location.href);return /^https?:$/.test(url.protocol)?url.href:"";}catch(e){return "";}};
-var money=function(x){return typeof x==="number" && Number.isFinite(x)?new Intl.NumberFormat("sv-SE",{maximumFractionDigits:0}).format(x)+" kr":"–";};
+var money=function(x){return typeof x==="number" && Number.isFinite(x)?new Intl.NumberFormat("sv-SE",{minimumFractionDigits:0,maximumFractionDigits:2}).format(x)+" kr":"–";};
 var num=function(x){return x===null||x===undefined||x===""?null:Number(x);};
 var dateLabel=function(s){var d=new Date(s.slice(0,10)+"T12:00:00Z");return new Intl.DateTimeFormat("sv-SE",{day:"numeric",month:"short",timeZone:"UTC"}).format(d);};
 var statusName={booked:"Bokat",paid:"Betalt",selected:"Valt · ej bokat",todo:"Ej bokat",decision:"Beslut kvar"};
@@ -40,24 +40,33 @@ function renderStats(){
 function renderStays(){
  var list=data.stays||[];
  byId("stayGrid").innerHTML=list.map(function(stay){
-  var b=stay.booking||null, booked=stay.status==="booked"||stay.status==="paid";
+  var b=stay.booking||null,booked=stay.status==="booked"||stay.status==="paid";
   var stayBody='<article class="stay-card'+(booked?' stay-card-booked':'')+'"><div class="stay-graphic"><span>'+esc(stayIcon[stay.kind]||"🏝️")+'</span><b>'+esc(stay.nights)+' natt'+(stay.nights===1?"":"er")+'</b></div>'+
    '<div>'+badge(stay.status)+'</div><h3>'+esc(stay.place)+'</h3>'+
    '<p>'+esc(dateLabel(stay.from))+'–'+esc(dateLabel(stay.to))+' · '+esc(stay.area)+'</p>'+
    '<p>'+esc(stay.suggestion||"")+'</p>';
   if(b&&b.confirmed){
-   stayBody+='<div class="stay-booked-info">'+
-     '<strong>✓ Bekräftad hotellbokning</strong>'+
-     '<div class="stay-booked-row">🛏️ '+esc(b.roomCount)+' rum · '+esc(b.roomType)+'</div>'+
-     '<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.adults)+' vuxna och '+esc((b.childrenCount!=null?b.childrenCount:(b.childrenAgesOnBooking||[]).length))+' barn · 6 nätter</div>'+
-     '<div class="stay-booked-row">🕒 Incheckning från '+esc(b.checkInFrom)+' · utcheckning före '+esc(b.checkOutBefore)+'</div>'+
-     '<div class="stay-booked-row">☕ Inkluderat: '+esc((b.included||[]).join(", "))+'</div>'+
-     '<div class="stay-booked-row">🏝️ Direkt poolaccess, markplan och White Beach vid hotellet</div>'+
-     '<div class="stay-booked-note">Badrumsfråga kvar: det är ännu inte bekräftat om sviten har två badrum.</div>'+
-     '</div>';
+   var rooms=b.roomCount||b.rooms;
+   stayBody+='<div class="stay-booked-info"><strong>✓ Bekräftad hotellbokning</strong>';
+   if(rooms||b.roomType)stayBody+='<div class="stay-booked-row">🛏️ '+(rooms?esc(rooms)+' rum':'Rum')+(b.roomType?' · '+esc(b.roomType):'')+'</div>';
+   if(b.adults!=null&&b.childrenCount!=null)stayBody+='<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.adults)+' vuxna och '+esc(b.childrenCount)+' barn · '+esc(stay.nights)+' natt'+(stay.nights===1?'':'er')+'</div>';
+   else if(b.maximumOccupancyShown)stayBody+='<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.maximumOccupancyShown)+'</div>';
+   if(b.roomSizeSqm||b.bedsPerRoom)stayBody+='<div class="stay-booked-row">📐 '+(b.roomSizeSqm?esc(b.roomSizeSqm)+' m² per rum':'')+(b.bedsPerRoom?' · '+esc(b.bedsPerRoom):'')+'</div>';
+   if(b.checkInFrom||b.checkOutBefore)stayBody+='<div class="stay-booked-row">🕒 '+(b.checkInFrom?'Incheckning från '+esc(b.checkInFrom):'')+(b.checkOutBefore?' · utcheckning före '+esc(b.checkOutBefore):'')+'</div>';
+   if(b.included&&b.included.length)stayBody+='<div class="stay-booked-row">☕ Inkluderat: '+esc(b.included.join(", "))+'</div>';
+   if(Number.isFinite(b.totalSEK))stayBody+='<div class="stay-booked-row">💳 Bokningspris: '+esc(new Intl.NumberFormat("sv-SE",{minimumFractionDigits:2,maximumFractionDigits:2}).format(b.totalSEK))+' kr · '+esc(b.paymentStatus||"")+'</div>';
+   if(b.freeCancellationBefore)stayBody+='<div class="stay-booked-row">✅ Gratis avbokning före '+esc(dateLabel(b.freeCancellationBefore))+' 2027</div>';
+   if(b.paymentScheduledDate)stayBody+='<div class="stay-booked-row">📅 Planerad debitering '+esc(dateLabel(b.paymentScheduledDate))+' 2027</div>';
+   if(b.facilities&&b.facilities.length)stayBody+='<div class="stay-booked-row">ℹ️ '+esc(b.facilities.join(" · "))+'</div>';
+   if(stay.id==="stay-boracay"){
+     stayBody+='<div class="stay-booked-row">🏝️ Direkt poolaccess, markplan och White Beach vid hotellet</div>'+
+      '<div class="stay-booked-note">Badrumsfråga kvar: det är ännu inte bekräftat om sviten har två badrum.</div>';
+   }else if(b.notes)stayBody+='<div class="stay-booked-note">'+esc(b.notes)+'</div>';
+   else if(b.note)stayBody+='<div class="stay-booked-note">'+esc(b.note)+'</div>';
+   stayBody+='</div>';
   }
   stayBody+=(stay.alternatives&&stay.alternatives.length&&!booked?'<div class="stay-alternatives"><strong>Boenden att jämföra</strong>'+stay.alternatives.map(function(a){return '<div class="stay-alt"><div>'+link(a.url,a.name)+'</div><small>'+esc(a.status||"Ej bokat")+'</small><p>'+esc(a.details||"")+'</p></div>';}).join("")+'</div>':"");
-  stayBody+='<div class="stay-footer">'+link(stay.link,booked?"Visa bokade sviten":"Sök boende")+'<button class="edit-icon" data-edit="stay" data-id="'+esc(stay.id)+'">Ändra</button></div></article>';
+  stayBody+='<div class="stay-footer">'+link(stay.link,booked?"Visa bokat boende":"Sök boende")+'<button class="edit-icon" data-edit="stay" data-id="'+esc(stay.id)+'">Ändra</button></div></article>';
   return stayBody;
  }).join("");
 }
@@ -401,7 +410,7 @@ async function init(){
       return d+"-40";
     };
     data.legs.sort(function(a,b){return sortKey(a).localeCompare(sortKey(b));});
-    ["t01","t02","t03","t04","t05","t07","t09","t10","t22","t23","t24"].forEach(function(id){
+    ["t01","t02","t03","t04","t05","t07","t08","t09","t10","t22","t23","t24"].forEach(function(id){
       var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
       var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
       if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
@@ -412,12 +421,13 @@ async function init(){
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
       if(masterDecision&&localDecision)Object.assign(localDecision,clone(masterDecision));
     });
-    ["b2","b3","b5","b6","b7","b11","b12","b13"].forEach(function(id){
+    ["b2","b3","b5","b6","b7","b8","b11","b12","b13"].forEach(function(id){
       var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
       var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
       if(masterBudget&&localBudget){
         localBudget.status=masterBudget.status;
         localBudget.name=masterBudget.name;
+        if(id==="b8"){localBudget.totalSEK=masterBudget.totalSEK;localBudget.paidSEK=masterBudget.paidSEK;}
       }else if(masterBudget&&data.budget){data.budget.push(clone(masterBudget));}
     });
     // Route-description facts from GitHub override obsolete old-device text.
@@ -445,8 +455,10 @@ async function init(){
     // Remove historical price estimates for flights that are now confirmed.
     data.quotes=(data.quotes||[]).filter(function(q){return ["q1","q2","q3","q4"].indexOf(q.id)===-1;});
     if(published.stayPreference)data.stayPreference=published.stayPreference;
-    var mappedHotel=(published.places||[]).find(function(p){return p.id==="twoseasons";});
-    if(mappedHotel){data.places=data.places||[];if(!data.places.some(function(p){return p.id==="twoseasons";}))data.places.push(clone(mappedHotel));}
+    ["twoseasons","savoy"].forEach(function(id){
+      var mappedHotel=(published.places||[]).find(function(p){return p.id===id;});
+      if(mappedHotel){data.places=data.places||[];var localPlace=data.places.find(function(p){return p.id===id;});if(localPlace)Object.assign(localPlace,clone(mappedHotel));else data.places.push(clone(mappedHotel));}
+    });
     delete data.film;
     if(local.version!==published.version)notice("En ny version finns på GitHub. Bekräftade bokningar har uppdaterats även här. Övriga lokala ändringar finns kvar.","sync");
     byId("dataState").textContent="Lokalt redigerad";

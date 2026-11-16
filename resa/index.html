@@ -7,10 +7,10 @@
   <meta name="description" content="Familjens planering för Filippinerna 2027: Bohol, Boracay, flyg, boenden, checklistor och karta.">
   <meta name="robots" content="noindex,nofollow">
   <title>Filippinerna 2027 · Resedashboard</title>
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-  <script src="app.js?v=11" defer></script>
+  <script src="app.js?v=12" defer></script>
 </head>
 <body>
   <a class="skip" href="#oversikt">Hoppa till innehållet</a>
@@ -20,13 +20,11 @@
       <a class="brand" href="#oversikt"><span class="brand-mark">✦</span><span>Resa <b>2027</b></span></a>
       <div class="head-actions">
         <span id="dataState" class="small-sync">Läser resplan …</span>
-        <button class="btn btn-dark btn-small" id="openEditor" type="button">✎ Redigera</button>
       </div>
     </div>
   </header>
 
   <div id="errorBanner" class="shell error-banner" hidden></div>
-  <div id="syncBanner" class="shell info-banner" hidden></div>
   <main class="shell" id="oversikt">
     <section data-view="overview" class="hero" aria-labelledby="heroTitle">
       <div class="hero-copy">
@@ -62,10 +60,23 @@
       <article class="metric"><span>Kvar att besluta</span><strong id="decisionsOpen">–</strong><small>boenden</small></article>
     </section>
 
+    <section data-view="overview" class="overview-finance" aria-label="Kostnadsläget">
+      <div class="overview-finance-header">
+        <div><span class="overview-finance-kicker">EKONOMI · BOKADE KOSTNADER</span><h2>Resans kostnader</h2><p>Bekräftade belopp hittills för 7 personer. Boracay och Bohol återstår.</p></div>
+        <div class="overview-finance-total"><span>Totalt hittills</span><strong id="overviewBookedTotal">–</strong></div>
+      </div>
+      <div class="overview-split-labels">
+        <div><span class="split-dot mm-dot"></span><b>M&M <strong id="overviewMmCost">–</strong></b><small id="overviewMmPct">–</small></div>
+        <div><span class="split-dot pe-dot"></span><b>P&E <strong id="overviewPeCost">–</strong></b><small id="overviewPePct">–</small></div>
+      </div>
+      <div class="overview-allocation-bar" aria-label="Fördelning mellan sällskapen"><span id="overviewMmBar"></span><span id="overviewPeBar"></span></div>
+      <div class="overview-finance-foot"><span>⏳ SJ fördelas preliminärt 65 % M&M / 35 % P&E. Behöver verifieras.</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
+    </section>
+
     <section data-view="overview" class="overview-grid" aria-label="Nästa steg och bokningsöversikt">
       <article class="panel priority-panel">
         <div class="section-kicker">NÄSTA STEG</div>
-        <div class="panel-heading"><h2>Det viktigaste härnäst</h2><span class="subtle">Det som återstår</span></div>
+        <div class="panel-heading"><h2>Härnäst</h2><span class="subtle">Prioriterade uppgifter</span></div>
         <div id="priorityTasks" class="priority-list"><div class="skeleton"></div></div>
         <button class="text-link" type="button" data-go-view="tasks">Visa hela checklistan ↗</button>
       </article>
@@ -89,7 +100,7 @@
     </section>
 
     <section data-view="tasks" id="uppgifter" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">PLANERING</div><h2>Att göra</h2><p>Vi kryssar av efter hand. Det som markeras sparas på den här enheten tills vi delar ändringen.</p></div><button class="btn btn-deep" id="addTaskTop" type="button">+ Ny uppgift</button></div>
+      <div class="section-intro"><div><div class="section-kicker">PLANERING</div><h2>Att göra</h2><p>Uppdaterad checklista från den gemensamma resplanen.</p></div></div>
       <div class="panel">
         <div class="task-tools"><div class="progress-wrap"><div class="progress-top"><b id="taskProgressLabel">0 % klart</b><span id="taskProgressCaption">–</span></div><div class="progress-track"><div id="taskProgressBar"></div></div></div><div class="filter-chips" id="taskFilters"><button type="button" class="chip active" data-filter="open">Kvar</button><button type="button" class="chip" data-filter="all">Alla</button><button type="button" class="chip" data-filter="done">Klara</button></div></div>
         <div id="taskList" class="task-list"></div>
@@ -106,22 +117,22 @@
       <div class="section-intro"><div><div class="section-kicker">BOKADE KOSTNADER</div><h2>Vad kostar resan hittills?</h2><p>Bekräftade priser från biljetter och fakturor, fördelade mellan M&M och P&E.</p></div></div>
       <div class="cost-summary">
         <div class="cost-summary-all"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Alla kända bokningskostnader</small></div>
-        <div><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Fördelade kostnader</small></div>
+        <div><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Inklusive preliminär SJ-andel</small></div>
         <div><span>P&E · 2 personer</span><strong id="peCostTotal">–</strong><small>Fördelade kostnader</small></div>
       </div>
-      <p class="cost-unallocated">Ofördelad kostnad: <strong id="unassignedCostTotal">–</strong> (SJ tåg för 7 personer). Den ingår i totalen, men inte i M&M:s eller P&E:s delsumma.</p>
+      <p class="cost-unallocated">SJ: preliminärt 65 % M&M (2 483 kr) och 35 % P&E (1 337 kr). Denna fördelning behöver verifieras.</p>
       <div id="costOverviewList" class="cost-overview-list"></div>
-      <p class="cost-warning">Manilahotellen är fördelade 50/50. Flygen är fördelade efter 2 vuxna + 3 barn (M&M) respektive 2 vuxna (P&E), med en gemensam incheckad väska per grupp på varje inrikesflyg. Boracaysvitens pris inväntas. Ej bokade boenden, transfer och utflykter ingår inte. Sidan är offentlig på GitHub – inga betalningskort eller bokningsnummer visas.</p>
+      <p class="cost-warning">Manilahotellen är fördelade 50/50. SJ:s 65/35-fördelning är preliminär. Flygen är fördelade efter 2 vuxna + 3 barn (M&M) respektive 2 vuxna (P&E), med en gemensam incheckad väska per grupp på varje inrikesflyg. Boracaysvitens pris inväntas. Ej bokade boenden, transfer och utflykter ingår inte. Sidan är offentlig på GitHub – inga betalningskort eller bokningsnummer visas.</p>
     </section>
 
     <section data-view="details" id="bokningar" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">PENGAR & BILJETTER</div><h2>Bokningar och budget</h2><p>Allt som är betalt, valt eller ännu inte bokat. Separata offerter för fem får inte förväxlas med totalpris för sju.</p></div><button class="btn btn-deep" id="addBudget" type="button">+ Lägg till kostnad</button></div>
+      <div class="section-intro"><div><div class="section-kicker">PENGAR & BILJETTER</div><h2>Bokningar och budget</h2><p>Bokningsuppgifter och registrerade kostnader i en gemensam översikt.</p></div></div>
       <div id="confirmedDomesticPanel" class="booked-trips-panel" aria-live="polite" hidden></div>
       <div class="budget-head">
         <article class="budget-total"><small>Registrerad totalbudget</small><strong id="budgetTotal">Ej ifyllt</strong><span>Endast egna inmatade belopp för hela sällskapet</span></article>
         <article class="budget-paid"><small>Registrerat betalt</small><strong id="budgetPaid">Ej ifyllt</strong><span>Uppdateras när ni registrerar betalningar</span></article>
       </div>
-      <div class="panel table-wrap"><table class="budget-table"><thead><tr><th>Del av resan</th><th>Status</th><th>Budget, SEK</th><th>Betalt, SEK</th><th></th></tr></thead><tbody id="budgetRows"></tbody></table></div>
+      <div class="panel table-wrap"><table class="budget-table"><thead><tr><th>Del av resan</th><th>Status</th><th>Budget, SEK</th><th>Betalt, SEK</th></tr></thead><tbody id="budgetRows"></tbody></table></div>
       <div class="panel quotes-panel"><div class="panel-heading"><h3>Historiska sökpriser – endast om de behövs</h3><span class="section-tag amber">Ej bokningsbekräftelser</span></div><p class="subtle">Tidigare prisjämförelser, inte bokningsuppgifter. Alla tre inrikesflyg är nu bokade.</p><div id="quoteList" class="quote-list"></div></div>
     </section>
 
@@ -135,17 +146,10 @@
       <div class="activity-grid" id="activityGrid"></div>
     </section>
 
-    <section data-view="details" id="anteckningar" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">SAMARBETE</div><h2>Anteckningar & uppdatering</h2><p>Skriv direkt i appen. För gemensam uppdatering exporterar du planen eller skickar ändringarna till ChatGPT.</p></div></div>
-      <div class="notes-grid">
-        <div class="panel"><label for="familyNotes" class="field-label">Familjens anteckningar</label><textarea id="familyNotes" rows="10" placeholder="Skriv något ni bestämt, en fråga eller idé …"></textarea><p class="hint">Ändringar sparas automatiskt i den här webbläsaren.</p></div>
-        <div class="panel update-panel"><h3>Så fungerar uppdateringar</h3><div class="update-steps"><div><b>1</b><p>Ändra uppgifter, beslut, status och budget direkt här. Det sparas på din enhet.</p></div><div><b>2</b><p>Kopiera en uppdatering och klistra in i ChatGPT. Då kan jag publicera samma ändringar i GitHub åt hela familjen.</p></div><div><b>3</b><p>Hämta senaste publicerade planen på andra enheter. Exportera först om ni har egna osynkade ändringar.</p></div></div><div class="button-stack"><button class="btn btn-teal" id="copyReport" type="button">Kopiera uppdatering till ChatGPT</button><button class="btn btn-light" id="exportPlan" type="button">Ladda ned plan.json</button><label class="btn btn-light upload-label" for="importPlan">Importera plan.json</label><input id="importPlan" type="file" accept=".json,application/json" hidden><button class="btn btn-ghost" id="resetPlan" type="button">Hämta om publicerad plan</button><a class="text-link" href="https://github.com/MrMartinPet/Vilja/edit/main/resa/plan.json" target="_blank" rel="noopener">Masterplan på GitHub (offentlig) ↗</a></div><p class="hint privacy-note">Integritet: Den här sidan och GitHub-filerna är offentliga. Publicera aldrig bokningsreferenser, passnummer, fullständiga personnamn, kontaktuppgifter, barnens exakta åldrar eller privata fakturor och betalningsuppgifter. Budget och anteckningar som redigeras här sparas lokalt på din enhet.</p></div>
-      </div>
-    </section>
+
   </main>
   <footer class="site-foot"><div class="shell footer-inner"><div>✦ Familjeresan 2027 <span>· Bohol + Boracay</span></div><div id="lastUpdated">Uppdateras från GitHub</div></div></footer>
 
-  <dialog id="editDialog" class="edit-dialog" aria-labelledby="editorTitle"><form id="editorForm"><div class="dialog-head"><div><div class="section-kicker">REDIGERA</div><h2 id="editorTitle">Uppgift</h2></div><button type="button" class="dialog-close" id="closeDialog" aria-label="Stäng">✕</button></div><div id="editorFields" class="editor-fields"></div><div class="dialog-actions"><button class="btn btn-light" type="button" id="cancelDialog">Avbryt</button><button class="btn btn-teal" type="submit">Spara ändringar</button></div></form></dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
 </body>
 </html>

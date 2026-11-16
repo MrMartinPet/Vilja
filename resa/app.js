@@ -106,17 +106,10 @@ function renderTasks(){
  Array.from(byId("taskFilters").querySelectorAll("button")).forEach(function(b){b.classList.toggle("active",b.dataset.filter===taskFilter);});
 }
 function renderDecisions(){
- byId("decisionsGrid").innerHTML=(data.decisions||[]).map(function(d){
-  var items=['<option value="">Inte bestämt</option>'].concat((d.options||[]).map(function(o){return '<option value="'+esc(o)+'" '+(d.choice===o?"selected":"")+'>'+esc(o)+'</option>';}));
-  return '<article class="decision-card"><div class="decision-head"><span class="section-tag '+(d.choice?"":"amber")+'">'+(d.choice?"Beslutat":"Behöver beslut")+'</span><small class="subtle">'+(d.priority==="high"?"Hög prioritet":"Planeras")+'</small></div>'+
-   '<h3>'+esc(d.title)+'</h3><p>'+esc(d.why||"")+'</p><label class="field-label" for="dec-'+esc(d.id)+'">Vårt val</label>'+
-   '<select id="dec-'+esc(d.id)+'" data-decision="'+esc(d.id)+'">'+items.join("")+'</select><div class="small-note">'+esc(d.note||"")+'</div>'+
-   '<button class="edit-icon" data-edit="decision" data-id="'+esc(d.id)+'">Redigera beslut / anteckning</button></article>';
- }).join("");
- byId("routeCompare").innerHTML=(data.routeOptions||[]).map(function(op){
-   return '<article class="compare-card"><span class="section-tag">'+esc(op.tag)+'</span><h4>'+esc(op.title)+'</h4>'+
-   '<small>⏱ '+esc(op.duration)+'</small><p>'+esc(op.description)+'</p><p class="pros">✓ '+esc(op.benefit)+'</p><p class="risks">! '+esc(op.risk)+'</p>'+link(op.url,"Se flyg")+'</article>';
- }).join("");
+ var open=(data.decisions||[]).filter(function(d){return !d.choice;});
+ byId("decisionsGrid").innerHTML=open.map(function(d){
+   return '<article class="pending-decision"><div class="pending-decision-text"><strong>'+esc(d.title)+'</strong><p>'+esc(d.note||d.why||"")+'</p></div><button type="button" class="edit-icon" data-edit="decision" data-id="'+esc(d.id)+'">Ändra</button></article>';
+ }).join("") || '<p class="subtle">Inga öppna beslut just nu.</p>';
 }
 function renderBudget(){
  var rows=data.budget||[];
@@ -385,10 +378,10 @@ async function init(){
       if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
       else if(masterTask&&data.tasks){data.tasks.push(clone(masterTask));}
     });
-    ["d1","d4","d5"].forEach(function(id){
+    ["d1","d2","d3","d4","d5"].forEach(function(id){
       var masterDecision=(published.decisions||[]).find(function(d){return d.id===id;});
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
-      if(masterDecision&&localDecision&&masterDecision.choice)Object.assign(localDecision,clone(masterDecision));
+      if(masterDecision&&localDecision)Object.assign(localDecision,clone(masterDecision));
     });
     ["b2","b3","b5","b6","b7","b11","b12","b13"].forEach(function(id){
       var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});

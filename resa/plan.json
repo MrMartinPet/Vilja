@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-domestic-confirmed",
+  "version": "2026-11-16-all-domestic-flights-booked",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -174,22 +174,24 @@
       "type": "val",
       "title": "Bohol → Boracay",
       "route": "Panglao → Tagbilaran hamn → OceanJet till Cebu → CEB flygplats → Caticlan → Boracay",
-      "time": "17 feb: färja ca 08.20–10.20; flyg CEB–MPH 15.50–16.50",
+      "time": "17 feb: färja preliminärt 08.20–10.20; BOKAT flyg PR2368 15.50–16.50",
       "duration": "Cirka 11–13 h från villa till villa med marginaler",
       "status": "selected",
-      "details": "Valt som preliminär resväg, INTE bokat. Ingen natt i Cebu. Privat transport till Tagbilaran hamn, färja OceanJet, privat transfer Cebu Pier 1 till flygplats, direktflyg och kort båt till Boracay. Säkerställ väderbuffert och hantera risken för separata biljetter."
+      "details": "Vald resväg via Cebu, ingen övernattning: bil från Panglao till Tagbilaran hamn → OceanJet färja till Cebu → bil till CEB → bokat direktflyg Philippine Airlines PR2368 kl. 15.50–16.50 → båt till Boracay. Färja och transferfordon återstår att boka. Två incheckade väskor à högst 10 kg på flyget."
     },
     {
       "id": "cebu-air",
       "date": "2027-02-17",
       "type": "flyg",
-      "title": "Cebu → Caticlan (alternativ)",
+      "title": "Cebu → Caticlan · flyg till Boracay",
       "route": "CEB → MPH",
       "time": "15.50–16.50",
-      "duration": "1 h, direkt",
-      "status": "selected",
-      "details": "Preliminärt flyg Philippine Airlines CEB–MPH 15.50–16.50. EJ bokat. Incheckat bagage ej verifierat på denna separata biljett.",
-      "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
+      "duration": "1 h · direkt",
+      "status": "booked",
+      "details": "Bekräftad bokning enligt flygöversikt och Kiwi-faktura 16/11 2026: Philippine Airlines PR2368, opererad av PAL Express, Cebu–Caticlan 17/2 2027 kl. 15.50–16.50, 4 vuxna och 3 barn. 7 handbagage à 7 kg och 7 små personliga föremål à 4 kg visas i bokningsöversikten. Totalt två incheckade väskor à 10 kg (en på vardera av två resenärer). Fakturerat 3 988,05 kr för samtliga sju. Fakturan visar inte nödvändigtvis att den är betald.",
+      "airline": "Philippine Airlines (PAL Express)",
+      "flightNumber": "PR2368",
+      "passengers": 7
     },
     {
       "id": "caticlan-transfer",
@@ -254,18 +256,18 @@
     {
       "id": "via-cebu",
       "title": "Via Cebu med färja och direktflyg",
-      "tag": "Budgetalternativ",
+      "tag": "Vald resväg · flyg bokat",
       "duration": "Cirka 10–13 h boende till boende",
-      "description": "Villa på Panglao → bil till Tagbilaran hamn → OceanJet omkring 08.20–10.20 → bil till Cebu flygplats → flyg 15.50–16.50 CEB–MPH → båt till Boracay.",
-      "benefit": "Betydligt billigare flyg, direktflyg från Cebu till Caticlan.",
-      "risk": "Färja och flyg är separata bokningar. Väderinställd färja kan leda till missat flyg. För fem: flyg senast sökt 4 576 kr, exkl färja/bilar/bagage.",
+      "description": "Panglao → bil till Tagbilaran hamn → OceanJet färja till Cebu (preliminärt 08.20–10.20) → bil till Cebu flygplats → BOKAT direktflyg PR2368 15.50–16.50 CEB–MPH → båt till Boracay.",
+      "benefit": "Direktflyget till Caticlan är bokat för sju resenärer; resa via Cebu utan hotellnatt.",
+      "risk": "Färja och flyg är separata bokningar. Om färjan ställs in kan flyget missas. På PR2368 är incheckat bagage bara 2 × 10 kg.",
       "status": "selected",
       "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
     },
     {
       "id": "via-manila",
       "title": "Flyg via Manila på samma bokning",
-      "tag": "Enklare logistiskt",
+      "tag": "Ej valt · endast reservmöjlighet",
       "duration": "Flygrutt cirka 4 h 10 min + transporterna på öarna",
       "description": "Villa på Panglao → TAG flygplats → flyg via MNL → Caticlan (MPH) → båt till Boracay. Exempel på dagflyg 11.40–15.50.",
       "benefit": "Ingen färja mellan Bohol och Cebu; färre olika transportslag.",
@@ -274,24 +276,7 @@
       "url": "https://flights.booking.com/flights/TAG.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=TAG.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
     }
   ],
-  "quotes": [
-    {
-      "id": "q2",
-      "leg": "Cebu → Caticlan, 17 feb, 15.50",
-      "people": 5,
-      "amount": 4576,
-      "source": "Philippine Airlines via flygsökning",
-      "note": "Endast för Cebu-alternativet. Färja och båtar tillkommer."
-    },
-    {
-      "id": "q3",
-      "leg": "Bohol → Caticlan via Manila, 17 feb",
-      "people": 5,
-      "amount": 11472,
-      "source": "Flygsökning, dagflyg",
-      "note": "Alternativ till Cebu. Kontrollera skyddad anslutning på en bokning."
-    }
-  ],
+  "quotes": [],
   "tasks": [
     {
       "id": "t01",
@@ -319,11 +304,11 @@
     },
     {
       "id": "t04",
-      "title": "Boka transportkedjan Bohol → Boracay 17 feb",
+      "title": "Boka OceanJet-färja och transfer via Cebu 17 feb",
       "category": "Transport",
       "priority": "high",
       "done": false,
-      "note": "Om Cebu: färja OceanJet + minibuss + flyg. Annars skyddad flygförbindelse via Manila."
+      "note": "Flyget PR2368 15.50–16.50 är bokat för sju. Boka färja Tagbilaran→Cebu, transport Cebu Pier 1→CEB och båt Caticlan→Boracay; tillåt god tidsbuffert."
     },
     {
       "id": "t05",
@@ -359,19 +344,19 @@
     },
     {
       "id": "t09",
-      "title": "Verifiera sju platser och bagage på CEB → MPH",
+      "title": "Flygen inom Filippinerna bokade för sju resenärer",
       "category": "Flyg",
       "priority": "high",
-      "done": false,
-      "note": "De två andra inrikesflygen är bokade för sju. Flyget via Cebu och dess bagage återstår."
+      "done": true,
+      "note": "Cebu Pacific 5J615 10 feb, Philippine Airlines PR2368 17 feb och AirAsia Z2226 23 feb. Bagaget framgår av separat sammanställning."
     },
     {
       "id": "t10",
-      "title": "Kontrollera incheckat bagage på Cebu → Caticlan 17 feb",
+      "title": "Kontrollera 10 kg-gränsen och handbagageregler på PR2368",
       "category": "Flyg",
       "priority": "high",
       "done": false,
-      "note": "MNL–TAG och MPH–MNL visar 2×20 kg, men separat flyg CEB–MPH har ännu inget bekräftat bagage."
+      "note": "PR2368 är bokat med två incheckade väskor à 10 kg, 7 kabinväskor à 7 kg och personliga föremål à 4 kg i återförsäljarens översikt. Säkerställ faktisk tillåten vikt hos PAL Express, inkl. möjlig uppgradering om större väskor behövs."
     },
     {
       "id": "t11",
@@ -472,7 +457,7 @@
         "Flyg på en biljett via Manila"
       ],
       "choice": "Färja + direktflyg via Cebu",
-      "note": "Preliminärt vald resväg 17 februari: färja från Tagbilaran till Cebu City utan övernattning, privat transfer till CEB, och direktflyg CEB–MPH 15.50–16.50. Inte bokat. Bekräfta färja, bil, flyg och risken vid separata biljetter före betalning.",
+      "note": "Via Cebu, utan övernattning. Flyget Philippine Airlines PR2368 CEB–MPH 17/2 kl. 15.50–16.50 är nu bokat. OceanJet-färja, transfer och säkerhetsmarginaler kvarstår.",
       "why": "Styr hela transportbokningen och eventuell färjeanslutning."
     },
     {
@@ -783,7 +768,7 @@
     },
     {
       "id": "b5",
-      "name": "Bohol → Boracay inkl. färja/bil/flyg",
+      "name": "Bohol → Boracay: färja, bil, båtar (exkl. bokat flyg)",
       "category": "Transport",
       "totalSEK": null,
       "paidSEK": null,
@@ -834,35 +819,144 @@
       "paidSEK": null,
       "scope": "7 personer",
       "status": "todo"
+    },
+    {
+      "id": "b11",
+      "name": "Philippine Airlines PR2368 · Cebu → Caticlan · 7 resenärer",
+      "category": "Flyg",
+      "totalSEK": 3988.05,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "booked"
     }
   ],
-  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. MNL–TAG 10/2 (5J615) och MPH–MNL 23/2 (Z2226) är bokade för alla sju, med 7 handbagage à 7 kg och 2 incheckade väskor à 20 kg enligt bokningsöversikten. Bagage på Cebu–Caticlan är ännu inte bekräftat. Återstående offerter gäller fem personer, inte sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
+  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. MNL–TAG 10/2 (5J615) och MPH–MNL 23/2 (Z2226) är bokade för alla sju, med 7 handbagage à 7 kg och 2 incheckade väskor à 20 kg enligt bokningsöversikten. Cebu–Caticlan (PR2368) är bokat med 2 × 10 kg incheckat på sju biljetter. Återstående är färja och mark-/båttransporter. Samtliga tre inrikesflyg är bokade för sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
   "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
   "domesticBaggage": {
-    "status": "confirmed_in_booking_overview",
-    "flightIds": [
-      "flight-mnl-tag",
-      "flight-mph-mnl"
-    ],
+    "status": "confirmed_in_booking_overviews",
     "passengers": 7,
-    "cabin": {
-      "pieces": 7,
-      "perPassengerKg": 7,
-      "dimensionsCm": [
-        56,
-        36,
-        23
-      ]
-    },
-    "checked": {
-      "pieces": 2,
-      "perPieceKg": 20,
-      "dimensionsCm": [
-        78,
-        52,
-        28
-      ]
-    },
-    "note": "Enligt bokningsbilderna: 7 handbagage à 7 kg, totalt 2 incheckade väskor à 20 kg på de visade inrikesflygen. Kontrollera e-biljetterna. Bagage för flyget Cebu–Caticlan 17 februari är inte bekräftat."
+    "byFlight": [
+      {
+        "id": "flight-mnl-tag",
+        "flightNumber": "5J615",
+        "date": "2027-02-10",
+        "route": "Manila → Bohol",
+        "carrier": "Cebu Pacific",
+        "cabin": {
+          "pieces": 7,
+          "perPassengerKg": 7,
+          "dimensionsCm": [
+            56,
+            36,
+            23
+          ]
+        },
+        "checked": {
+          "pieces": 2,
+          "perPieceKg": 20,
+          "dimensionsCm": [
+            78,
+            52,
+            28
+          ]
+        },
+        "notes": "Två stora incheckade väskor för hela gruppen, en per utsedd resenär."
+      },
+      {
+        "id": "cebu-air",
+        "flightNumber": "PR2368",
+        "date": "2027-02-17",
+        "route": "Cebu → Caticlan",
+        "carrier": "Philippine Airlines / PAL Express",
+        "personal": {
+          "pieces": 7,
+          "perPassengerKg": 4,
+          "dimensionsCm": [
+            40,
+            30,
+            10
+          ]
+        },
+        "cabin": {
+          "pieces": 7,
+          "perPassengerKg": 7,
+          "dimensionsCm": [
+            56,
+            36,
+            23
+          ]
+        },
+        "checked": {
+          "pieces": 2,
+          "perPieceKg": 10,
+          "dimensionsCm": [
+            78,
+            52,
+            28
+          ]
+        },
+        "notes": "OBS: incheckat bagage endast 10 kg per väska på detta flyg. De två incheckade väskorna finns på Martin och Per-Eriks respektive biljett."
+      },
+      {
+        "id": "flight-mph-mnl",
+        "flightNumber": "Z2226",
+        "date": "2027-02-23",
+        "route": "Caticlan → Manila",
+        "carrier": "Philippines AirAsia",
+        "cabin": {
+          "pieces": 7,
+          "perPassengerKg": 7,
+          "dimensionsCm": [
+            56,
+            36,
+            23
+          ]
+        },
+        "checked": {
+          "pieces": 2,
+          "perPieceKg": 20,
+          "dimensionsCm": [
+            78,
+            52,
+            28
+          ]
+        },
+        "notes": "Två stora incheckade väskor för hela gruppen, en per utsedd resenär."
+      }
+    ],
+    "note": "Alla tre inrikesflyg är bokade för sju. Viktigaste skillnaden: på Cebu–Caticlan är det 2×10 kg incheckat, på de övriga 2×20 kg. Resenären måste kontrollera flygbolagens slutliga villkor i e-biljetterna, särskilt hur personlig väska och kabinväska räknas tillsammans."
+  },
+  "costSharing": {
+    "currency": "SEK",
+    "persons": "Två extra vuxna – gemensam sammanställning, ej publicera namn i offentligt gränssnitt",
+    "flights": [
+      {
+        "date": "2027-02-10",
+        "route": "MNL–TAG",
+        "ticketsSEK": null,
+        "checkedBaggageSEK": 195.3,
+        "checkedBagKg": 20
+      },
+      {
+        "date": "2027-02-17",
+        "route": "CEB–MPH",
+        "ticketsSEK": 1010.87,
+        "checkedBaggageSEK": 225,
+        "checkedBagKg": 10
+      },
+      {
+        "date": "2027-02-23",
+        "route": "MPH–MNL",
+        "ticketsSEK": null,
+        "checkedBaggageSEK": 288.05,
+        "checkedBagKg": 20
+      }
+    ],
+    "firstAndLastTicketsTotalSEK": 2518.3,
+    "firstAndLastTotalSEK": 3001.65,
+    "middleTotalSEK": 1235.87,
+    "allThreeTotalSEK": 4237.52,
+    "invoiceMiddleFlightTotalForSevenSEK": 3988.05,
+    "disclaimer": "Betalningsfördelning för de två extra vuxna baserad på tidigare överenskommen summa och Kiwi-faktura: vuxenpris 2 021,74 kr för 4 vuxna (1 010,87 kr för två) plus en incheckad 10 kg-väska 225 kr. Fakturan bekräftar pris, inte betalningsstatus."
   }
 }

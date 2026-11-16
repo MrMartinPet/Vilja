@@ -14,8 +14,7 @@ var iconName={"flyg":"✈️","hotell":"🏨","bil":"🚐","båt":"⛴️","val"
 var stayIcon={"villa":"🌴","hotell":"🛏️"};
 function badge(status){return '<span class="status '+esc(status||"todo")+'">'+esc(statusName[status]||"Ej bokat")+'</span>';}
 function link(url,title,css){return safeUrl(url)?'<a class="'+(css||"")+'" target="_blank" rel="noopener noreferrer" href="'+esc(safeUrl(url))+'">'+esc(title)+' ↗</a>':"";}
-function notice(msg,type){var el=byId(type==="error"?"errorBanner":"syncBanner");el.textContent=msg;el.hidden=false;}
-function toast(msg){var el=byId("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.classList.remove("show");},3000);}
+function notice(msg){var el=byId("errorBanner");if(el){el.textContent=msg;el.hidden=false;}}
 function freshness(){
  var now=new Date(),departure=new Date("2027-02-08T00:00:00");
  var days=Math.ceil((departure.getTime()-new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime())/86400000);
@@ -114,7 +113,7 @@ function renderTasks(){
 function renderDecisions(){
  var open=(data.decisions||[]).filter(function(d){return !d.choice;});
  byId("decisionsGrid").innerHTML=open.map(function(d){
-   return '<article class="pending-decision"><div class="pending-decision-text"><strong>'+esc(d.title)+'</strong><p>'+esc(d.note||d.why||"")+'</p></div><button type="button" class="edit-icon" data-edit="decision" data-id="'+esc(d.id)+'">Ändra</button></article>';
+   return '<article class="pending-decision"><div class="pending-decision-text"><strong>'+esc(d.title)+'</strong><p>'+esc(d.note||d.why||"")+'</p></div></article>';
  }).join("") || '<p class="subtle">Inga öppna beslut just nu.</p>';
 }
 function showView(view){
@@ -166,7 +165,7 @@ function renderBudget(){
  byId("budgetTotal").textContent=totals.length?money(totals.reduce(function(a,b){return a+b;},0)):"Ej ifyllt";
  byId("budgetPaid").textContent=paid.length?money(paid.reduce(function(a,b){return a+b;},0)):"Ej ifyllt";
  byId("budgetRows").innerHTML=rows.map(function(b){
-  return '<tr><td>'+esc(b.name)+'</td><td>'+badge(b.status)+'</td><td class="numeric">'+money(b.totalSEK)+'</td><td class="numeric">'+money(b.paidSEK)+'</td><td><button class="edit-icon" data-edit="budget" data-id="'+esc(b.id)+'">Ändra</button></td></tr>';
+  return '<tr><td>'+esc(b.name)+'</td><td>'+badge(b.status)+'</td><td class="numeric">'+money(b.totalSEK)+'</td><td class="numeric">'+money(b.paidSEK)+'</td></tr>';
  }).join("");
  var quotes=(data.quotes||[]);
  var qel=byId("quoteList");

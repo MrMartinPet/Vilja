@@ -354,12 +354,12 @@ async function init(){
       }
     });
     // Reconcile newly confirmed travel details with older private on-device copies.
-    ["flight-mnl-tag","flight-mph-mnl","return-from-island","last-hotel-checkin","cebu-air","bohol-boracay"].forEach(function(id){
+    ["flight-mnl-tag","flight-mph-mnl","return-from-island","last-hotel-checkin","cebu-air","bohol-boracay","hotel-first-checkin"].forEach(function(id){
       var masterLeg=(published.legs||[]).find(function(l){return l.id===id;});
       var localLeg=(data.legs||[]).find(function(l){return l.id===id;});
       if(masterLeg&&localLeg)Object.assign(localLeg,clone(masterLeg));
     });
-    ["t02","t03","t04","t05","t07","t09","t10"].forEach(function(id){
+    ["t01","t02","t03","t04","t05","t07","t09","t10"].forEach(function(id){
       var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
       var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
       if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
@@ -369,7 +369,7 @@ async function init(){
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
       if(masterDecision&&localDecision&&masterDecision.choice)Object.assign(localDecision,clone(masterDecision));
     });
-    ["b2","b5","b6","b7","b11"].forEach(function(id){
+    ["b2","b3","b5","b6","b7","b11"].forEach(function(id){
       var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
       var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
       if(masterBudget&&localBudget){

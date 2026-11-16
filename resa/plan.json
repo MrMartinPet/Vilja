@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-belmont-first-night-confirmed",
+  "version": "2026-11-16-sj-trains-and-airport-bus",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -12,7 +12,8 @@
     "departure": "2027-02-08",
     "arrival": "2027-02-10T00:05",
     "return": "2027-02-24T06:20",
-    "timezone": "Asia/Manila"
+    "timezone": "Asia/Manila",
+    "arrivalArlandaReturn": "2027-02-24T16:20"
   },
   "stays": [
     {
@@ -128,6 +129,28 @@
     }
   ],
   "legs": [
+    {
+      "id": "train-out",
+      "date": "2027-02-08",
+      "type": "tåg",
+      "title": "SJ snabbtåg till Stockholm",
+      "route": "Skövde C → Stockholm C",
+      "time": "10.23–12.31",
+      "duration": "Tåg 428 · X 2000 · 2 klass",
+      "status": "booked",
+      "details": "Bokat och betalt för sju resenärer. Resan fortsätter med separat flygbuss från Stockholm C till Arlanda Terminal 5; flygbussen är ännu inte bokad."
+    },
+    {
+      "id": "bus-out",
+      "date": "2027-02-08",
+      "type": "buss",
+      "title": "Flygbuss till Arlanda",
+      "route": "Stockholm C → Arlanda Terminal 5",
+      "time": "Efter tågets ankomst 12.31",
+      "duration": "Flygbussarna · cirka 45 min, kontrollera avgång",
+      "status": "todo",
+      "details": "Ännu inte bokad eller betald. Preliminärt pris 756 kr tur och retur för fem personer enligt sökbild; priset är inte fastställt förrän köp."
+    },
     {
       "id": "flight-international-in",
       "date": "2027-02-08",
@@ -257,6 +280,28 @@
       "duration": "Bokat internationellt",
       "status": "booked",
       "details": "Air China. Siktar på flygplatsen cirka 03.20. Kontrollera terminal i biljetten igen före avresa."
+    },
+    {
+      "id": "bus-return",
+      "date": "2027-02-24",
+      "type": "buss",
+      "title": "Flygbuss från Arlanda",
+      "route": "Arlanda Terminal 5 → Stockholm C",
+      "time": "Efter flygets ankomst 16.20",
+      "duration": "Flygbussarna · cirka 45 min, kontrollera avgång",
+      "status": "todo",
+      "details": "Ännu inte bokad eller betald. Måste hinna till bokat SJ-tåg från Stockholm C kl. 18.16; mycket liten marginal om flyget blir sent, särskilt med incheckat bagage."
+    },
+    {
+      "id": "train-return",
+      "date": "2027-02-24",
+      "type": "tåg",
+      "title": "SJ snabbtåg hem",
+      "route": "Stockholm C → Skövde C",
+      "time": "18.16–20.19",
+      "duration": "Tåg 445 · X 2000 · 2 klass",
+      "status": "booked",
+      "details": "Bokat och betalt för sju resenärer. Air China landar enligt resplanen på Arlanda kl. 16.20. Anslutningen med ännu obokad flygbuss till Stockholm C är tidskritisk, särskilt vid bagageutlämning eller försening."
     }
   ],
   "routeOptions": [
@@ -452,6 +497,22 @@
       "priority": "medium",
       "done": false,
       "note": "I SEK, hela gruppen (7) och separat övrig 5-personsgrupp vid behov."
+    },
+    {
+      "id": "t22",
+      "title": "Köp Flygbussarna Stockholm C ↔ Arlanda för 5",
+      "category": "Transport",
+      "priority": "medium",
+      "done": false,
+      "note": "Ej bokat. Prisförslag 756 kr tur och retur för fem. Köp först när biljetterna går att använda för resdatumen. Kontrollera hur biljetternas 3 månaders giltighet räknas."
+    },
+    {
+      "id": "t23",
+      "title": "Säkerställ flygbussanslutning 24 feb till SJ 18.16",
+      "category": "Transport",
+      "priority": "high",
+      "done": false,
+      "note": "Air China ankommer ARN 16.20. SJ-tåg från Stockholm C avgår 18.16. Planera för passkontroll, bagage, flygbuss och förseningar. Ombokningsbar SJ-retur, men ny avgång beror på tillgänglighet."
     }
   ],
   "decisions": [
@@ -835,6 +896,24 @@
       "paidSEK": null,
       "scope": "7 personer",
       "status": "booked"
+    },
+    {
+      "id": "b12",
+      "name": "SJ Skövde ↔ Stockholm C · 7 resenärer · betalt",
+      "category": "Transport",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "7 personer",
+      "status": "paid"
+    },
+    {
+      "id": "b13",
+      "name": "Flygbussarna Stockholm C ↔ Arlanda · ej bokat",
+      "category": "Transport",
+      "totalSEK": null,
+      "paidSEK": null,
+      "scope": "5 personer, preliminärt erbjudande",
+      "status": "todo"
     }
   ],
   "notes": "Familjeresan till Bohol och Boracay. Vi prioriterar bekväm resväg, närhet till strand och restauranger samt rymligt boende. Boracayboendet är bekräftat, och boende på Bohol samt vissa mark- och båttransporter återstår. Privata betalningsuppgifter och personliga bokningsuppgifter förvaras inte i den publika resplanen.",

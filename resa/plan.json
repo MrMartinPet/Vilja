@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-15-boracay-hotel-map",
-  "updated": "2026-11-15",
+  "version": "2026-11-16-domestic-confirmed",
+  "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -150,10 +150,12 @@
       "title": "Manila → Bohol",
       "route": "MNL → TAG",
       "time": "14.05–15.40",
-      "duration": "1 h 35 min, direkt",
-      "status": "selected",
-      "details": "Cebu Pacific. Vald avgång, ännu inte bokad. Senaste priset är för fem personer, inte sju.",
-      "url": "https://flights.booking.com/flights/MNL.AIRPORT-TAG.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=MNL.AIRPORT&to=TAG.AIRPORT&depart=2027-02-10&children=6%2C9%2C11&sort=BEST"
+      "duration": "1 h 35 min · direkt",
+      "status": "booked",
+      "details": "Bekräftad bokningsöversikt: Cebu Pacific 5J615, Manila (MNL) → Bohol–Panglao (TAG) 10 februari 2027 kl. 14.05–15.40, 7 resenärer. Bagage enligt bokningsöversikten: 7 handbagage à 7 kg och totalt 2 incheckade väskor à 20 kg. Se bagagerutan på sidan.",
+      "flightNumber": "5J615",
+      "airline": "Cebu Pacific",
+      "passengers": 7
     },
     {
       "id": "tag-alona",
@@ -186,7 +188,7 @@
       "time": "15.50–16.50",
       "duration": "1 h, direkt",
       "status": "selected",
-      "details": "Philippine Airlines, ENDAST om Cebu-färjealternativet väljs. Boka inte innan färja och säkerhetsmarginal är accepterade.",
+      "details": "Preliminärt flyg Philippine Airlines CEB–MPH 15.50–16.50. EJ bokat. Incheckat bagage ej verifierat på denna separata biljett.",
       "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
     },
     {
@@ -206,10 +208,10 @@
       "type": "båt",
       "title": "Boracay → Caticlan flygplats",
       "route": "White Beach → Cagban → Caticlan → MPH",
-      "time": "Avresa från villan på förmiddagen",
+      "time": "Förmiddag · flyg MPH 14.35",
       "duration": "Avsätt cirka 3–4 h före flygets avgång",
       "status": "todo",
-      "details": "Förbokad bil+båt+bil. Säkerhetsmarginal för check-in på MPH."
+      "details": "Transfer från Two Seasons Boracay Resort via båt och bil. 7 resenärer med 2 större resväskor och handbagage. Ordna god marginal före flyget."
     },
     {
       "id": "flight-mph-mnl",
@@ -217,11 +219,13 @@
       "type": "flyg",
       "title": "Boracay → Manila",
       "route": "MPH → MNL",
-      "time": "13.10–14.25",
-      "duration": "1 h 15 min, direkt",
-      "status": "selected",
-      "details": "Cebu Pacific. Föreslagen bekväm avgång, ännu inte bokad. Förmiddag med båt från Boracay.",
-      "url": "https://flights.booking.com/flights/MPH.AIRPORT-MNL.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=MPH.AIRPORT&to=MNL.AIRPORT&depart=2027-02-23&children=6%2C9%2C11&sort=CHEAPEST"
+      "time": "14.35–15.40",
+      "duration": "1 h 5 min · direkt",
+      "status": "booked",
+      "details": "Bekräftad bokningsöversikt: Philippines AirAsia Z2226, Caticlan (MPH) → Manila (MNL) 23 februari 2027 kl. 14.35–15.40, 7 resenärer. Bagage enligt bokningsöversikten: 7 handbagage à 7 kg och totalt 2 incheckade väskor à 20 kg. Se bagagerutan på sidan.",
+      "flightNumber": "Z2226",
+      "airline": "Philippines AirAsia",
+      "passengers": 7
     },
     {
       "id": "last-hotel-checkin",
@@ -229,10 +233,10 @@
       "type": "hotell",
       "title": "Flygplatshotell i Manila",
       "route": "MNL → hotell nära Terminal 3",
-      "time": "Efter ankomst Manila",
+      "time": "Efter ankomst Manila 15.40",
       "duration": "Kort transfer / beroende på terminal",
       "status": "todo",
-      "details": "En övernattning. Kontrollera terminal och hotelltransfer."
+      "details": "AirAsia Z2226 landar 15.40. Hotell nära flygplatsen 23–24 februari inför Air China 06.20 nästa morgon."
     },
     {
       "id": "flight-international-out",
@@ -272,14 +276,6 @@
   ],
   "quotes": [
     {
-      "id": "q1",
-      "leg": "Manila → Bohol, 10 feb, 14.05",
-      "people": 5,
-      "amount": 4328,
-      "source": "Cebu Pacific via flygsökning",
-      "note": "Sökpris för 2 vuxna + 3 barn. Inte bokat, bagagetillägg kan tillkomma."
-    },
-    {
       "id": "q2",
       "leg": "Cebu → Caticlan, 17 feb, 15.50",
       "people": 5,
@@ -294,14 +290,6 @@
       "amount": 11472,
       "source": "Flygsökning, dagflyg",
       "note": "Alternativ till Cebu. Kontrollera skyddad anslutning på en bokning."
-    },
-    {
-      "id": "q4",
-      "leg": "Caticlan → Manila, 23 feb, 13.10",
-      "people": 5,
-      "amount": 4667,
-      "source": "Cebu Pacific via flygsökning",
-      "note": "Föreslagen avgång, inte bokat."
     }
   ],
   "tasks": [
@@ -315,19 +303,19 @@
     },
     {
       "id": "t02",
-      "title": "Boka MNL → TAG den 10 feb kl. 14.05 för alla 7",
+      "title": "Bokat: 5J615 · 14.05–15.40",
       "category": "Flyg",
       "priority": "high",
-      "done": false,
-      "note": "Vald avgång Cebu Pacific. Kontrollera flygnummer och handbagage."
+      "done": true,
+      "note": "7 resenärer, bagage enligt bokningsöversikten: 7×7 kg handbagage, 2×20 kg incheckat."
     },
     {
       "id": "t03",
-      "title": "Besluta om Bohol → Boracay: via Cebu eller Manila",
+      "title": "Beslutat: Bohol → Boracay via Cebu",
       "category": "Beslut",
       "priority": "high",
-      "done": false,
-      "note": "Jämför total dörr-till-dörr-tid, slutpris för 7 och färjerisk."
+      "done": true,
+      "note": "Flyg och färja i Cebu återstår att boka."
     },
     {
       "id": "t04",
@@ -339,11 +327,11 @@
     },
     {
       "id": "t05",
-      "title": "Boka MPH → MNL den 23 feb för alla 7",
+      "title": "Bokat: Z2226 · 14.35–15.40",
       "category": "Flyg",
       "priority": "high",
-      "done": false,
-      "note": "13.10–14.25 är preliminärt favoritflyg."
+      "done": true,
+      "note": "7 resenärer, bagage enligt bokningsöversikten: 7×7 kg handbagage, 2×20 kg incheckat."
     },
     {
       "id": "t06",
@@ -371,19 +359,19 @@
     },
     {
       "id": "t09",
-      "title": "Verifiera barn- och vuxenpriser för sju platser",
+      "title": "Verifiera sju platser och bagage på CEB → MPH",
       "category": "Flyg",
       "priority": "high",
       "done": false,
-      "note": "Senaste sökpriser gäller 5, räkna alltid med de extra 2 vuxna."
+      "note": "De två andra inrikesflygen är bokade för sju. Flyget via Cebu och dess bagage återstår."
     },
     {
       "id": "t10",
-      "title": "Kontrollera kabinbagagevillkor på alla flyg",
+      "title": "Kontrollera incheckat bagage på Cebu → Caticlan 17 feb",
       "category": "Flyg",
-      "priority": "medium",
+      "priority": "high",
       "done": false,
-      "note": "Normal kabinväska per resenär. Regler kan variera med flygnummer och biljettyp."
+      "note": "MNL–TAG och MPH–MNL visar 2×20 kg, men separat flyg CEB–MPH har ännu inget bekräftat bagage."
     },
     {
       "id": "t11",
@@ -529,12 +517,10 @@
       "title": "Boracay → Manila 23 feb",
       "priority": "medium",
       "options": [
-        "Cebu Pacific 13.10–14.25",
-        "Tidigare förmiddagsflyg",
-        "Annat direktflyg"
+        "Philippines AirAsia Z2226 · 14.35–15.40"
       ],
-      "choice": "Cebu Pacific 13.10–14.25",
-      "note": "Föreslagen avgång, ännu inte bokad.",
+      "choice": "Philippines AirAsia Z2226 · 14.35–15.40",
+      "note": "Bekräftat direktflyg från Caticlan till Manila 23 februari med 7 resenärer.",
       "why": "Vi vill hinna till flygplatshotellet i god tid."
     }
   ],
@@ -770,12 +756,12 @@
     },
     {
       "id": "b2",
-      "name": "Flyg MNL → TAG",
+      "name": "Flyg Cebu Pacific 5J615 · 7 resenärer",
       "category": "Flyg",
       "totalSEK": null,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "todo"
+      "status": "booked"
     },
     {
       "id": "b3",
@@ -806,21 +792,21 @@
     },
     {
       "id": "b6",
-      "name": "Villa Boracay 17–23 feb",
+      "name": "Two Seasons Boracay Resort · 7 resenärer",
       "category": "Boende",
       "totalSEK": null,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "todo"
+      "status": "booked"
     },
     {
       "id": "b7",
-      "name": "Flyg MPH → MNL",
+      "name": "Flyg AirAsia Z2226 · 7 resenärer",
       "category": "Flyg",
       "totalSEK": null,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "todo"
+      "status": "booked"
     },
     {
       "id": "b8",
@@ -850,6 +836,33 @@
       "status": "todo"
     }
   ],
-  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. Offertpriser gäller fem personer (2 vuxna + 3 barn) tills vi verifierat pris för samtliga sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
-  "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad."
+  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. MNL–TAG 10/2 (5J615) och MPH–MNL 23/2 (Z2226) är bokade för alla sju, med 7 handbagage à 7 kg och 2 incheckade väskor à 20 kg enligt bokningsöversikten. Bagage på Cebu–Caticlan är ännu inte bekräftat. Återstående offerter gäller fem personer, inte sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
+  "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
+  "domesticBaggage": {
+    "status": "confirmed_in_booking_overview",
+    "flightIds": [
+      "flight-mnl-tag",
+      "flight-mph-mnl"
+    ],
+    "passengers": 7,
+    "cabin": {
+      "pieces": 7,
+      "perPassengerKg": 7,
+      "dimensionsCm": [
+        56,
+        36,
+        23
+      ]
+    },
+    "checked": {
+      "pieces": 2,
+      "perPieceKg": 20,
+      "dimensionsCm": [
+        78,
+        52,
+        28
+      ]
+    },
+    "note": "Enligt bokningsbilderna: 7 handbagage à 7 kg, totalt 2 incheckade väskor à 20 kg på de visade inrikesflygen. Kontrollera e-biljetterna. Bagage för flyget Cebu–Caticlan 17 februari är inte bekräftat."
+  }
 }

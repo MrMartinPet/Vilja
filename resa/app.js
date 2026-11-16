@@ -10,7 +10,7 @@ var money=function(x){return typeof x==="number" && Number.isFinite(x)?new Intl.
 var num=function(x){return x===null||x===undefined||x===""?null:Number(x);};
 var dateLabel=function(s){var d=new Date(s.slice(0,10)+"T12:00:00Z");return new Intl.DateTimeFormat("sv-SE",{day:"numeric",month:"short",timeZone:"UTC"}).format(d);};
 var statusName={booked:"Bokat",paid:"Betalt",selected:"Valt · ej bokat",todo:"Ej bokat",decision:"Beslut kvar"};
-var iconName={"flyg":"✈️","hotell":"🏨","bil":"🚐","båt":"⛴️","val":"⚖️"};
+var iconName={"flyg":"✈️","hotell":"🏨","bil":"🚐","båt":"⛴️","val":"⚖️","tåg":"🚆","buss":"🚌"};
 var stayIcon={"villa":"🌴","hotell":"🛏️"};
 function badge(status){return '<span class="status '+esc(status||"todo")+'">'+esc(statusName[status]||"Ej bokat")+'</span>';}
 function link(url,title,css){return safeUrl(url)?'<a class="'+(css||"")+'" target="_blank" rel="noopener noreferrer" href="'+esc(safeUrl(url))+'">'+esc(title)+' ↗</a>':"";}
@@ -359,17 +359,38 @@ async function init(){
       var localLeg=(data.legs||[]).find(function(l){return l.id===id;});
       if(masterLeg&&localLeg)Object.assign(localLeg,clone(masterLeg));
     });
-    ["t01","t02","t03","t04","t05","t07","t09","t10"].forEach(function(id){
+    // New train and bus segments must appear on previously saved phones as well.
+    ["train-out","bus-out","bus-return","train-return"].forEach(function(id){
+      var masterLeg=(published.legs||[]).find(function(l){return l.id===id;});
+      if(!masterLeg)return;
+      data.legs=data.legs||[];
+      var localLeg=data.legs.find(function(l){return l.id===id;});
+      if(localLeg)Object.assign(localLeg,clone(masterLeg));
+      else if(id==="train-out"||id==="bus-out")data.legs.unshift(clone(masterLeg));
+      else data.legs.push(clone(masterLeg));
+    });
+    // Preserve correct chronological order on devices with old locally saved plans.
+    var sortKey=function(l){
+      var d=l.date||"9999";
+      if(l.id==="train-out")return d+"-00";
+      if(l.id==="bus-out")return d+"-01";
+      if(l.id==="bus-return")return d+"-90";
+      if(l.id==="train-return")return d+"-91";
+      return d+"-40";
+    };
+    data.legs.sort(function(a,b){return sortKey(a).localeCompare(sortKey(b));});
+    ["t01","t02","t03","t04","t05","t07","t09","t10","t22","t23"].forEach(function(id){
       var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
       var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
       if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
+      else if(masterTask&&data.tasks){data.tasks.push(clone(masterTask));}
     });
     ["d1","d4","d5"].forEach(function(id){
       var masterDecision=(published.decisions||[]).find(function(d){return d.id===id;});
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
       if(masterDecision&&localDecision&&masterDecision.choice)Object.assign(localDecision,clone(masterDecision));
     });
-    ["b2","b3","b5","b6","b7","b11"].forEach(function(id){
+    ["b2","b3","b5","b6","b7","b11","b12","b13"].forEach(function(id){
       var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
       var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
       if(masterBudget&&localBudget){

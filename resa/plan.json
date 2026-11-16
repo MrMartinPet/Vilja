@@ -1,17 +1,12 @@
 {
-  "version": "2026-11-16-all-flights-and-baggage-verified",
+  "version": "2026-11-16-public-privacy-cleanup",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
     "adults": 4,
-    "children": [
-      6,
-      9,
-      11
-    ],
-    "total": 7,
-    "flightQuotesFor": "2 vuxna + 3 barn"
+    "childrenCount": 3,
+    "total": 7
   },
   "trip": {
     "departure": "2027-02-08",
@@ -31,7 +26,7 @@
       "status": "todo",
       "details": "Incheckning efter midnatt 10/2 cirka 01–02. Boka natten 9–10 februari, inte 10–11. Säkerställ reception dygnet runt.",
       "suggestion": "Belmont Hotel Manila / Savoy Hotel Manila",
-      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-09&checkout=2027-02-10&group_adults=4&group_children=3&age=6&age=9&age=11"
+      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-09&checkout=2027-02-10"
     },
     {
       "id": "stay-bohol",
@@ -44,7 +39,7 @@
       "status": "todo",
       "details": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll. På Bohol prioriterar vi Alona Beach/Tawala.",
       "suggestion": "Privat rymlig villa för 7 – eller flera markplansrum nära poolen och stranden.",
-      "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17&group_adults=4&group_children=3&age=6&age=9&age=11",
+      "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17",
       "alternatives": [
         {
           "id": "bohol-aman-sinaya",
@@ -63,7 +58,7 @@
         {
           "id": "bohol-casa-mel-mar",
           "name": "Casa Mel Mar – villa med 3 sovrum och privat pool",
-          "url": "https://www.booking.com/hotel/ph/casa-mel-mar-luxurious-3br-3fullbr-villa-with-pool.html?checkin=2027-02-10&checkout=2027-02-17&no_rooms=1&group_adults=4&group_children=3&age=6&age=9&age=11&selected_currency=SEK",
+          "url": "https://www.booking.com/hotel/ph/casa-mel-mar-luxurious-3br-3fullbr-villa-with-pool.html?checkin=2027-02-10&checkout=2027-02-17&no_rooms=1&selected_currency=SEK",
           "status": "Kandidat – ej bokad",
           "details": "Tre sovrum, privat pool. Cirka 2,3 km till Alona Beach; inte optimal för promenad till stranden. Tidigare sökpris ej garanterat."
         }
@@ -78,8 +73,8 @@
       "area": "White Beach, Station 1 · direkt vid stranden",
       "kind": "hotell",
       "status": "booked",
-      "details": "BEKRÄFTAD BOKNING enligt hotellbekräftelsen: 1 Family Grand Suite with Pool Access, 6 nätter 17–23 februari 2027 för 4 vuxna och 3 barn (åldrar 10, 6 och 11 år enligt bokningen). Incheckning efter 14.00, utcheckning före 12.00. Gratis Wi-Fi, frukost, kaffe och te ingår. Rökfritt rum önskat och beräknad ankomst 18.00–19.00. Hotellet ligger vid White Beach i Station 1. Enligt hotellets webbplats är sviten 70 m² med en king size-säng och tre queen size-sängar samt direkt poolaccess. ANTAL BADRUM: ännu inte bekräftat – fråga skickad till hotellet.",
-      "suggestion": "Family Grand Suite with Pool Access · 70 m² · markplan · direkt tillgång till hotellets pool",
+      "details": "Bekräftat boende vid White Beach, Station 1, under sex nätter. Familjesvit på markplan med direkt tillgång till gemensamt poolområde. Frukost ingår. Antalet badrum inväntar bekräftelse.",
+      "suggestion": "Family Grand Suite with Pool Access · 70 m² · nära stranden och poolen",
       "link": "https://twoseasonsresorts.com/boracay/accommodation/family-grand-suite-with-pool-access/",
       "booking": {
         "accommodation": "Two Seasons Boracay Resort",
@@ -88,22 +83,16 @@
         "roomCount": 1,
         "nights": 6,
         "adults": 4,
-        "childrenAgesOnBooking": [
-          10,
-          6,
-          11
-        ],
         "checkInFrom": "14:00",
         "checkOutBefore": "12:00",
-        "arrivalWindow": "18:00–19:00",
         "included": [
           "Frukost",
           "Wi-Fi",
           "Kaffe och te"
         ],
-        "nonSmokingRequested": true,
         "bathrooms": "Ej verifierat – inväntar svar från boendet",
-        "notes": "70 m² på markplan, direkt poolaccess. Hotellets pool är gemensam. Antal badrum ej bekräftat. Totalkostnad saknas i underlaget."
+        "notes": "Bokat boende nära White Beach med direkt poolaccess. Kontrollera antal badrum direkt med hotellet.",
+        "childrenCount": 3
       }
     },
     {
@@ -117,7 +106,7 @@
       "status": "todo",
       "details": "För tidigt Air China-flyg 24/2 kl. 06.20. Planera att vara på terminalen omkring 03.20. Kontrollera aktuell terminal före bokning.",
       "suggestion": "Belmont / Savoy",
-      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-23&checkout=2027-02-24&group_adults=4&group_children=3&age=6&age=9&age=11"
+      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-23&checkout=2027-02-24"
     }
   ],
   "legs": [
@@ -188,7 +177,7 @@
       "time": "15.50–16.50",
       "duration": "1 h · direkt",
       "status": "booked",
-      "details": "Bekräftad bokning enligt flygöversikt och Kiwi-faktura 16/11 2026: Philippine Airlines PR2368, opererad av PAL Express, Cebu–Caticlan 17/2 2027 kl. 15.50–16.50, 4 vuxna och 3 barn. 7 handbagage à 7 kg och 7 små personliga föremål à 4 kg visas i bokningsöversikten. Totalt två incheckade väskor à 10 kg (en på vardera av två resenärer). Fakturerat 3 988,05 kr för samtliga sju. Fakturan visar inte nödvändigtvis att den är betald.",
+      "details": "Bekräftat direktflyg med Philippine Airlines / PAL Express för sju resenärer. Kabinbagage enligt biljettuppgifter; totalt två incheckade väskor à 10 kg. Kontrollera viktgränsen innan avresa.",
       "airline": "Philippine Airlines (PAL Express)",
       "flightNumber": "PR2368",
       "passengers": 7
@@ -262,7 +251,7 @@
       "benefit": "Direktflyget till Caticlan är bokat för sju resenärer; resa via Cebu utan hotellnatt.",
       "risk": "Färja och flyg är separata bokningar. Om färjan ställs in kan flyget missas. På PR2368 är incheckat bagage bara 2 × 10 kg.",
       "status": "selected",
-      "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
+      "url": "https://flights.booking.com/flights/CEB.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=CEB.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&sort=BEST"
     },
     {
       "id": "via-manila",
@@ -270,10 +259,10 @@
       "tag": "Ej valt · endast reservmöjlighet",
       "duration": "Flygrutt cirka 4 h 10 min + transporterna på öarna",
       "description": "Villa på Panglao → TAG flygplats → flyg via MNL → Caticlan (MPH) → båt till Boracay. Exempel på dagflyg 11.40–15.50.",
-      "benefit": "Ingen färja mellan Bohol och Cebu; färre olika transportslag.",
-      "risk": "Dyrare. Säkerställ att anslutningen är på samma biljett och att det är en skyddad transfer. Senast sökt för fem: 11 472 kr, exkl båt/bilar/bagage.",
+      "benefit": "Ingen färja mellan Bohol och Cebu, men det valda direktflyget via Cebu är redan bokat.",
+      "risk": "Fler flygsegment och osäkerhet kring anslutningstid. Det här alternativet är inte valt.",
       "status": "unselected",
-      "url": "https://flights.booking.com/flights/TAG.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=TAG.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&children=6%2C9%2C11&sort=BEST"
+      "url": "https://flights.booking.com/flights/TAG.AIRPORT-MPH.AIRPORT/?type=ONEWAY&adults=2&cabinClass=ECONOMY&from=TAG.AIRPORT&to=MPH.AIRPORT&depart=2027-02-17&sort=BEST"
     }
   ],
   "quotes": [],
@@ -824,20 +813,13 @@
       "id": "b11",
       "name": "Philippine Airlines PR2368 · Cebu → Caticlan · 7 resenärer",
       "category": "Flyg",
-      "totalSEK": 3988.05,
+      "totalSEK": null,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "booked",
-      "breakdown": {
-        "adultTicketsFourSEK": 2021.74,
-        "childTicketsThreeSEK": 1516.31,
-        "checkedBaggageTwoBagsSEK": 450,
-        "checkedBaggagePerBagSEK": 225
-      },
-      "note": "Bekräftad Kiwi-faktura daterad 16 november 2026. 7 resenärer, 2 incheckade väskor á 10 kg. Betalningsstatus inte styrkt av fakturan."
+      "status": "booked"
     }
   ],
-  "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. MNL–TAG 10/2 (5J615) och MPH–MNL 23/2 (Z2226) är bokade för alla sju, med 7 handbagage à 7 kg och 2 incheckade väskor à 20 kg enligt bokningsöversikten. Cebu–Caticlan (PR2368) är bokat med 2 × 10 kg incheckat på sju biljetter. Återstående är färja och mark-/båttransporter. Samtliga tre inrikesflyg är bokade för sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
+  "notes": "Familjeresan till Bohol och Boracay. Vi prioriterar bekväm resväg, närhet till strand och restauranger samt rymligt boende. Boracayboendet är bekräftat, och boende på Bohol samt vissa mark- och båttransporter återstår. Privata betalningsuppgifter och personliga bokningsuppgifter förvaras inte i den publika resplanen.",
   "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -902,7 +884,7 @@
             28
           ]
         },
-        "notes": "De två incheckade väskorna finns på två separata vuxenbiljetter. Högst 10 kg per väska. Inga passagerarnamn publiceras."
+        "notes": "Totalt två incheckade väskor à 10 kg. Andra inrikesflyg har annan viktgräns."
       },
       {
         "id": "flight-mph-mnl",
@@ -932,38 +914,5 @@
       }
     ],
     "note": "Alla tre inrikesflyg är bokade för sju. Viktigaste skillnaden: på Cebu–Caticlan är det 2×10 kg incheckat, på de övriga 2×20 kg. Resenären måste kontrollera flygbolagens slutliga villkor i e-biljetterna, särskilt hur personlig väska och kabinväska räknas tillsammans."
-  },
-  "costSharing": {
-    "currency": "SEK",
-    "persons": "Två extra vuxna – gemensam sammanställning, ej publicera namn i offentligt gränssnitt",
-    "flights": [
-      {
-        "date": "2027-02-10",
-        "route": "MNL–TAG",
-        "ticketsSEK": null,
-        "checkedBaggageSEK": 195.3,
-        "checkedBagKg": 20
-      },
-      {
-        "date": "2027-02-17",
-        "route": "CEB–MPH",
-        "ticketsSEK": 1010.87,
-        "checkedBaggageSEK": 225,
-        "checkedBagKg": 10
-      },
-      {
-        "date": "2027-02-23",
-        "route": "MPH–MNL",
-        "ticketsSEK": null,
-        "checkedBaggageSEK": 288.05,
-        "checkedBagKg": 20
-      }
-    ],
-    "firstAndLastTicketsTotalSEK": 2518.3,
-    "firstAndLastTotalSEK": 3001.65,
-    "middleTotalSEK": 1235.87,
-    "allThreeTotalSEK": 4237.52,
-    "invoiceMiddleFlightTotalForSevenSEK": 3988.05,
-    "disclaimer": "Betalningsfördelning för de två extra vuxna baserad på tidigare överenskommen summa och Kiwi-faktura: vuxenpris 2 021,74 kr för 4 vuxna (1 010,87 kr för två) plus en incheckad 10 kg-väska 225 kr. Fakturan bekräftar pris, inte betalningsstatus."
   }
 }

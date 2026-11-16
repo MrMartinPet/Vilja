@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-16-full-booking-costs-by-group",
-  "updated": "2026-11-16",
+  "version": "2026-11-17-single-source-design",
+  "updated": "2026-11-17",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -972,7 +972,7 @@
       "status": "todo"
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Hotellens kostnader delas 50/50 mellan M&M och P&E. Flygkostnaderna fördelas efter biljetter och en incheckad väska per grupp på varje inrikesflyg. SJ:s gruppfördelning och Boracaysvitens pris återstår. Boende på Bohol samt vissa mark- och båttransporter återstår. Inga privata betalningsuppgifter lagras i den publika resplanen.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Hotellens kostnader delas 50/50 mellan M&M och P&E. Flygkostnaderna fördelas efter biljetter och en incheckad väska per grupp på varje inrikesflyg. SJ:s gruppfördelning är preliminärt 65 % M&M / 35 % P&E och ska verifieras. Boracaysvitens pris återstår. Boende på Bohol samt vissa mark- och båttransporter återstår. Inga privata betalningsuppgifter lagras i den publika resplanen.",
   "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -1087,8 +1087,13 @@
       "amountSEK": 3820,
       "scope": "Alla 7 personer",
       "status": "paid",
-      "source": "Bokade tågbiljetter; gruppfördelningen saknas",
-      "allocationNote": "3 820 kr ännu ej fördelat mellan grupperna"
+      "source": "SJ totalt 3 820 kr för 7 personer; preliminär gruppfördelning 65/35",
+      "allocationNote": "SJ preliminärt 65 % M&M och 35 % P&E; fördelningen är inte verifierad.",
+      "splitSEK": {
+        "mm": 2483,
+        "pe": 1337
+      },
+      "allocationStatus": "preliminary"
     },
     {
       "id": "belmont-all",
@@ -1159,5 +1164,5 @@
       "source": "Agoda: debitering 19 feb 2027"
     }
   ],
-  "budgetAccountingNote": "Kända belopp i SEK för sju resenärer. Gruppfördelning per bokning finns i publicCostOverview. SJ 3 820 kr för alla 7 men gruppfördelning ännu inte fastställd. Flyg M&M=2 vuxna+3 barn; P&E=2 vuxna. Inrikesflyg: en gemensam incheckad väska per grupp på varje flyg; hotell 50/50. Boracaysvitens kostnad saknas."
+  "budgetAccountingNote": "SJ 3 820 kr fördelas preliminärt med 65 % (2 483 kr) på M&M och 35 % (1 337 kr) på P&E. Måste verifieras. Flyg M&M = 2 vuxna + 3 barn; P&E = 2 vuxna. Inrikesflyg: en incheckad väska per grupp på varje flyg; flygplatshotell 50/50. Boracaysvitens pris saknas."
 }

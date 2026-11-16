@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-all-domestic-flights-booked",
+  "version": "2026-11-16-all-flights-and-baggage-verified",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -372,7 +372,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Endast om Cebu-färjan väljs."
+      "note": "Via Cebu: transfer från Bohol-villan till Tagbilaran hamn före färjan 17 februari. Två incheckade väskor à 10 kg och sju handbagage."
     },
     {
       "id": "t13",
@@ -396,7 +396,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Bil, båttur, terminal-/miljöavgifter, 7 personer."
+      "note": "Transfer för 7 personer från Caticlan flygplats till Two Seasons Boracay Resort, Station 1. Båt, bil, terminalavgifter; minst 2 incheckade väskor."
     },
     {
       "id": "t16",
@@ -404,7 +404,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Båt och bil till flygplats, gott om tid."
+      "note": "Boracay Two Seasons → MPH via båt/bil 23 februari före AirAsia Z2226 kl. 14.35. Avsätt god marginal med 7 gäster och 2 incheckade väskor."
     },
     {
       "id": "t17",
@@ -827,7 +827,14 @@
       "totalSEK": 3988.05,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "booked"
+      "status": "booked",
+      "breakdown": {
+        "adultTicketsFourSEK": 2021.74,
+        "childTicketsThreeSEK": 1516.31,
+        "checkedBaggageTwoBagsSEK": 450,
+        "checkedBaggagePerBagSEK": 225
+      },
+      "note": "Bekräftad Kiwi-faktura daterad 16 november 2026. 7 resenärer, 2 incheckade väskor á 10 kg. Betalningsstatus inte styrkt av fakturan."
     }
   ],
   "notes": "Vi prioriterar barnvänlig logistik, sköldpaddor, djungel och restauranger. Boracay: Two Seasons Boracay Resort är bokat 17–23 februari, Family Grand Suite with Pool Access för sju personer. Bohol: söker fortsatt rymlig villa eller flera markplansrum nära pool, strand och restauranger. Manila är bara flygplatshotell; ingen sightseeing behövs. MNL–TAG 10/2 (5J615) och MPH–MNL 23/2 (Z2226) är bokade för alla sju, med 7 handbagage à 7 kg och 2 incheckade väskor à 20 kg enligt bokningsöversikten. Cebu–Caticlan (PR2368) är bokat med 2 × 10 kg incheckat på sju biljetter. Återstående är färja och mark-/båttransporter. Samtliga tre inrikesflyg är bokade för sju. Inga passnummer, bokningskoder eller personuppgifter ska sparas på den offentliga sidan.",
@@ -895,7 +902,7 @@
             28
           ]
         },
-        "notes": "OBS: incheckat bagage endast 10 kg per väska på detta flyg. De två incheckade väskorna finns på Martin och Per-Eriks respektive biljett."
+        "notes": "De två incheckade väskorna finns på två separata vuxenbiljetter. Högst 10 kg per väska. Inga passagerarnamn publiceras."
       },
       {
         "id": "flight-mph-mnl",

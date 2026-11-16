@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-simplified-pending-decisions",
+  "version": "2026-11-16-simpler-tabs-costs",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -92,7 +92,7 @@
       "area": "White Beach, Station 1 · direkt vid stranden",
       "kind": "hotell",
       "status": "booked",
-      "details": "Bekräftat boende vid White Beach, Station 1, under sex nätter. Familjesvit på markplan med direkt tillgång till gemensamt poolområde. Frukost ingår. Antalet badrum inväntar bekräftelse.",
+      "details": "Preliminärt bokat: Two Seasons Boracay Resort, 17–23 februari, Family Grand Suite with Pool Access. Bokningen finns men vi vill jämföra alternativ om tid finns. Ingen akut prioritet. Frukost ingår.",
       "suggestion": "Family Grand Suite with Pool Access · 70 m² · nära stranden och poolen",
       "link": "https://twoseasonsresorts.com/boracay/accommodation/family-grand-suite-with-pool-access/",
       "booking": {
@@ -111,7 +111,9 @@
         ],
         "bathrooms": "Ej verifierat – inväntar svar från boendet",
         "notes": "Bokat boende nära White Beach med direkt poolaccess. Kontrollera antal badrum direkt med hotellet.",
-        "childrenCount": 3
+        "childrenCount": 3,
+        "provisional": true,
+        "reviewWhenTime": true
       }
     },
     {
@@ -380,11 +382,11 @@
     },
     {
       "id": "t07",
-      "title": "Bokat: Two Seasons Boracay Resort 17–23 feb",
+      "title": "Preliminärt bokat: Two Seasons Boracay 17–23 feb",
       "category": "Boende",
       "priority": "high",
       "done": true,
-      "note": "Bekräftat: 1 Family Grand Suite with Pool Access, 4 vuxna + 3 barn, 6 nätter, frukost inkluderad. Kontrollera antal badrum med hotellet."
+      "note": "Bokning finns, men boendet är inte slutligt bestämt. Se gärna över alternativ om tid finns, låg prioritet."
     },
     {
       "id": "t08",
@@ -513,6 +515,14 @@
       "priority": "high",
       "done": false,
       "note": "Air China ankommer ARN 16.20. SJ-tåg från Stockholm C avgår 18.16. Planera för passkontroll, bagage, flygbuss och förseningar. Ombokningsbar SJ-retur, men ny avgång beror på tillgänglighet."
+    },
+    {
+      "id": "t24",
+      "title": "Jämför Boracayboendet om tid finns",
+      "category": "Boende",
+      "priority": "low",
+      "done": false,
+      "note": "Two Seasons Boracay är preliminärt bokat 17–23 februari. Ingen brådska; jämför gärna andra alternativ innan avbokningsfristen."
     }
   ],
   "decisions": [
@@ -556,14 +566,14 @@
     },
     {
       "id": "d4",
-      "title": "Villa på Boracay",
-      "priority": "high",
+      "title": "Eventuell översyn av Boracayboendet",
+      "priority": "low",
       "options": [
         "Two Seasons Boracay Resort – Family Grand Suite with Pool Access"
       ],
       "choice": "Two Seasons Boracay Resort – Family Grand Suite with Pool Access",
-      "note": "Bekräftad bokning 17–23 februari 2027. Station 1, direkt vid White Beach, markplan med poolaccess.",
-      "why": "Bestämmer läget för 6 nätter."
+      "note": "Two Seasons är preliminärt bokat. Vi kan jämföra med andra alternativ när tid finns; inget akut beslut.",
+      "why": "En möjlig förbättring, inte något som behöver lösas nu."
     },
     {
       "id": "d5",
@@ -845,7 +855,7 @@
     },
     {
       "id": "b6",
-      "name": "Two Seasons Boracay Resort · 7 resenärer",
+      "name": "Two Seasons Boracay Resort · preliminär bokning",
       "category": "Boende",
       "totalSEK": null,
       "paidSEK": null,
@@ -1011,5 +1021,63 @@
       }
     ],
     "note": "Alla tre inrikesflyg är bokade för sju. Viktigaste skillnaden: på Cebu–Caticlan är det 2×10 kg incheckat, på de övriga 2×20 kg. Resenären måste kontrollera flygbolagens slutliga villkor i e-biljetterna, särskilt hur personlig väska och kabinväska räknas tillsammans."
-  }
+  },
+  "publicCostOverview": [
+    {
+      "id": "airchina-family",
+      "name": "Air China tur och retur",
+      "amountSEK": 26900,
+      "scope": "Familjen, 5 personer",
+      "status": "booked",
+      "source": "Uppgift från resenären"
+    },
+    {
+      "id": "sj-all",
+      "name": "SJ tåg tur och retur",
+      "amountSEK": 3820,
+      "scope": "Alla 7 personer",
+      "status": "paid",
+      "source": "Swish-betalning och SJ-biljetter"
+    },
+    {
+      "id": "belmont-all",
+      "name": "Belmont Hotel Manila, 2 rum",
+      "amountSEK": 1594.37,
+      "scope": "Alla 7 personer",
+      "status": "booked",
+      "source": "Agoda bokningspris, debitering senare"
+    },
+    {
+      "id": "pal-all",
+      "name": "Philippine Airlines Cebu–Caticlan",
+      "amountSEK": 3988.05,
+      "scope": "Alla 7 personer",
+      "status": "booked",
+      "source": "Kiwi fakturabelopp"
+    },
+    {
+      "id": "cebu-pacific-all",
+      "name": "Cebu Pacific Manila–Bohol",
+      "amountSEK": null,
+      "scope": "Alla 7 personer",
+      "status": "booked",
+      "source": "Bokat, slutpris saknas"
+    },
+    {
+      "id": "airasia-all",
+      "name": "AirAsia Caticlan–Manila",
+      "amountSEK": null,
+      "scope": "Alla 7 personer",
+      "status": "booked",
+      "source": "Bokat, slutpris saknas"
+    },
+    {
+      "id": "twoseasons-all",
+      "name": "Two Seasons Boracay, 6 nätter",
+      "amountSEK": null,
+      "scope": "Alla 7 personer",
+      "status": "booked",
+      "source": "Preliminärt bokat, slutpris saknas"
+    }
+  ]
 }

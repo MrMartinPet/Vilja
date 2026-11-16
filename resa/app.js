@@ -61,6 +61,23 @@ function renderStays(){
   return stayBody;
  }).join("");
 }
+function renderDomesticBaggage(){
+ var host=byId("confirmedDomesticPanel");if(!host)return;
+ var b=data.domesticBaggage||(published&&published.domesticBaggage);
+ if(!b){host.hidden=true;return;}
+ var legs=(b.flightIds||[]).map(function(id){return (data.legs||[]).find(function(l){return l.id===id;});}).filter(Boolean);
+ var flightRows=legs.map(function(l){
+  return '<div class="booked-flight-row"><span><strong>'+esc(l.route)+'</strong><small>'+esc(dateLabel(l.date))+' · '+esc(l.airline||"")+' '+esc(l.flightNumber||"")+'</small></span><b>'+esc(l.time)+'</b></div>';
+ }).join("");
+ host.hidden=false;
+ host.innerHTML='<div class="booked-trips-heading"><span class="booked-trips-tick">✓</span><div><h3>Bekräftade inrikesflyg</h3><p>'+esc(b.passengers)+' resenärer · båda flygen bokade</p></div></div>'+
+  '<div class="booked-flight-list">'+flightRows+'</div>'+
+  '<div class="booked-luggage-grid">'+
+   '<div><span class="luggage-emoji">🎒</span><strong>'+esc(b.cabin.pieces)+' × '+esc(b.cabin.perPassengerKg)+' kg</strong><small>Handbagage · per person<br>'+esc(b.cabin.dimensionsCm.join(" × "))+' cm</small></div>'+
+   '<div><span class="luggage-emoji">🧳</span><strong>'+esc(b.checked.pieces)+' × '+esc(b.checked.perPieceKg)+' kg</strong><small>Incheckade väskor · totalt<br>'+esc(b.checked.dimensionsCm.join(" × "))+' cm</small></div>'+
+  '</div>'+
+  '<p class="booked-trips-warning">Obs! Bagage på det separata flyget Cebu → Caticlan 17 februari måste kontrolleras och bokas separat. Inga passagerarnamn eller bokningsreferenser publiceras här.</p>';
+}
 function renderLegs(){
  var legs=data.legs||[];
  byId("legList").innerHTML=legs.map(function(l){
@@ -120,7 +137,7 @@ function renderActivities(){
 }
 function render(){
  if(!data)return;
- renderStats();renderStays();renderLegs();renderTasks();renderDecisions();renderBudget();renderActivities();freshness();
+ renderStats();renderStays();renderLegs();renderDomesticBaggage();renderTasks();renderDecisions();renderBudget();renderActivities();freshness();
  var preference=byId("stayPreferenceDisplay");if(preference)preference.textContent=data.stayPreference||(published&&published.stayPreference)||"Rymlig villa eller rum i markplan nära pool, strand och restauranger för alla sju.";
  if(document.activeElement!==byId("familyNotes"))byId("familyNotes").value=data.notes||"";
  if(map)drawMap();
@@ -328,16 +345,30 @@ async function init(){
         if(!masterStay.alternatives)delete localStay.alternatives;
       }
     });
-    ["t07"].forEach(function(id){
+    // Reconcile newly confirmed travel details with older private on-device copies.
+    ["flight-mnl-tag","flight-mph-mnl","return-from-island","last-hotel-checkin","cebu-air"].forEach(function(id){
+      var masterLeg=(published.legs||[]).find(function(l){return l.id===id;});
+      var localLeg=(data.legs||[]).find(function(l){return l.id===id;});
+      if(masterLeg&&localLeg)Object.assign(localLeg,clone(masterLeg));
+    });
+    ["t02","t03","t05","t07","t09","t10"].forEach(function(id){
       var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
       var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
-      if(masterTask&&localTask&&masterTask.done)Object.assign(localTask,clone(masterTask));
+      if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
     });
-    ["d4"].forEach(function(id){
+    ["d4","d5"].forEach(function(id){
       var masterDecision=(published.decisions||[]).find(function(d){return d.id===id;});
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
       if(masterDecision&&localDecision&&masterDecision.choice)Object.assign(localDecision,clone(masterDecision));
     });
+    ["b2","b6","b7"].forEach(function(id){
+      var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
+      var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
+      if(masterBudget&&localBudget){localBudget.status=masterBudget.status;localBudget.name=masterBudget.name;}
+    });
+    if(published.domesticBaggage)data.domesticBaggage=clone(published.domesticBaggage);
+    // Remove historical price estimates for flights that are now confirmed.
+    data.quotes=(data.quotes||[]).filter(function(q){return ["q1","q4"].indexOf(q.id)===-1;});
     if(published.stayPreference)data.stayPreference=published.stayPreference;
     var mappedHotel=(published.places||[]).find(function(p){return p.id==="twoseasons";});
     if(mappedHotel){data.places=data.places||[];if(!data.places.some(function(p){return p.id==="twoseasons";}))data.places.push(clone(mappedHotel));}

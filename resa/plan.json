@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-simpler-tabs-costs",
+  "version": "2026-11-16-savoy-manila-last-hotel",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -121,13 +121,39 @@
       "from": "2027-02-23",
       "to": "2027-02-24",
       "nights": 1,
-      "place": "Manila · flygplatsen",
-      "area": "Vid NAIA Terminal 3",
+      "place": "Manila · Savoy Hotel Manila",
+      "area": "Newport City, Pasay · nära NAIA Terminal 3",
       "kind": "hotell",
-      "status": "todo",
-      "details": "För tidigt Air China-flyg 24/2 kl. 06.20. Planera att vara på terminalen omkring 03.20. Kontrollera aktuell terminal före bokning.",
-      "suggestion": "Belmont / Savoy",
-      "link": "https://www.booking.com/searchresults.html?ss=Newport+City%2C+Pasay%2C+Philippines&checkin=2027-02-23&checkout=2027-02-24"
+      "status": "booked",
+      "details": "Bekräftad Agoda-bokning 23–24 februari 2027: två Standard Twin-rum, en natt. 23 m² per rum och två enkelsängar per rum. Bokningen avser 4 vuxna och 3 barn. Totalt 1 061,66 SEK för båda rummen, inklusive angivna skatter. Gratis avbokning före 22 februari 2027. Planerad debitering 19 februari 2027; ännu inte betalt vid bokningstillfället. Bagageförvaring, 24-timmars incheckning och anslutande rum listas som faciliteter. Kontrollera avgångsterminal före resan.",
+      "suggestion": "Savoy Hotel Manila · 2 × Standard Twin · 1 natt · 1 061,66 kr",
+      "link": "https://www.google.com/maps/search/?api=1&query=Savoy+Hotel+Manila+Newport+City+Pasay",
+      "booking": {
+        "confirmed": true,
+        "accommodation": "Savoy Hotel Manila near Airport NAIA Terminal 3 MNL",
+        "checkIn": "2027-02-23",
+        "checkOut": "2027-02-24",
+        "nights": 1,
+        "roomCount": 2,
+        "rooms": 2,
+        "roomType": "Standard Twin",
+        "bedsPerRoom": "2 enkelsängar",
+        "roomSizeSqm": 23,
+        "adults": 4,
+        "childrenCount": 3,
+        "maximumOccupancyShown": "4 vuxna och 4 barn totalt för två rum",
+        "freeCancellationBefore": "2027-02-22",
+        "paymentScheduledDate": "2027-02-19",
+        "paymentStatus": "Ej betalt; planerad debitering via Agoda 19 februari 2027",
+        "totalSEK": 1061.66,
+        "priceSEK": 1061.66,
+        "facilities": [
+          "Bagageförvaring",
+          "24-timmars incheckning",
+          "Anslutande rum listas"
+        ],
+        "notes": "Första natten är bokad på Belmont Hotel; sista natten på Savoy Hotel. Ingen bokningsreferens publiceras."
+      }
     }
   ],
   "legs": [
@@ -265,12 +291,12 @@
       "id": "last-hotel-checkin",
       "date": "2027-02-23",
       "type": "hotell",
-      "title": "Flygplatshotell i Manila",
-      "route": "MNL → hotell nära Terminal 3",
-      "time": "Efter ankomst Manila 15.40",
-      "duration": "Kort transfer / beroende på terminal",
-      "status": "todo",
-      "details": "AirAsia Z2226 landar 15.40. Hotell nära flygplatsen 23–24 februari inför Air China 06.20 nästa morgon."
+      "title": "Incheckning Savoy Hotel Manila",
+      "route": "MNL → Savoy Hotel Manila, Newport City",
+      "time": "Efter ankomst Manila 15.40 den 23 feb",
+      "duration": "1 natt · 2 Standard Twin-rum",
+      "status": "booked",
+      "details": "Savoy Hotel Manila är bokat 23–24 februari för 4 vuxna och 3 barn. Två rum, totalt 1 061,66 kr. Planerad debitering 19 feb; kostnadsfri avbokning före 22 feb. Nära NAIA Terminal 3, men kontrollera terminal för Air China-flyget 24 feb."
     },
     {
       "id": "flight-international-out",
@@ -390,11 +416,11 @@
     },
     {
       "id": "t08",
-      "title": "Boka flygplatshotell Manila 23–24 feb",
+      "title": "Bokat: Savoy Hotel Manila · 2 rum 23–24 feb",
       "category": "Boende",
-      "priority": "high",
-      "done": false,
-      "note": "06.20 internationell avgång 24 feb."
+      "priority": "medium",
+      "done": true,
+      "note": "2 Standard Twin-rum för alla sju, totalt 1 061,66 kr. Gratis avbokning före 22 feb. Planerad debitering 19 feb."
     },
     {
       "id": "t09",
@@ -547,9 +573,9 @@
         "Savoy Hotel Manila",
         "Annat hotell nära flygplatsen"
       ],
-      "choice": "",
-      "note": "Första natten 9–10 februari på Belmont är redan bokad. Endast sista natten 23–24 februari återstår.",
-      "why": "Flyget från Manila avgår 24 februari kl. 06.20, så ett hotell nära rätt terminal behövs."
+      "choice": "Savoy Hotel Manila · 2 Standard Twin-rum",
+      "note": "Bokat 23–24 februari 2027 för hela sällskapet. 1 061,66 kr, gratis avbokning före 22 feb. Planerad debitering 19 feb.",
+      "why": "Klart – båda nätterna i Manila har nu bokade hotell."
     },
     {
       "id": "d3",
@@ -805,6 +831,14 @@
       "long": 121.9162,
       "kind": "boende",
       "description": "Bekräftad bokning 17–23 februari 2027, Family Grand Suite with Pool Access · White Beach, Station 1. Markören är ungefärlig."
+    },
+    {
+      "id": "savoy",
+      "name": "Savoy Hotel Manila · bokat 23–24 feb",
+      "lat": 14.5226,
+      "long": 121.0203,
+      "kind": "boende",
+      "description": "Savoy Hotel Manila, Newport City. 2 Standard Twin-rum för 7 personer. Markören är ungefärlig."
     }
   ],
   "budget": [
@@ -873,12 +907,12 @@
     },
     {
       "id": "b8",
-      "name": "Boende Manila 23–24 feb",
+      "name": "Savoy Hotel Manila · 2 rum 23–24 feb",
       "category": "Boende",
-      "totalSEK": null,
+      "totalSEK": 1061.66,
       "paidSEK": null,
       "scope": "7 personer",
-      "status": "todo"
+      "status": "booked"
     },
     {
       "id": "b9",
@@ -926,7 +960,7 @@
       "status": "todo"
     }
   ],
-  "notes": "Familjeresan till Bohol och Boracay. Vi prioriterar bekväm resväg, närhet till strand och restauranger samt rymligt boende. Boracayboendet är bekräftat, och boende på Bohol samt vissa mark- och båttransporter återstår. Privata betalningsuppgifter och personliga bokningsuppgifter förvaras inte i den publika resplanen.",
+  "notes": "Familjeresan till Bohol och Boracay. Vi prioriterar bekväm resväg, närhet till strand och restauranger samt rymligt boende. Boracayboendet är bekräftat, och boende på Bohol samt vissa mark- och båttransporter återstår; båda hotellnätterna i Manila är bokade. Privata betalningsuppgifter och personliga bokningsuppgifter förvaras inte i den publika resplanen.",
   "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -1078,6 +1112,14 @@
       "scope": "Alla 7 personer",
       "status": "booked",
       "source": "Preliminärt bokat, slutpris saknas"
+    },
+    {
+      "id": "savoy-all",
+      "name": "Savoy Hotel Manila, 2 rum, 23–24 feb",
+      "amountSEK": 1061.66,
+      "scope": "Alla 7 personer",
+      "status": "booked",
+      "source": "Agoda bokningspris, debitering 19 feb 2027"
     }
   ]
 }

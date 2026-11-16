@@ -136,14 +136,23 @@ function showView(view){
 function renderCostOverview(){
  var rows=(published&&published.publicCostOverview)||data.publicCostOverview||[];
  var fmt=function(n){return Number.isFinite(n)?new Intl.NumberFormat("sv-SE",{minimumFractionDigits:0,maximumFractionDigits:2}).format(n)+" kr":"Pris saknas";};
- var five=rows.filter(function(x){return x.amountSEK!==null&&x.scope==="Familjen, 5 personer";}).reduce(function(a,x){return a+x.amountSEK;},0);
- var seven=rows.filter(function(x){return x.amountSEK!==null&&x.scope==="Alla 7 personer";}).reduce(function(a,x){return a+x.amountSEK;},0);
- byId("familyCostTotal").textContent=fmt(five);
- byId("groupCostTotal").textContent=fmt(seven);
+ var cents=function(n){return Math.round((Number.isFinite(n)?n:0)*100);};
+ var total=0,mm=0,pe=0;
+ rows.forEach(function(x){
+  if(!Number.isFinite(x.amountSEK))return;
+  total+=cents(x.amountSEK);
+  if(x.splitSEK){mm+=cents(x.splitSEK.mm);pe+=cents(x.splitSEK.pe);}
+ });
+ var unassigned=total-mm-pe;
+ byId("allCostTotal").textContent=fmt(total/100);
+ byId("mmCostTotal").textContent=fmt(mm/100);
+ byId("peCostTotal").textContent=fmt(pe/100);
+ byId("unassignedCostTotal").textContent=fmt(unassigned/100);
  byId("costOverviewList").innerHTML=rows.map(function(x){
-  var unknown=x.amountSEK===null;
+  var unknown=!Number.isFinite(x.amountSEK);
   var state=x.status==="paid"?"Betalt":x.status==="booked"?"Bokat":"Ej bokat";
-  return '<div class="cost-line"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>'+esc(x.scope)+' · '+esc(state)+'</small></div><b class="'+(unknown?'cost-unknown':'')+'">'+esc(fmt(x.amountSEK))+'</b></div>';
+  var splits=x.splitSEK?'<small class="cost-line-split">M&M: '+esc(fmt(x.splitSEK.mm))+' · P&E: '+esc(fmt(x.splitSEK.pe))+'</small>':(x.allocationNote?'<small class="cost-line-split">'+esc(x.allocationNote)+'</small>':'');
+  return '<div class="cost-line"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>'+esc(x.scope)+' · '+esc(state)+'</small>'+splits+'</div><b class="'+(unknown?'cost-unknown':'')+'">'+esc(fmt(x.amountSEK))+'</b></div>';
  }).join("");
 }
 function renderBudget(){
@@ -421,13 +430,16 @@ async function init(){
       var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
       if(masterDecision&&localDecision)Object.assign(localDecision,clone(masterDecision));
     });
-    ["b2","b3","b5","b6","b7","b8","b11","b12","b13"].forEach(function(id){
+    ["b1","b2","b3","b5","b6","b7","b8","b11","b12","b13"].forEach(function(id){
       var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
       var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
       if(masterBudget&&localBudget){
         localBudget.status=masterBudget.status;
         localBudget.name=masterBudget.name;
-        if(id==="b8"){localBudget.totalSEK=masterBudget.totalSEK;localBudget.paidSEK=masterBudget.paidSEK;}
+        if(["b1","b2","b3","b7","b8","b11","b12"].indexOf(id)!==-1){
+          localBudget.totalSEK=masterBudget.totalSEK;
+          localBudget.paidSEK=masterBudget.paidSEK;
+        }
       }else if(masterBudget&&data.budget){data.budget.push(clone(masterBudget));}
     });
     // Route-description facts from GitHub override obsolete old-device text.

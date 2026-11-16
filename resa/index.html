@@ -7,10 +7,10 @@
   <meta name="description" content="Familjens planering för Filippinerna 2027: Bohol, Boracay, flyg, boenden, checklistor och karta.">
   <meta name="robots" content="noindex,nofollow">
   <title>Filippinerna 2027 · Resedashboard</title>
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=10">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-  <script src="app.js?v=10" defer></script>
+  <script src="app.js?v=11" defer></script>
 </head>
 <body>
   <a class="skip" href="#oversikt">Hoppa till innehållet</a>
@@ -103,10 +103,15 @@
     </section>
 
     <section data-view="costs" id="kostnader" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">BOKADE KOSTNADER</div><h2>Vad kostar resan hittills?</h2><p>Endast bekräftade belopp – inga schabloner eller detaljerade uträkningar.</p></div></div>
-      <div class="cost-summary"><div><span>Familjen, 5 personer</span><strong id="familyCostTotal">–</strong><small>Kända belopp för er familj</small></div><div><span>Hela sällskapet, 7 personer</span><strong id="groupCostTotal">–</strong><small>Kända gemensamma bokningar</small></div></div>
+      <div class="section-intro"><div><div class="section-kicker">BOKADE KOSTNADER</div><h2>Vad kostar resan hittills?</h2><p>Bekräftade priser från biljetter och fakturor, fördelade mellan M&M och P&E.</p></div></div>
+      <div class="cost-summary">
+        <div class="cost-summary-all"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Alla kända bokningskostnader</small></div>
+        <div><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Fördelade kostnader</small></div>
+        <div><span>P&E · 2 personer</span><strong id="peCostTotal">–</strong><small>Fördelade kostnader</small></div>
+      </div>
+      <p class="cost-unallocated">Ofördelad kostnad: <strong id="unassignedCostTotal">–</strong> (SJ tåg för 7 personer). Den ingår i totalen, men inte i M&M:s eller P&E:s delsumma.</p>
       <div id="costOverviewList" class="cost-overview-list"></div>
-      <p class="cost-warning">Beloppen för 5 och 7 personer är olika omfattning och ska inte läggas ihop som ett totalpris för resan. Saknade slutpriser visas utan uppskattning. Kostnaderna på denna flik är offentliga på GitHub – inga bokningsreferenser eller personliga betalningsuppgifter visas.</p>
+      <p class="cost-warning">Manilahotellen är fördelade 50/50. Flygen är fördelade efter 2 vuxna + 3 barn (M&M) respektive 2 vuxna (P&E), med en gemensam incheckad väska per grupp på varje inrikesflyg. Boracaysvitens pris inväntas. Ej bokade boenden, transfer och utflykter ingår inte. Sidan är offentlig på GitHub – inga betalningskort eller bokningsnummer visas.</p>
     </section>
 
     <section data-view="details" id="bokningar" class="page-section">

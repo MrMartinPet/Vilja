@@ -1,4 +1,4 @@
-const CACHE="vilja-portal-v29";
+const CACHE="vilja-portal-v30";
 const ASSETS=[
  "./","./index.html","./viljas-appar.html",
  "./resa/","./resa/index.html","./resa/style.css","./resa/app.js","./resa/plan.json",

@@ -16,17 +16,14 @@ function badge(status){return '<span class="status '+esc(status||"todo")+'">'+es
 function link(url,title,css){return safeUrl(url)?'<a class="'+(css||"")+'" target="_blank" rel="noopener noreferrer" href="'+esc(safeUrl(url))+'">'+esc(title)+' ↗</a>':"";}
 function notice(msg,type){var el=byId(type==="error"?"errorBanner":"syncBanner");el.textContent=msg;el.hidden=false;}
 function toast(msg){var el=byId("toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.classList.remove("show");},3000);}
-function locallySaved(){try{var s=localStorage.getItem(LOCAL_KEY);return s?JSON.parse(s):null;}catch(e){return null;}}
-function save(redraw){
- if(!data)return;
- try{localStorage.setItem(LOCAL_KEY,JSON.stringify({version:published?published.version:data.version,updated:new Date().toISOString(),plan:data}));byId("dataState").textContent="Sparat på din enhet";}catch(e){toast("Kunde inte spara lokalt. Exportera planen som backup.");}
- if(redraw!==false)render();
-}
 function freshness(){
- var now=new Date(), departure=new Date("2027-02-08T00:00:00");
+ var now=new Date(),departure=new Date("2027-02-08T00:00:00");
  var days=Math.ceil((departure.getTime()-new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime())/86400000);
  byId("daysLeft").textContent=days>=0?days:"Pågår";
- byId("lastUpdated").textContent="Publicerad plan: "+(published?published.updated:"–")+" · Ändringar på denna enhet synkas inte automatiskt";
+ var updated=(published&&published.updated)?new Date(published.updated+"T12:00:00Z") : null;
+ var dateText=updated?new Intl.DateTimeFormat("sv-SE",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(updated):"–";
+ byId("lastUpdated").textContent="Senast uppdaterad "+dateText;
+ byId("dataState").textContent="Aktuell resplan";
 }
 function renderStats(){
  var tasks=data.tasks||[],decisions=data.decisions||[],left=tasks.filter(function(t){return !t.done;}).length;
@@ -66,7 +63,7 @@ function renderStays(){
    stayBody+='</div>';
   }
   stayBody+=(stay.alternatives&&stay.alternatives.length&&!booked?'<div class="stay-alternatives"><strong>Boenden att jämföra</strong>'+stay.alternatives.map(function(a){return '<div class="stay-alt"><div>'+link(a.url,a.name)+'</div><small>'+esc(a.status||"Ej bokat")+'</small><p>'+esc(a.details||"")+'</p></div>';}).join("")+'</div>':"");
-  stayBody+='<div class="stay-footer">'+link(stay.link,booked?"Visa bokat boende":"Sök boende")+'<button class="edit-icon" data-edit="stay" data-id="'+esc(stay.id)+'">Ändra</button></div></article>';
+  stayBody+='<div class="stay-footer">'+link(stay.link,booked?"Visa bokat boende":"Sök boende")+'</div></article>';
   return stayBody;
  }).join("");
 }
@@ -98,7 +95,7 @@ function renderLegs(){
    return '<article class="leg-item"><div class="leg-date">'+esc(dateLabel(l.date))+'</div><div class="leg-icon" aria-hidden="true">'+esc(iconName[l.type]||"📍")+'</div>'+
     '<div class="leg-copy"><strong>'+esc(l.title)+'</strong><small>'+esc(l.route)+' · '+esc(l.time)+'</small>'+
     '<p>'+esc(l.duration)+' · '+esc(l.details||"")+'</p></div><div class="leg-actions">'+badge(l.status)+link(l.url,"Biljetter")+
-    '<button class="edit-icon" type="button" data-edit="leg" data-id="'+esc(l.id)+'">Ändra</button></div></article>';
+    '</div></article>';
  }).join("");
 }
 function renderTasks(){
@@ -108,9 +105,9 @@ function renderTasks(){
  byId("taskProgressBar").style.width=pct+"%";
  var filtered=tasks.filter(function(t){return taskFilter==="all"||(taskFilter==="open"&&!t.done)||(taskFilter==="done"&&t.done);});
  byId("taskList").innerHTML=filtered.length?filtered.map(function(t){
-  return '<div class="task-row '+(t.done?"is-done":"")+'"><input type="checkbox" data-task="'+esc(t.id)+'" aria-label="Markera uppgift klar" '+(t.done?"checked":"")+'>'+
+  return '<div class="task-row '+(t.done?"is-done":"")+'"><span class="task-indicator" aria-label="'+(t.done?'Klar':'Kvar')+'">'+(t.done?'✓':'○')+'</span>'+
     '<div class="task-content"><b>'+esc(t.title)+'</b><small>'+esc(t.note||"")+'</small></div>'+
-    '<div class="task-side"><span class="category-pill '+esc(t.priority)+'">'+esc(t.category)+'</span><button class="edit-icon" data-edit="task" data-id="'+esc(t.id)+'">Ändra</button></div></div>';
+    '<div class="task-side"><span class="category-pill '+esc(t.priority)+'">'+esc(t.category)+'</span></div></div>';
  }).join(""):'<p class="subtle">Inga uppgifter i den här vyn.</p>';
  Array.from(byId("taskFilters").querySelectorAll("button")).forEach(function(b){b.classList.toggle("active",b.dataset.filter===taskFilter);});
 }
@@ -134,7 +131,7 @@ function showView(view){
  window.scrollTo({top:0,behavior:"instant"});
 }
 function renderCostOverview(){
- var rows=(published&&published.publicCostOverview)||data.publicCostOverview||[];
+ var rows=data.publicCostOverview||[];
  var fmt=function(n){return Number.isFinite(n)?new Intl.NumberFormat("sv-SE",{minimumFractionDigits:0,maximumFractionDigits:2}).format(n)+" kr":"Pris saknas";};
  var cents=function(n){return Math.round((Number.isFinite(n)?n:0)*100);};
  var total=0,mm=0,pe=0;
@@ -143,15 +140,22 @@ function renderCostOverview(){
   total+=cents(x.amountSEK);
   if(x.splitSEK){mm+=cents(x.splitSEK.mm);pe+=cents(x.splitSEK.pe);}
  });
- var unassigned=total-mm-pe;
  byId("allCostTotal").textContent=fmt(total/100);
  byId("mmCostTotal").textContent=fmt(mm/100);
  byId("peCostTotal").textContent=fmt(pe/100);
- byId("unassignedCostTotal").textContent=fmt(unassigned/100);
+ var totalAmount=total/100,mmAmount=mm/100,peAmount=pe/100,mmPct=total?100*mm/total:0,pePct=total?100*pe/total:0;
+ byId("overviewBookedTotal").textContent=fmt(totalAmount);
+ byId("overviewMmCost").textContent=fmt(mmAmount);
+ byId("overviewPeCost").textContent=fmt(peAmount);
+ byId("overviewMmPct").textContent=new Intl.NumberFormat("sv-SE",{maximumFractionDigits:1}).format(mmPct)+" %";
+ byId("overviewPePct").textContent=new Intl.NumberFormat("sv-SE",{maximumFractionDigits:1}).format(pePct)+" %";
+ byId("overviewMmBar").style.width=mmPct+"%";
+ byId("overviewPeBar").style.width=pePct+"%";
  byId("costOverviewList").innerHTML=rows.map(function(x){
   var unknown=!Number.isFinite(x.amountSEK);
   var state=x.status==="paid"?"Betalt":x.status==="booked"?"Bokat":"Ej bokat";
-  var splits=x.splitSEK?'<small class="cost-line-split">M&M: '+esc(fmt(x.splitSEK.mm))+' · P&E: '+esc(fmt(x.splitSEK.pe))+'</small>':(x.allocationNote?'<small class="cost-line-split">'+esc(x.allocationNote)+'</small>':'');
+  var preliminary=x.allocationStatus==="preliminary";
+  var splits=x.splitSEK?'<small class="cost-line-split">M&M: '+esc(fmt(x.splitSEK.mm))+' · P&E: '+esc(fmt(x.splitSEK.pe))+(preliminary?' · preliminär 65/35-fördelning':'')+'</small>':(x.allocationNote?'<small class="cost-line-split">'+esc(x.allocationNote)+'</small>':'');
   return '<div class="cost-line"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>'+esc(x.scope)+' · '+esc(state)+'</small>'+splits+'</div><b class="'+(unknown?'cost-unknown':'')+'">'+esc(fmt(x.amountSEK))+'</b></div>';
  }).join("");
 }
@@ -184,126 +188,7 @@ function render(){
  if(!data)return;
  renderStats();renderStays();renderLegs();renderDomesticBaggage();renderTasks();renderDecisions();renderBudget();renderCostOverview();renderActivities();freshness();
  var preference=byId("stayPreferenceDisplay");if(preference)preference.textContent=data.stayPreference||(published&&published.stayPreference)||"Rymlig villa eller rum i markplan nära pool, strand och restauranger för alla sju.";
- if(document.activeElement!==byId("familyNotes"))byId("familyNotes").value=data.notes||"";
  if(map)drawMap();
-}
-function elementField(name,label,value,type,opts){
- var id="f-"+name;var content="";
- if(type==="textarea")content='<textarea id="'+id+'" name="'+name+'">'+esc(value||"")+'</textarea>';
- else if(type==="select")content='<select id="'+id+'" name="'+name+'">'+(opts||[]).map(function(o){return '<option value="'+esc(o.value)+'" '+(String(o.value)===String(value)?"selected":"")+'>'+esc(o.label)+'</option>';}).join("")+'</select>';
- else content='<input id="'+id+'" name="'+name+'" type="'+esc(type||"text")+'" value="'+esc(value===null||value===undefined?"":value)+'" '+(type==="number"?'step="1" min="0"':"")+' />';
- return '<label class="form-field" for="'+id+'"><span>'+esc(label)+'</span>'+content+'</label>';
-}
-function statusOptions(){
- return [{value:"todo",label:"Ej bokat"},{value:"selected",label:"Valt · ej bokat"},{value:"decision",label:"Beslut kvar"},{value:"booked",label:"Bokat"},{value:"paid",label:"Betalt"}];
-}
-function openModal(kind,id){
- if(!data)return;
- var arrKey=kind==="stay"?"stays":kind==="leg"?"legs":kind==="task"?"tasks":kind==="decision"?"decisions":"budget";
- var arr=data[arrKey], item=id?arr.find(function(x){return x.id===id;}):null;
- if(id&&!item)return;
- var fields="",title="";
- if(kind==="task"){
-  title=id?"Redigera uppgift":"Ny uppgift";
-  fields+=elementField("title","Uppgift",item?item.title:"","text");
-  fields+=elementField("category","Kategori",item?item.category:"Övrigt","select",["Flyg","Boende","Transport","Beslut","Budget","Aktivitet","Dokument","Övrigt"].map(function(v){return {value:v,label:v};}));
-  fields+=elementField("priority","Prioritet",item?item.priority:"medium","select",[{value:"high",label:"Hög"},{value:"medium",label:"Normal"},{value:"low",label:"Låg"}]);
-  fields+=elementField("note","Anteckning",item?item.note:"","textarea");
- }else if(kind==="budget"){
-  title=id?"Redigera kostnad":"Lägg till kostnad";
-  fields+=elementField("name","Kostnadspost",item?item.name:"","text");
-  fields+=elementField("category","Kategori",item?item.category:"Övrigt","select",["Flyg","Boende","Transport","Aktiviteter","Övrigt"].map(function(v){return {value:v,label:v};}));
-  fields+=elementField("totalSEK","Total kostnad SEK för hela sällskapet (7)",item?item.totalSEK:"","number");
-  fields+=elementField("paidSEK","Betalt hittills SEK",item?item.paidSEK:"","number");
-  fields+=elementField("status","Bokningsstatus",item?item.status:"todo","select",statusOptions());
- }else if(kind==="decision"){
-  title="Redigera beslut";
-  fields+=elementField("title","Rubrik",item.title,"text");
-  fields+=elementField("note","Anteckning",item.note||"","textarea");
-  fields+=elementField("why","Vad avgör beslutet?",item.why||"","textarea");
- }else if(kind==="leg"){
-  title="Uppdatera transport";
-  fields+=elementField("title","Transport",item.title,"text");
-  fields+=elementField("time","Tid",item.time,"text");
-  fields+=elementField("status","Status",item.status,"select",statusOptions());
-  fields+=elementField("details","Detaljer / bokningsläge",item.details||"","textarea");
-  fields+=elementField("url","Länk till biljett / leverantör (inte privat bokningslänk)",item.url||"","text");
- }else if(kind==="stay"){
-  title="Uppdatera boende";
-  fields+=elementField("status","Status",item.status,"select",statusOptions());
-  fields+=elementField("suggestion","Valt hotell/hus eller att leta efter",item.suggestion||"","text");
-  fields+=elementField("area","Område",item.area||"","text");
-  fields+=elementField("details","Detaljer",item.details||"","textarea");
-  fields+=elementField("link","Offentlig boendelänk (inte privat bokningsreferens)",item.link||"","text");
- }
- byId("editorTitle").textContent=title;
- byId("editorFields").innerHTML=fields;
- modalSave=function(){
-  var f=new FormData(byId("editorForm"));var target=item;
-  if(!target){target={id:kind.slice(0,1)+"-"+Date.now()};arr.push(target);}
-  if(kind==="task"){
-    target.title=String(f.get("title")||"").trim();if(!target.title){toast("Skriv en uppgift.");return false;}
-    target.category=String(f.get("category")||"Övrigt");
-    target.priority=String(f.get("priority")||"medium");
-    target.note=String(f.get("note")||"");if(!id)target.done=false;
-  }else if(kind==="budget"){
-    target.name=String(f.get("name")||"").trim();if(!target.name){toast("Skriv en kostnadspost.");return false;}
-    target.category=String(f.get("category")||"Övrigt");
-    target.totalSEK=num(f.get("totalSEK"));target.paidSEK=num(f.get("paidSEK"));
-    if([target.totalSEK,target.paidSEK].some(function(x){return x!==null&&(!Number.isFinite(x)||x<0)})){toast("Beloppen måste vara giltiga.");return false;}
-    target.status=String(f.get("status")||"todo");target.scope="7 personer";
-  }else if(kind==="decision"){
-    target.title=String(f.get("title")||target.title);target.note=String(f.get("note")||"");target.why=String(f.get("why")||"");
-  }else if(kind==="leg"){
-    target.title=String(f.get("title")||target.title);target.time=String(f.get("time")||"");
-    target.status=String(f.get("status")||"todo");target.details=String(f.get("details")||"");
-    target.url=safeUrl(String(f.get("url")||""));
-  }else if(kind==="stay"){
-    target.status=String(f.get("status")||"todo");target.suggestion=String(f.get("suggestion")||"");
-    target.area=String(f.get("area")||"");target.details=String(f.get("details")||"");
-    target.link=safeUrl(String(f.get("link")||""));
-  }
-  save(true);toast("Ändrat och sparat på den här enheten.");return true;
- };
- byId("editDialog").showModal();
- var first=byId("editorFields").querySelector("input,select,textarea");if(first)first.focus();
-}
-function downloadPlan(){
- var payload=JSON.stringify(data,null,2)+"\n",blob=new Blob([payload],{type:"application/json"});
- var url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="filippinerna-2027-plan.json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},500);
- toast("Planen har exporterats. Dela filen för att synka med andra.");
-}
-function reportText(){
- var result={
-   uppmaning:"Uppdatera reseplanen i GitHub-repot MrMartinPet/Vilja, filen resa/plan.json, med följande lokala ändringar.",
-   version:data.version,
-   anteckningar:data.notes||"",
-   uppgifter:data.tasks,
-   beslut:data.decisions,
-   boenden:data.stays,
-   transporter:data.legs,
-   kostnader:data.budget
- };
- return JSON.stringify(result,null,2);
-}
-function fallbackCopy(str){
- var area=document.createElement("textarea");area.value=str;area.style.position="fixed";area.style.top="-1000px";document.body.appendChild(area);area.select();var ok=document.execCommand("copy");area.remove();return ok;
-}
-async function copyReport(){
- var str=reportText();
- try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(str);}else if(!fallbackCopy(str))throw new Error("clipboard");toast("Uppdateringen kopierad. Klistra in i ChatGPT.");}
- catch(e){downloadPlan();toast("Kunde inte kopiera. En planfil laddades ned i stället.");}
-}
-function importPlan(file){
- if(!file)return;
- var reader=new FileReader();
- reader.onload=function(){
-  try{var imported=JSON.parse(String(reader.result));if(!imported||!Array.isArray(imported.tasks)||!Array.isArray(imported.stays)||!Array.isArray(imported.budget)||!Array.isArray(imported.legs))throw new Error("invalid");
-   if(!confirm("Importera planen från filen? Dina nuvarande lokala ändringar ersätts."))return;
-   data=imported;save(true);toast("Planen importerad och sparad på den här enheten.");}
-  catch(e){toast("Filen är inte en giltig reseplan.");}
- };
- reader.readAsText(file,"utf-8");
 }
 function mapIcon(kind){
  var c=kind==="flyg"?"#0c7391":kind==="boende"?"#cf8665":kind==="aktivitet"?"#be9d3c":"#417e7b";
@@ -341,145 +226,32 @@ function bind(){
  document.addEventListener("click",function(e){
   var viewButton=e.target.closest("[data-view-button],[data-go-view]");
   if(viewButton){showView(viewButton.getAttribute("data-view-button")||viewButton.getAttribute("data-go-view"));return;}
-
-  var button=e.target.closest("[data-edit]");if(button){openModal(button.dataset.edit,button.dataset.id);return;}
-  var filter=e.target.closest("[data-filter]");if(filter){taskFilter=filter.dataset.filter;renderTasks();return;}
-  var island=e.target.closest("[data-island]");if(island){activityFilter=island.dataset.island;renderActivities();return;}
+  var filter=e.target.closest("[data-filter]");
+  if(filter){taskFilter=filter.dataset.filter;renderTasks();return;}
+  var island=e.target.closest("[data-island]");
+  if(island){activityFilter=island.dataset.island;renderActivities();return;}
  });
- document.addEventListener("change",function(e){
-  if(e.target.dataset.task){var item=(data.tasks||[]).find(function(t){return t.id===e.target.dataset.task;});if(item){item.done=!!e.target.checked;save(true);}return;}
-  if(e.target.dataset.decision){var d=(data.decisions||[]).find(function(x){return x.id===e.target.dataset.decision;});if(d){d.choice=e.target.value;save(true);toast("Beslutet sparat på den här enheten.");}}
- });
- byId("openEditor").addEventListener("click",function(){showView("details");document.getElementById("anteckningar").scrollIntoView({behavior:"smooth"});});
- byId("addTaskTop").addEventListener("click",function(){openModal("task");});
- byId("addBudget").addEventListener("click",function(){openModal("budget");});
- byId("editorForm").addEventListener("submit",function(e){e.preventDefault();if(modalSave&&modalSave())byId("editDialog").close();});
- byId("closeDialog").addEventListener("click",function(){byId("editDialog").close();});
- byId("cancelDialog").addEventListener("click",function(){byId("editDialog").close();});
- byId("familyNotes").addEventListener("input",function(e){if(data){data.notes=e.target.value;save(false);}});
- byId("copyReport").addEventListener("click",copyReport);
- byId("exportPlan").addEventListener("click",downloadPlan);
- byId("importPlan").addEventListener("change",function(e){importPlan(e.target.files[0]);e.target.value="";});
- byId("resetPlan").addEventListener("click",function(){if(!published)return; if(!confirm("Återställa till senaste publicerade GitHub-planen? Exportera först om du vill spara lokala ändringar."))return; data=clone(published);try{localStorage.removeItem(LOCAL_KEY);}catch(e){}byId("syncBanner").hidden=true;render();toast("Senaste publicerade planen är återställd.");});
  byId("mapAll").addEventListener("click",function(){mapScope("Alla");});
  byId("mapBohol").addEventListener("click",function(){mapScope("Bohol");});
  byId("mapBoracay").addEventListener("click",function(){mapScope("Boracay");});
- var links=Array.from(document.querySelectorAll(".section-nav a"));
- links.forEach(function(a){a.addEventListener("click",function(){links.forEach(function(x){x.classList.toggle("active",x===a);});});});
 }
 async function init(){
  bind();
  try{
+  // Previously each device could hold its own conflicting version. From now on
+  // the published plan is the only source of truth.
+  try{localStorage.removeItem(LOCAL_KEY);}catch(e){}
   var res=await fetch(PLAN_FILE,{cache:"no-store"});
   if(!res.ok)throw new Error("HTTP "+res.status);
   published=await res.json();
   if(!published||!Array.isArray(published.tasks))throw new Error("Dataformat");
-  var local=locallySaved();
-  if(local&&local.plan){
-    data=local.plan;
-    // Always show newly published accommodation candidates without overwriting
-    // this device's private task, budget or booking-status changes.
-    (published.stays||[]).forEach(function(masterStay){
-      var localStay=(data.stays||[]).find(function(s){return s.id===masterStay.id;});
-      if(!localStay)return;
-      var alternatives=localStay.alternatives||[];
-      (masterStay.alternatives||[]).forEach(function(option){
-        if(!alternatives.some(function(a){return a.id===option.id;}))alternatives.push(clone(option));
-      });
-      localStay.alternatives=alternatives;
-      // Hotel reservations recorded on GitHub supersede older local choices.
-      if(masterStay.booking&&masterStay.booking.confirmed){
-        Object.assign(localStay,clone(masterStay));
-        if(!masterStay.alternatives)delete localStay.alternatives;
-      }
-    });
-    // Reconcile newly confirmed travel details with older private on-device copies.
-    ["flight-mnl-tag","flight-mph-mnl","return-from-island","last-hotel-checkin","cebu-air","bohol-boracay","hotel-first-checkin"].forEach(function(id){
-      var masterLeg=(published.legs||[]).find(function(l){return l.id===id;});
-      var localLeg=(data.legs||[]).find(function(l){return l.id===id;});
-      if(masterLeg&&localLeg)Object.assign(localLeg,clone(masterLeg));
-    });
-    // New train and bus segments must appear on previously saved phones as well.
-    ["train-out","bus-out","bus-return","train-return"].forEach(function(id){
-      var masterLeg=(published.legs||[]).find(function(l){return l.id===id;});
-      if(!masterLeg)return;
-      data.legs=data.legs||[];
-      var localLeg=data.legs.find(function(l){return l.id===id;});
-      if(localLeg)Object.assign(localLeg,clone(masterLeg));
-      else if(id==="train-out"||id==="bus-out")data.legs.unshift(clone(masterLeg));
-      else data.legs.push(clone(masterLeg));
-    });
-    // Preserve correct chronological order on devices with old locally saved plans.
-    var sortKey=function(l){
-      var d=l.date||"9999";
-      if(l.id==="train-out")return d+"-00";
-      if(l.id==="bus-out")return d+"-01";
-      if(l.id==="bus-return")return d+"-90";
-      if(l.id==="train-return")return d+"-91";
-      return d+"-40";
-    };
-    data.legs.sort(function(a,b){return sortKey(a).localeCompare(sortKey(b));});
-    ["t01","t02","t03","t04","t05","t07","t08","t09","t10","t22","t23","t24"].forEach(function(id){
-      var masterTask=(published.tasks||[]).find(function(t){return t.id===id;});
-      var localTask=(data.tasks||[]).find(function(t){return t.id===id;});
-      if(masterTask&&localTask)Object.assign(localTask,clone(masterTask));
-      else if(masterTask&&data.tasks){data.tasks.push(clone(masterTask));}
-    });
-    ["d1","d2","d3","d4","d5"].forEach(function(id){
-      var masterDecision=(published.decisions||[]).find(function(d){return d.id===id;});
-      var localDecision=(data.decisions||[]).find(function(d){return d.id===id;});
-      if(masterDecision&&localDecision)Object.assign(localDecision,clone(masterDecision));
-    });
-    ["b1","b2","b3","b5","b6","b7","b8","b11","b12","b13"].forEach(function(id){
-      var masterBudget=(published.budget||[]).find(function(b){return b.id===id;});
-      var localBudget=(data.budget||[]).find(function(b){return b.id===id;});
-      if(masterBudget&&localBudget){
-        localBudget.status=masterBudget.status;
-        localBudget.name=masterBudget.name;
-        if(["b1","b2","b3","b7","b8","b11","b12"].indexOf(id)!==-1){
-          localBudget.totalSEK=masterBudget.totalSEK;
-          localBudget.paidSEK=masterBudget.paidSEK;
-        }
-      }else if(masterBudget&&data.budget){data.budget.push(clone(masterBudget));}
-    });
-    // Route-description facts from GitHub override obsolete old-device text.
-    (published.routeOptions||[]).forEach(function(masterOpt){
-      var localOpt=(data.routeOptions||[]).find(function(o){return o.id===masterOpt.id;});
-      if(localOpt)Object.assign(localOpt,clone(masterOpt));
-    });
-    if(published.domesticBaggage)data.domesticBaggage=clone(published.domesticBaggage);
-    if(published.publicCostOverview)data.publicCostOverview=clone(published.publicCostOverview);
-    var masterBoracay=(published.stays||[]).find(function(x){return x.id==="stay-boracay";});
-    var localBoracay=(data.stays||[]).find(function(x){return x.id==="stay-boracay";});
-    if(masterBoracay&&localBoracay)Object.assign(localBoracay,clone(masterBoracay));
-
-    // Do not carry previously published personal cost-sharing or exact child-age
-    // records into the active browser copy after the privacy cleanup.
-    delete data.costSharing;
-    if(data.party&&published.party)data.party=clone(published.party);
-    (data.stays||[]).forEach(function(stay){
-      if(stay.booking){
-        delete stay.booking.childrenAgesOnBooking;
-        delete stay.booking.arrivalWindow;
-        delete stay.booking.nonSmokingRequested;
-      }
-    });
-    // Remove historical price estimates for flights that are now confirmed.
-    data.quotes=(data.quotes||[]).filter(function(q){return ["q1","q2","q3","q4"].indexOf(q.id)===-1;});
-    if(published.stayPreference)data.stayPreference=published.stayPreference;
-    ["twoseasons","savoy"].forEach(function(id){
-      var mappedHotel=(published.places||[]).find(function(p){return p.id===id;});
-      if(mappedHotel){data.places=data.places||[];var localPlace=data.places.find(function(p){return p.id===id;});if(localPlace)Object.assign(localPlace,clone(mappedHotel));else data.places.push(clone(mappedHotel));}
-    });
-    delete data.film;
-    if(local.version!==published.version)notice("En ny version finns på GitHub. Bekräftade bokningar har uppdaterats även här. Övriga lokala ändringar finns kvar.","sync");
-    byId("dataState").textContent="Lokalt redigerad";
-  }else{data=clone(published);byId("dataState").textContent="Synkad med GitHub";}
-  render();setupMap();showView(activeView);
+  data=clone(published);
+  render();
+  setupMap();
+  showView(activeView);
  }catch(e){
-  var previous=locallySaved();
-  if(previous&&previous.plan){data=previous.plan;render();setupMap();showView(activeView);notice("GitHub-planen gick inte att läsa. Visar sparad kopia på den här enheten.","error");}
-  else{notice("Kunde inte läsa resa/plan.json. Kontrollera uppkopplingen eller uppdatera sidan. "+e.message,"error");byId("dataState").textContent="Kan inte läsa data";}
+  notice("Kunde inte läsa resplanen. Kontrollera uppkopplingen och uppdatera sidan.","error");
+  byId("dataState").textContent="Kunde inte hämta resplanen";
  }
 }
 init();

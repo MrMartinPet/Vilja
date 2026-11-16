@@ -147,3 +147,16 @@ body[data-active-view="overview"] .overview-grid{display:grid!important}
 .cost-summary{grid-template-columns:1fr}
 }
 @media(max-width:480px){.quick-itinerary-grid{grid-template-columns:1fr 1fr;gap:8px}.quick-itinerary-grid>div{padding:12px}.quick-itinerary-grid strong{font-size:12px}.quick-itinerary-grid small{font-size:10px}.cost-line{padding:12px;gap:8px}.cost-line>b{font-size:13px}}
+
+/* Overview should fit in a glance rather than behave like a landing page */
+body[data-active-view="overview"] .hero{min-height:0;padding:22px 25px;margin:0 0 13px;grid-template-columns:1fr}
+body[data-active-view="overview"] .hero-art{display:none}
+body[data-active-view="overview"] .hero h1{font-size:clamp(28px,4vw,40px);line-height:1.07;margin:7px 0 9px}
+body[data-active-view="overview"] .hero-copy>p{max-width:680px;font-size:13px;margin:0 0 10px}
+body[data-active-view="overview"] .hero-actions{margin-top:12px}
+body[data-active-view="overview"] .hero .eyebrow{font-size:10px}
+body[data-active-view="overview"] .summary-strip{margin:0 0 13px}
+body[data-active-view="overview"] .overview-grid{margin:0 0 13px}
+body[data-active-view="overview"] .quick-itinerary{margin:0 0 18px}
+body[data-active-view="overview"] .page-section{margin-top:14px}
+@media(max-width:600px){body[data-active-view="overview"] .hero{padding:17px 18px}body[data-active-view="overview"] .hero h1{font-size:29px}body[data-active-view="overview"] .hero-actions{gap:8px}}

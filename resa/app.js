@@ -49,7 +49,7 @@ function renderStays(){
    stayBody+='<div class="stay-booked-info">'+
      '<strong>✓ Bekräftad hotellbokning</strong>'+
      '<div class="stay-booked-row">🛏️ '+esc(b.roomCount)+' rum · '+esc(b.roomType)+'</div>'+
-     '<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.adults)+' vuxna och '+esc((b.childrenAgesOnBooking||[]).length)+' barn · 6 nätter</div>'+
+     '<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.adults)+' vuxna och '+esc((b.childrenCount!=null?b.childrenCount:(b.childrenAgesOnBooking||[]).length))+' barn · 6 nätter</div>'+
      '<div class="stay-booked-row">🕒 Incheckning från '+esc(b.checkInFrom)+' · utcheckning före '+esc(b.checkOutBefore)+'</div>'+
      '<div class="stay-booked-row">☕ Inkluderat: '+esc((b.included||[]).join(", "))+'</div>'+
      '<div class="stay-booked-row">🏝️ Direkt poolaccess, markplan och White Beach vid hotellet</div>'+
@@ -383,6 +383,17 @@ async function init(){
       if(localOpt)Object.assign(localOpt,clone(masterOpt));
     });
     if(published.domesticBaggage)data.domesticBaggage=clone(published.domesticBaggage);
+    // Do not carry previously published personal cost-sharing or exact child-age
+    // records into the active browser copy after the privacy cleanup.
+    delete data.costSharing;
+    if(data.party&&published.party)data.party=clone(published.party);
+    (data.stays||[]).forEach(function(stay){
+      if(stay.booking){
+        delete stay.booking.childrenAgesOnBooking;
+        delete stay.booking.arrivalWindow;
+        delete stay.booking.nonSmokingRequested;
+      }
+    });
     // Remove historical price estimates for flights that are now confirmed.
     data.quotes=(data.quotes||[]).filter(function(q){return ["q1","q2","q3","q4"].indexOf(q.id)===-1;});
     if(published.stayPreference)data.stayPreference=published.stayPreference;

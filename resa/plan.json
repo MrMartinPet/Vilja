@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16-savoy-manila-last-hotel",
+  "version": "2026-11-16-full-booking-costs-by-group",
   "updated": "2026-11-16",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -25,7 +25,7 @@
       "area": "Newport City, Pasay · nära NAIA Terminal 3",
       "kind": "hotell",
       "status": "booked",
-      "details": "Bekräftad Agoda-bokning 9–10 februari 2027: 2 Standard Twin-rum, 1 natt. Två enkelsängar per rum, cirka 23 m² per rum. Bokningen visar kapacitet upp till 4 vuxna och 4 barn totalt samt möjlighet till anslutande rum. Sen incheckning efter midnatt den 10 februari, cirka 01–02, bör meddelas hotellet. Fri avbokning före 7 februari 2027.",
+      "details": "Bekräftad Agoda-bokning 9–10 februari 2027: 2 Standard Twin-rum, 1 natt. Två enkelsängar per rum, cirka 23 m² per rum. Bokningen visar kapacitet upp till 4 vuxna och 4 barn totalt samt möjlighet till anslutande rum. Sen incheckning efter midnatt den 10 februari, cirka 01–02, bör meddelas hotellet. Fri avbokning före 7 februari 2027. Totalpris 1 594,32 kr för båda rummen; planerad debitering 5 februari 2027.",
       "suggestion": "Belmont Hotel Manila · 2 × Standard Twin · 1 natt",
       "link": "https://www.google.com/maps/search/?api=1&query=Belmont+Hotel+Manila+Newport+City+Pasay",
       "booking": {
@@ -42,9 +42,17 @@
         "connectingRoomsListed": true,
         "lateCheckin": "Efter midnatt 10 februari, cirka 01–02; meddela hotellet",
         "freeCancellationBefore": "2027-02-07",
-        "paymentScheduledDate": "2027-02-04",
-        "paymentStatus": "Betalning planerad via bokningsplattformen; ej debiterad vid bokningstillfället",
-        "note": "Inga personnamn, bokningsnummer eller faktiska betalningsbelopp publiceras."
+        "paymentScheduledDate": "2027-02-05",
+        "paymentStatus": "Ej betalt; planerad debitering via Agoda 5 februari 2027",
+        "note": "Inga personnamn, bokningsnummer eller kortuppgifter publiceras.",
+        "totalSEK": 1594.32,
+        "roomCount": 2,
+        "adults": 4,
+        "childrenCount": 3,
+        "splitSEK": {
+          "mm": 797.16,
+          "pe": 797.16
+        }
       }
     },
     {
@@ -152,7 +160,11 @@
           "24-timmars incheckning",
           "Anslutande rum listas"
         ],
-        "notes": "Första natten är bokad på Belmont Hotel; sista natten på Savoy Hotel. Ingen bokningsreferens publiceras."
+        "notes": "Första natten är bokad på Belmont Hotel; sista natten på Savoy Hotel. Ingen bokningsreferens publiceras.",
+        "splitSEK": {
+          "mm": 530.83,
+          "pe": 530.83
+        }
       }
     }
   ],
@@ -364,7 +376,7 @@
       "category": "Boende",
       "priority": "high",
       "done": true,
-      "note": "2 Standard Twin-rum för gruppen, 1 natt. Gratis avbokning före 7 feb. Planerad debitering 4 feb. Meddela hotellet sen ankomst efter midnatt 10 feb."
+      "note": "2 Standard Twin-rum för gruppen, 1 natt. Totalpris 1 594,32 kr. Gratis avbokning före 7 feb. Planerad debitering 5 feb. Meddela hotellet sen ankomst."
     },
     {
       "id": "t02",
@@ -844,27 +856,27 @@
   "budget": [
     {
       "id": "b1",
-      "name": "Internationella flyg (redan bokade)",
+      "name": "Air China ARN ↔ Manila · 7 resenärer",
       "category": "Flyg",
-      "totalSEK": null,
-      "paidSEK": null,
+      "totalSEK": 38625,
+      "paidSEK": 38625,
       "scope": "7 personer",
-      "status": "booked"
+      "status": "paid"
     },
     {
       "id": "b2",
-      "name": "Flyg Cebu Pacific 5J615 · 7 resenärer",
+      "name": "Cebu Pacific MNL → TAG · flyg + bagage · 7 resenärer",
       "category": "Flyg",
-      "totalSEK": null,
-      "paidSEK": null,
+      "totalSEK": 5230.08,
+      "paidSEK": 5230.08,
       "scope": "7 personer",
-      "status": "booked"
+      "status": "paid"
     },
     {
       "id": "b3",
       "name": "Belmont Hotel Manila · 2 rum 9–10 feb",
       "category": "Boende",
-      "totalSEK": null,
+      "totalSEK": 1594.32,
       "paidSEK": null,
       "scope": "7 personer",
       "status": "booked"
@@ -898,12 +910,12 @@
     },
     {
       "id": "b7",
-      "name": "Flyg AirAsia Z2226 · 7 resenärer",
+      "name": "AirAsia MPH → MNL · flyg + bagage · 7 resenärer",
       "category": "Flyg",
-      "totalSEK": null,
-      "paidSEK": null,
+      "totalSEK": 4550.66,
+      "paidSEK": 4550.66,
       "scope": "7 personer",
-      "status": "booked"
+      "status": "paid"
     },
     {
       "id": "b8",
@@ -934,19 +946,19 @@
     },
     {
       "id": "b11",
-      "name": "Philippine Airlines PR2368 · Cebu → Caticlan · 7 resenärer",
+      "name": "Philippine Airlines CEB → MPH · flyg + bagage · 7 resenärer",
       "category": "Flyg",
-      "totalSEK": null,
-      "paidSEK": null,
+      "totalSEK": 3988.05,
+      "paidSEK": 3988.05,
       "scope": "7 personer",
-      "status": "booked"
+      "status": "paid"
     },
     {
       "id": "b12",
       "name": "SJ Skövde ↔ Stockholm C · 7 resenärer · betalt",
       "category": "Transport",
-      "totalSEK": null,
-      "paidSEK": null,
+      "totalSEK": 3820,
+      "paidSEK": 3820,
       "scope": "7 personer",
       "status": "paid"
     },
@@ -960,7 +972,7 @@
       "status": "todo"
     }
   ],
-  "notes": "Familjeresan till Bohol och Boracay. Vi prioriterar bekväm resväg, närhet till strand och restauranger samt rymligt boende. Boracayboendet är bekräftat, och boende på Bohol samt vissa mark- och båttransporter återstår; båda hotellnätterna i Manila är bokade. Privata betalningsuppgifter och personliga bokningsuppgifter förvaras inte i den publika resplanen.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Hotellens kostnader delas 50/50 mellan M&M och P&E. Flygkostnaderna fördelas efter biljetter och en incheckad väska per grupp på varje inrikesflyg. SJ:s gruppfördelning och Boracaysvitens pris återstår. Boende på Bohol samt vissa mark- och båttransporter återstår. Inga privata betalningsuppgifter lagras i den publika resplanen.",
   "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -1058,68 +1070,94 @@
   },
   "publicCostOverview": [
     {
-      "id": "airchina-family",
-      "name": "Air China tur och retur",
-      "amountSEK": 26900,
-      "scope": "Familjen, 5 personer",
-      "status": "booked",
-      "source": "Uppgift från resenären"
+      "id": "airchina-all",
+      "name": "Air China · ARN–Manila tur och retur",
+      "amountSEK": 38625,
+      "scope": "Alla 7 personer",
+      "status": "paid",
+      "splitSEK": {
+        "mm": 26925,
+        "pe": 11700
+      },
+      "source": "Air China: 4 vuxna à 5 850 kr, 3 barn à 5 075 kr"
     },
     {
       "id": "sj-all",
-      "name": "SJ tåg tur och retur",
+      "name": "SJ · Skövde–Stockholm tur och retur",
       "amountSEK": 3820,
       "scope": "Alla 7 personer",
       "status": "paid",
-      "source": "Swish-betalning och SJ-biljetter"
+      "source": "Bokade tågbiljetter; gruppfördelningen saknas",
+      "allocationNote": "3 820 kr ännu ej fördelat mellan grupperna"
     },
     {
       "id": "belmont-all",
-      "name": "Belmont Hotel Manila, 2 rum",
-      "amountSEK": 1594.37,
+      "name": "Belmont Hotel Manila · 9–10 feb · 2 rum",
+      "amountSEK": 1594.32,
       "scope": "Alla 7 personer",
       "status": "booked",
-      "source": "Agoda bokningspris, debitering senare"
-    },
-    {
-      "id": "pal-all",
-      "name": "Philippine Airlines Cebu–Caticlan",
-      "amountSEK": 3988.05,
-      "scope": "Alla 7 personer",
-      "status": "booked",
-      "source": "Kiwi fakturabelopp"
+      "splitSEK": {
+        "mm": 797.16,
+        "pe": 797.16
+      },
+      "source": "Agoda: debitering 5 feb 2027"
     },
     {
       "id": "cebu-pacific-all",
-      "name": "Cebu Pacific Manila–Bohol",
-      "amountSEK": null,
+      "name": "Cebu Pacific · Manila–Bohol 10 feb · inkl. bagage",
+      "amountSEK": 5230.08,
       "scope": "Alla 7 personer",
-      "status": "booked",
-      "source": "Bokat, slutpris saknas"
+      "status": "paid",
+      "splitSEK": {
+        "mm": 3652.07,
+        "pe": 1578.01
+      },
+      "source": "Kiwi: flyg 4 839,48 kr och två incheckade väskor à 195,30 kr"
     },
     {
-      "id": "airasia-all",
-      "name": "AirAsia Caticlan–Manila",
-      "amountSEK": null,
+      "id": "pal-all",
+      "name": "Philippine Airlines · Cebu–Caticlan 17 feb · inkl. bagage",
+      "amountSEK": 3988.05,
       "scope": "Alla 7 personer",
-      "status": "booked",
-      "source": "Bokat, slutpris saknas"
+      "status": "paid",
+      "splitSEK": {
+        "mm": 2752.18,
+        "pe": 1235.87
+      },
+      "source": "Kiwi: flyg 3 538,05 kr och två incheckade väskor à 225 kr"
     },
     {
       "id": "twoseasons-all",
-      "name": "Two Seasons Boracay, 6 nätter",
+      "name": "Two Seasons Boracay · 17–23 feb · preliminärt",
       "amountSEK": null,
       "scope": "Alla 7 personer",
       "status": "booked",
-      "source": "Preliminärt bokat, slutpris saknas"
+      "source": "Bokad svit, pris väntar på underlag"
+    },
+    {
+      "id": "airasia-all",
+      "name": "AirAsia · Caticlan–Manila 23 feb · inkl. bagage",
+      "amountSEK": 4550.66,
+      "scope": "Alla 7 personer",
+      "status": "paid",
+      "splitSEK": {
+        "mm": 3127.02,
+        "pe": 1423.64
+      },
+      "source": "Kiwi: flyg 3 974,56 kr och två incheckade väskor à 288,05 kr"
     },
     {
       "id": "savoy-all",
-      "name": "Savoy Hotel Manila, 2 rum, 23–24 feb",
+      "name": "Savoy Hotel Manila · 23–24 feb · 2 rum",
       "amountSEK": 1061.66,
       "scope": "Alla 7 personer",
       "status": "booked",
-      "source": "Agoda bokningspris, debitering 19 feb 2027"
+      "splitSEK": {
+        "mm": 530.83,
+        "pe": 530.83
+      },
+      "source": "Agoda: debitering 19 feb 2027"
     }
-  ]
+  ],
+  "budgetAccountingNote": "Kända belopp i SEK för sju resenärer. Gruppfördelning per bokning finns i publicCostOverview. SJ 3 820 kr för alla 7 men gruppfördelning ännu inte fastställd. Flyg M&M=2 vuxna+3 barn; P&E=2 vuxna. Inrikesflyg: en gemensam incheckad väska per grupp på varje flyg; hotell 50/50. Boracaysvitens kostnad saknas."
 }

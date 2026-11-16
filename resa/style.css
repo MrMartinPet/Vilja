@@ -76,3 +76,25 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit}
 .luggage-emoji{font-size:19px}
 .booked-trips-warning{margin:11px 1px 0;color:#88643c;font-size:11px;line-height:1.55}
 @media(max-width:690px){.booked-flight-list{grid-template-columns:1fr}.booked-trips-panel{padding:14px}.booked-flight-row{padding:12px}.booked-luggage-grid>div{padding:11px}.booked-luggage-grid strong{font-size:16px}}
+
+/* Complete domestic flight confirmation and individual baggage allowances */
+.domestic-flights-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:15px}
+.domestic-flight-card{background:#fff;border:1px solid #d8e9e0;border-radius:13px;padding:13px;min-width:0;display:flex;flex-direction:column;gap:11px}
+.domestic-flight-card.tight-baggage{border-color:#efc895;background:linear-gradient(155deg,#fffdf9,#fff8ed)}
+.domestic-flight-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.domestic-flight-head>div{display:flex;flex-direction:column;gap:5px}
+.domestic-flight-head strong{font-size:13px;color:#1d594d}
+.domestic-flight-head small{font-size:10px;color:#698478;line-height:1.5}
+.domestic-flight-head>b{font-size:12px;color:#157b69}
+.domestic-flight-bags{display:grid;gap:7px}
+.domestic-flight-bags>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 5px;border-top:1px solid #edf2ee;padding-top:7px;align-items:baseline}
+.domestic-flight-bags span{font-size:10px;color:#54756b}
+.domestic-flight-bags b{font-size:13px;color:#234a43}
+.domestic-flight-bags small{grid-column:1/-1;font-size:9px;color:#8aa098}
+.domestic-flight-caution{border-radius:9px;background:#fff0da;color:#7c4c11;font-size:11px;line-height:1.5;padding:9px;font-weight:750}
+.domestic-intl-note{padding:12px 14px;background:#e6f4f5;border:1px solid #c9e3e7;border-radius:12px;margin-top:13px;color:#245d60}
+.domestic-intl-note strong{font-size:12px}
+.domestic-intl-note p{font-size:11px;line-height:1.58;margin:7px 0}
+.domestic-intl-note a{font-size:11px;font-weight:800;color:#117d82;text-decoration:none}
+@media(max-width:990px){.domestic-flights-list{grid-template-columns:1fr}.domestic-flight-card{padding:13px}.domestic-flight-bags{grid-template-columns:repeat(2,minmax(0,1fr))}.domestic-flight-bags>div:nth-child(3){grid-column:1/-1}}
+@media(max-width:500px){.domestic-flight-bags{grid-template-columns:1fr}.domestic-flight-bags>div:nth-child(3){grid-column:auto}}

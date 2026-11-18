@@ -1,6 +1,6 @@
-const CACHE="vilja-portal-v34";
+const CACHE="vilja-portal-v35";
 const ASSETS=[
- "./","./index.html","./viljas-appar.html",
+ "./","./index.html","./viljas-appar.html","./begrepp.html",
  "./resa/","./resa/index.html","./resa/style.css","./resa/app.js","./resa/plan.json",
  "./klockan/","./klockan/index.html","./klockan/style.css","./klockan/time.js","./klockan/game.js",
  "./ponnyforsvaret/","./ponnyforsvaret/index.html","./ponnyforsvaret/game.css","./ponnyforsvaret/game.js",
@@ -9,7 +9,7 @@ const ASSETS=[
  "./mattespel.html","./mattespel.js",
  "./icon-192.png","./icon-512.png"
 ];
-self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting();});
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(ASSETS.map(path=>c.add(path).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
 self.addEventListener("fetch",e=>{
  const r=e.request;if(r.method!=="GET")return;

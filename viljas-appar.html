@@ -134,10 +134,10 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
 .dashHeroCard p{font-size:13px;line-height:1.62;color:#526577;margin:0 0 15px;max-width:440px;flex:1;position:relative;z-index:1}
 .dashCardMeta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:15px}
 .dashCardMeta span{background:#ffffff9e;padding:7px 11px;border-radius:999px;font-weight:830;font-size:11px;color:#46617b}
-.dashCardActions{display:flex;gap:8px;flex-wrap:wrap}
-.dashCardActions button,.dashHeroLink{border:0;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:880;min-height:44px;cursor:pointer;flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;background:#433e80;color:#fff}
-.dashCardActions button:nth-child(2){background:#fff;color:#4e487b;border:1px solid #cfcbe3}
-.dashCardActions button:hover,.dashHeroLink:hover{filter:brightness(1.07)}
+.dashCardActions{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:4}
+.dashCardActions button,.dashCardActions a[data-start],.dashHeroLink{border:0;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:880;min-height:44px;cursor:pointer;flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;background:#433e80;color:#fff}
+.dashCardActions button:nth-child(2),.dashCardActions a[data-start]:nth-child(2){background:#fff;color:#4e487b;border:1px solid #cfcbe3}
+.dashCardActions button:hover,.dashCardActions a[data-start]:hover,.dashHeroLink:hover{filter:brightness(1.07)}
 .dashHeroLink{background:#086f70;flex:none}
 .dashAnimalProgress{margin:0 0 13px}
 .dashAnimalProgressTop{font-size:11px;font-weight:830;color:#477775;display:flex;justify-content:space-between;gap:7px;margin-bottom:5px}
@@ -153,6 +153,8 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
 .dashTaskCard p{font-size:13px;color:#6a7b8a;line-height:1.55;margin:0}
 .dashTaskLink{font-size:13px;font-weight:890;color:#166d7c;text-decoration:none;display:inline-block;padding:5px 0}
 .dashTaskLink:hover{text-decoration:underline}
+.dashCardActions [data-start]{min-height:54px;min-width:0;touch-action:manipulation;-webkit-tap-highlight-color:rgba(67,62,128,.16);position:relative;z-index:5}
+.dashCardActions [data-start]:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
 .dashCardActions .dashSmallButton{background:#1f6e7a;color:#fff;font-size:12px;padding:10px;white-space:nowrap}
 .dashCardActions .dashSmallButton.other{background:#e6f3f1;color:#175b66;border:0}
 .dashGamesGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
@@ -231,7 +233,7 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
             <h3>Veckans begrepp</h3>
             <p>12 ord att kunna förklara och stava. Blanda mellan kunskapskort och lyssna-och-skriv!</p>
             <div class="dashCardMeta"><span>📅 v. 47</span><span>📘 12 begrepp</span></div>
-            <div class="dashCardActions"><button type="button" data-start="flash" data-set="sv">🧠 Förklara orden</button><button type="button" data-start="spell" data-set="sv">🔊 Träna stavning</button></div>
+            <div class="dashCardActions"><a href="#flashScreen" data-start="flash" data-set="sv">🧠 Förklara orden</a><a href="#spellScreen" data-start="spell" data-set="sv">🔊 Träna stavning</a></div>
           </article>
           <article class="dashHeroCard animals">
             <div class="dashCardTop"><span class="dashCardBadge">🧬 BIOLOGI · AKTUELLT PROV</span><span class="dashCardMascot" aria-hidden="true">🦋</span></div>
@@ -589,20 +591,30 @@ nextSpell.addEventListener("click", function(){
 document.getElementById("restartSpell").addEventListener("click", startSpelling);
 document.getElementById("speakBtn").addEventListener("click", speakCurrent);
 
+function launchWordStudy(mode, setName){
+  activeSet = Object.prototype.hasOwnProperty.call(sets, setName) ? setName : "sv";
+  if(mode === "flash"){
+    flashIndex = 0;
+    renderFlash();
+    showScreen("flashScreen");
+  }else if(mode === "spell"){
+    startSpelling();
+  }
+}
 document.querySelectorAll("[data-start]").forEach(function(btn){
-  btn.addEventListener("click", function(){
-    activeSet = btn.getAttribute("data-set");
-    if(btn.getAttribute("data-start") === "flash"){
-      flashIndex = 0;
-      renderFlash();
-      showScreen("flashScreen");
-    }else{
-      startSpelling();
-    }
+  btn.addEventListener("click", function(event){
+    event.preventDefault();
+    launchWordStudy(btn.getAttribute("data-start"), btn.getAttribute("data-set"));
   });
 });
+// Direct links also work when the page is opened with a saved link or from the home screen.
+if(window.location.hash === "#flashScreen" || window.location.hash === "#spellScreen"){
+  launchWordStudy(window.location.hash === "#flashScreen" ? "flash" : "spell", "sv");
+}
 
 
+</script>
+<script>
 // Exact worksheet questions. Both modes share the same sequence.
 const mathQuestions = [
 [27,8,'+'],[46,7,'+'],[35,9,'+'],[58,6,'+'],[67,8,'+'],

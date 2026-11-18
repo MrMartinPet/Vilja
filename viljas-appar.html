@@ -124,6 +124,7 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
 .dashPriorityGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .dashHeroCard{min-height:302px;border-radius:24px;padding:24px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 9px 28px #3549610b}
 .dashHeroCard:after{content:"";position:absolute;right:-85px;top:30px;background:#ffffff36;width:200px;height:200px;border-radius:50%;pointer-events:none}
+.dashCardCover{position:absolute;inset:0;border-radius:inherit;z-index:3;cursor:pointer}
 .dashHeroCard.words{background:linear-gradient(135deg,#f7e9fb,#fcf1e6);border:1px solid #f0d8e9}
 .dashHeroCard.animals{background:linear-gradient(135deg,#dcf5e9,#ddecfa);border:1px solid #cae7e6}
 .dashCardTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
@@ -135,9 +136,9 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
 .dashCardMeta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:15px}
 .dashCardMeta span{background:#ffffff9e;padding:7px 11px;border-radius:999px;font-weight:830;font-size:11px;color:#46617b}
 .dashCardActions{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:4}
-.dashCardActions button,.dashCardActions a[data-start],.dashHeroLink{border:0;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:880;min-height:44px;cursor:pointer;flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;background:#433e80;color:#fff}
-.dashCardActions button:nth-child(2),.dashCardActions a[data-start]:nth-child(2){background:#fff;color:#4e487b;border:1px solid #cfcbe3}
-.dashCardActions button:hover,.dashCardActions a[data-start]:hover,.dashHeroLink:hover{filter:brightness(1.07)}
+.dashCardActions button,.dashCardActions a,.dashHeroLink{border:0;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:880;min-height:44px;cursor:pointer;flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;background:#433e80;color:#fff}
+.dashCardActions button:nth-child(2),.dashCardActions a:nth-child(2){background:#fff;color:#4e487b;border:1px solid #cfcbe3}
+.dashCardActions button:hover,.dashCardActions a:hover,.dashHeroLink:hover{filter:brightness(1.07)}
 .dashHeroLink{background:#086f70;flex:none}
 .dashAnimalProgress{margin:0 0 13px}
 .dashAnimalProgressTop{font-size:11px;font-weight:830;color:#477775;display:flex;justify-content:space-between;gap:7px;margin-bottom:5px}
@@ -153,8 +154,8 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
 .dashTaskCard p{font-size:13px;color:#6a7b8a;line-height:1.55;margin:0}
 .dashTaskLink{font-size:13px;font-weight:890;color:#166d7c;text-decoration:none;display:inline-block;padding:5px 0}
 .dashTaskLink:hover{text-decoration:underline}
-.dashCardActions [data-start]{min-height:54px;min-width:0;touch-action:manipulation;-webkit-tap-highlight-color:rgba(67,62,128,.16);position:relative;z-index:5}
-.dashCardActions [data-start]:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
+.dashCardActions a[href^='begrepp.html']{min-height:54px;min-width:0;touch-action:manipulation;-webkit-tap-highlight-color:rgba(67,62,128,.16);position:relative;z-index:5}
+.dashCardActions a[href^='begrepp.html']:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
 .dashCardActions .dashSmallButton{background:#1f6e7a;color:#fff;font-size:12px;padding:10px;white-space:nowrap}
 .dashCardActions .dashSmallButton.other{background:#e6f3f1;color:#175b66;border:0}
 .dashGamesGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
@@ -222,7 +223,7 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
         <div class="dashAvatar" aria-hidden="true"><span>📚</span><b>DU KAN DET HÄR!</b></div>
       </section>
       <nav class="dashAnchor" aria-label="Hoppa till avsnitt">
-        <a href="#dashWeek">⭐ Aktuellt</a><a href="#dashPractice">⌚ Träna</a><a href="#dashGames">🎮 Spela</a><a href="#dashFamily">🏝️ Familjen</a>
+        <a href="#dashWeek">⭐ Aktuellt</a><a href="#dashPractice">⌚ Träna</a><a href="#dashGames">🎮 Spela</a>
       </nav>
 
       <section id="dashWeek" class="dashSection">
@@ -233,7 +234,8 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
             <h3>Veckans begrepp</h3>
             <p>12 ord att kunna förklara och stava. Blanda mellan kunskapskort och lyssna-och-skriv!</p>
             <div class="dashCardMeta"><span>📅 v. 47</span><span>📘 12 begrepp</span></div>
-            <div class="dashCardActions"><a href="#flashScreen" data-start="flash" data-set="sv">🧠 Förklara orden</a><a href="#spellScreen" data-start="spell" data-set="sv">🔊 Träna stavning</a></div>
+            <a href="begrepp.html" class="dashCardCover" aria-label="Öppna Veckans begrepp"></a>
+            <div class="dashCardActions"><a href="begrepp.html?mode=flash">🧠 Förklara orden</a><a href="begrepp.html?mode=spell">🔊 Träna stavning</a></div>
           </article>
           <article class="dashHeroCard animals">
             <div class="dashCardTop"><span class="dashCardBadge">🧬 BIOLOGI · AKTUELLT PROV</span><span class="dashCardMascot" aria-hidden="true">🦋</span></div>
@@ -263,10 +265,6 @@ body.dashboard .app{max-width:1090px;padding:16px 18px 38px;gap:0}
         </div>
       </section>
 
-      <section id="dashFamily" class="dashSection">
-        <div class="dashSectionHead"><div><span class="dashEyebrow">UTANFÖR SKOLAN</span><h2>🏝️ Familjens äventyr</h2></div></div>
-        <a class="dashFamilyCard" href="resa/"><span class="dashFamilyEmoji" aria-hidden="true">🌴</span><div><b>Filippinerna 2027</b><p>Resplan, boenden, flyg och roliga saker att se.</p></div><span class="dashFamilyArrow" aria-hidden="true">→</span></a>
-      </section>
     </main>
 
     <main id="mathSetup" class="screen"><div class="panel mathPanel">

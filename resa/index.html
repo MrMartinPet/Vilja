@@ -7,10 +7,10 @@
   <meta name="description" content="Familjens planering för Filippinerna 2027: Bohol, Boracay, flyg, boenden, checklistor och karta.">
   <meta name="robots" content="noindex,nofollow">
   <title>Filippinerna 2027 · Resedashboard</title>
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-  <script src="app.js?v=12" defer></script>
+  <script src="app.js?v=13" defer></script>
 </head>
 <body>
   <a class="skip" href="#oversikt">Hoppa till innehållet</a>
@@ -62,15 +62,15 @@
 
     <section data-view="overview" class="overview-finance" aria-label="Kostnadsläget">
       <div class="overview-finance-header">
-        <div><span class="overview-finance-kicker">EKONOMI · BOKADE KOSTNADER</span><h2>Resans kostnader</h2><p>Bekräftade belopp hittills för 7 personer. Boracay och Bohol återstår.</p></div>
-        <div class="overview-finance-total"><span>Totalt hittills</span><strong id="overviewBookedTotal">–</strong></div>
+        <div><span class="overview-finance-kicker">EKONOMI · BOKAT OCH PLANERAT</span><h2>Resans kostnader</h2><p>Kända kostnader för 7 personer, inklusive preliminära priser för Bohol och Boracay.</p></div>
+        <div class="overview-finance-total"><span>Totalt inkl. hotell</span><strong id="overviewBookedTotal">–</strong></div>
       </div>
       <div class="overview-split-labels">
         <div><span class="split-dot mm-dot"></span><b>M&M <strong id="overviewMmCost">–</strong></b><small id="overviewMmPct">–</small></div>
         <div><span class="split-dot pe-dot"></span><b>P&E <strong id="overviewPeCost">–</strong></b><small id="overviewPePct">–</small></div>
       </div>
       <div class="overview-allocation-bar" aria-label="Fördelning mellan sällskapen"><span id="overviewMmBar"></span><span id="overviewPeBar"></span></div>
-      <div class="overview-finance-foot"><span>⏳ SJ fördelas preliminärt 65 % M&M / 35 % P&E. Behöver verifieras.</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
+      <div class="overview-finance-foot"><span>🏨 Hotell på Bohol och Boracay: ca 51 000 kr, delas 50/50. SJ-fördelningen är preliminär.</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
     </section>
 
     <section data-view="overview" class="overview-grid" aria-label="Nästa steg och bokningsöversikt">
@@ -86,7 +86,7 @@
       <div class="section-intro"><div><div class="section-kicker">SNABBÖVERSIKT</div><h2>Resan i korthet</h2></div></div>
       <div class="quick-itinerary-grid">
         <div><span>8–10 feb</span><strong>Stockholm → Manila</strong><small>Flyg via Peking · första natten Belmont bokad</small></div>
-        <div><span>10–17 feb</span><strong>Bohol · 7 nätter</strong><small>Boende kvar att boka</small></div>
+        <div><span>10–17 feb</span><strong>Bohol · 7 nätter</strong><small>Bird of Paradise valt · ännu ej bokat</small></div>
         <div><span>17–23 feb</span><strong>Boracay · 6 nätter</strong><small>Two Seasons preliminärt bokat</small></div>
         <div><span>23–24 feb</span><strong>Manila → Sverige</strong><small>Savoy Hotel bokat · 2 rum · Arlanda 16.20 · tåg hem 18.16</small></div>
       </div>
@@ -110,26 +110,26 @@
     <section data-view="overview" id="beslut" class="page-section">
       <div class="section-intro"><div><div class="section-kicker">ENDAST DET SOM ÅTERSTÅR</div><h2>Kvar att bestämma</h2><p>Endast aktuella boendefrågor och andra val.</p></div></div>
       <div id="decisionsGrid" class="pending-decisions"></div>
-      <p class="pending-hint">Bohol: helst villa med pool för alla sju, alternativt rum nära varandra och stranden. Boracay: preliminärt bokat, kan ses över när tid finns.</p>
+      <p class="pending-hint">Bohol: Bird of Paradise Pool Villa är vald men ännu inte bokad. Bekräfta plats för sju. Boracay: Two Seasons preliminärt bokat.</p>
     </section>
 
     <section data-view="costs" id="kostnader" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">BOKADE KOSTNADER</div><h2>Vad kostar resan hittills?</h2><p>Bekräftade priser från biljetter och fakturor, fördelade mellan M&M och P&E.</p></div></div>
+      <div class="section-intro"><div><div class="section-kicker">BOKAT OCH PLANERAT</div><h2>Vad kostar hela resan?</h2><p>Kända priser och preliminära hotellkostnader, fördelade mellan M&M och P&E.</p></div></div>
       <div class="cost-summary">
-        <div class="cost-summary-all"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Alla kända bokningskostnader</small></div>
+        <div class="cost-summary-all"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Inklusive 51 000 kr i preliminära hotellpriser</small></div>
         <div><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Inklusive preliminär SJ-andel</small></div>
         <div><span>P&E · 2 personer</span><strong id="peCostTotal">–</strong><small>Fördelade kostnader</small></div>
       </div>
       <p class="cost-unallocated">SJ: preliminärt 65 % M&M (2 483 kr) och 35 % P&E (1 337 kr). Denna fördelning behöver verifieras.</p>
       <div id="costOverviewList" class="cost-overview-list"></div>
-      <p class="cost-warning">Manilahotellen är fördelade 50/50. SJ:s 65/35-fördelning är preliminär. Flygen är fördelade efter 2 vuxna + 3 barn (M&M) respektive 2 vuxna (P&E), med en gemensam incheckad väska per grupp på varje inrikesflyg. Boracaysvitens pris inväntas. Ej bokade boenden, transfer och utflykter ingår inte. Sidan är offentlig på GitHub – inga betalningskort eller bokningsnummer visas.</p>
+      <p class="cost-warning">Bohol (26 000 kr) och Boracay (cirka 25 000 kr) är preliminära hotellpriser och delas 50/50 mellan familjerna, liksom Manilahotellen. Bird of Paradise är valt men ännu inte bokat; Two Seasons är preliminärt bokat. Flygen fördelas per biljett och bagage. SJ:s 65/35-fördelning är preliminär. Transfer och utflykter utan kända priser ingår inte. Sidan är offentlig – inga kortuppgifter eller bokningsnummer visas.</p>
     </section>
 
     <section data-view="details" id="bokningar" class="page-section">
       <div class="section-intro"><div><div class="section-kicker">PENGAR & BILJETTER</div><h2>Bokningar och budget</h2><p>Bokningsuppgifter och registrerade kostnader i en gemensam översikt.</p></div></div>
       <div id="confirmedDomesticPanel" class="booked-trips-panel" aria-live="polite" hidden></div>
       <div class="budget-head">
-        <article class="budget-total"><small>Registrerad totalbudget</small><strong id="budgetTotal">Ej ifyllt</strong><span>Endast egna inmatade belopp för hela sällskapet</span></article>
+        <article class="budget-total"><small>Registrerad totalbudget</small><strong id="budgetTotal">Ej ifyllt</strong><span>Inkluderar hotelluppskattningar, men ej okända transferkostnader</span></article>
         <article class="budget-paid"><small>Registrerat betalt</small><strong id="budgetPaid">Ej ifyllt</strong><span>Uppdateras när ni registrerar betalningar</span></article>
       </div>
       <div class="panel table-wrap"><table class="budget-table"><thead><tr><th>Del av resan</th><th>Status</th><th>Budget, SEK</th><th>Betalt, SEK</th></tr></thead><tbody id="budgetRows"></tbody></table></div>

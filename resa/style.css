@@ -257,3 +257,10 @@ body[data-active-view="overview"] .quick-itinerary{margin-top:11px}
   .panel{padding:18px}
   .overview-grid{margin-top:10px}
 }
+
+/* Planned hotels and preliminary accommodation costs */
+.status.planned{background:#fff0d7;color:#855b1d}
+.stay-card-planned{border:1px solid #e6c58c;background:linear-gradient(160deg,#fff,#fffaf0)}
+.stay-estimated-cost{padding:10px 12px;background:#f7f8ed;border:1px solid #e3e9d2;border-radius:10px;color:#36574a;font-size:12px;line-height:1.6}
+.stay-estimated-cost strong{font-size:13px;color:#16695b}
+.stay-planned-note{font-size:11px!important;color:#745837!important;line-height:1.55!important}

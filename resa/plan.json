@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-17-single-source-design",
-  "updated": "2026-11-17",
+  "version": "2026-11-21-planned-island-hotels",
+  "updated": "2026-11-21",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -60,13 +60,13 @@
       "from": "2027-02-10",
       "to": "2027-02-17",
       "nights": 7,
-      "place": "Bohol · Panglao",
-      "area": "Alona Beach / Tawala / Danao",
+      "place": "Bohol · Bird of Paradise Bohol Resort",
+      "area": "Tawala, Panglao · nära Alona Beach",
       "kind": "villa",
-      "status": "todo",
-      "details": "Vi vill helst hitta en egen rymlig villa där alla sju får plats, gärna med privat pool, flera riktiga sovrum och gemensamt vardagsrum. Alternativt flera bekväma rum i markplan nära varandra, med direkt och enkel tillgång till poolen. Oavsett boende vill vi vara nära stranden och restauranger på gångavstånd; undvik boenden som kräver bil varje kväll. På Bohol prioriterar vi Alona Beach/Tawala.",
-      "suggestion": "Privat rymlig villa för 7 – eller flera markplansrum nära poolen och stranden.",
-      "link": "https://www.booking.com/searchresults.html?ss=Panglao%2C+Bohol&checkin=2027-02-10&checkout=2027-02-17",
+      "status": "planned",
+      "details": "Pool Villa är valt som planerat boende 10–17 februari 2027, men ännu inte bokat. Två våningar med utvändig trappa, två sovrum och två badrum, privat pool och tillgång till gemensam pool. Preliminär kostnad 26 000 kr för 7 nätter, delas 50/50 mellan familjerna. Bekräfta först att hotellet accepterar 4 vuxna och 3 barn i samma villa utan extrasängar, eftersom den officiella maxkapaciteten anges till 6. Promenad till restauranger och Alona Beach; tuk-tuk finns på begäran.",
+      "suggestion": "Pool Villa · separata våningsplan · privat pool · 2 sovrum och 2 badrum",
+      "link": "https://birdofparadise.ph/",
       "alternatives": [
         {
           "id": "bohol-aman-sinaya",
@@ -89,7 +89,10 @@
           "status": "Kandidat – ej bokad",
           "details": "Tre sovrum, privat pool. Cirka 2,3 km till Alona Beach; inte optimal för promenad till stranden. Tidigare sökpris ej garanterat."
         }
-      ]
+      ],
+      "estimatedTotalSEK": 26000,
+      "priceStatus": "preliminary",
+      "planNote": "Valt men inte bokat. Hotellet behöver bekräfta plats för 4 vuxna och 3 barn i samma villa."
     },
     {
       "id": "stay-boracay",
@@ -100,7 +103,7 @@
       "area": "White Beach, Station 1 · direkt vid stranden",
       "kind": "hotell",
       "status": "booked",
-      "details": "Preliminärt bokat: Two Seasons Boracay Resort, 17–23 februari, Family Grand Suite with Pool Access. Bokningen finns men vi vill jämföra alternativ om tid finns. Ingen akut prioritet. Frukost ingår.",
+      "details": "Two Seasons Boracay Resort, Family Grand Suite with Pool Access, 17–23 februari 2027. Preliminär bokning finns, men priset cirka 25 000 kr är bara uppskattat för alla sju; slutpriset behöver verifieras. Kostnaden delas 50/50, 12 500 kr per familj. Frukost ingår.",
       "suggestion": "Family Grand Suite with Pool Access · 70 m² · nära stranden och poolen",
       "link": "https://twoseasonsresorts.com/boracay/accommodation/family-grand-suite-with-pool-access/",
       "booking": {
@@ -122,7 +125,10 @@
         "childrenCount": 3,
         "provisional": true,
         "reviewWhenTime": true
-      }
+      },
+      "estimatedTotalSEK": 25000,
+      "priceStatus": "preliminary",
+      "planNote": "Bokning finns men är preliminär. Cirka 25 000 kr är ett uppskattat pris, inte slutligt bekräftat."
     },
     {
       "id": "stay-manila-last",
@@ -231,12 +237,12 @@
       "id": "tag-alona",
       "date": "2027-02-10",
       "type": "bil",
-      "title": "Flygplats → villa",
-      "route": "TAG → Alona Beach / Panglao",
+      "title": "Flygplats → Bird of Paradise",
+      "route": "TAG → Bird of Paradise Bohol Resort, Tawala",
       "time": "Efter 15.40",
       "duration": "Ungefär 15–30 min med bil",
       "status": "todo",
-      "details": "Privat bil med plats för sju och kabinväskor; invänta villans adress."
+      "details": "Planera privat transfer för 7 personer och bagage till Bird of Paradise Bohol Resort. Hotellet är valt men inte bokat."
     },
     {
       "id": "bohol-boracay",
@@ -412,11 +418,11 @@
     },
     {
       "id": "t06",
-      "title": "Välj och boka villa på Panglao 10–17 feb",
+      "title": "Boka Bird of Paradise Bohol · Pool Villa 10–17 feb",
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Alona/Tawala. Helst en stor egen villa med pool för alla sju; annars flera rum i markplan, nära pool, strand och restauranger."
+      "note": "Hotellet är valt men ännu inte bokat. Bekräfta att 4 vuxna och 3 barn får bo tillsammans utan extrasängar. Preliminär kostnad 26 000 kr, 13 000 kr per familj."
     },
     {
       "id": "t07",
@@ -424,7 +430,7 @@
       "category": "Boende",
       "priority": "high",
       "done": true,
-      "note": "Bokning finns, men boendet är inte slutligt bestämt. Se gärna över alternativ om tid finns, låg prioritet."
+      "note": "Preliminär bokning finns. Uppskattat boendepris ca 25 000 kr för gruppen, 12 500 kr per familj. Slutpris måste verifieras. Jämför andra alternativ endast om tid finns."
     },
     {
       "id": "t08",
@@ -456,7 +462,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Räckvidd 7 personer samt bagage."
+      "note": "Boka transfer för 7 personer och bagage från TAG till Bird of Paradise Bohol Resort, Tawala."
     },
     {
       "id": "t12",
@@ -598,9 +604,9 @@
         "Danao",
         "Dumaluan / Bolod"
       ],
-      "choice": "",
-      "note": "Sök rymlig villa med pool för sju, alternativt flera rum i markplan nära pool, strand och restauranger.",
-      "why": "Sju nätter på Panglao. Vi vill ha gott om plats och kort avstånd till strand och restauranger."
+      "choice": "Bird of Paradise Bohol Resort · Pool Villa",
+      "note": "Valt som planerat boende 10–17 feb. Ej bokat. Preliminärt 26 000 kr, 50/50 mellan familjerna. Bekräfta att alla 7 får bo i villan utan extrasängar.",
+      "why": "Boende är valt men behöver godkännande för 7 och bokas."
     },
     {
       "id": "d4",
@@ -883,12 +889,13 @@
     },
     {
       "id": "b4",
-      "name": "Villa Bohol 10–17 feb",
+      "name": "Bird of Paradise Bohol · Pool Villa · 10–17 feb · planerat",
       "category": "Boende",
-      "totalSEK": null,
+      "totalSEK": 26000,
       "paidSEK": null,
-      "scope": "7 personer",
-      "status": "todo"
+      "scope": "7 personer · 50/50",
+      "status": "planned",
+      "estimated": true
     },
     {
       "id": "b5",
@@ -901,12 +908,13 @@
     },
     {
       "id": "b6",
-      "name": "Two Seasons Boracay Resort · preliminär bokning",
+      "name": "Two Seasons Boracay · 17–23 feb · preliminär bokning",
       "category": "Boende",
-      "totalSEK": null,
+      "totalSEK": 25000,
       "paidSEK": null,
-      "scope": "7 personer",
-      "status": "booked"
+      "scope": "7 personer · 50/50",
+      "status": "booked",
+      "estimated": true
     },
     {
       "id": "b7",
@@ -972,8 +980,8 @@
       "status": "todo"
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Hotellens kostnader delas 50/50 mellan M&M och P&E. Flygkostnaderna fördelas efter biljetter och en incheckad väska per grupp på varje inrikesflyg. SJ:s gruppfördelning är preliminärt 65 % M&M / 35 % P&E och ska verifieras. Boracaysvitens pris återstår. Boende på Bohol samt vissa mark- och båttransporter återstår. Inga privata betalningsuppgifter lagras i den publika resplanen.",
-  "stayPreference": "För Bohol söker vi helst en egen rymlig villa där alla sju får plats, gärna med privat pool och separata sovrum. Alternativt flera bekväma rum i markplan nära varandra, nära poolen. Gångavstånd till strand och restauranger är viktigt. På Boracay är Family Grand Suite with Pool Access på Two Seasons Boracay Resort redan bokad.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bird of Paradise Bohol 10–17 februari är valt som planerat boende men ännu inte bokat, uppskattat 26 000 kr. Two Seasons Boracay 17–23 februari är preliminärt bokat, uppskattat cirka 25 000 kr. Båda hotellens priser och Manilahotellens kostnader delas 50/50 mellan M&M och P&E. Flygen fördelas enligt biljettantal och bagage per grupp. SJ fördelas preliminärt 65/35 och ska verifieras. Transfer och utflykter saknar ännu fullständiga kostnader. Inga privata bokningsuppgifter lagras på den offentliga sidan.",
+  "stayPreference": "Bohol: Bird of Paradise Bohol Resort, Pool Villa, valt som planerat boende 10–17 februari, ej bokat; bekräfta sju gäster. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Båda boendepriserna är preliminära och delas 50/50.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1108,6 +1116,20 @@
       "source": "Agoda: debitering 5 feb 2027"
     },
     {
+      "id": "bohol-bird-of-paradise-all",
+      "name": "Bird of Paradise Bohol · Pool Villa · 10–17 feb · planerat",
+      "amountSEK": 26000,
+      "scope": "Alla 7 personer",
+      "status": "planned",
+      "estimated": true,
+      "splitSEK": {
+        "mm": 13000,
+        "pe": 13000
+      },
+      "splitNote": "50/50 · 13 000 kr per familj",
+      "source": "Resenärernas preliminära prisuppgift 21 nov 2026. Inte bokat."
+    },
+    {
       "id": "cebu-pacific-all",
       "name": "Cebu Pacific · Manila–Bohol 10 feb · inkl. bagage",
       "amountSEK": 5230.08,
@@ -1134,10 +1156,16 @@
     {
       "id": "twoseasons-all",
       "name": "Two Seasons Boracay · 17–23 feb · preliminärt",
-      "amountSEK": null,
+      "amountSEK": 25000,
       "scope": "Alla 7 personer",
       "status": "booked",
-      "source": "Bokad svit, pris väntar på underlag"
+      "source": "Resenärernas uppskattning 21 nov 2026. Slutpris återstår att verifiera.",
+      "estimated": true,
+      "splitSEK": {
+        "mm": 12500,
+        "pe": 12500
+      },
+      "splitNote": "50/50 · 12 500 kr per familj"
     },
     {
       "id": "airasia-all",
@@ -1164,5 +1192,5 @@
       "source": "Agoda: debitering 19 feb 2027"
     }
   ],
-  "budgetAccountingNote": "SJ 3 820 kr fördelas preliminärt med 65 % (2 483 kr) på M&M och 35 % (1 337 kr) på P&E. Måste verifieras. Flyg M&M = 2 vuxna + 3 barn; P&E = 2 vuxna. Inrikesflyg: en incheckad väska per grupp på varje flyg; flygplatshotell 50/50. Boracaysvitens pris saknas."
+  "budgetAccountingNote": "Bird of Paradise Bohol 26 000 kr och Two Seasons Boracay ca 25 000 kr är preliminära boendepriser som delas 50/50 (13 000 kr och 12 500 kr per familj). Manilahotellen delas också 50/50. SJ 3 820 kr fördelas preliminärt 65 % (2 483 kr) på M&M och 35 % (1 337 kr) på P&E och ska verifieras. Flyg M&M = 2 vuxna + 3 barn; P&E = 2 vuxna. Inrikesflyg: en incheckad väska per grupp på varje flyg. Okända transfer-/utflyktskostnader ingår inte."
 }

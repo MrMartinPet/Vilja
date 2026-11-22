@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-22-alona-park",
+  "version": "2026-11-22-alona-park-booked",
   "updated": "2026-11-22",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -63,9 +63,9 @@
       "place": "Bohol · Alona Park Residence",
       "area": "Ester A. Lim Drive, Tawala, Panglao · nära Alona Beach",
       "kind": "lägenhet",
-      "status": "planned",
-      "details": "Alona Park Residence är planerat 10–17 februari 2027. En annons visar 5 356 kr för sju nätter för 2 vuxna och 2 barn. Vi är 5 i familjen, så den femte personens tillåtna beläggning och pris måste bekräftas. Totalt reser 7 personer. De två andra vuxna letar efter egen lägenhet/bungalow/rum i samma område, helst markplan; ingen tillgänglighet eller kostnad är bekräftad. Kontrollera exakt antal sovrum och sängar, våningsplan och om poolen är gemensam. Transport behövs till Dumaluan Beach.",
-      "suggestion": "Alona Park Residence · planerad lägenhet för 5 · separat boende för 2 vuxna söks",
+      "status": "booked",
+      "details": "Bokat på Alona Park Residence 10–17 februari 2027 för 2 vuxna och 3 barn (5 personer). Antal gäster är bekräftat. Bokningen är ännu inte betald. Slutligt bokningspris är inte meddelat; den tidigare prisbilden 5 356 kr gällde en sökning för 2 vuxna och 2 barn och är inte ett verifierat pris för bokningen. Två andra vuxna i sällskapet söker separat boende i samma område, helst markplan med egen uteplats. Cirka 12 minuter till Alona Beach till fots enligt lägenhetsbeskrivning; tuk-tuk för Dumaluan Beach.",
+      "suggestion": "Bokad lägenhet · 2 vuxna + 3 barn · ej betald · separat boende för 2 vuxna söks",
       "link": "https://www.booking.com/hotel/ph/alona-park-residence-panglao.it.html",
       "alternatives": [
         {
@@ -83,10 +83,23 @@
           "details": "Bungalow i samma område. Kontrollera bokningsbarhet och pris 10–17 februari."
         }
       ],
-      "estimatedTotalSEK": 5356,
-      "priceStatus": "preliminary",
-      "planNote": "Ännu inte bekräftat bokat. 5 356 kr gäller 4 personer, inte alla 5. Extra person och boende för 2 andra vuxna behöver bekräftas.",
-      "costNote": "sökpris för 2 vuxna och 2 barn; resten ej prissatt"
+      "estimatedTotalSEK": null,
+      "priceStatus": "awaiting_confirmed_booking_price",
+      "planNote": "Bokat, ännu inte betalt. 5 gäster bekräftade. Bokningspris saknas i resesidans underlag; de andra två vuxna söker eget boende.",
+      "booking": {
+        "confirmed": true,
+        "provisional": false,
+        "accommodation": "Alona Park Residence, Panglao",
+        "roomType": "Lägenhet",
+        "roomCount": 1,
+        "adults": 2,
+        "childrenCount": 3,
+        "checkIn": "2027-02-10",
+        "checkOut": "2027-02-17",
+        "nights": 7,
+        "paymentStatus": "Bokat, ännu inte betalt",
+        "notes": "Bokning för 2 vuxna + 3 barn är bekräftad. Betalning återstår. Slutpriset bör tas från bokningsbekräftelsen (inte det äldre sökpriset 5 356 kr för 4 personer)."
+      }
     },
     {
       "id": "stay-boracay",
@@ -236,7 +249,7 @@
       "time": "Efter 15.40",
       "duration": "Ungefär 15–30 min med bil",
       "status": "todo",
-      "details": "Planera transport för 7 personer och bagage till Alona Park Residence-området. Boendena är planerade men inte bekräftade; se till att chauffören får båda adresserna."
+      "details": "Planera transfer för 7 personer med bagage. Alona Park Residence är bokat för 2 vuxna och 3 barn; de två övriga vuxnas boende/adress är ännu inte klart."
     },
     {
       "id": "bohol-boracay",
@@ -412,11 +425,11 @@
     },
     {
       "id": "t06",
-      "title": "Bohol: verifiera Alona Park Residence 10–17 feb",
+      "title": "Bokat: Alona Park Residence · 2 vuxna och 3 barn",
       "category": "Boende",
       "priority": "high",
-      "done": false,
-      "note": "Sökpris 5 356 kr gäller 2 vuxna och 2 barn. Kontrollera plats och slutpris för fem samt sovrum, våning och pool; två andra vuxna behöver eget boende."
+      "done": true,
+      "note": "Boendet bokat 10–17 februari för fem personer. Ännu inte betalt; uppdatera slutpris från bokningsbekräftelsen."
     },
     {
       "id": "t07",
@@ -569,6 +582,14 @@
       "priority": "high",
       "done": false,
       "note": "10–17 februari 2027. Helst markplan med uteplats i samma komplex. Pris saknas."
+    },
+    {
+      "id": "t26",
+      "title": "Betala Alona Park Residence och fyll i slutpriset",
+      "category": "Boende",
+      "priority": "medium",
+      "done": false,
+      "note": "Fem gäster bekräftade (2 vuxna + 3 barn). Boendet är bokat men inte betalt. Betaldatum och exakt pris framgår av bokningsbekräftelsen och ska fyllas i."
     }
   ],
   "decisions": [
@@ -606,9 +627,9 @@
         "Danao",
         "Dumaluan / Bolod"
       ],
-      "choice": "Alona Park Residence · planerat för familjen, separat boende för 2 söks",
-      "note": "5 356 kr är sökpris för 2 vuxna och 2 barn, inte för fem. Plats för fem och separat boende för två vuxna måste bekräftas. Inte bokat.",
-      "why": "Fem personer måste rymmas i vår lägenhet, och två vuxna behöver eget boende."
+      "choice": "Alona Park Residence · bokat för 2 vuxna + 3 barn",
+      "note": "Bokningen 10–17 februari för fem personer är bekräftad, men ännu inte betald. De andra två vuxna söker eget boende i området. Boholboendets slutpris ska hämtas från bekräftelsen.",
+      "why": "Bokningen för fem är klar. Separat boende för två vuxna och betalning återstår."
     },
     {
       "id": "d4",
@@ -891,13 +912,13 @@
     },
     {
       "id": "b4",
-      "name": "Alona Park Residence · 10–17 feb · delpris för 4",
+      "name": "Alona Park Residence · 10–17 feb · bokat, ej betalt",
       "category": "Boende",
-      "totalSEK": 5356,
+      "totalSEK": null,
       "paidSEK": null,
-      "scope": "2 vuxna + 2 barn; femte person och två extra vuxnas boende ej prissatt",
-      "status": "planned",
-      "estimated": true
+      "scope": "2 vuxna + 3 barn · pris i bekräftelsen saknas",
+      "status": "booked",
+      "estimated": false
     },
     {
       "id": "b5",
@@ -991,8 +1012,8 @@
       "status": "todo"
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence planerat 10–17 februari men inte bokat; sökpriset 5 356 kr gäller 2 vuxna + 2 barn. En femte familjemedlem samt två andra vuxnas separata boende är ännu inte prissatta. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Endast Boracayboendet och Manilahotellen delas preliminärt 50/50. Flygen fördelas per grupp och bagage. SJ fördelas preliminärt 65/35. Transfer och utflykter saknar ännu fullständiga kostnader. Inga privata bokningsuppgifter lagras på den offentliga sidan.",
-  "stayPreference": "Bohol: Alona Park Residence planerat för fem, men sökpriset 5 356 kr gäller endast 2 vuxna + 2 barn. Separat lägenhet/bungalow på markplan söks för två vuxna. Inga Boholboenden bekräftat bokade. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence 10–17 februari är bokat för 2 vuxna + 3 barn, ännu inte betalt, slutpris ej angivet. De två andra vuxna söker separat boende i samma område. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena särredovisas per grupp. SJ fördelas preliminärt 65/35. Transfer och utflykter saknar ännu fullständiga kostnader. Inga privata bokningsuppgifter lagras på den offentliga sidan.",
+  "stayPreference": "Bohol: Alona Park Residence bokat 10–17 februari för 2 vuxna + 3 barn, ännu inte betalt, slutpris inväntas. Separat boende för två andra vuxna nära komplexet söks, helst markplan. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1127,19 +1148,13 @@
       "source": "Agoda: debitering 5 feb 2027"
     },
     {
-      "id": "bohol-alona-park-partial",
-      "name": "Alona Park Residence · delpris 10–17 feb",
-      "amountSEK": 5356,
-      "scope": "2 vuxna + 2 barn; 5:e familjemedlemmen ej prissatt",
-      "status": "planned",
-      "estimated": true,
-      "splitSEK": {
-        "mm": 5356,
-        "pe": 0
-      },
-      "splitNote": "Pris för 4 av 5, separat boende för 2 vuxna saknar pris",
-      "source": "Annonserat pris 22 november 2026: 5 356 kr för 2 vuxna och 2 barn, inte bekräftad bokning.",
-      "partialAccommodation": true
+      "id": "bohol-alona-park-booked",
+      "name": "Alona Park Residence · 10–17 feb · bokat",
+      "amountSEK": null,
+      "scope": "2 vuxna + 3 barn · bokat, ej betalt; slutpris saknas",
+      "status": "booked",
+      "estimated": false,
+      "source": "Bekräftat av resenären 22 november 2026. Äldre sökpris 5 356 kr för 4 personer är inte bokningens verifierade totalpris."
     },
     {
       "id": "cebu-pacific-all",
@@ -1211,5 +1226,5 @@
       "status": "todo"
     }
   ],
-  "budgetAccountingNote": "Bohol: 5 356 kr är sökpris för 2 vuxna + 2 barn vid Alona Park Residence; femte personens tillägg och andra två vuxnas separata boende är okända. Total boendekostnad på Bohol kan ännu inte beräknas. Boracay: cirka 25 000 kr preliminärt, 50/50 (12 500 kr per familj). Manilahotellen 50/50. SJ 3 820 kr fördelas preliminärt 65 % M&M (2 483 kr) och 35 % P&E (1 337 kr), att verifiera. Flyg M&M = 2 vuxna + 3 barn och P&E = 2 vuxna. Transfer och aktiviteter utan kända priser ingår inte."
+  "budgetAccountingNote": "Alona Park Residence är bokat för 2 vuxna + 3 barn, men inte betalt. Slutligt pris saknas; tidigare sökpris 5 356 kr för 2 vuxna + 2 barn får inte användas som faktiskt bokningspris. Två andra vuxnas boende på Bohol saknar pris. Boracay cirka 25 000 kr preliminärt med 50/50-delning. Manilahotellen 50/50. SJ 3 820 kr fördelas preliminärt 65/35. Flyg per familj och bagage. Ej kända transfer-/utflyktskostnader ingår inte."
 }

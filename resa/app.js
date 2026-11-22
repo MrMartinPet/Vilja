@@ -11,7 +11,7 @@ var num=function(x){return x===null||x===undefined||x===""?null:Number(x);};
 var dateLabel=function(s){var d=new Date(s.slice(0,10)+"T12:00:00Z");return new Intl.DateTimeFormat("sv-SE",{day:"numeric",month:"short",timeZone:"UTC"}).format(d);};
 var statusName={booked:"Bokat",paid:"Betalt",selected:"Valt · ej bokat",planned:"Planerat · ej bokat",todo:"Ej bokat",decision:"Beslut kvar"};
 var iconName={"flyg":"✈️","hotell":"🏨","bil":"🚐","båt":"⛴️","val":"⚖️","tåg":"🚆","buss":"🚌"};
-var stayIcon={"villa":"🌴","hotell":"🛏️"};
+var stayIcon={"villa":"🌴","hotell":"🛏️","lägenhet":"🏡"};
 function badge(status){return '<span class="status '+esc(status||"todo")+'">'+esc(statusName[status]||"Ej bokat")+'</span>';}
 function link(url,title,css){return safeUrl(url)?'<a class="'+(css||"")+'" target="_blank" rel="noopener noreferrer" href="'+esc(safeUrl(url))+'">'+esc(title)+' ↗</a>':"";}
 function notice(msg){var el=byId("errorBanner");if(el){el.textContent=msg;el.hidden=false;}}
@@ -41,7 +41,7 @@ function renderStays(){
    '<div>'+badge(stay.status)+'</div><h3>'+esc(stay.place)+'</h3>'+
    '<p>'+esc(dateLabel(stay.from))+'–'+esc(dateLabel(stay.to))+' · '+esc(stay.area)+'</p>'+
    '<p>'+esc(stay.suggestion||"")+'</p>';
-   if(Number.isFinite(stay.estimatedTotalSEK))stayBody+='<div class="stay-estimated-cost">💰 Preliminärt: <strong>'+money(stay.estimatedTotalSEK)+'</strong> totalt · <strong>'+money(stay.estimatedTotalSEK/2)+'</strong> per familj (50/50)</div>';
+   if(Number.isFinite(stay.estimatedTotalSEK))stayBody+='<div class="stay-estimated-cost">💰 Preliminärt: <strong>'+money(stay.estimatedTotalSEK)+'</strong>'+(stay.costNote?' · '+esc(stay.costNote):' totalt · <strong>'+money(stay.estimatedTotalSEK/2)+'</strong> per familj (50/50)')+'</div>';
    if(stay.planNote)stayBody+='<p class="stay-planned-note">'+esc(stay.planNote)+'</p>';
   if(b&&b.confirmed){
    var rooms=b.roomCount||b.rooms;
@@ -158,7 +158,7 @@ function renderCostOverview(){
   var unknown=!Number.isFinite(x.amountSEK);
   var state=x.status==="paid"?"Betalt":x.status==="booked"?(x.estimated?"Preliminärt bokat · uppskattat pris":"Bokat"):x.status==="planned"?"Planerat · ej bokat":"Ej bokat";
   var preliminary=x.allocationStatus==="preliminary";
-  var splits=x.splitSEK?'<small class="cost-line-split">M&M: '+esc(fmt(x.splitSEK.mm))+' · P&E: '+esc(fmt(x.splitSEK.pe))+(preliminary?' · preliminär 65/35-fördelning':x.splitNote?' · '+esc(x.splitNote):'')+'</small>':(x.allocationNote?'<small class="cost-line-split">'+esc(x.allocationNote)+'</small>':'');
+  var splits=x.splitSEK?'<small class="cost-line-split">'+(x.partialAccommodation?'M&M (4 av 5): '+esc(fmt(x.splitSEK.mm))+' · P&E-boende: pris saknas':'M&M: '+esc(fmt(x.splitSEK.mm))+' · P&E: '+esc(fmt(x.splitSEK.pe))+(preliminary?' · preliminär 65/35-fördelning':x.splitNote?' · '+esc(x.splitNote):''))+'</small>':(x.allocationNote?'<small class="cost-line-split">'+esc(x.allocationNote)+'</small>':'');
   return '<div class="cost-line"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>'+esc(x.scope)+' · '+esc(state)+'</small>'+splits+'</div><b class="'+(unknown?'cost-unknown':'')+'">'+esc((x.estimated&&!unknown?'ca ':'')+fmt(x.amountSEK))+'</b></div>';
  }).join("");
 }

@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-22-alona-park-booked",
+  "version": "2026-11-22-alona-park-booking-price-confirmed",
   "updated": "2026-11-22",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -61,11 +61,11 @@
       "to": "2027-02-17",
       "nights": 7,
       "place": "Bohol · Alona Park Residence",
-      "area": "Ester A. Lim Drive, Tawala, Panglao · nära Alona Beach",
+      "area": "Alona Park Residences, 2nd floor, Panglao · nära Alona Beach",
       "kind": "lägenhet",
       "status": "booked",
-      "details": "Bokat på Alona Park Residence 10–17 februari 2027 för 2 vuxna och 3 barn (5 personer). Antal gäster är bekräftat. Bokningen är ännu inte betald. Slutligt bokningspris är inte meddelat; den tidigare prisbilden 5 356 kr gällde en sökning för 2 vuxna och 2 barn och är inte ett verifierat pris för bokningen. Två andra vuxna i sällskapet söker separat boende i samma område, helst markplan med egen uteplats. Cirka 12 minuter till Alona Beach till fots enligt lägenhetsbeskrivning; tuk-tuk för Dumaluan Beach.",
-      "suggestion": "Bokad lägenhet · 2 vuxna + 3 barn · ej betald · separat boende för 2 vuxna söks",
+      "details": "Bekräftad Booking.com-bokning av 1 lägenhet med 3 sovrum på Alona Park Residence för 2 vuxna och 3 barn, 10–17 februari 2027 (7 nätter). Andra våningen enligt bokningsbekräftelsen. Totalpris 5 356,28 kr inklusive skatter och avgifter (33 468,75 PHP enligt betalningsöversikten), ännu inte betalt. Booking.com anger automatisk kortdebitering enligt betalningsuppgifterna. Gratis avbokning till och med 8 februari 2027 kl. 23.59 lokal tid. Incheckning från kl. 14.00, utcheckning kl. 12.00–13.00. Två övriga vuxna i sällskapet söker egen lägenhet eller bungalow i samma område, gärna markplan. Till Dumaluan Beach behövs transport.",
+      "suggestion": "Bokat: lägenhet med 3 sovrum · 2 vuxna + 3 barn · 5 356,28 kr · ej betalt",
       "link": "https://www.booking.com/hotel/ph/alona-park-residence-panglao.it.html",
       "alternatives": [
         {
@@ -84,21 +84,28 @@
         }
       ],
       "estimatedTotalSEK": null,
-      "priceStatus": "awaiting_confirmed_booking_price",
-      "planNote": "Bokat, ännu inte betalt. 5 gäster bekräftade. Bokningspris saknas i resesidans underlag; de andra två vuxna söker eget boende.",
+      "priceStatus": "confirmed",
+      "planNote": "Bekräftad bokning för 5. Totalt 5 356,28 kr (33 468,75 PHP), obetalt. Gratis avbokning till 8 feb 2027 kl. 23.59. Två andra vuxna behöver separat boende.",
       "booking": {
         "confirmed": true,
         "provisional": false,
         "accommodation": "Alona Park Residence, Panglao",
-        "roomType": "Lägenhet",
+        "roomType": "Lägenhet med 3 sovrum · 2:a våningen",
         "roomCount": 1,
         "adults": 2,
         "childrenCount": 3,
         "checkIn": "2027-02-10",
         "checkOut": "2027-02-17",
         "nights": 7,
-        "paymentStatus": "Bokat, ännu inte betalt",
-        "notes": "Bokning för 2 vuxna + 3 barn är bekräftad. Betalning återstår. Slutpriset bör tas från bokningsbekräftelsen (inte det äldre sökpriset 5 356 kr för 4 personer)."
+        "paymentStatus": "Ej betalt · automatisk kortdebitering enligt Booking.coms betalningsuppgifter",
+        "notes": "Booking.com bekräftar 3 sovrum, andra våningen och 5 gäster (2 vuxna + 3 barn). Totalpris 5 356,28 kr inklusive skatter/avgifter, motsvarande 33 468,75 PHP enligt betalningsöversikten. Betalt hittills: 0 PHP. Gratis avbokning till 8 februari kl. 23.59 lokal tid. Utcheckning 12.00–13.00. Ange ankomsttid i Booking.com.",
+        "roomSizeSqm": 160,
+        "checkInFrom": "14:00",
+        "checkOutBefore": "13:00",
+        "totalSEK": 5356.28,
+        "totalPHP": 33468.75,
+        "paidSEK": 0,
+        "freeCancellationBefore": "2027-02-09"
       }
     },
     {
@@ -425,11 +432,11 @@
     },
     {
       "id": "t06",
-      "title": "Bokat: Alona Park Residence · 2 vuxna och 3 barn",
+      "title": "Bekräftat: Alona Park Residence · 10–17 feb · 5 gäster",
       "category": "Boende",
       "priority": "high",
       "done": true,
-      "note": "Boendet bokat 10–17 februari för fem personer. Ännu inte betalt; uppdatera slutpris från bokningsbekräftelsen."
+      "note": "Booking.com-bokning: 1 lägenhet med 3 sovrum, andra våningen, 2 vuxna och 3 barn. 5 356,28 kr inklusive avgifter. Ej betalt. Fri avbokning till 8 feb kl. 23.59."
     },
     {
       "id": "t07",
@@ -585,11 +592,11 @@
     },
     {
       "id": "t26",
-      "title": "Betala Alona Park Residence och fyll i slutpriset",
+      "title": "Alona Park Residence · kommande betalning 5 356,28 kr",
       "category": "Boende",
       "priority": "medium",
       "done": false,
-      "note": "Fem gäster bekräftade (2 vuxna + 3 barn). Boendet är bokat men inte betalt. Betaldatum och exakt pris framgår av bokningsbekräftelsen och ska fyllas i."
+      "note": "Bokat för 2 vuxna och 3 barn. Betalt hittills: 0 PHP. Kommande debitering 33 468,75 PHP enligt Booking.com. Kontrollera datum i betalningsuppgifterna. Gratis avbokning till 8 feb kl. 23.59."
     }
   ],
   "decisions": [
@@ -627,9 +634,9 @@
         "Danao",
         "Dumaluan / Bolod"
       ],
-      "choice": "Alona Park Residence · bokat för 2 vuxna + 3 barn",
-      "note": "Bokningen 10–17 februari för fem personer är bekräftad, men ännu inte betald. De andra två vuxna söker eget boende i området. Boholboendets slutpris ska hämtas från bekräftelsen.",
-      "why": "Bokningen för fem är klar. Separat boende för två vuxna och betalning återstår."
+      "choice": "Alona Park Residence · bekräftat bokat för 2 vuxna + 3 barn",
+      "note": "Bokning 10–17 februari 2027: 1 lägenhet med 3 sovrum på andra våningen för 5 personer. Totalpris 5 356,28 kr inklusive skatter och avgifter, ännu inte betalt. Gratis avbokning till 8 februari kl. 23.59 lokal tid. De två andra vuxna söker separat boende.",
+      "why": "Boendet för fem är bokat och prissatt. Endast betalning och de andra två vuxnas boende återstår."
     },
     {
       "id": "d4",
@@ -912,11 +919,11 @@
     },
     {
       "id": "b4",
-      "name": "Alona Park Residence · 10–17 feb · bokat, ej betalt",
+      "name": "Alona Park Residence · 10–17 feb · bekräftat, ej betalt",
       "category": "Boende",
-      "totalSEK": null,
-      "paidSEK": null,
-      "scope": "2 vuxna + 3 barn · pris i bekräftelsen saknas",
+      "totalSEK": 5356.28,
+      "paidSEK": 0,
+      "scope": "2 vuxna + 3 barn · 7 nätter · 1 lägenhet med 3 sovrum",
       "status": "booked",
       "estimated": false
     },
@@ -1012,8 +1019,8 @@
       "status": "todo"
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence 10–17 februari är bokat för 2 vuxna + 3 barn, ännu inte betalt, slutpris ej angivet. De två andra vuxna söker separat boende i samma område. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena särredovisas per grupp. SJ fördelas preliminärt 65/35. Transfer och utflykter saknar ännu fullständiga kostnader. Inga privata bokningsuppgifter lagras på den offentliga sidan.",
-  "stayPreference": "Bohol: Alona Park Residence bokat 10–17 februari för 2 vuxna + 3 barn, ännu inte betalt, slutpris inväntas. Separat boende för två andra vuxna nära komplexet söks, helst markplan. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence 10–17 februari är BEKRÄFTAT bokat för 2 vuxna + 3 barn, 1 lägenhet med 3 sovrum på andra våningen, totalpris 5 356,28 kr inklusive avgifter (33 468,75 PHP), ännu ej betalt. Gratis avbokning till 8 februari kl. 23.59. De två andra vuxna söker separat boende i samma område; kostnaden för detta saknas. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan.",
+  "stayPreference": "Bohol: Alona Park Residence bokat 10–17 februari för 2 vuxna + 3 barn. En 3-sovrumslägenhet på andra våningen, totalpris 5 356,28 kr, ej betalt. Två andra vuxna söker separat boende i samma komplex, helst markplan. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1149,12 +1156,17 @@
     },
     {
       "id": "bohol-alona-park-booked",
-      "name": "Alona Park Residence · 10–17 feb · bokat",
-      "amountSEK": null,
-      "scope": "2 vuxna + 3 barn · bokat, ej betalt; slutpris saknas",
+      "name": "Alona Park Residence · 10–17 feb · bekräftad bokning",
+      "amountSEK": 5356.28,
+      "scope": "2 vuxna + 3 barn · ej betalt · inkl. skatter",
       "status": "booked",
       "estimated": false,
-      "source": "Bekräftat av resenären 22 november 2026. Äldre sökpris 5 356 kr för 4 personer är inte bokningens verifierade totalpris."
+      "source": "Bekräftad Booking.com-bokning visad 22 november 2026. Totalt 5 356,28 SEK (33 468,75 PHP); 0 PHP betalt; fri avbokning till 8 feb 2027 kl. 23.59.",
+      "splitSEK": {
+        "mm": 5356.28,
+        "pe": 0
+      },
+      "splitNote": "M&M:s bokning; P&E:s separata boende ej prissatt"
     },
     {
       "id": "cebu-pacific-all",
@@ -1226,5 +1238,5 @@
       "status": "todo"
     }
   ],
-  "budgetAccountingNote": "Alona Park Residence är bokat för 2 vuxna + 3 barn, men inte betalt. Slutligt pris saknas; tidigare sökpris 5 356 kr för 2 vuxna + 2 barn får inte användas som faktiskt bokningspris. Två andra vuxnas boende på Bohol saknar pris. Boracay cirka 25 000 kr preliminärt med 50/50-delning. Manilahotellen 50/50. SJ 3 820 kr fördelas preliminärt 65/35. Flyg per familj och bagage. Ej kända transfer-/utflyktskostnader ingår inte."
+  "budgetAccountingNote": "Bohol: Alona Park Residence är bekräftat bokat för 2 vuxna + 3 barn, totalt 5 356,28 kr inklusive skatter/avgifter; hittills 0 kr betalt (33 468,75 PHP kommande). Detta belastar M&M och delas inte 50/50. De andra två vuxnas boende har ännu inget pris. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte."
 }

@@ -1,6 +1,6 @@
-const CACHE="vilja-portal-v35";
+const CACHE="vilja-portal-v36";
 const ASSETS=[
- "./","./index.html","./viljas-appar.html","./begrepp.html",
+ "./","./index.html","./viljas-appar.html","./engelska-skyltar.html","./begrepp.html",
  "./resa/","./resa/index.html","./resa/style.css","./resa/app.js","./resa/plan.json",
  "./klockan/","./klockan/index.html","./klockan/style.css","./klockan/time.js","./klockan/game.js",
  "./ponnyforsvaret/","./ponnyforsvaret/index.html","./ponnyforsvaret/game.css","./ponnyforsvaret/game.js",

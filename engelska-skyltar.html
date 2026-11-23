@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#eaf4ff"><title>Engelska · Trafikskyltar | Viljas appar</title><link rel="manifest" href="manifest.json">
+<style>
+:root{color-scheme:light;--ink:#162c49;--muted:#61728b;--blue:#3759e6;--mint:#d9f9e9;--red:#ffebea}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100dvh;background:linear-gradient(160deg,#e9f2ff,#f8fbff 60%,#edfdf8);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+main{max-width:520px;margin:auto;padding:18px 16px 44px}a.back{display:inline-flex;gap:6px;align-items:center;color:#3c54a7;text-decoration:none;font-size:14px;font-weight:800;padding:10px 0}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.12em;color:#5c6fb4;margin-top:16px}h1{font-size:clamp(29px,7vw,39px);letter-spacing:-.05em;line-height:1.04;margin:7px 0 8px}p{color:var(--muted);font-size:14px;line-height:1.45;margin:0 0 16px}
+.top{display:flex;justify-content:space-between;font-size:13px;font-weight:850;color:#66758d;margin:16px 0 7px}.bar{height:9px;background:#dbe6f6;border-radius:99px;overflow:hidden}.bar>div{height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .2s}
+#flashcard{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;border:1px solid #d6e3f2;border-radius:28px;padding:30px 18px;margin:17px 0 12px;background:linear-gradient(150deg,#fff,#e9f2ff);box-shadow:0 16px 35px #324f8918;min-height:300px;width:100%;color:inherit;cursor:pointer;touch-action:manipulation}
+#flashcard:focus-visible{outline:3px solid #5b64f0;outline-offset:3px}#emoji{font-size:68px;line-height:1.2}#term{font-size:clamp(24px,6vw,32px);font-weight:950;letter-spacing:-.035em}#answer{font-size:21px;line-height:1.5;font-weight:800;color:#244f65}#hint{font-size:12px;color:#73869b;font-weight:750}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:12px 0}button{font:inherit}button.action{border:0;border-radius:18px;min-height:57px;font-weight:900;font-size:15px;cursor:pointer;touch-action:manipulation}.wrong{background:var(--red);color:#9e2b2b}.right{background:var(--mint);color:#19754b}
+.row{display:flex;justify-content:space-between;gap:10px}.utility{background:#eef1ff;border:0;border-radius:13px;font-size:13px;font-weight:850;padding:12px 13px;color:#3f4b8e;cursor:pointer;touch-action:manipulation}.utility:disabled{opacity:.4}.footer{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+#result{display:none;background:white;border:1px solid #d8e8ef;border-radius:24px;padding:22px;margin-top:20px}#result h2{margin:0 0 10px}#result button{width:100%;margin-top:10px}
+#flashcard[hidden],#controls[hidden],#result[hidden]{display:none!important}
+</style></head><body>
+<main>
+<a href="viljas-appar.html" class="back">← Till Viljas appar</a>
+<div class="eyebrow">🇬🇧 ENGELSKALÄXA</div><h1>🚦 Traffic signs</h1>
+<p>17 trafikskyltar. Läs skylten och försök säga vad den betyder på engelska. Tryck på kortet för att se svaret.</p>
+<div class="top"><span id="progressText">1 av 17</span><span id="scoreText">0 kan</span></div><div class="bar"><div id="progress"></div></div>
+<button id="flashcard" type="button" aria-label="Visa engelsk förklaring" aria-live="polite"><span id="emoji">🦌</span><span id="term">Animals crossing</span><span id="answer" hidden></span><span id="hint">👆 Tryck för att vända kortet</span></button>
+<div id="controls"><div class="row"><button class="utility" id="speak" type="button">🔊 Lyssna på engelska</button><button class="utility" id="showAnswer" type="button">Visa svar</button></div>
+<div class="actions"><button class="action wrong" type="button" id="again">× Öva igen</button><button class="action right" type="button" id="known">✓ Jag kan</button></div></div>
+<section id="result" hidden><h2 id="resultTitle">Bra jobbat! 🏆</h2><p id="resultText"></p><button class="action right" id="review" type="button">Träna på de svåra</button></section>
+<div class="footer"><button class="utility" type="button" id="prev">← Föregående</button><button class="utility" type="button" id="restart">↻ Börja om</button></div>
+</main>
+<script>
+"use strict";
+const cards=[["Animals crossing","Slow down. Animals may cross the road.","🦌"],["Bridge ahead","There is a bridge ahead.","🌉"],["Slippery road","Slow down. The road may be slippery.","🌧️"],["Speed limit","Do not drive faster than the speed limit.","🚙"],["Do not enter","You must not drive into this road.","⛔"],["Hospital zone","Drive carefully. There is a hospital nearby.","🏥"],["Speed bump ahead","Slow down. There is a bump in the road.","🚧"],["Stop","Stop your car completely.","🛑"],["No parking","You must not park here.","🚫"],["No U-turn","You must not turn around here.","↩️"],["One way","You can only drive in one direction.","➡️"],["Pedestrian crossing","Watch out for people crossing the road.","🚶"],["Railroad crossing","Watch out. Trains may cross the road.","🚆"],["Road work ahead","Slow down. People are working on the road.","👷"],["School zone","Slow down. Children may be nearby.","🏫"],["Sharp turn","Slow down. There is a sharp turn ahead.","↪️"],["Yield","Slow down and let other traffic go first.","🔻"]];
+let deck=cards.map((_,i)=>i),pos=0,flipped=false,known=new Set(),missed=new Set();
+const el=id=>document.getElementById(id);
+function render(){
+ const done=pos>=deck.length,card=cards[deck[pos]];
+ el("flashcard").hidden=done;el("controls").hidden=done;el("result").hidden=!done;
+ el("progressText").textContent=done?"Klart!":(pos+1)+" av "+deck.length;
+ el("scoreText").textContent=known.size+" kan · "+missed.size+" öva";
+ el("progress").style.width=(done?100:pos/deck.length*100)+"%";
+ el("prev").disabled=pos===0;
+ if(done){
+   el("resultText").textContent="Du kan "+known.size+" av 17 skyltar. "+(missed.size?"Träna gärna på de "+missed.size+" svåra igen.":"Alla skyltar klara!");
+   el("review").hidden=missed.size===0;return;
+ }
+ el("emoji").textContent=card[2];el("term").textContent=card[0];el("answer").textContent=card[1];el("answer").hidden=!flipped;
+ el("hint").textContent=flipped?"Säg meningen högt!":"👆 Tryck för att vända kortet";
+}
+function next(isKnown){if(pos>=deck.length)return;const id=deck[pos];if(isKnown){known.add(id);missed.delete(id)}else{missed.add(id);known.delete(id)}pos++;flipped=false;render();}
+el("flashcard").addEventListener("click",()=>{flipped=!flipped;render()});
+el("showAnswer").addEventListener("click",()=>{flipped=true;render()});
+el("known").addEventListener("click",()=>next(true));el("again").addEventListener("click",()=>next(false));
+el("prev").addEventListener("click",()=>{if(pos>0){pos--;flipped=false;render()}});
+el("restart").addEventListener("click",()=>{deck=cards.map((_,i)=>i);pos=0;flipped=false;known.clear();missed.clear();render()});
+el("review").addEventListener("click",()=>{deck=[...missed].sort((a,b)=>a-b);pos=0;flipped=false;render()});
+el("speak").addEventListener("click",()=>{if(pos>=deck.length||!("speechSynthesis" in window))return;const card=cards[deck[pos]];window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(card[0]+". "+card[1]);utterance.lang="en-GB";utterance.rate=.83;window.speechSynthesis.speak(utterance)});
+render();
+</script>
+</body></html>

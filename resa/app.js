@@ -45,7 +45,7 @@ function renderStays(){
    if(stay.planNote)stayBody+='<p class="stay-planned-note">'+esc(stay.planNote)+'</p>';
   if(b&&b.confirmed){
    var rooms=b.roomCount||b.rooms;
-   stayBody+='<div class="stay-booked-info"><strong>'+(b.provisional?'◷ Preliminär hotellbokning':'✓ Bekräftad hotellbokning')+'</strong>';
+   stayBody+='<div class="stay-booked-info"><strong>'+(b.provisional?'◷ Preliminär hotellbokning':'✓ Bekräftad bokning')+'</strong>';
    if(rooms||b.roomType)stayBody+='<div class="stay-booked-row">🛏️ '+(rooms?esc(rooms)+' rum':'Rum')+(b.roomType?' · '+esc(b.roomType):'')+'</div>';
    if(b.adults!=null&&b.childrenCount!=null)stayBody+='<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.adults)+' vuxna och '+esc(b.childrenCount)+' barn · '+esc(stay.nights)+' natt'+(stay.nights===1?'':'er')+'</div>';
    else if(b.maximumOccupancyShown)stayBody+='<div class="stay-booked-row">👨‍👩‍👧‍👦 '+esc(b.maximumOccupancyShown)+'</div>';
@@ -53,7 +53,7 @@ function renderStays(){
    if(b.checkInFrom||b.checkOutBefore)stayBody+='<div class="stay-booked-row">🕒 '+(b.checkInFrom?'Incheckning från '+esc(b.checkInFrom):'')+(b.checkOutBefore?' · utcheckning före '+esc(b.checkOutBefore):'')+'</div>';
    if(b.included&&b.included.length)stayBody+='<div class="stay-booked-row">☕ Inkluderat: '+esc(b.included.join(", "))+'</div>';
    if(Number.isFinite(b.totalSEK))stayBody+='<div class="stay-booked-row">💳 Bokningspris: '+esc(new Intl.NumberFormat("sv-SE",{minimumFractionDigits:2,maximumFractionDigits:2}).format(b.totalSEK))+' kr · '+esc(b.paymentStatus||"")+'</div>';
-   if(b.freeCancellationBefore)stayBody+='<div class="stay-booked-row">✅ Gratis avbokning före '+esc(dateLabel(b.freeCancellationBefore))+' 2027</div>';
+   if(b.freeCancellationBefore)stayBody+='<div class="stay-booked-row">✅ Gratis avbokning före '+esc(dateLabel(b.freeCancellationBefore))+' 2027'+(b.freeCancellationTime?' kl. '+esc(b.freeCancellationTime):'')+'</div>';
    if(b.paymentScheduledDate)stayBody+='<div class="stay-booked-row">📅 Planerad debitering '+esc(dateLabel(b.paymentScheduledDate))+' 2027</div>';
    if(b.facilities&&b.facilities.length)stayBody+='<div class="stay-booked-row">ℹ️ '+esc(b.facilities.join(" · "))+'</div>';
    if(stay.id==="stay-boracay"){
@@ -137,11 +137,11 @@ function renderCostOverview(){
  var cents=function(n){return Math.round((Number.isFinite(n)?n:0)*100);};
  var total=0,mm=0,pe=0;
  rows.forEach(function(x){
-  if(!Number.isFinite(x.amountSEK))return;
+  if(x.excludeFromTotals||!Number.isFinite(x.amountSEK))return;
   total+=cents(x.amountSEK);
   if(x.splitSEK){mm+=cents(x.splitSEK.mm);pe+=cents(x.splitSEK.pe);}
  });
- var hasEstimates=rows.some(function(x){return x.estimated===true&&Number.isFinite(x.amountSEK);});
+ var hasEstimates=rows.some(function(x){return !x.excludeFromTotals&&x.estimated===true&&Number.isFinite(x.amountSEK);});
   var withEstimate=function(v){return (hasEstimates?"ca ":"")+fmt(v);};
   byId("allCostTotal").textContent=withEstimate(total/100);
  byId("mmCostTotal").textContent=withEstimate(mm/100);
@@ -164,9 +164,9 @@ function renderCostOverview(){
 }
 function renderBudget(){
  var rows=data.budget||[];
- var totals=rows.filter(function(x){return Number.isFinite(x.totalSEK);}).map(function(x){return x.totalSEK;});
- var paid=rows.filter(function(x){return Number.isFinite(x.paidSEK);}).map(function(x){return x.paidSEK;});
- byId("budgetTotal").textContent=totals.length?(rows.some(function(x){return x.estimated&&Number.isFinite(x.totalSEK);})?"ca ":"")+money(totals.reduce(function(a,b){return a+b;},0)):"Ej ifyllt";
+ var totals=rows.filter(function(x){return !x.excludeFromTotals&&Number.isFinite(x.totalSEK);}).map(function(x){return x.totalSEK;});
+ var paid=rows.filter(function(x){return !x.excludeFromTotals&&Number.isFinite(x.paidSEK);}).map(function(x){return x.paidSEK;});
+ byId("budgetTotal").textContent=totals.length?(rows.some(function(x){return !x.excludeFromTotals&&x.estimated&&Number.isFinite(x.totalSEK);})?"ca ":"")+money(totals.reduce(function(a,b){return a+b;},0)):"Ej ifyllt";
  byId("budgetPaid").textContent=paid.length?money(paid.reduce(function(a,b){return a+b;},0)):"Ej ifyllt";
  byId("budgetRows").innerHTML=rows.map(function(b){
   return '<tr><td>'+esc(b.name)+'</td><td>'+badge(b.status)+'</td><td class="numeric">'+(b.estimated&&Number.isFinite(b.totalSEK)?'ca ':'')+money(b.totalSEK)+'</td><td class="numeric">'+money(b.paidSEK)+'</td></tr>';

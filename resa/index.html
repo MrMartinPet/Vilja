@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css?v=12">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-  <script src="app.js?v=13" defer></script>
+  <script src="app.js?v=14" defer></script>
 </head>
 <body>
   <a class="skip" href="#oversikt">Hoppa till innehållet</a>
@@ -70,7 +70,7 @@
         <div><span class="split-dot pe-dot"></span><b>P&E <strong id="overviewPeCost">–</strong></b><small id="overviewPePct">–</small></div>
       </div>
       <div class="overview-allocation-bar" aria-label="Fördelning mellan sällskapen"><span id="overviewMmBar"></span><span id="overviewPeBar"></span></div>
-      <div class="overview-finance-foot"><span>🏨 Bohol: Alona Park Residence bekräftat bokat för 5 · 5 356,28 kr, ej betalt. Separat boende för två vuxna söks. Boracay ca 25 000 kr preliminärt, 50/50. SJ-fördelning preliminär.</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
+      <div class="overview-finance-foot"><span>🏨 Bohol: Alona Park Residence bekräftat bokat för 5 · 5 356,28 kr, ej betalt. Separat boende för två vuxna söks. Boracay: två bokade alternativ – Two Seasons ca 25 000 kr eller strandhus 11 954,22 kr. Endast Two Seasons ingår i budgetreferensen. SJ-fördelning preliminär.</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
     </section>
 
     <section data-view="overview" class="overview-grid" aria-label="Nästa steg och bokningsöversikt">
@@ -110,7 +110,7 @@
     <section data-view="overview" id="beslut" class="page-section">
       <div class="section-intro"><div><div class="section-kicker">ENDAST DET SOM ÅTERSTÅR</div><h2>Kvar att bestämma</h2><p>Endast aktuella boendefrågor och andra val.</p></div></div>
       <div id="decisionsGrid" class="pending-decisions"></div>
-      <p class="pending-hint">Bohol: Alona Park Residence bokat för 2 vuxna + 3 barn, 5 356,28 kr. Separat boende för två vuxna söks. Boracay: Two Seasons preliminärt bokat.</p>
+      <p class="pending-hint">Bohol: Alona Park Residence bokat för 2 vuxna + 3 barn, 5 356,28 kr. Separat boende för två vuxna söks. Boracay: två samtidiga bokningar för alla 7; välj en och avboka den andra.</p>
     </section>
 
     <section data-view="costs" id="kostnader" class="page-section">
@@ -122,7 +122,7 @@
       </div>
       <p class="cost-unallocated">SJ: preliminärt 65 % M&M (2 483 kr) och 35 % P&E (1 337 kr). Denna fördelning behöver verifieras.</p>
       <div id="costOverviewList" class="cost-overview-list"></div>
-      <p class="cost-warning">Bohol: Alona Park Residence bekräftat bokat för 2 vuxna och 3 barn, 5 356,28 kr inklusive avgifter, ännu inte betalt. De övriga två vuxnas boende återstår. Boracay (cirka 25 000 kr) är preliminärt bokat och delas 50/50, liksom Manilahotellen. Flygen fördelas per biljett och bagage. SJ:s 65/35-fördelning är preliminär. Transfer och utflykter utan kända priser ingår inte. Sidan är offentlig – inga kortuppgifter eller bokningsnummer visas.</p>
+      <p class="cost-warning">Bohol: Alona Park Residence bekräftat bokat för 2 vuxna och 3 barn, 5 356,28 kr inklusive avgifter, ännu inte betalt. De övriga två vuxnas boende återstår. Boracay: Two Seasons (ca 25 000 kr) eller privat strandhus (11 954,22 kr). Endast Two Seasons räknas i budgeten som referens; båda alternativen delas 50/50, liksom Manilahotellen. Flygen fördelas per biljett och bagage. SJ:s 65/35-fördelning är preliminär. Transfer och utflykter utan kända priser ingår inte. Sidan är offentlig – inga kortuppgifter eller bokningsnummer visas.</p>
     </section>
 
     <section data-view="details" id="bokningar" class="page-section">

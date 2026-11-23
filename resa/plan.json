@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-22-alona-park-booking-price-confirmed",
-  "updated": "2026-11-22",
+  "version": "2026-11-23-boracay-two-booked-options",
+  "updated": "2026-11-23",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -117,7 +117,7 @@
       "area": "White Beach, Station 1 · direkt vid stranden",
       "kind": "hotell",
       "status": "booked",
-      "details": "Two Seasons Boracay Resort, Family Grand Suite with Pool Access, 17–23 februari 2027. Preliminär bokning finns, men priset cirka 25 000 kr är bara uppskattat för alla sju; slutpriset behöver verifieras. Kostnaden delas 50/50, 12 500 kr per familj. Frukost ingår.",
+      "details": "Two Seasons Boracay Resort, Family Grand Suite with Pool Access, 17–23 februari 2027. Preliminär bokning finns, men priset cirka 25 000 kr är bara uppskattat för alla sju; slutpriset behöver verifieras. Kostnaden delas 50/50, 12 500 kr per familj. Frukost ingår. Detta är alternativ 1 av två samtidigt bokade boenden för samma datum; gratis avbokning enligt resenären, exakt frist måste kontrolleras.",
       "suggestion": "Family Grand Suite with Pool Access · 70 m² · nära stranden och poolen",
       "link": "https://twoseasonsresorts.com/boracay/accommodation/family-grand-suite-with-pool-access/",
       "booking": {
@@ -138,11 +138,47 @@
         "notes": "Bokat boende nära White Beach med direkt poolaccess. Kontrollera antal badrum direkt med hotellet.",
         "childrenCount": 3,
         "provisional": true,
-        "reviewWhenTime": true
+        "reviewWhenTime": true,
+        "freeCancellationNote": "Gratis avbokning enligt resenären; kontrollera exakt frist."
       },
       "estimatedTotalSEK": 25000,
       "priceStatus": "preliminary",
-      "planNote": "Bokning finns men är preliminär. Cirka 25 000 kr är ett uppskattat pris, inte slutligt bekräftat."
+      "planNote": "Alternativ 1 av 2 · bokat för 7 · gratis avbokning (frist behöver verifieras) · budgetreferens ca 25 000 kr, slutpris ej verifierat."
+    },
+    {
+      "id": "stay-boracay-beachhouse",
+      "from": "2027-02-17",
+      "to": "2027-02-23",
+      "nights": 6,
+      "place": "Boracay · Privat strandhus på White Beach Station 1",
+      "area": "White Beach Path, Malay · Station 1",
+      "kind": "villa",
+      "status": "booked",
+      "details": "Airbnb-bokning för alla 7 enligt resenären. Hela huset/lägenheten. Vissa utrymmen delas. Brandvarnare och kolmonoxidlarm anges inte. Gratis avbokning före 12 feb kl. 14.00 lokal tid; delvis återbetalning vid avbokning före incheckning 17 feb kl. 14.00.",
+      "suggestion": "Alternativ 2 av 2 · privat strandhus · alla 7 · 11 954,22 kr",
+      "planNote": "Bokat samtidigt som Two Seasons. Betalning 4 februari; gratis avbokning före 12 februari kl. 14.00 lokal tid. Endast ett boende ska behållas.",
+      "link": "https://www.google.com/maps/search/?api=1&query=White+Beach+Path+Station+1+Boracay",
+      "booking": {
+        "confirmed": true,
+        "accommodation": "Privat strandhus på White Beach Station 1",
+        "roomType": "Helt hus / lägenhet",
+        "adults": 4,
+        "childrenCount": 3,
+        "nights": 6,
+        "checkInFrom": "14:00",
+        "checkOutBefore": "12:00",
+        "totalSEK": 11954.22,
+        "paidSEK": 0,
+        "paymentStatus": "Ej betalt · Airbnb",
+        "paymentScheduledDate": "2027-02-04",
+        "freeCancellationBefore": "2027-02-12",
+        "freeCancellationTime": "14:00 lokal tid",
+        "notes": "Vissa utrymmen delas. Brandvarnare och kolmonoxidlarm anges inte. Delvis återbetalning före incheckning 17 feb kl. 14.00.",
+        "splitSEK": {
+          "mm": 5977.11,
+          "pe": 5977.11
+        }
+      }
     },
     {
       "id": "stay-manila-last",
@@ -303,7 +339,7 @@
       "time": "Förmiddag · flyg MPH 14.35",
       "duration": "Avsätt cirka 3–4 h före flygets avgång",
       "status": "todo",
-      "details": "Transfer från Two Seasons Boracay Resort via båt och bil. 7 resenärer med 2 större resväskor och handbagage. Ordna god marginal före flyget."
+      "details": "Transfer från valt boende på White Beach, Station 1 via båt och bil. 7 resenärer med 2 större resväskor och handbagage. Ordna god marginal före flyget."
     },
     {
       "id": "flight-mph-mnl",
@@ -508,7 +544,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Transfer för 7 personer från Caticlan flygplats till Two Seasons Boracay Resort, Station 1. Båt, bil, terminalavgifter; minst 2 incheckade väskor."
+      "note": "Transfer för 7 personer från Caticlan flygplats till valt boende på White Beach, Station 1. Båt, bil, terminalavgifter; minst 2 incheckade väskor."
     },
     {
       "id": "t16",
@@ -516,7 +552,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Boracay Two Seasons → MPH via båt/bil 23 februari före AirAsia Z2226 kl. 14.35. Avsätt god marginal med 7 gäster och 2 incheckade väskor."
+      "note": "valt boende på White Beach, Station 1 → MPH via båt/bil 23 februari före AirAsia Z2226 kl. 14.35. Avsätt god marginal med 7 gäster och 2 incheckade väskor."
     },
     {
       "id": "t17",
@@ -576,11 +612,11 @@
     },
     {
       "id": "t24",
-      "title": "Jämför Boracayboendet om tid finns",
+      "title": "Välj ett Boracayboende och avboka det andra",
       "category": "Boende",
-      "priority": "low",
+      "priority": "high",
       "done": false,
-      "note": "Two Seasons Boracay är preliminärt bokat 17–23 februari. Ingen brådska; jämför gärna andra alternativ innan avbokningsfristen."
+      "note": "Strandhuset: fri avbokning före 12 feb kl. 14.00 lokal tid; betalning 4 feb. Kontrollera Two Seasons avbokningsfrist. Jämför gärna fler lyxalternativ."
     },
     {
       "id": "t25",
@@ -597,6 +633,14 @@
       "priority": "medium",
       "done": false,
       "note": "Bokat för 2 vuxna och 3 barn. Betalt hittills: 0 PHP. Kommande debitering 33 468,75 PHP enligt Booking.com. Kontrollera datum i betalningsuppgifterna. Gratis avbokning till 8 feb kl. 23.59."
+    },
+    {
+      "id": "t27",
+      "title": "Bokat: privat strandhus på White Beach Station 1",
+      "category": "Boende",
+      "priority": "high",
+      "done": true,
+      "note": "Alla 7 · 17–23 feb · 11 954,22 kr · ej betalt · gratis avbokning före 12 feb kl. 14.00 lokal tid."
     }
   ],
   "decisions": [
@@ -640,14 +684,16 @@
     },
     {
       "id": "d4",
-      "title": "Eventuell översyn av Boracayboendet",
-      "priority": "low",
+      "title": "Välj Boracayboende 17–23 februari",
+      "priority": "high",
       "options": [
-        "Two Seasons Boracay Resort – Family Grand Suite with Pool Access"
+        "Two Seasons Boracay Resort – Family Grand Suite with Pool Access · ca 25 000 kr",
+        "Privat strandhus på White Beach Station 1 · 11 954,22 kr",
+        "Annat lyxigt strandboende"
       ],
-      "choice": "Two Seasons Boracay Resort – Family Grand Suite with Pool Access",
-      "note": "Two Seasons är preliminärt bokat. Vi kan jämföra med andra alternativ när tid finns; inget akut beslut.",
-      "why": "En möjlig förbättring, inte något som behöver lösas nu."
+      "choice": null,
+      "note": "Två boenden är bokade samtidigt för alla 7, båda med gratis avbokning enligt resenären. Strandhusets frist är 12 feb kl. 14.00 lokal tid; Two Seasons frist behöver kontrolleras.",
+      "why": "Behåll ett alternativ; avboka övriga före respektive frist."
     },
     {
       "id": "d5",
@@ -938,13 +984,24 @@
     },
     {
       "id": "b6",
-      "name": "Two Seasons Boracay · 17–23 feb · preliminär bokning",
+      "name": "Two Seasons Boracay · alternativ 1 · budgetreferens",
       "category": "Boende",
       "totalSEK": 25000,
       "paidSEK": null,
       "scope": "7 personer · 50/50",
       "status": "booked",
       "estimated": true
+    },
+    {
+      "id": "b15",
+      "name": "Privat strandhus · alternativ 2 (ej dubbelräknat)",
+      "category": "Boende",
+      "totalSEK": 11954.22,
+      "paidSEK": 0,
+      "scope": "7 personer · 50/50",
+      "status": "booked",
+      "estimated": false,
+      "excludeFromTotals": true
     },
     {
       "id": "b7",
@@ -1019,8 +1076,8 @@
       "status": "todo"
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence 10–17 februari är BEKRÄFTAT bokat för 2 vuxna + 3 barn, 1 lägenhet med 3 sovrum på andra våningen, totalpris 5 356,28 kr inklusive avgifter (33 468,75 PHP), ännu ej betalt. Gratis avbokning till 8 februari kl. 23.59. De två andra vuxna söker separat boende i samma område; kostnaden för detta saknas. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan.",
-  "stayPreference": "Bohol: Alona Park Residence bokat 10–17 februari för 2 vuxna + 3 barn. En 3-sovrumslägenhet på andra våningen, totalpris 5 356,28 kr, ej betalt. Två andra vuxna söker separat boende i samma komplex, helst markplan. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence 10–17 februari är BEKRÄFTAT bokat för 2 vuxna + 3 barn, 1 lägenhet med 3 sovrum på andra våningen, totalpris 5 356,28 kr inklusive avgifter (33 468,75 PHP), ännu ej betalt. Gratis avbokning till 8 februari kl. 23.59. De två andra vuxna söker separat boende i samma område; kostnaden för detta saknas. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Två samtidiga alternativ, inte två vistelser. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr.",
+  "stayPreference": "Bohol: Alona Park Residence bokat 10–17 februari för 2 vuxna + 3 barn. En 3-sovrumslägenhet på andra våningen, totalpris 5 356,28 kr, ej betalt. Två andra vuxna söker separat boende i samma komplex, helst markplan. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Slutligt val återstår; helst markplan/terrass, strand och pool.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1194,7 +1251,7 @@
     },
     {
       "id": "twoseasons-all",
-      "name": "Two Seasons Boracay · 17–23 feb · preliminärt",
+      "name": "Two Seasons Boracay · alternativ 1 · budgetreferens",
       "amountSEK": 25000,
       "scope": "Alla 7 personer",
       "status": "booked",
@@ -1205,6 +1262,20 @@
         "pe": 12500
       },
       "splitNote": "50/50 · 12 500 kr per familj"
+    },
+    {
+      "id": "beachhouse-all",
+      "name": "Privat strandhus · alternativ 2 (ej dubbelräknat)",
+      "amountSEK": 11954.22,
+      "scope": "Alla 7 · obetalt · debitering 4 feb",
+      "status": "booked",
+      "source": "Airbnb-bokningsbekräftelse 23 nov 2026",
+      "splitSEK": {
+        "mm": 5977.11,
+        "pe": 5977.11
+      },
+      "splitNote": "50/50 · alternativ till Two Seasons, ej inkluderat i totalen",
+      "excludeFromTotals": true
     },
     {
       "id": "airasia-all",
@@ -1238,5 +1309,5 @@
       "status": "todo"
     }
   ],
-  "budgetAccountingNote": "Bohol: Alona Park Residence är bekräftat bokat för 2 vuxna + 3 barn, totalt 5 356,28 kr inklusive skatter/avgifter; hittills 0 kr betalt (33 468,75 PHP kommande). Detta belastar M&M och delas inte 50/50. De andra två vuxnas boende har ännu inget pris. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte."
+  "budgetAccountingNote": "Bohol: Alona Park Residence är bekräftat bokat för 2 vuxna + 3 barn, totalt 5 356,28 kr inklusive skatter/avgifter; hittills 0 kr betalt (33 468,75 PHP kommande). Detta belastar M&M och delas inte 50/50. De andra två vuxnas boende har ännu inget pris. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens."
 }

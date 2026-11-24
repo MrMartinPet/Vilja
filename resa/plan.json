@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23-boracay-two-booked-options",
-  "updated": "2026-11-23",
+  "updated": "2026-11-24",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -64,8 +64,8 @@
       "area": "Alona Park Residences, 2nd floor, Panglao · nära Alona Beach",
       "kind": "lägenhet",
       "status": "booked",
-      "details": "Bekräftad Booking.com-bokning av 1 lägenhet med 3 sovrum på Alona Park Residence för 2 vuxna och 3 barn, 10–17 februari 2027 (7 nätter). Andra våningen enligt bokningsbekräftelsen. Totalpris 5 356,28 kr inklusive skatter och avgifter (33 468,75 PHP enligt betalningsöversikten), ännu inte betalt. Booking.com anger automatisk kortdebitering enligt betalningsuppgifterna. Gratis avbokning till och med 8 februari 2027 kl. 23.59 lokal tid. Incheckning från kl. 14.00, utcheckning kl. 12.00–13.00. Två övriga vuxna i sällskapet söker egen lägenhet eller bungalow i samma område, gärna markplan. Till Dumaluan Beach behövs transport.",
-      "suggestion": "Bokat: lägenhet med 3 sovrum · 2 vuxna + 3 barn · 5 356,28 kr · ej betalt",
+      "details": "Bekräftad Booking.com-bokning av 1 lägenhet på Alona Park Residence för 2 vuxna och 3 barn, 10–17 februari 2027 (7 nätter). Andra våningen enligt bokningsbekräftelsen. Totalpris 5 356,28 kr inklusive skatter och avgifter (33 468,75 PHP enligt betalningsöversikten), ännu inte betalt. Booking.com anger automatisk kortdebitering enligt betalningsuppgifterna. Gratis avbokning till och med 8 februari 2027 kl. 23.59 lokal tid. Incheckning från kl. 14.00, utcheckning kl. 12.00–13.00. Två övriga vuxna i sällskapet söker egen lägenhet eller bungalow i samma område, gärna markplan. Till Dumaluan Beach behövs transport. Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum. Slutligt boendeval är öppet; jämförelse med Bird of Paradise finns på översikten.",
+      "suggestion": "Bokat: 160 m² · 2 vuxna + 3 barn · 5 356,28 kr · planlösning ej verifierad",
       "link": "https://www.booking.com/hotel/ph/alona-park-residence-panglao.it.html",
       "alternatives": [
         {
@@ -85,12 +85,12 @@
       ],
       "estimatedTotalSEK": null,
       "priceStatus": "confirmed",
-      "planNote": "Bekräftad bokning för 5. Totalt 5 356,28 kr (33 468,75 PHP), obetalt. Gratis avbokning till 8 feb 2027 kl. 23.59. Två andra vuxna behöver separat boende.",
+      "planNote": "Bekräftad bokning för 5. Totalt 5 356,28 kr (33 468,75 PHP), obetalt. Gratis avbokning till 8 feb 2027 kl. 23.59. Två andra vuxna behöver separat boende. Slutligt val öppet; Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum.",
       "booking": {
         "confirmed": true,
         "provisional": false,
         "accommodation": "Alona Park Residence, Panglao",
-        "roomType": "Lägenhet med 3 sovrum · 2:a våningen",
+        "roomType": "Lägenhet 160 m² · 2:a våningen · antal sovrum behöver verifieras",
         "roomCount": 1,
         "adults": 2,
         "childrenCount": 3,
@@ -98,7 +98,7 @@
         "checkOut": "2027-02-17",
         "nights": 7,
         "paymentStatus": "Ej betalt · automatisk kortdebitering enligt Booking.coms betalningsuppgifter",
-        "notes": "Booking.com bekräftar 3 sovrum, andra våningen och 5 gäster (2 vuxna + 3 barn). Totalpris 5 356,28 kr inklusive skatter/avgifter, motsvarande 33 468,75 PHP enligt betalningsöversikten. Betalt hittills: 0 PHP. Gratis avbokning till 8 februari kl. 23.59 lokal tid. Utcheckning 12.00–13.00. Ange ankomsttid i Booking.com.",
+        "notes": "Bokningsunderlaget anger andra våningen och 5 gäster (2 vuxna + 3 barn). Totalpris 5 356,28 kr inklusive skatter/avgifter, motsvarande 33 468,75 PHP enligt betalningsöversikten. Betalt hittills: 0 PHP. Gratis avbokning till 8 februari kl. 23.59 lokal tid. Utcheckning 12.00–13.00. Ange ankomsttid i Booking.com. Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum.",
         "roomSizeSqm": 160,
         "checkInFrom": "14:00",
         "checkOutBefore": "13:00",
@@ -472,7 +472,7 @@
       "category": "Boende",
       "priority": "high",
       "done": true,
-      "note": "Booking.com-bokning: 1 lägenhet med 3 sovrum, andra våningen, 2 vuxna och 3 barn. 5 356,28 kr inklusive avgifter. Ej betalt. Fri avbokning till 8 feb kl. 23.59."
+      "note": "Booking.com-bokning: 1 lägenhet, andra våningen, 2 vuxna och 3 barn. 5 356,28 kr inklusive avgifter. Ej betalt. Fri avbokning till 8 feb kl. 23.59. Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum."
     },
     {
       "id": "t07",
@@ -641,6 +641,14 @@
       "priority": "high",
       "done": true,
       "note": "Alla 7 · 17–23 feb · 11 954,22 kr · ej betalt · gratis avbokning före 12 feb kl. 14.00 lokal tid."
+    },
+    {
+      "id": "t-bohol-compare",
+      "title": "Verifiera Alona Park och välj Boholboende",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "Bekräfta antal sovrum/sängar, poolstatus, incheckning och tidigare uthyrning med värden. Jämför Bird of Paradise och kommande tredje alternativ; ny offert för Bird behövs."
     }
   ],
   "decisions": [
@@ -674,13 +682,13 @@
       "title": "Boende på Bohol 10–17 februari",
       "priority": "high",
       "options": [
-        "Alona / Tawala",
-        "Danao",
-        "Dumaluan / Bolod"
+        "Alona Park Residence – bokat för 5, 5 356,28 kr + boende för 2",
+        "Bird of Paradise – Pool Villa, tidigare ca 26 000 kr, ej bokat",
+        "Tredje hotellalternativ – kommer"
       ],
-      "choice": "Alona Park Residence · bekräftat bokat för 2 vuxna + 3 barn",
-      "note": "Bokning 10–17 februari 2027: 1 lägenhet med 3 sovrum på andra våningen för 5 personer. Totalpris 5 356,28 kr inklusive skatter och avgifter, ännu inte betalt. Gratis avbokning till 8 februari kl. 23.59 lokal tid. De två andra vuxna söker separat boende.",
-      "why": "Boendet för fem är bokat och prissatt. Endast betalning och de andra två vuxnas boende återstår."
+      "choice": null,
+      "note": "Alona Park är bekräftat bokat för 5, obetalt, men saknar egna recensioner och planlösningen behöver verifieras. Bird of Paradise jämförs som tidigare, ej bokat alternativ. Tredje boendet tillkommer. Se jämförelsen på översikten.",
+      "why": "Välj slutligt boende för alla sju innan avbokningsfristen. Endast bekräftade kostnader för Alona ingår i nuvarande budget."
     },
     {
       "id": "d4",

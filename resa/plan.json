@@ -69,6 +69,13 @@
       "link": "https://www.booking.com/hotel/ph/alona-park-residence-panglao.it.html",
       "alternatives": [
         {
+          "id": "bohol-northland",
+          "name": "Alona Northland Resort",
+          "url": "https://www.booking.com/hotel/ph/alona-northland-resort.html?aid=2438770&checkin=2027-02-10&checkout=2027-02-17&no_rooms=1&group_adults=2&selected_currency=SEK&label=mcp_rid-22477ddec9b9c079",
+          "status": "Sökpris 24 november · 2 vuxna · 10–17 feb · ej bokat",
+          "details": "3 787,80 kr för 7 nätter. Samma gata (Ester Lim Drive), pool, 8,5/10 (313 recensioner). Tillsammans med Alona Park: 9 144,08 kr för alla sju. Slutpris och villkor behöver verifieras."
+        },
+        {
           "id": "bohol-alona-apts",
           "name": "Alona Apartments – Danny & Mae",
           "url": "https://www.booking.com/hotel/ph/alona-apartments-panglao.html",
@@ -620,11 +627,11 @@
     },
     {
       "id": "t25",
-      "title": "Hitta extra lägenhet/bungalow för 2 vuxna på Alona Park",
+      "title": "Välj och boka separat boende för 2 vuxna om Alona Park behålls",
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "10–17 februari 2027. Helst markplan med uteplats i samma komplex. Pris saknas."
+      "note": "Northland Resort på samma gata: 3 787,80 kr för 10–17 feb 2027 enligt sökning 24 nov, ej bokat. Alona Apartments och Alona Park visade ingen ledighet för hela veckan. Kontrollera villkor och slutpris."
     },
     {
       "id": "t26",
@@ -682,12 +689,12 @@
       "title": "Boende på Bohol 10–17 februari",
       "priority": "high",
       "options": [
-        "Alona Park Residence – bokat för 5, 5 356,28 kr + boende för 2",
+        "Alona Park + Northland Resort – 9 144,08 kr för 7 (5 356,28 kr bokat + 3 787,80 kr sökpris)",
         "Bird of Paradise – Pool Villa, tidigare ca 26 000 kr, ej bokat",
         "Tredje hotellalternativ – kommer"
       ],
       "choice": null,
-      "note": "Alona Park är bekräftat bokat för 5, obetalt, men saknar egna recensioner och planlösningen behöver verifieras. Bird of Paradise jämförs som tidigare, ej bokat alternativ. Tredje boendet tillkommer. Se jämförelsen på översikten.",
+      "note": "Jämför 9 144,08 kr totalt för Alona Park (bokat för 5) + Northland Resort (sökpris för 2, ej bokat) mot ca 26 000 kr för alla 7 på Bird of Paradise (tidigare pris, ej bokat). Tredje alternativet tillkommer. Alona Park saknar egna recensioner; planlösning behöver verifieras.",
       "why": "Välj slutligt boende för alla sju innan avbokningsfristen. Endast bekräftade kostnader för Alona ingår i nuvarande budget."
     },
     {

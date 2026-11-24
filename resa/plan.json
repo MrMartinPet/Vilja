@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-23-boracay-two-booked-options",
+  "version": "2026-11-24-bohol-northland-vs-bird",
   "updated": "2026-11-24",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -64,16 +64,23 @@
       "area": "Alona Park Residences, 2nd floor, Panglao · nära Alona Beach",
       "kind": "lägenhet",
       "status": "booked",
-      "details": "Bekräftad Booking.com-bokning av 1 lägenhet på Alona Park Residence för 2 vuxna och 3 barn, 10–17 februari 2027 (7 nätter). Andra våningen enligt bokningsbekräftelsen. Totalpris 5 356,28 kr inklusive skatter och avgifter (33 468,75 PHP enligt betalningsöversikten), ännu inte betalt. Booking.com anger automatisk kortdebitering enligt betalningsuppgifterna. Gratis avbokning till och med 8 februari 2027 kl. 23.59 lokal tid. Incheckning från kl. 14.00, utcheckning kl. 12.00–13.00. Två övriga vuxna i sällskapet söker egen lägenhet eller bungalow i samma område, gärna markplan. Till Dumaluan Beach behövs transport. Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum. Slutligt boendeval är öppet; jämförelse med Bird of Paradise finns på översikten.",
+      "details": "Bekräftad Booking.com-bokning av 1 lägenhet på Alona Park Residence för 2 vuxna och 3 barn, 10–17 februari 2027 (7 nätter). Andra våningen enligt bokningsbekräftelsen. Totalpris 5 356,28 kr inklusive skatter och avgifter (33 468,75 PHP enligt betalningsöversikten), ännu inte betalt. Booking.com anger automatisk kortdebitering enligt betalningsuppgifterna. Gratis avbokning till och med 8 februari 2027 kl. 23.59 lokal tid. Incheckning från kl. 14.00, utcheckning kl. 12.00–13.00. Två övriga vuxna i sällskapet söker egen lägenhet eller bungalow i samma område, gärna markplan. Till Dumaluan Beach behövs transport. Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum. Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Befintlig Alona Park-bokning för fem behålls tills nytt val är gjort.",
       "suggestion": "Bokat: 160 m² · 2 vuxna + 3 barn · 5 356,28 kr · planlösning ej verifierad",
       "link": "https://www.booking.com/hotel/ph/alona-park-residence-panglao.it.html",
       "alternatives": [
         {
           "id": "bohol-northland",
-          "name": "Alona Northland Resort",
-          "url": "https://www.booking.com/hotel/ph/alona-northland-resort.html?aid=2438770&checkin=2027-02-10&checkout=2027-02-17&no_rooms=1&group_adults=2&selected_currency=SEK&label=mcp_rid-22477ddec9b9c079",
-          "status": "Sökpris 24 november · 2 vuxna · 10–17 feb · ej bokat",
-          "details": "3 787,80 kr för 7 nätter. Samma gata (Ester Lim Drive), pool, 8,5/10 (313 recensioner). Tillsammans med Alona Park: 9 144,08 kr för alla sju. Slutpris och villkor behöver verifieras."
+          "name": "Alona Northland Resort – två rum",
+          "url": "https://www.booking.com/hotel/ph/alona-northland-resort.html",
+          "status": "Black Friday · 24 nov · ej bokat",
+          "details": "7 nätter för gruppen, totalt 12 071 kr inklusive skatter, frukost enligt rumspriserna. Familjerum Deluxe 75 m², 7 615 kr; Deluxe King 50 m², 4 456 kr. Bekräfta fem i familjerummet och frukost för alla sju. Ej återbetalningsbart."
+        },
+        {
+          "id": "bohol-bird-villa",
+          "name": "Bird of Paradise – Pool Villa",
+          "url": "https://www.birdofparadise.ph/accommodations",
+          "status": "Prisuppgift 24 nov · ej bokat",
+          "details": "Ca 24 500 kr för alla sju, privat och gemensam pool. Frukost i priset och slutpris behöver verifieras. Vid 50/50: ca 12 250 kr per familj."
         },
         {
           "id": "bohol-alona-apts",
@@ -92,7 +99,7 @@
       ],
       "estimatedTotalSEK": null,
       "priceStatus": "confirmed",
-      "planNote": "Bekräftad bokning för 5. Totalt 5 356,28 kr (33 468,75 PHP), obetalt. Gratis avbokning till 8 feb 2027 kl. 23.59. Två andra vuxna behöver separat boende. Slutligt val öppet; Planlösning behöver verifieras: tidigare bokningsunderlag anger 3 sovrum, men aktuell publik Booking-annons och skärmbild 24 nov 2026 anger 1 sovrum, 2 sängar och 1 badrum.",
+      "planNote": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Befintlig Alona Park-bokning för fem behålls tills nytt val är gjort.",
       "booking": {
         "confirmed": true,
         "provisional": false,
@@ -294,12 +301,12 @@
       "id": "tag-alona",
       "date": "2027-02-10",
       "type": "bil",
-      "title": "Flygplats → Alona Park Residence",
-      "route": "TAG → Alona Park Residence, Tawala",
+      "title": "Flygplats → valt Boholboende",
+      "route": "TAG → valt boende i Alona",
       "time": "Efter 15.40",
       "duration": "Ungefär 15–30 min med bil",
       "status": "todo",
-      "details": "Planera transfer för 7 personer med bagage. Alona Park Residence är bokat för 2 vuxna och 3 barn; de två övriga vuxnas boende/adress är ännu inte klart."
+      "details": "Transfer för 7 med bagage. Slutligt boendeval öppet; Alona Park är fortfarande bokat för fem."
     },
     {
       "id": "bohol-boracay",
@@ -515,11 +522,11 @@
     },
     {
       "id": "t11",
-      "title": "Boka transfer TAG → Alona Park Residence",
+      "title": "Boka transfer TAG → valt Boholboende",
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Transport för 7 personer med bagage. Bekräfta adresser för de två separata boendena."
+      "note": "Transport för 7 personer med bagage. Bekräfta adress efter boendeval."
     },
     {
       "id": "t12",
@@ -627,11 +634,11 @@
     },
     {
       "id": "t25",
-      "title": "Välj och boka separat boende för 2 vuxna om Alona Park behålls",
+      "title": "Bekräfta Northland: plats för 5 i familjerum och frukost för 7",
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Northland Resort på samma gata: 3 787,80 kr för 10–17 feb 2027 enligt sökning 24 nov, ej bokat. Alona Apartments och Alona Park visade ingen ledighet för hela veckan. Kontrollera villkor och slutpris."
+      "note": "Black Friday-priser 7 615 kr + 4 456 kr = 12 071 kr inklusive skatter. Ej återbetalningsbara. Bekräfta kapacitet, frukost och våning före köp."
     },
     {
       "id": "t26",
@@ -651,11 +658,11 @@
     },
     {
       "id": "t-bohol-compare",
-      "title": "Verifiera Alona Park och välj Boholboende",
+      "title": "Välj Boholboende: Northland eller Bird of Paradise",
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Bekräfta antal sovrum/sängar, poolstatus, incheckning och tidigare uthyrning med värden. Jämför Bird of Paradise och kommande tredje alternativ; ny offert för Bird behövs."
+      "note": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Befintlig Alona Park-bokning för fem behålls tills nytt val är gjort."
     }
   ],
   "decisions": [
@@ -689,13 +696,12 @@
       "title": "Boende på Bohol 10–17 februari",
       "priority": "high",
       "options": [
-        "Alona Park + Northland Resort – 9 144,08 kr för 7 (5 356,28 kr bokat + 3 787,80 kr sökpris)",
-        "Bird of Paradise – Pool Villa, tidigare ca 26 000 kr, ej bokat",
-        "Tredje hotellalternativ – kommer"
+        "Alona Northland Resort – två rum inkl. frukost · 12 071 kr",
+        "Bird of Paradise – Pool Villa med privat pool · ca 24 500 kr"
       ],
       "choice": null,
-      "note": "Jämför 9 144,08 kr totalt för Alona Park (bokat för 5) + Northland Resort (sökpris för 2, ej bokat) mot ca 26 000 kr för alla 7 på Bird of Paradise (tidigare pris, ej bokat). Tredje alternativet tillkommer. Alona Park saknar egna recensioner; planlösning behöver verifieras.",
-      "why": "Välj slutligt boende för alla sju innan avbokningsfristen. Endast bekräftade kostnader för Alona ingår i nuvarande budget."
+      "note": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Befintlig Alona Park-bokning för fem behålls tills nytt val är gjort.",
+      "why": "Välj ett alternativ för alla sju; behåll Alona Park-bokningen tills nytt boende är bekräftat. Skillnad ca 12 429 kr."
     },
     {
       "id": "d4",
@@ -984,7 +990,7 @@
       "category": "Boende",
       "totalSEK": 5356.28,
       "paidSEK": 0,
-      "scope": "2 vuxna + 3 barn · 7 nätter · 1 lägenhet med 3 sovrum",
+      "scope": "2 vuxna + 3 barn · 7 nätter · planlösning ej verifierad",
       "status": "booked",
       "estimated": false
     },
@@ -1091,8 +1097,8 @@
       "status": "todo"
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park Residence 10–17 februari är BEKRÄFTAT bokat för 2 vuxna + 3 barn, 1 lägenhet med 3 sovrum på andra våningen, totalpris 5 356,28 kr inklusive avgifter (33 468,75 PHP), ännu ej betalt. Gratis avbokning till 8 februari kl. 23.59. De två andra vuxna söker separat boende i samma område; kostnaden för detta saknas. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Två samtidiga alternativ, inte två vistelser. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr.",
-  "stayPreference": "Bohol: Alona Park Residence bokat 10–17 februari för 2 vuxna + 3 barn. En 3-sovrumslägenhet på andra våningen, totalpris 5 356,28 kr, ej betalt. Två andra vuxna söker separat boende i samma komplex, helst markplan. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Slutligt val återstår; helst markplan/terrass, strand och pool.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Alona Park fortfarande bokat för fem, ej betalt, 5 356,28 kr. Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Befintlig Alona Park-bokning för fem behålls tills nytt val är gjort. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Två samtidiga alternativ, inte två vistelser. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr.",
+  "stayPreference": "Bohol: Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Befintlig Alona Park-bokning för fem behålls tills nytt val är gjort. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Slutligt val återstår; helst markplan/terrass, strand och pool.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1238,7 +1244,7 @@
         "mm": 5356.28,
         "pe": 0
       },
-      "splitNote": "M&M:s bokning; P&E:s separata boende ej prissatt"
+      "splitNote": "Befintlig bokning för M&M; nytt boendeval återstår."
     },
     {
       "id": "cebu-pacific-all",
@@ -1324,5 +1330,5 @@
       "status": "todo"
     }
   ],
-  "budgetAccountingNote": "Bohol: Alona Park Residence är bekräftat bokat för 2 vuxna + 3 barn, totalt 5 356,28 kr inklusive skatter/avgifter; hittills 0 kr betalt (33 468,75 PHP kommande). Detta belastar M&M och delas inte 50/50. De andra två vuxnas boende har ännu inget pris. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens."
+  "budgetAccountingNote": "Bohol: Alona Park Residence är bekräftat bokat för 2 vuxna + 3 barn, totalt 5 356,28 kr inklusive skatter/avgifter; hittills 0 kr betalt (33 468,75 PHP kommande). Detta belastar M&M och delas inte 50/50. De andra två vuxnas boende har ännu inget pris. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens. Alternativa totalkostnader för hela Boholgruppen: Northland 12 071 kr (7 615/4 456) eller Bird ca 24 500 kr (50/50 antaget). Inget av alternativen räknas in samtidigt som befintlig bokning."
 }

@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-24-bohol-two-options-only",
+  "version": "2026-11-24-bohol-previous-booking-cancelled",
   "updated": "2026-11-24",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -611,14 +611,6 @@
       "priority": "high",
       "done": false,
       "note": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas."
-    },
-    {
-      "id": "t-cancel-rejected-bohol",
-      "title": "Avboka tidigare bortvalt boende på Bohol",
-      "category": "Boende",
-      "priority": "high",
-      "done": false,
-      "note": "Avboka i Booking.com före 8 februari 2027 kl. 23.59 lokal tid. Avbokning är inte utförd."
     }
   ],
   "decisions": [

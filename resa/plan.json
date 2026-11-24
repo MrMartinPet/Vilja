@@ -61,11 +61,11 @@
       "to": "2027-02-17",
       "nights": 7,
       "place": "Bohol · boendeval återstår",
-      "area": "Alona, Panglao",
+      "area": "Alona eller Dumaluan, Panglao",
       "kind": "hotell",
       "status": "todo",
-      "details": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas.",
-      "suggestion": "Northland 12 071 kr eller Bird of Paradise ca 24 500 kr · alla 7",
+      "details": "Tre alternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Northland och Bird ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras).",
+      "suggestion": "Marilou 11 191 kr · Northland 12 071 kr · Bird ca 24 500 kr · alla 7",
       "alternatives": [
         {
           "id": "bohol-northland",
@@ -80,11 +80,18 @@
           "url": "https://www.birdofparadise.ph/accommodations",
           "status": "Prisuppgift 24 nov · ej bokat",
           "details": "Ca 24 500 kr för alla sju, privat och gemensam pool. Frukost i priset och slutpris behöver verifieras. Vid 50/50: ca 12 250 kr per familj."
+        },
+        {
+          "id": "bohol-marilou",
+          "name": "Dumaluan Beach – Marilou Resort · två rum",
+          "url": "https://www.marilouresort.com/",
+          "status": "Prisuppgift 24 nov · ej bokat",
+          "details": "Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras)."
         }
       ],
       "estimatedTotalSEK": 12071,
       "priceStatus": "preliminary",
-      "planNote": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Northland används endast som preliminär budgetreferens."
+      "planNote": "Tre alternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Northland och Bird ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras). Northland används fortsatt endast som preliminär budgetreferens."
     },
     {
       "id": "stay-boracay",
@@ -606,11 +613,19 @@
     },
     {
       "id": "t-bohol-compare",
-      "title": "Välj Boholboende: Northland eller Bird of Paradise",
+      "title": "Välj Boholboende: Northland, Bird of Paradise eller Marilou",
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas."
+      "note": "Tre alternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Northland och Bird ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras)."
+    },
+    {
+      "id": "t-bohol-marilou",
+      "title": "Bekräfta Marilou: fem i familjerum och frukost för alla",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "Bekräfta exakt rum, barnens faktiska åldrar, totalpris, frukost, markplan/terrass och tillträde till stranden före ej återbetalningsbart köp. resort@marilouresort.com"
     }
   ],
   "decisions": [
@@ -645,11 +660,12 @@
       "priority": "high",
       "options": [
         "Alona Northland Resort – två rum inkl. frukost · 12 071 kr",
-        "Bird of Paradise – Pool Villa med privat pool · ca 24 500 kr"
+        "Bird of Paradise – Pool Villa med privat pool · ca 24 500 kr",
+        "Dumaluan Beach – Marilou Resort · två rum inkl. frukost · 11 191 kr före eventuellt tillägg"
       ],
       "choice": null,
-      "note": "Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas.",
-      "why": "Välj ett alternativ för alla sju. Skillnad ca 12 429 kr. Inget är bokat."
+      "note": "Tre alternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Northland och Bird ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras).",
+      "why": "Välj ett alternativ för alla sju. Marilou ca 880 kr billigare än Northland och ca 13 309 kr billigare än Bird före eventuella tillägg. Inget bokat."
     },
     {
       "id": "d4",
@@ -1045,10 +1061,21 @@
       "status": "todo",
       "estimated": true,
       "excludeFromTotals": true
+    },
+    {
+      "id": "b-bohol-marilou",
+      "name": "Dumaluan Beach – Marilou Resort · alternativ, ej dubbelräknat",
+      "category": "Boende",
+      "totalSEK": 11191.15,
+      "paidSEK": 0,
+      "scope": "7 personer avsett · två rum · frukost · kapacitet ej bekräftad",
+      "status": "todo",
+      "estimated": true,
+      "excludeFromTotals": true
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Northland används som preliminär budgetreferens. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Två samtidiga alternativ, inte två vistelser. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr.",
-  "stayPreference": "Bohol: Huvudalternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Båda ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Slutligt val återstår; helst markplan/terrass, strand och pool.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Tre alternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Northland och Bird ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras). Northland används som preliminär budgetreferens. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Två samtidiga alternativ, inte två vistelser. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr.",
+  "stayPreference": "Bohol: Tre alternativ: Alona Northland Resort, två rum med frukost 12 071 kr, eller Bird of Paradise Pool Villa med privat pool ca 24 500 kr. Northland och Bird ej bokade. Northland: familjerum 7 615 kr (75 m², pris för 4), Deluxe King 4 456 kr (50 m², pris för 2 vuxna + barn 6 år). Bekräfta fem gäster i familjerummet samt frukost för alla sju innan köp. Båda Northland-priserna ej återbetalningsbara, ombokningsbara enligt villkor. Bird: frukost och aktuellt slutpris för sju behöver bekräftas. Dumaluan Beach – Marilou Resort: 11 191,15 kr (familjerum 40 m², 2 queen, 6 863 kr; Executive Double 40 m², 1 queen, 4 328,15 kr). Frukost enligt båda erbjudandena. Familjerummet ej återbetalningsbart och priset avser 2 vuxna + 2 barn 0–4 år; skriftlig bekräftelse krävs för 5 personer, rätt barnåldrar, frukost och slutpris. Dubbelrummet: gratis avbokning före 9 feb, debitering 6 feb. Ej bokat. Strandläge direkt vid Dumaluan, gemensam pool, restaurang, enklare/äldre hotellstandard. Agoda 7,8/10 (4 846 omdömen enligt skärmbild); Trip.com 7,9/10 (48); Tripadvisor 2,3/5 (10). Positivt: strand och pool. Risk: underhåll, vatten, frukost och service. Alona ca 5,9 km, uppskattat 15–20 min med tricycle, ca 150–200 PHP per fordon enkel väg. Restauranger: Villa Formosa ca 8 min till fots, Oceanica Seafood ca 9 min, Coast Pool Bar ca 13 min (Tripadvisor; tillträde för externa gäster behöver kontrolleras). Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Slutligt val återstår; helst markplan/terrass, strand och pool.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1285,7 +1312,21 @@
       "splitNote": "50/50 antaget",
       "excludeFromTotals": true,
       "source": "Prisuppgift från resenären 24 nov."
+    },
+    {
+      "id": "bohol-marilou-option",
+      "name": "Dumaluan Beach – Marilou Resort · alternativ (ej dubbelräknat)",
+      "amountSEK": 11191.15,
+      "scope": "Alla 7 avsett · ej bokat",
+      "status": "todo",
+      "estimated": true,
+      "splitSEK": {
+        "mm": 6863,
+        "pe": 4328.15
+      },
+      "excludeFromTotals": true,
+      "source": "Agoda-skärmbilder 24 nov; barnåldrar, kapacitet, frukost och slutpris ej bekräftade."
     }
   ],
-  "budgetAccountingNote": "Bohol: Northland 12 071 kr (7 615/4 456) är preliminär budgetreferens, Bird ca 24 500 kr (50/50 antaget) är alternativ och dubbelräknas inte. Inget av alternativen är bokat. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens."
+  "budgetAccountingNote": "Bohol: Northland 12 071 kr (7 615/4 456) är preliminär budgetreferens, Bird ca 24 500 kr (50/50 antaget) är alternativ och dubbelräknas inte. Marilou 11 191,15 kr (6 863/4 328,15) är tredje alternativet, ej dubbelräknat; ev. tillägg ej inkluderade. Inget av alternativen är bokat. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens."
 }

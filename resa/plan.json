@@ -1,6 +1,6 @@
 {
   "version": "2026-11-25-bohol-northland-booked",
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
   "party": {
@@ -108,7 +108,7 @@
       "area": "White Beach, Station 1 · direkt vid stranden",
       "kind": "hotell",
       "status": "booked",
-      "details": "Two Seasons Boracay Resort, Family Grand Suite with Pool Access, 17–23 februari 2027. Preliminär bokning finns, men priset cirka 25 000 kr är bara uppskattat för alla sju; slutpriset behöver verifieras. Kostnaden delas 50/50, 12 500 kr per familj. Frukost ingår. Detta är alternativ 1 av två samtidigt bokade boenden för samma datum; gratis avbokning enligt resenären, exakt frist måste kontrolleras.",
+      "details": "Two Seasons Boracay Resort, Family Grand Suite with Pool Access, 17–23 februari 2027. Preliminär bokning finns, men priset cirka 25 000 kr är bara uppskattat för alla sju; slutpriset behöver verifieras. Kostnaden delas 50/50, 12 500 kr per familj. Frukost ingår. Detta är alternativ 1 av tre samtidigt bokade boenden för samma datum; gratis avbokning enligt resenären, exakt frist måste kontrolleras.",
       "suggestion": "Family Grand Suite with Pool Access · 70 m² · nära stranden och poolen",
       "link": "https://twoseasonsresorts.com/boracay/accommodation/family-grand-suite-with-pool-access/",
       "booking": {
@@ -134,7 +134,7 @@
       },
       "estimatedTotalSEK": 25000,
       "priceStatus": "preliminary",
-      "planNote": "Alternativ 1 av 2 · bokat för 7 · gratis avbokning (frist behöver verifieras) · budgetreferens ca 25 000 kr, slutpris ej verifierat."
+      "planNote": "Alternativ 1 av 3 · bokat för 7 · gratis avbokning (frist behöver verifieras) · budgetreferens ca 25 000 kr, slutpris ej verifierat."
     },
     {
       "id": "stay-boracay-beachhouse",
@@ -146,8 +146,8 @@
       "kind": "villa",
       "status": "booked",
       "details": "Airbnb-bokning för alla 7 enligt resenären. Hela huset/lägenheten. Vissa utrymmen delas. Brandvarnare och kolmonoxidlarm anges inte. Gratis avbokning före 12 feb kl. 14.00 lokal tid; delvis återbetalning vid avbokning före incheckning 17 feb kl. 14.00.",
-      "suggestion": "Alternativ 2 av 2 · privat strandhus · alla 7 · 11 954,22 kr",
-      "planNote": "Bokat samtidigt som Two Seasons. Betalning 4 februari; gratis avbokning före 12 februari kl. 14.00 lokal tid. Endast ett boende ska behållas.",
+      "suggestion": "Alternativ 2 av 3 · privat strandhus · alla 7 · 11 954,22 kr",
+      "planNote": "Bokat samtidigt som Two Seasons och Riviera. Betalning 4 februari; gratis avbokning före 12 februari kl. 14.00 lokal tid. Endast ett boende ska behållas.",
       "link": "https://www.google.com/maps/search/?api=1&query=White+Beach+Path+Station+1+Boracay",
       "booking": {
         "confirmed": true,
@@ -169,6 +169,32 @@
           "mm": 5977.11,
           "pe": 5977.11
         }
+      }
+    },
+    {
+      "id": "stay-boracay-riviera",
+      "from": "2027-02-17",
+      "to": "2027-02-23",
+      "nights": 6,
+      "place": "Boracay · Sunset Pool Villa with Sea View – Riviera Boracay",
+      "area": "Malay, Boracay · exakt strandavstånd ej verifierat",
+      "kind": "villa",
+      "status": "booked",
+      "details": "Bekräftad Airbnb-bokning. Eget hus/lägenhet, pool och havsutsikt enligt boendets namn och bokningsbild. Kommande debitering 19 298,34 kr den 4 februari 2027. Kapacitet för 4 vuxna och 3 barn, avbokningsvillkor och strandläge återstår att bekräfta.",
+      "suggestion": "Alternativ 3 av 3 · poolvilla med havsutsikt · 19 298,34 kr",
+      "planNote": "Välj ett av tre bokade alternativ. Kontrollera om alla sju får bo här, avbokningsfrist, gångavstånd till badstrand och restauranger/frukost.",
+      "booking": {
+        "confirmed": true,
+        "accommodation": "Sunset Pool Villa with Sea View – Riviera Boracay",
+        "roomType": "Eget hus / lägenhet",
+        "nights": 6,
+        "maximumOccupancyShown": "7 önskade gäster – ännu inte bekräftat",
+        "checkInFrom": "15:00",
+        "checkOutBefore": "11:00",
+        "totalSEK": 19298.34,
+        "paymentStatus": "Kommande betalning · Airbnb",
+        "paymentScheduledDate": "2027-02-04",
+        "notes": "Avbokningsfrist ej verifierad. Fråga värden om extrasängar, badstrand, frukost och restauranger. 50/50 om båda familjer bor här: 9 649,17 kr per familj."
       }
     },
     {
@@ -315,7 +341,7 @@
       "date": "2027-02-17",
       "type": "båt",
       "title": "Caticlan → Boracay",
-      "route": "MPH → hamn → båt → White Beach",
+      "route": "MPH → hamn → båt → valt boende",
       "time": "Efter ankomst Caticlan",
       "duration": "Ungefär 1–2 h totalt med köer",
       "status": "todo",
@@ -326,11 +352,11 @@
       "date": "2027-02-23",
       "type": "båt",
       "title": "Boracay → Caticlan flygplats",
-      "route": "White Beach → Cagban → Caticlan → MPH",
+      "route": "Valt boende → Cagban → Caticlan → MPH",
       "time": "Förmiddag · flyg MPH 14.35",
       "duration": "Avsätt cirka 3–4 h före flygets avgång",
       "status": "todo",
-      "details": "Transfer från valt boende på White Beach, Station 1 via båt och bil. 7 resenärer med 2 större resväskor och handbagage. Ordna god marginal före flyget."
+      "details": "Transfer från valt boende på Boracay via båt och bil. 7 resenärer med 2 större resväskor och handbagage. Ordna god marginal före flyget."
     },
     {
       "id": "flight-mph-mnl",
@@ -527,7 +553,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "Transfer för 7 personer från Caticlan flygplats till valt boende på White Beach, Station 1. Båt, bil, terminalavgifter; minst 2 incheckade väskor."
+      "note": "Transfer för 7 personer från Caticlan flygplats till valt boende på Boracay. Båt, bil, terminalavgifter; minst 2 incheckade väskor."
     },
     {
       "id": "t16",
@@ -535,7 +561,7 @@
       "category": "Transport",
       "priority": "medium",
       "done": false,
-      "note": "valt boende på White Beach, Station 1 → MPH via båt/bil 23 februari före AirAsia Z2226 kl. 14.35. Avsätt god marginal med 7 gäster och 2 incheckade väskor."
+      "note": "valt boende på Boracay → MPH via båt/bil 23 februari före AirAsia Z2226 kl. 14.35. Avsätt god marginal med 7 gäster och 2 incheckade väskor."
     },
     {
       "id": "t17",
@@ -595,11 +621,11 @@
     },
     {
       "id": "t24",
-      "title": "Välj ett Boracayboende och avboka det andra",
+      "title": "Välj ett av tre Boracayboenden och avboka de övriga två",
       "category": "Boende",
       "priority": "high",
       "done": false,
-      "note": "Strandhuset: fri avbokning före 12 feb kl. 14.00 lokal tid; betalning 4 feb. Kontrollera Two Seasons avbokningsfrist. Jämför gärna fler lyxalternativ."
+      "note": "Strandhuset: fri avbokning före 12 feb kl. 14.00 lokal tid. Strandhuset och Riviera: kommande betalning 4 feb. Kontrollera Two Seasons och Riviera avbokningsfrister samt Rivieras kapacitet för 7."
     },
     {
       "id": "t27",
@@ -632,6 +658,22 @@
       "priority": "high",
       "done": false,
       "note": "Bokningsbilden visar fyra gäster i familjerummet. Bekräfta att samtliga fem i familjen kan bo där och eventuell avgift."
+    },
+    {
+      "id": "t28-riviera",
+      "title": "Bokat: Sunset Pool Villa – Riviera Boracay",
+      "category": "Boende",
+      "priority": "high",
+      "done": true,
+      "note": "17–23 feb · 19 298,34 kr · betalning 4 feb. Kapacitet för 7 ej bekräftad."
+    },
+    {
+      "id": "t29-riviera",
+      "title": "Bekräfta sju sovplatser och villkor för Riviera",
+      "category": "Boende",
+      "priority": "high",
+      "done": false,
+      "note": "Kontrollera extrasängar, avbokningsfrist, strandavstånd, badmöjligheter, restauranger och frukost."
     }
   ],
   "decisions": [
@@ -678,11 +720,11 @@
       "options": [
         "Two Seasons Boracay Resort – Family Grand Suite with Pool Access · ca 25 000 kr",
         "Privat strandhus på White Beach Station 1 · 11 954,22 kr",
-        "Annat lyxigt strandboende"
+        "Sunset Pool Villa with Sea View – Riviera Boracay · 19 298,34 kr"
       ],
       "choice": null,
-      "note": "Två boenden är bokade samtidigt för alla 7, båda med gratis avbokning enligt resenären. Strandhusets frist är 12 feb kl. 14.00 lokal tid; Two Seasons frist behöver kontrolleras.",
-      "why": "Behåll ett alternativ; avboka övriga före respektive frist."
+      "note": "Tre samtidiga bokningar. Two Seasons och strandhuset för 7; Rivieras kapacitet för 7 måste bekräftas. Strandhusets fria avbokning före 12 feb kl. 14.00 lokal tid; övriga frister ej verifierade. Strandhuset och Riviera debiteras 4 feb.",
+      "why": "Behåll ett alternativ och avboka övriga två innan respektive avbokningsfrist."
     },
     {
       "id": "d5",
@@ -1057,10 +1099,21 @@
         "mm": 6440.36,
         "pe": 4433.88
       }
+    },
+    {
+      "id": "b16-riviera",
+      "name": "Riviera Boracay · alternativ 3 (ej dubbelräknat)",
+      "category": "Boende",
+      "totalSEK": 19298.34,
+      "paidSEK": null,
+      "scope": "50/50 om alla 7 bor här",
+      "status": "booked",
+      "estimated": false,
+      "excludeFromTotals": true
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 440,36 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 433,88 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 874,24 kr enligt bokade rumspriser. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Slutlig kortdebitering och eventuella rabatter/tillägg ej verifierade. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Två samtidiga alternativ, inte två vistelser. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr.",
-  "stayPreference": "Bohol: Alona Northland Resort bokat. Frukost för familjerummet återstår. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Slutligt val återstår; helst markplan/terrass, strand och pool.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 440,36 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 433,88 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 874,24 kr enligt bokade rumspriser. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Slutlig kortdebitering och eventuella rabatter/tillägg ej verifierade. Boracay: Two Seasons preliminärt bokat 17–23 februari, uppskattat cirka 25 000 kr. Boracayboendet och Manilahotellen delas preliminärt 50/50; Boholboendena per familj. SJ 65/35 preliminärt; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Boracay har nu även ett bokat privat strandhus för alla 7 (11 954,22 kr). Tre samtidiga alternativ, inte tre vistelser. Riviera Boracay är också bokat för 19 298,34 kr med debitering 4 feb; kapacitet för sju och avbokningsfrist ej verifierade. Budgeten räknar endast Two Seasons som referens; vid val av strandhuset minskar budgeten med ca 13 045,78 kr, vid val av Riviera med ca 5 701,66 kr (om inga tillägg).",
+  "stayPreference": "Bohol: Alona Northland Resort bokat. Frukost för familjerummet återstår. Boracay: Two Seasons Boracay Resort, Family Grand Suite with Pool Access, preliminärt bokat 17–23 februari. Alternativ 2: privat strandhus på White Beach Station 1, bokat för alla 7 för 11 954,22 kr. Alternativ 3: Sunset Pool Villa – Riviera Boracay, 19 298,34 kr; sju gäster ej bekräftade. Slutligt val återstår; helst markplan/terrass, strand och pool.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
     "passengers": 7,
@@ -1282,7 +1335,21 @@
       },
       "source": "Bokade rumspriser 25 nov. Slutlig kortdebitering ej verifierad.",
       "splitNote": "Per rum; M&M:s frukost tillkommer."
+    },
+    {
+      "id": "riviera-all",
+      "name": "Riviera Boracay · alternativ 3 (ej dubbelräknat)",
+      "amountSEK": 19298.34,
+      "scope": "Kommande betalning 4 feb · 7 gäster ej bekräftat",
+      "status": "booked",
+      "source": "Airbnb-bokningsbekräftelse och betalningsöversikt 26 nov 2026",
+      "splitSEK": {
+        "mm": 9649.17,
+        "pe": 9649.17
+      },
+      "splitNote": "Preliminärt 50/50 om alla sju bor här · ej inkluderat i totalen",
+      "excludeFromTotals": true
     }
   ],
-  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat, 10 874,24 kr enligt rumspriserna (M&M 6 440,36 kr, P&E 4 433,88 kr). Frukost för M&M tillkommer; slutlig kortdebitering ej verifierad. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens."
+  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat, 10 874,24 kr enligt rumspriserna (M&M 6 440,36 kr, P&E 4 433,88 kr). Frukost för M&M tillkommer; slutlig kortdebitering ej verifierad. Boracay Two Seasons cirka 25 000 kr preliminärt, delas 50/50 (12 500 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr preliminärt 65/35. Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Strandhuset är alternativ 2, 11 954,22 kr (5 977,11 kr per familj), ej dubbelräknat. Riviera är alternativ 3, 19 298,34 kr (9 649,17 kr per familj om alla sju kan bo där), ej dubbelräknat. Endast Two Seasons ingår som budgetreferens."
 }

@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-27-flygbuss-booked",
+  "version": "2026-11-27-pe-costs-combined",
   "updated": "2026-11-27",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -1124,7 +1124,8 @@
         "mm": 2202,
         "pe": 1618
       },
-      "allocationStatus": "confirmed"
+      "allocationStatus": "confirmed",
+      "peRepaymentStatus": "pending"
     },
     {
       "id": "flygbuss-all",
@@ -1137,7 +1138,8 @@
         "pe": 418
       },
       "source": "Bokning bekräftad av användaren 27 nov 2026; pris enligt tidigare köpuppgifter.",
-      "splitNote": "M&M: 2 vuxna à 209 kr + 2 ungdomar à 169 kr; P&E: 2 vuxna à 209 kr."
+      "splitNote": "M&M: 2 vuxna à 209 kr + 2 ungdomar à 169 kr; P&E: 2 vuxna à 209 kr.",
+      "peRepaymentStatus": "pending"
     },
     {
       "id": "belmont-all",
@@ -1149,7 +1151,8 @@
         "mm": 797.16,
         "pe": 797.16
       },
-      "source": "Agoda: debitering 5 feb 2027"
+      "source": "Agoda: debitering 5 feb 2027",
+      "peRepaymentStatus": "pending"
     },
     {
       "id": "cebu-pacific-all",
@@ -1197,7 +1200,8 @@
         "mm": 530.83,
         "pe": 530.83
       },
-      "source": "Agoda: debitering 19 feb 2027"
+      "source": "Agoda: debitering 19 feb 2027",
+      "peRepaymentStatus": "pending"
     },
     {
       "id": "bohol-northland-booked",
@@ -1210,7 +1214,8 @@
         "pe": 4191.18
       },
       "source": "Totalpris 10 279 kr uppgivet 27 nov 2026; ursprungliga rumspriser 25 nov som fördelningsgrund.",
-      "splitNote": "Proportionell fördelning efter ursprungliga rumspriser; exakt slutpris per rum ej bekräftat. M&M:s frukost tillkommer."
+      "splitNote": "Proportionell fördelning efter ursprungliga rumspriser; exakt slutpris per rum ej bekräftat. M&M:s frukost tillkommer.",
+      "peRepaymentStatus": "pending"
     },
     {
       "id": "riviera-all",

@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-27-cost-allocation",
+  "version": "2026-11-27-flygbuss-booked",
   "updated": "2026-11-27",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -186,7 +186,7 @@
       "time": "10.23–12.31",
       "duration": "Tåg 428 · X 2000 · 2 klass",
       "status": "booked",
-      "details": "Bokat och betalt för sju resenärer. Resan fortsätter med separat flygbuss från Stockholm C till Arlanda Terminal 5; flygbussen är ännu inte bokad. Biljettpris totalt 1 548 kr (M&M 892 kr, P&E 656 kr). Ej ombokningsbar."
+      "details": "Bokat och betalt för sju resenärer. Resan fortsätter med separat flygbuss från Stockholm C till Arlanda Terminal 5; flygbussen är bokad och betald. Biljettpris totalt 1 548 kr (M&M 892 kr, P&E 656 kr). Ej ombokningsbar."
     },
     {
       "id": "bus-out",
@@ -196,8 +196,8 @@
       "route": "Stockholm C → Arlanda Terminal 5",
       "time": "Efter tågets ankomst 12.31",
       "duration": "Flygbussarna · cirka 45 min, kontrollera avgång",
-      "status": "todo",
-      "details": "Ännu inte bokad eller betald. Preliminärt pris 756 kr tur och retur för fem personer enligt sökbild; priset är inte fastställt förrän köp."
+      "status": "booked",
+      "details": "Bokat och betalt 27 november 2026 för hela sällskapet: 4 vuxna och 2 ungdomar med betalda tur- och returbiljetter samt 1 barn under 7 år som reser gratis. Totalt 1 174 kr (M&M 756 kr, P&E 418 kr). Kontrollera exakt giltighetstid på biljetterna."
     },
     {
       "id": "flight-international-in",
@@ -337,8 +337,8 @@
       "route": "Arlanda Terminal 5 → Stockholm C",
       "time": "Efter flygets ankomst 16.20",
       "duration": "Flygbussarna · cirka 45 min, kontrollera avgång",
-      "status": "todo",
-      "details": "Ännu inte bokad eller betald. Måste hinna till bokat SJ-tåg från Stockholm C kl. 18.16; mycket liten marginal om flyget blir sent, särskilt med incheckat bagage."
+      "status": "booked",
+      "details": "Bokat och betalt 27 november 2026 för hela sällskapet: 4 vuxna och 2 ungdomar med betalda tur- och returbiljetter samt 1 barn under 7 år som reser gratis. Totalt 1 174 kr (M&M 756 kr, P&E 418 kr). Kontrollera exakt giltighetstid på biljetterna. Måste hinna till SJ kl. 18.16; liten marginal vid försenat flyg eller bagage."
     },
     {
       "id": "train-return",
@@ -349,7 +349,7 @@
       "time": "18.16–20.19",
       "duration": "Tåg 445 · X 2000 · 2 klass",
       "status": "booked",
-      "details": "Bokat och betalt för sju resenärer. Air China landar enligt resplanen på Arlanda kl. 16.20. Anslutningen med ännu obokad flygbuss till Stockholm C är tidskritisk, särskilt vid bagageutlämning eller försening. Biljettpris totalt 2 272 kr (M&M 1 310 kr, P&E 962 kr). Ombokningsbar."
+      "details": "Bokat och betalt för sju resenärer. Air China landar enligt resplanen på Arlanda kl. 16.20. Anslutningen med bokad flygbuss till Stockholm C är tidskritisk, särskilt vid bagageutlämning eller försening. Biljettpris totalt 2 272 kr (M&M 1 310 kr, P&E 962 kr). Ombokningsbar."
     }
   ],
   "routeOptions": [
@@ -532,11 +532,11 @@
     },
     {
       "id": "t22",
-      "title": "Köp Flygbussarna Stockholm C ↔ Arlanda för 5",
+      "title": "Bokat och betalt: Flygbussarna Stockholm C ↔ Arlanda",
       "category": "Transport",
       "priority": "medium",
-      "done": false,
-      "note": "Ej bokat. Prisförslag 756 kr tur och retur för fem. Köp först när biljetterna går att använda för resdatumen. Kontrollera hur biljetternas 3 månaders giltighet räknas."
+      "done": true,
+      "note": "Bokat och betalt 27 november 2026 för hela sällskapet: 4 vuxna och 2 ungdomar med betalda tur- och returbiljetter samt 1 barn under 7 år som reser gratis. Totalt 1 174 kr (M&M 756 kr, P&E 418 kr). Kontrollera exakt giltighetstid på biljetterna."
     },
     {
       "id": "t23",
@@ -964,12 +964,16 @@
     },
     {
       "id": "b13",
-      "name": "Flygbussarna Stockholm C ↔ Arlanda · ej bokat",
+      "name": "Flygbussarna Stockholm C ↔ Arlanda · tur och retur",
       "category": "Transport",
-      "totalSEK": null,
-      "paidSEK": null,
-      "scope": "5 personer, preliminärt erbjudande",
-      "status": "todo"
+      "totalSEK": 1174,
+      "paidSEK": 1174,
+      "scope": "7 resenärer · 6 betalda biljetter · 1 barn gratis",
+      "status": "paid",
+      "splitSEK": {
+        "mm": 756,
+        "pe": 418
+      }
     },
     {
       "id": "b4",
@@ -999,7 +1003,7 @@
       }
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 087,82 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 191,18 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 279 kr enligt användarens uppdaterade totalpris; rumsandelarna är proportionellt beräknade. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Exakt slutpris per rum och betalningsstatus är inte verifierade. Boracay: Sunset Pool Villa – Riviera Boracay bokad 17–23 februari för alla 7, 19 298,34 kr. Debitering 4 februari. Boracay och Manilahotellen delas 50/50; Bohol per rum. SJ enligt kvitto: M&M 2 202 kr och P&E 1 618 kr; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 087,82 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 191,18 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 279 kr enligt användarens uppdaterade totalpris; rumsandelarna är proportionellt beräknade. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Exakt slutpris per rum och betalningsstatus är inte verifierade. Boracay: Sunset Pool Villa – Riviera Boracay bokad 17–23 februari för alla 7, 19 298,34 kr. Debitering 4 februari. Boracay och Manilahotellen delas 50/50; Bohol per rum. SJ enligt kvitto: M&M 2 202 kr och P&E 1 618 kr; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Flygbussarna tur och retur är bokade och betalda: 1 174 kr för hela gruppen, varav M&M 756 kr och P&E 418 kr.",
   "stayPreference": "Bohol: Alona Northland Resort bokat. Frukost för familjerummet återstår. Boracay: Sunset Pool Villa – Riviera Boracay, bokad för alla 7, 17–23 februari. Pool, havsutsikt och cirka 5 minuters promenad till barnvänlig strand enligt värden.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -1123,6 +1127,19 @@
       "allocationStatus": "confirmed"
     },
     {
+      "id": "flygbuss-all",
+      "name": "Flygbussarna · Cityterminalen–Arlanda tur och retur",
+      "amountSEK": 1174,
+      "scope": "7 resenärer · 4 vuxna, 2 ungdomar, 1 barn gratis",
+      "status": "paid",
+      "splitSEK": {
+        "mm": 756,
+        "pe": 418
+      },
+      "source": "Bokning bekräftad av användaren 27 nov 2026; pris enligt tidigare köpuppgifter.",
+      "splitNote": "M&M: 2 vuxna à 209 kr + 2 ungdomar à 169 kr; P&E: 2 vuxna à 209 kr."
+    },
+    {
       "id": "belmont-all",
       "name": "Belmont Hotel Manila · 9–10 feb · 2 rum",
       "amountSEK": 1594.32,
@@ -1209,5 +1226,5 @@
       "splitNote": "50/50 · 9 649,17 kr per familj"
     }
   ],
-  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat, 10 279 kr enligt uppdaterat totalpris, proportionell rumsfördelning (M&M 6 087,82 kr, P&E 4 191,18 kr). Frukost för M&M tillkommer; exakt slutpris per rum och betalningsstatus ej verifierade. Boracay: Riviera 19 298,34 kr, delas 50/50 (9 649,17 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr enligt kvitto (M&M 2 202 kr, P&E 1 618 kr). Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte."
+  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat, 10 279 kr enligt uppdaterat totalpris, proportionell rumsfördelning (M&M 6 087,82 kr, P&E 4 191,18 kr). Frukost för M&M tillkommer; exakt slutpris per rum och betalningsstatus ej verifierade. Boracay: Riviera 19 298,34 kr, delas 50/50 (9 649,17 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr enligt kvitto (M&M 2 202 kr, P&E 1 618 kr). Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Flygbussarna: betalt 1 174 kr (M&M 756 kr, P&E 418 kr)."
 }

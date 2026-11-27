@@ -265,6 +265,9 @@ function setupMap(){
 }
 function bind(){
  document.addEventListener("click",function(e){
+   var familyCost=e.target.closest("[data-family-cost]");
+   if(familyCost){openCostSpec(familyCost.dataset.familyCost);return;}
+   if(e.target===byId("familyCostDialog")){e.target.close();return;}
   var viewButton=e.target.closest("[data-view-button],[data-go-view]");
   if(viewButton){showView(viewButton.getAttribute("data-view-button")||viewButton.getAttribute("data-go-view"));return;}
   var filter=e.target.closest("[data-filter]");

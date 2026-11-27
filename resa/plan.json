@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-27-boracay-unallocated",
+  "version": "2026-11-27-pe-repaid",
   "updated": "2026-11-27",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -1102,7 +1102,8 @@
         "mm": 26925,
         "pe": 11700
       },
-      "source": "Air China: 4 vuxna à 5 850 kr, 3 barn à 5 075 kr"
+      "source": "Air China: 4 vuxna à 5 850 kr, 3 barn à 5 075 kr",
+      "peRepaymentStatus": "paid"
     },
     {
       "id": "sj-all",
@@ -1117,7 +1118,8 @@
         "pe": 1618
       },
       "allocationStatus": "confirmed",
-      "peRepaymentStatus": "pending"
+      "peRepaymentStatus": "paid",
+      "peRepaymentDate": "2026-11-27"
     },
     {
       "id": "flygbuss-all",
@@ -1131,7 +1133,8 @@
       },
       "source": "Bokning bekräftad av användaren 27 nov 2026; pris enligt tidigare köpuppgifter.",
       "splitNote": "M&M: 2 vuxna à 209 kr + 2 ungdomar à 169 kr; P&E: 2 vuxna à 209 kr.",
-      "peRepaymentStatus": "pending"
+      "peRepaymentStatus": "paid",
+      "peRepaymentDate": "2026-11-27"
     },
     {
       "id": "belmont-all",
@@ -1144,7 +1147,8 @@
         "pe": 797.16
       },
       "source": "Agoda: debitering 5 feb 2027",
-      "peRepaymentStatus": "pending"
+      "peRepaymentStatus": "paid",
+      "peRepaymentDate": "2026-11-27"
     },
     {
       "id": "cebu-pacific-all",
@@ -1156,7 +1160,8 @@
         "mm": 3652.07,
         "pe": 1578.01
       },
-      "source": "Kiwi: flyg 4 839,48 kr och två incheckade väskor à 195,30 kr"
+      "source": "Kiwi: flyg 4 839,48 kr och två incheckade väskor à 195,30 kr",
+      "peRepaymentStatus": "paid"
     },
     {
       "id": "pal-all",
@@ -1168,7 +1173,8 @@
         "mm": 2752.18,
         "pe": 1235.87
       },
-      "source": "Kiwi: flyg 3 538,05 kr och två incheckade väskor à 225 kr"
+      "source": "Kiwi: flyg 3 538,05 kr och två incheckade väskor à 225 kr",
+      "peRepaymentStatus": "paid"
     },
     {
       "id": "airasia-all",
@@ -1180,7 +1186,8 @@
         "mm": 3127.02,
         "pe": 1423.64
       },
-      "source": "Kiwi: flyg 3 974,56 kr och två incheckade väskor à 288,05 kr"
+      "source": "Kiwi: flyg 3 974,56 kr och två incheckade väskor à 288,05 kr",
+      "peRepaymentStatus": "paid"
     },
     {
       "id": "savoy-all",
@@ -1193,7 +1200,8 @@
         "pe": 530.83
       },
       "source": "Agoda: debitering 19 feb 2027",
-      "peRepaymentStatus": "pending"
+      "peRepaymentStatus": "paid",
+      "peRepaymentDate": "2026-11-27"
     },
     {
       "id": "bohol-northland-booked",
@@ -1207,7 +1215,8 @@
       },
       "source": "Totalpris 10 279 kr uppgivet 27 nov 2026; ursprungliga rumspriser 25 nov som fördelningsgrund.",
       "splitNote": "Proportionell fördelning efter ursprungliga rumspriser; exakt slutpris per rum ej bekräftat. M&M:s frukost tillkommer.",
-      "peRepaymentStatus": "pending"
+      "peRepaymentStatus": "paid",
+      "peRepaymentDate": "2026-11-27"
     },
     {
       "id": "riviera-all",

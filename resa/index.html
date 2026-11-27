@@ -10,7 +10,21 @@
   <link rel="stylesheet" href="style.css?v=12">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-  <script src="app.js?v=15" defer></script>
+  <script src="app.js?v=16" defer></script>
+  <style>
+.cost-summary>.family-cost-card{padding:0;overflow:hidden}
+.family-cost-card>button{width:100%;height:100%;display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:transparent;border:0;text-align:left;padding:17px 16px;color:inherit;font:inherit;cursor:pointer}
+.family-cost-card>button:hover{background:#d7ece577}.family-cost-card>button:focus-visible{outline:3px solid #167e70;outline-offset:-4px}
+.cost-summary .family-future-label,.cost-is-unpaid>b,.cost-is-unpaid small{color:#ae2938!important}
+.cost-is-paid>b{color:#176b4b}.cost-line.cost-is-unpaid{border-left:3px solid #e0a5a7}.cost-line.cost-is-paid{border-left:3px solid #a4d8bf}
+#familyCostDialog{width:min(94vw,650px);max-height:90vh;max-height:90dvh;padding:20px;margin:auto;overflow:auto;border:0;border-radius:20px;color:#173b40;background:#fff;box-shadow:0 20px 80px #153c4666}
+#familyCostDialog::backdrop{background:#092f3b99;backdrop-filter:blur(3px)}
+#familyCostDialog .dialog-head{position:sticky;top:-20px;background:#fff;z-index:2;padding:12px 0;margin:-8px 0 4px}
+#familyCostDialog .dialog-head h2{font-size:21px}.family-cost-explain{font-size:12px;color:#657c7b;line-height:1.5;margin:8px 0 14px}
+.family-cost-main,.family-cost-future{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;background:#edf7f0;padding:12px 13px;border-radius:12px;color:#176b4b;font-weight:750;font-size:13px}.family-cost-main strong,.family-cost-future strong{font-size:23px;font-variant-numeric:tabular-nums}.family-cost-future{color:#ae2938;background:#fff1f1;margin-top:18px}
+.family-cost-rows{display:grid;gap:0}.family-cost-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 3px;border-bottom:1px solid #e5eeea}.family-cost-row>div{min-width:0;display:flex;flex-direction:column;gap:4px}.family-cost-row strong{font-size:13px;line-height:1.3}.family-cost-row small{font-size:11px;color:#647b77;line-height:1.4}.family-cost-row>b{font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:420px){.family-cost-card>button{padding:13px 11px}.family-cost-row{gap:8px}.family-cost-row>b{font-size:12px}#familyCostDialog{padding:15px}#familyCostDialog .dialog-head{top:-15px}}
+  </style>
 </head>
 <body>
   <a class="skip" href="#oversikt">Hoppa till innehållet</a>
@@ -140,11 +154,11 @@
     </section>
 
     <section data-view="costs" id="kostnader" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">BOKAT OCH PLANERAT</div><h2>Vad kostar hela resan?</h2><p>Kända bokningspriser och preliminära kostnader, fördelade mellan M&M och P&E.</p></div></div>
+      <div class="section-intro"><div><div class="section-kicker">BOKAT OCH PLANERAT</div><h2>Vad kostar hela resan?</h2><p>Betalda kostnader först. Klicka på respektive sällskap för specifikation. Kommande och ej verifierade kostnader visas separat i rött.</p></div></div>
       <div class="cost-summary">
-        <div class="cost-summary-all"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Inklusive 19 298,34 kr för Riviera Boracay</small></div>
-        <div><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Inklusive verifierad SJ-andel</small></div>
-        <div><span>P&E · 2 personer</span><strong id="peCostTotal">–</strong><small>Fördelade kostnader</small></div>
+        <div class="cost-summary-all family-cost-card"><button type="button" data-family-cost="all" aria-haspopup="dialog"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Betalt hittills · Visa specifikation ↗</small><small id="allCostFuture" class="family-future-label">–</small></button></div>
+        <div class="family-cost-card"><button type="button" data-family-cost="mm" aria-haspopup="dialog"><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Betalt hittills · Visa specifikation ↗</small><small id="mmCostFuture" class="family-future-label">–</small></button></div>
+        <div class="family-cost-card"><button type="button" data-family-cost="pe" aria-haspopup="dialog"><span>Per-Erik &amp; Lenita · 2 personer</span><strong id="peCostTotal">–</strong><small>Betalt hittills · Visa specifikation ↗</small><small id="peCostFuture" class="family-future-label">–</small></button></div>
       </div>
       <p class="cost-unallocated">SJ: betalt 3 820 kr. M&M 2 202 kr (892 kr utresa + 1 310 kr hemresa), P&E 1 618 kr (656 kr utresa + 962 kr hemresa). Verifierat mot kvitto.</p>
       <div id="costOverviewList" class="cost-overview-list"></div>
@@ -177,5 +191,9 @@
   <footer class="site-foot"><div class="shell footer-inner"><div>✦ Familjeresan 2027 <span>· Bohol + Boracay</span></div><div id="lastUpdated">Uppdateras från GitHub</div></div></footer>
 
 
+  <dialog id="familyCostDialog" aria-labelledby="familyCostTitle">
+    <div class="dialog-head"><div><div class="section-kicker">KOSTNADSSPECIFIKATION</div><h2 id="familyCostTitle">Kostnader</h2></div><form method="dialog"><button class="dialog-close" type="submit" aria-label="Stäng">✕</button></form></div>
+    <div id="familyCostBody"></div>
+  </dialog>
 </body>
 </html>

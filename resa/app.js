@@ -160,6 +160,7 @@ function renderCostOverview(){
  byId("overviewPeBar").style.width=pePct+"%";
  byId("costOverviewList").innerHTML=rows.slice().sort(function(a,b){return Number(b.status==="paid")-Number(a.status==="paid");}).map(function(x){
   var unknown=!Number.isFinite(x.amountSEK);
+  if(x.deferAllocation)return '<div class="cost-line cost-is-unpaid"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>Bokat · ej betalt · andel ej fastställd</small></div><b>?</b></div>';
   var state=costState(x);
   var preliminary=x.allocationStatus==="preliminary";
   var splits=x.splitSEK?'<small class="cost-line-split">'+(x.partialAccommodation?'M&M (4 av 5): '+esc(fmt(x.splitSEK.mm))+' · P&E-boende: pris saknas':'M&M: '+esc(fmt(x.splitSEK.mm))+' · P&E: '+esc(fmt(x.splitSEK.pe))+(preliminary?' · preliminär 65/35-fördelning':x.splitNote?' · '+esc(x.splitNote):''))+'</small>':(x.allocationNote?'<small class="cost-line-split">'+esc(x.allocationNote)+'</small>':'');
@@ -169,7 +170,7 @@ function renderCostOverview(){
 
 // P&E:s hittills kända kostnader, exklusive Boracay och ej bokade poster.
 function peCostIncluded(x){
- return !x.excludeFromTotals&&x.id!=="riviera-all"&&x.splitSEK&&Number.isFinite(x.splitSEK.pe)&&(x.status==="paid"||x.status==="booked");
+ return !x.excludeFromTotals&&!x.estimated&&!x.deferAllocation&&x.id!=="riviera-all"&&x.splitSEK&&Number.isFinite(x.splitSEK.pe)&&(x.status==="paid"||x.status==="booked");
 }
 function peRepaymentPending(x){
  return x.peRepaymentStatus==="pending";
@@ -185,12 +186,17 @@ function openCostSpec(key){
  var names={all:"Hela sällskapet · 7 personer",mm:"M&M · 5 personer",pe:"Per-Erik & Lenita · 2 personer"};
  if(!Object.prototype.hasOwnProperty.call(names,key))return;
  var fmt=function(n){return Number.isFinite(n)?new Intl.NumberFormat("sv-SE",{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+" kr":"Pris saknas";};
- var rows=(data.publicCostOverview||[]).filter(function(x){return !x.excludeFromTotals;});
+ var allRows=data.publicCostOverview||[];
+ var rows=allRows.filter(function(x){return !x.excludeFromTotals;});
+ var deferred=allRows.filter(function(x){return x.deferAllocation;});
  var amount=function(x){return key==="all"?x.amountSEK:x.splitSEK?x.splitSEK[key]:null;};
  var isPaid=function(x){return x.status==="paid"&&!x.estimated;};
  var sum=function(list){return list.reduce(function(n,x){var a=amount(x);return n+(Number.isFinite(a)?Math.round(a*100):0);},0)/100;};
  var paid=rows.filter(isPaid),future=rows.filter(function(x){return !isPaid(x);});
  var unknown=(data.budget||[]).filter(function(x){return !x.excludeFromTotals&&x.status==="todo"&&!Number.isFinite(x.totalSEK);});
+ function unknownRow(name,note){return '<div class="family-cost-row cost-is-unpaid"><div><strong>'+esc(name)+'</strong><small>'+esc(note)+'</small></div><b>?</b></div>';}
+ function deferredRows(){return deferred.map(function(x){return unknownRow(x.name,"Bokat · ej betalt · andel ej fastställd");}).join("");}
+ function unknownRows(){return unknown.map(function(x){return unknownRow(x.name,"Ej bokat · ej fördelat");}).join("");}
  function row(x,paidFlag){
   var a=amount(x),note=x.splitNote||"";
   if(x.id==="belmont-all"||x.id==="savoy-all"||x.id==="riviera-all")note=x.scope+(x.id==="belmont-all"?" · debitering 5 feb":x.id==="savoy-all"?" · debitering 19 feb":"");
@@ -213,9 +219,12 @@ function openCostSpec(key){
       (peRepaymentPending(x)?'<small class="repayment-pending">◷ Ej betalt till M&amp;M ännu</small>':'')+
       '</div><b>'+esc(fmt(amount(x)))+'</b></div>';
    }).join("")+
-   '<div class="family-cost-row"><div><strong>Boracay</strong><small>Ej medräknat</small></div><b>?</b></div></div>'+
+   '</div>'+
    '<div class="family-cost-main family-repayment-total"><span>Att betala till M&amp;M enligt aktuell sammanställning</span><strong>'+esc(fmt(sum(pending)))+'</strong></div>'+
-   '<p class="family-cost-explain">◷ markerar kostnader i den aktuella återbetalningslistan. Övriga återbetalningar är inte verifierade.</p>';
+   '<p class="family-cost-explain">◷ markerar kostnader i den aktuella återbetalningslistan. Övriga återbetalningar är inte verifierade.</p>'+
+   '<div class="family-cost-future"><span>Kommande · ännu ej fastställda belopp</span></div>'+
+   '<div class="family-cost-rows">'+deferredRows()+rows.filter(function(x){return !peCostIncluded(x);}).map(function(x){return unknownRow(x.name,"Belopp ej bekräftat");}).join("")+unknownRows()+'</div>'+
+   '<p class="family-cost-explain">Dessa kostnader ingår inte i summan ovan.</p>';
   if(!dlg.open)dlg.showModal();
   return;
  }
@@ -223,7 +232,7 @@ function openCostSpec(key){
  '<div class="family-cost-main"><span>Betalt hittills</span><strong>'+esc(fmt(sum(paid)))+'</strong></div>'+
  '<div class="family-cost-rows">'+(paid.map(function(x){return row(x,true);}).join("")||'<p>Inga registrerade betalningar.</p>')+'</div>'+
  '<div class="family-cost-future"><span>Kommande / ej verifierat</span><strong>'+esc(fmt(sum(future)))+'</strong></div>'+
- '<div class="family-cost-rows">'+future.map(function(x){return row(x,false);}).join("")+unknown.map(function(x){return '<div class="family-cost-row cost-is-unpaid"><div><strong>'+esc(x.name)+'</strong><small>Ej bokat · ej fördelat</small></div><b>Pris saknas</b></div>';}).join("")+'</div>'+
+ '<div class="family-cost-rows">'+future.map(function(x){return row(x,false);}).join("")+deferredRows()+unknownRows()+'</div>'+
  '<p class="family-cost-explain">Kommande och okända belopp ingår inte i Betalt hittills. Frukost för familjerummet på Bohol kan tillkomma.</p>';
  if(!dlg.open)dlg.showModal();
 }

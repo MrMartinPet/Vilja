@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-27-pe-costs-combined",
+  "version": "2026-11-27-boracay-unallocated",
   "updated": "2026-11-27",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -125,11 +125,7 @@
         "paymentScheduledDate": "2027-02-04",
         "notes": "Extra madrass och soffa. Värden beskriver barnvänlig strand ca 5 min bort till fots, restauranger/kaféer och frukostrestaurang vid stranden. Villan är nyöppnad och saknar omdömen vid bokningstillfället. Avbokningsfrist och eventuella extra avgifter ej verifierade.",
         "adults": 4,
-        "childrenCount": 3,
-        "splitSEK": {
-          "mm": 9649.17,
-          "pe": 9649.17
-        }
+        "childrenCount": 3
       }
     },
     {
@@ -994,16 +990,12 @@
       "category": "Boende",
       "totalSEK": 19298.34,
       "paidSEK": 0,
-      "scope": "7 personer · 50/50",
+      "scope": "7 personer · gemensamt bokningspris · fördelning ej fastställd",
       "status": "booked",
-      "estimated": false,
-      "splitSEK": {
-        "mm": 9649.17,
-        "pe": 9649.17
-      }
+      "estimated": false
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 087,82 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 191,18 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 279 kr enligt användarens uppdaterade totalpris; rumsandelarna är proportionellt beräknade. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Exakt slutpris per rum och betalningsstatus är inte verifierade. Boracay: Sunset Pool Villa – Riviera Boracay bokad 17–23 februari för alla 7, 19 298,34 kr. Debitering 4 februari. Boracay och Manilahotellen delas 50/50; Bohol per rum. SJ enligt kvitto: M&M 2 202 kr och P&E 1 618 kr; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Flygbussarna tur och retur är bokade och betalda: 1 174 kr för hela gruppen, varav M&M 756 kr och P&E 418 kr.",
+  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 087,82 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 191,18 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 279 kr enligt användarens uppdaterade totalpris; rumsandelarna är proportionellt beräknade. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Exakt slutpris per rum och betalningsstatus är inte verifierade. Boracay: Sunset Pool Villa – Riviera Boracay bokad 17–23 februari för alla 7, 19 298,34 kr. Debitering 4 februari. Manilahotellen delas 50/50; Bohol per rum. Boracay är inte fördelat mellan familjerna ännu. SJ enligt kvitto: M&M 2 202 kr och P&E 1 618 kr; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Flygbussarna tur och retur är bokade och betalda: 1 174 kr för hela gruppen, varav M&M 756 kr och P&E 418 kr.",
   "stayPreference": "Bohol: Alona Northland Resort bokat. Frukost för familjerummet återstår. Boracay: Sunset Pool Villa – Riviera Boracay, bokad för alla 7, 17–23 februari. Pool, havsutsikt och cirka 5 minuters promenad till barnvänlig strand enligt värden.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -1219,17 +1211,14 @@
     },
     {
       "id": "riviera-all",
-      "name": "Sunset Pool Villa – Riviera Boracay · 17–23 feb",
-      "amountSEK": 19298.34,
-      "scope": "Alla 7 · kommande betalning 4 feb",
+      "name": "Boracay · Riviera",
+      "amountSEK": null,
+      "scope": "Alla 7 · bokat, ej betalt",
       "status": "booked",
       "source": "Airbnb-bokningsbekräftelse 26 nov och värdens bekräftelse 27 nov 2026",
-      "splitSEK": {
-        "mm": 9649.17,
-        "pe": 9649.17
-      },
-      "splitNote": "50/50 · 9 649,17 kr per familj"
+      "excludeFromTotals": true,
+      "deferAllocation": true
     }
   ],
-  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat, 10 279 kr enligt uppdaterat totalpris, proportionell rumsfördelning (M&M 6 087,82 kr, P&E 4 191,18 kr). Frukost för M&M tillkommer; exakt slutpris per rum och betalningsstatus ej verifierade. Boracay: Riviera 19 298,34 kr, delas 50/50 (9 649,17 kr vardera). Manilahotellen delas också 50/50. SJ 3 820 kr enligt kvitto (M&M 2 202 kr, P&E 1 618 kr). Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Flygbussarna: betalt 1 174 kr (M&M 756 kr, P&E 418 kr)."
+  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat, 10 279 kr enligt uppdaterat totalpris, proportionell rumsfördelning (M&M 6 087,82 kr, P&E 4 191,18 kr). Frukost för M&M tillkommer; exakt slutpris per rum och betalningsstatus ej verifierade. Boracay: bokat gemensamt, belopp per familj fastställs senare och ingår inte i kostnader hittills. Manilahotellen delas också 50/50. SJ 3 820 kr enligt kvitto (M&M 2 202 kr, P&E 1 618 kr). Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Flygbussarna: betalt 1 174 kr (M&M 756 kr, P&E 418 kr)."
 }

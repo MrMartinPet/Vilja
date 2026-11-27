@@ -208,11 +208,11 @@ function drawMap(){
     .bindPopup('<strong>'+esc(p.name)+'</strong><br>'+esc(p.description||"")+'<br><a href="'+url+'" target="_blank" rel="noopener">Öppna i Google Maps ↗</a>');
  });
  function line(ids,color){var pts=ids.map(function(id){return index[id]?[index[id].lat,index[id].long]:null;}).filter(Boolean);if(pts.length>1)window.L.polyline(pts,{color:color,opacity:.75,weight:3,dashArray:"6 7"}).addTo(routeLayer);}
- line(["mnl","tag"],"#08a09b");line(["alona","tagport"],"#d49b68");line(["tagport","cebport"],"#1590ad");line(["cebport","ceb"],"#d49b68");line(["ceb","mph"],"#08a09b");line(["mph","caticlanport","cagban","twoseasons"],"#d49b68");line(["mph","mnl"],"#08a09b");
+ line(["mnl","tag"],"#08a09b");line(["alona","tagport"],"#d49b68");line(["tagport","cebport"],"#1590ad");line(["cebport","ceb"],"#d49b68");line(["ceb","mph"],"#08a09b");line(["mph","caticlanport","cagban"],"#d49b68");line(["mph","mnl"],"#08a09b");
 }
 function mapScope(scope){
  if(!map||!window.L)return;
- var ids=scope==="Bohol"?["alona","tag","loboc","balicasag","pamilacan","tagport","chocolate"]:scope==="Boracay"?["mph","caticlanport","cagban","twoseasons","white","nabaoy","carabao"]:["mnl","alona","ceb","mph","twoseasons"];
+ var ids=scope==="Bohol"?["alona","tag","loboc","balicasag","pamilacan","tagport","chocolate"]:scope==="Boracay"?["mph","caticlanport","cagban","white","nabaoy","carabao"]:["mnl","alona","ceb","mph","cagban"];
  var pts=(data.places||[]).filter(function(p){return ids.indexOf(p.id)>-1;}).map(function(p){return [p.lat,p.long];});
  if(pts.length)map.fitBounds(window.L.latLngBounds(pts).pad(.24),{animate:true,maxZoom:scope==="Alla"?7:11});
  ["mapAll","mapBohol","mapBoracay"].forEach(function(k){byId(k).classList.toggle("active",k===(scope==="Bohol"?"mapBohol":scope==="Boracay"?"mapBoracay":"mapAll"));});

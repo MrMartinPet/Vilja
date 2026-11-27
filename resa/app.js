@@ -216,12 +216,12 @@ function openCostSpec(key){
     if(x.id==="belmont-all")note+=" · debitering 5 feb";
     if(x.id==="savoy-all")note+=" · debitering 19 feb";
     return '<div class="family-cost-row"><div><strong>'+esc(x.name)+'</strong><small>'+esc(note)+'</small>'+
-      (peRepaymentPending(x)?'<small class="repayment-pending">◷ Ej betalt till M&amp;M ännu</small>':'')+
+      (peRepaymentPending(x)?'<small class="repayment-pending">◷ Ej betalt till M&amp;M ännu</small>':x.peRepaymentStatus==="paid"?'<small class="repayment-paid">✓ Betalt till M&amp;M</small>':'')+
       '</div><b>'+esc(fmt(amount(x)))+'</b></div>';
    }).join("")+
    '</div>'+
-   '<div class="family-cost-main family-repayment-total"><span>Att betala till M&amp;M enligt aktuell sammanställning</span><strong>'+esc(fmt(sum(pending)))+'</strong></div>'+
-   '<p class="family-cost-explain">◷ markerar kostnader i den aktuella återbetalningslistan. Övriga återbetalningar är inte verifierade.</p>'+
+   '<div class="family-cost-main'+(pending.length?' family-repayment-total':' family-repayment-settled')+'"><span>'+(pending.length?'Att betala till M&amp;M':'Ingen återbetalning kvar')+'</span><strong>'+esc(fmt(sum(pending)))+'</strong></div>'+
+   '<p class="family-cost-explain">✓ Betalt till M&amp;M · ◷ Återbetalning kvar. Betalningsstatus till leverantör visas separat.</p>'+
    '<div class="family-cost-future"><span>Kommande · ännu ej fastställda belopp</span></div>'+
    '<div class="family-cost-rows">'+deferredRows()+rows.filter(function(x){return !peCostIncluded(x);}).map(function(x){return unknownRow(x.name,"Belopp ej bekräftat");}).join("")+unknownRows()+'</div>'+
    '<p class="family-cost-explain">Dessa kostnader ingår inte i summan ovan.</p>';

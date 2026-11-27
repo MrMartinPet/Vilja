@@ -148,8 +148,8 @@ function renderCostOverview(){
  var paidAll=paidFor("all"),paidMm=paidFor("mm"),paidPe=paidFor("pe");
  byId("allCostTotal").textContent=fmt(paidAll/100);
  byId("mmCostTotal").textContent=fmt(paidMm/100);
- byId("peCostTotal").textContent=fmt(paidPe/100);
- [["allCostFuture",total-paidAll],["mmCostFuture",mm-paidMm],["peCostFuture",pe-paidPe]].forEach(function(pair){var el=byId(pair[0]);if(el)el.textContent="Kommande: "+fmt(pair[1]/100);});
+ byId("peCostTotal").textContent=fmt(rows.filter(peCostIncluded).reduce(function(s,x){return s+cents(x.splitSEK.pe);},0)/100);
+ [["allCostFuture",total-paidAll],["mmCostFuture",mm-paidMm],["peCostFuture",rows.filter(peCostIncluded).filter(peRepaymentPending).reduce(function(s,x){return s+cents(x.splitSEK.pe);},0)]].forEach(function(pair){var el=byId(pair[0]);if(el)el.textContent=(pair[0]==="peCostFuture"?"Att betala till M&M: ":"Kommande: ")+fmt(pair[1]/100);});
  var totalAmount=total/100,mmAmount=mm/100,peAmount=pe/100,mmPct=total?100*mm/total:0,pePct=total?100*pe/total:0;
  byId("overviewBookedTotal").textContent=withEstimate(totalAmount);
  byId("overviewMmCost").textContent=withEstimate(mmAmount);
@@ -167,6 +167,13 @@ function renderCostOverview(){
  }).join("");
 }
 
+// P&E:s hittills kända kostnader, exklusive Boracay och ej bokade poster.
+function peCostIncluded(x){
+ return !x.excludeFromTotals&&x.id!=="riviera-all"&&x.splitSEK&&Number.isFinite(x.splitSEK.pe)&&(x.status==="paid"||x.status==="booked");
+}
+function peRepaymentPending(x){
+ return x.peRepaymentStatus==="pending";
+}
 function costState(x){
  if(x.estimated)return "Preliminärt pris · ej bekräftat";
  if(x.status==="paid")return "Betalt";
@@ -191,6 +198,27 @@ function openCostSpec(key){
   return '<div class="family-cost-row '+(paidFlag?'cost-is-paid':'cost-is-unpaid')+'"><div><strong>'+esc(x.name)+'</strong><small>'+esc(costState(x))+(note?' · '+esc(note):'')+'</small></div><b>'+esc((x.estimated&&Number.isFinite(a)?"ca ":"")+fmt(a))+'</b></div>';
  }
  byId("familyCostTitle").textContent=names[key];
+ if(key==="pe"){
+  var included=rows.filter(peCostIncluded);
+  var pending=included.filter(peRepaymentPending);
+  byId("familyCostBody").innerHTML='<p class="family-cost-explain">Alla kända bokade och betalda kostnader hittills, exklusive Boracay.</p>'+
+   '<div class="family-cost-main"><span>Kostnader hittills</span><strong>'+esc(fmt(sum(included)))+'</strong></div>'+
+   '<div class="family-cost-rows">'+included.map(function(x){
+    var note=costState(x);
+    if(x.id==="sj-all")note+=" · Utresa 656 kr · hemresa 962 kr";
+    if(x.id==="bohol-northland-booked")note+=" · Proportionell rumsandel";
+    if(x.id==="belmont-all")note+=" · debitering 5 feb";
+    if(x.id==="savoy-all")note+=" · debitering 19 feb";
+    return '<div class="family-cost-row"><div><strong>'+esc(x.name)+'</strong><small>'+esc(note)+'</small>'+
+      (peRepaymentPending(x)?'<small class="repayment-pending">◷ Ej betalt till M&amp;M ännu</small>':'')+
+      '</div><b>'+esc(fmt(amount(x)))+'</b></div>';
+   }).join("")+
+   '<div class="family-cost-row"><div><strong>Boracay</strong><small>Ej medräknat</small></div><b>?</b></div></div>'+
+   '<div class="family-cost-main family-repayment-total"><span>Att betala till M&amp;M enligt aktuell sammanställning</span><strong>'+esc(fmt(sum(pending)))+'</strong></div>'+
+   '<p class="family-cost-explain">◷ markerar kostnader i den aktuella återbetalningslistan. Övriga återbetalningar är inte verifierade.</p>';
+  if(!dlg.open)dlg.showModal();
+  return;
+ }
  byId("familyCostBody").innerHTML='<p class="family-cost-explain">Din andel av registrerade utgifter. Betalt avser betalning till leverantör, inte om familjerna har reglerat sina utlägg sinsemellan.</p>'+
  '<div class="family-cost-main"><span>Betalt hittills</span><strong>'+esc(fmt(sum(paid)))+'</strong></div>'+
  '<div class="family-cost-rows">'+(paid.map(function(x){return row(x,true);}).join("")||'<p>Inga registrerade betalningar.</p>')+'</div>'+

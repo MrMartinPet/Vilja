@@ -135,9 +135,45 @@ function costCents(n){return Math.round((Number.isFinite(n)?n:0)*100);}
 function sumCosts(rows,amount){return rows.reduce(function(sum,x){return sum+costCents(amount(x));},0)/100;}
 function isBookedCost(x){return x.status==="paid"||x.status==="booked";}
 function isPaidCost(x){return x.status==="paid"&&!x.estimated;}
+var costNames={all:"Hela sällskapet · 7 personer",mm:"M&M · 5 personer",pe:"Per-Erik & Lenita · 2 personer"};
+var costCategories=["Flygbiljetter","Hotell","Övrigt"];
+function bookedCosts(){
+ return (data.publicCostOverview||[]).filter(function(x){return isBookedCost(x)&&!x.excludeFromTotals;});
+}
+function familyCostAmount(x,key){
+ if(key==="all")return x.amountSEK;
+ if(x.deferAllocation||(key==="pe"&&!peCostIncluded(x)))return null;
+ return x.splitSEK&&x.splitSEK[key];
+}
+function costLabel(rows,amount){
+ var known=rows.filter(function(x){return Number.isFinite(amount(x));});
+ if(!known.length)return "?";
+ var estimated=known.some(function(x){return x.estimated||x.estimatedSEK;});
+ return (estimated?"ca ":"")+money(sumCosts(known,amount));
+}
+function renderCostGroups(rows,key,heading){
+ var amount=function(x){return familyCostAmount(x,key);};
+ var visible=rows.filter(function(x){return key!=="pe"||x.deferAllocation||peCostIncluded(x);});
+ visible.sort(function(a,b){return (a.date||"9999").localeCompare(b.date||"9999");});
+ return costCategories.map(function(category){
+  var group=visible.filter(function(x){
+   return (costCategories.indexOf(x.category)>=0?x.category:"Övrigt")===category;
+  });
+  if(!group.length)return "";
+  return '<'+heading+' class="family-cost-section">'+esc(category)+' <span>'+esc(costLabel(group,amount))+'</span></'+heading+'>'+
+   '<div class="family-cost-rows">'+group.map(function(x){
+    var known=Number.isFinite(amount(x));
+    var note=key==="pe"&&Number.isFinite(x.peRepaidSEK)
+     ?'<small class="repayment-paid">Inbetalt '+esc(money(peRepaid(x)))+'</small>'
+     :known&&!isPaidCost(x)?'<small>'+esc(costState(x))+'</small>':"";
+    var state=isPaidCost(x)?"cost-is-paid":"cost-is-unpaid";
+    var amountLabel=known?'<b>'+esc(costLabel([x],amount))+'</b>':'<b aria-label="Andel saknas">?</b>';
+    return '<div class="family-cost-row '+state+'"><div><strong>'+esc(x.name)+'</strong>'+note+'</div>'+amountLabel+'</div>';
+   }).join("")+'</div>';
+ }).join("");
+}
 function renderCostOverview(){
- var rows=(data.publicCostOverview||[]).filter(isBookedCost);
- var booked=rows.filter(function(x){return !x.excludeFromTotals;});
+ var booked=bookedCosts();
  var fmt=function(n){return Number.isFinite(n)?money(n):"?";};
  var mmAmount=function(x){return x.splitSEK&&x.splitSEK.mm;};
  var peAmount=function(x){return x.splitSEK&&x.splitSEK.pe;};
@@ -156,7 +192,7 @@ function renderCostOverview(){
  var paidMm=sumCosts(paid,mmAmount);
  byId("allCostTotal").textContent=paidPrefix+fmt(paidAll);
  byId("mmCostTotal").textContent=paidPrefix+fmt(paidMm);
- var peRows=rows.filter(peCostIncluded);
+ var peRows=booked.filter(peCostIncluded);
  byId("peCostTotal").textContent=fmt(sumCosts(peRows,peRepaid));
  var allFuture=costCents(total)-costCents(paidAll);
  var mmFuture=costCents(mm)-costCents(paidMm);
@@ -168,11 +204,8 @@ function renderCostOverview(){
  byId("overviewBookedTotal").textContent=bookedPrefix+fmt(total);
  byId("overviewMmCost").textContent=bookedPrefix+fmt(mm);
  byId("overviewPeCost").textContent=bookedPrefix+fmt(pe);
- byId("costOverviewList").innerHTML=rows.slice().sort(function(a,b){
-  return Number(isPaidCost(b))-Number(isPaidCost(a));
- }).map(function(x){
-  var prefix=(x.estimated||x.estimatedSEK)&&Number.isFinite(x.amountSEK)?"ca ":"";
-  return '<div class="cost-line '+(isPaidCost(x)?'cost-is-paid':'cost-is-unpaid')+'"><div class="cost-line-name"><strong>'+esc(x.name)+'</strong><small>'+esc(costState(x))+'</small></div><b>'+esc(prefix+fmt(x.amountSEK))+'</b></div>';
+ byId("costOverviewList").innerHTML=["mm","pe"].map(function(key){
+  return '<section class="panel family-cost-panel"><h3>'+esc(costNames[key])+'</h3>'+renderCostGroups(booked,key,"h4")+'</section>';
  }).join("");
 }
 
@@ -203,52 +236,15 @@ function costState(x){
 }
 function openCostSpec(key){
  var dlg=byId("familyCostDialog");if(!dlg||!data)return;
- var names={all:"Hela sällskapet · 7 personer",mm:"M&M · 5 personer",pe:"Per-Erik & Lenita · 2 personer"};
- if(!Object.prototype.hasOwnProperty.call(names,key))return;
- var fmt=function(n){return Number.isFinite(n)?new Intl.NumberFormat("sv-SE",{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+" kr":"Pris saknas";};
- var allRows=(data.publicCostOverview||[]).filter(isBookedCost);
- var rows=allRows.filter(function(x){return !x.excludeFromTotals&&(key==="all"||!x.deferAllocation);});
- var deferred=key==="all"?[]:allRows.filter(function(x){return x.deferAllocation;});
- var amount=function(x){return key==="all"?x.amountSEK:x.splitSEK?x.splitSEK[key]:null;};
- var sum=function(list){return sumCosts(list,amount);};
- var paid=rows.filter(isPaidCost),future=rows.filter(function(x){return !isPaidCost(x);});
- function deferredRows(){
-  if(!deferred.length)return "";
-  return '<h3 class="family-cost-section">Bokat · andel kvar att fastställa</h3><div class="family-cost-rows">'+deferred.map(function(x){
-   return '<div class="family-cost-row cost-is-unpaid"><div><strong>'+esc(x.name)+'</strong></div><b aria-label="Belopp saknas">?</b></div>';
-  }).join("")+'</div>';
- }
- function row(x){
-  var a=amount(x),prefix=(x.estimated||x.estimatedSEK)&&Number.isFinite(a)?"ca ":"";
-  return '<div class="family-cost-row '+(isPaidCost(x)?'cost-is-paid':'cost-is-unpaid')+'"><div><strong>'+esc(x.name)+'</strong></div><b>'+esc(prefix+fmt(a))+'</b></div>';
- }
- function detailedRows(list,renderRow){
-  var flights=list.filter(function(x){return x.category==="Inrikesflyg";});
-  var other=list.filter(function(x){return x.category!=="Inrikesflyg";});
-  return (flights.length?'<h3 class="family-cost-section">Inrikesflyg i Filippinerna <span>'+esc(fmt(sum(flights)))+'</span></h3>'+
-   '<div class="family-cost-rows">'+flights.map(renderRow).join("")+'</div>':'')+
-   (other.length?'<h3 class="family-cost-section">Övriga kostnader</h3><div class="family-cost-rows">'+other.map(renderRow).join("")+'</div>':'');
- }
- byId("familyCostTitle").textContent=names[key];
- if(key==="pe"){
-  var included=rows.filter(peCostIncluded);
-  var note=peRepaymentNote(included,fmt);
-  byId("familyCostBody").innerHTML='<div class="family-cost-main"><span>Betalt till M&amp;M</span><strong>'+esc(fmt(sumCosts(included,peRepaid)))+'</strong></div>'+
-   (note?'<p class="family-cost-explain">'+esc(note)+'</p>':'')+
-   detailedRows(included,function(x){
-    var prefix=x.estimatedSEK?"ca ":"";
-    var partialPayment=Number.isFinite(x.peRepaidSEK)?'<small class="repayment-paid">Inbetalt '+esc(fmt(peRepaid(x)))+'</small>':'';
-    return '<div class="family-cost-row"><div><strong>'+esc(x.name)+'</strong>'+partialPayment+'</div><b>'+esc(prefix+fmt(amount(x)))+'</b></div>';
-   })+
-   deferredRows();
-  if(!dlg.open)dlg.showModal();
-  return;
- }
- byId("familyCostBody").innerHTML='<div class="family-cost-main"><span>Betalt hittills</span><strong>'+esc((paid.some(function(x){return x.estimatedSEK;})?"ca ":"")+fmt(sum(paid)))+'</strong></div>'+
-  (detailedRows(paid,row)||'<p>Inga registrerade betalningar.</p>')+
-  (future.length?'<div class="family-cost-future"><span>Kvar att betala</span><strong>'+esc(fmt(sum(future)))+'</strong></div>'+
-   '<div class="family-cost-rows">'+future.map(row).join("")+'</div>':'')+
-  deferredRows();
+ if(!Object.prototype.hasOwnProperty.call(costNames,key))return;
+ var rows=bookedCosts();
+ var paidLabel=key==="pe"?"Betalt till M&amp;M":"Betalt hittills";
+ var paidTotal=byId(key+"CostTotal").textContent;
+ var paymentNote=byId(key+"CostFuture").textContent;
+ byId("familyCostTitle").textContent=costNames[key];
+ byId("familyCostBody").innerHTML='<div class="family-cost-main"><span>'+paidLabel+'</span><strong>'+esc(paidTotal)+'</strong></div>'+
+  (paymentNote?'<p class="family-cost-explain">'+esc(paymentNote)+'</p>':'')+
+  renderCostGroups(rows,key,"h3");
  if(!dlg.open)dlg.showModal();
 }
 

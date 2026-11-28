@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-28-kostnadsoversikt",
+  "version": "2026-11-28-kostnadskategorier",
   "updated": "2026-11-28",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -1095,7 +1095,9 @@
   "publicCostOverview": [
     {
       "id": "airchina-all",
-      "name": "Air China · ARN–Manila tur och retur",
+      "name": "Air China · ARN–Manila tur och retur · 8–24 feb",
+      "date": "2027-02-08",
+      "category": "Flygbiljetter",
       "amountSEK": 38625,
       "scope": "Alla 7 personer",
       "status": "paid",
@@ -1109,6 +1111,8 @@
     {
       "id": "sj-all",
       "name": "SJ · Skövde–Stockholm tur och retur",
+      "date": "2027-02-08",
+      "category": "Övrigt",
       "amountSEK": 3820,
       "scope": "Alla 7 personer",
       "status": "paid",
@@ -1124,6 +1128,8 @@
     {
       "id": "flygbuss-all",
       "name": "Flygbussarna · Cityterminalen–Arlanda tur och retur",
+      "date": "2027-02-08",
+      "category": "Övrigt",
       "amountSEK": 1174,
       "scope": "7 resenärer · 4 vuxna, 2 ungdomar, 1 barn gratis",
       "status": "paid",
@@ -1139,6 +1145,8 @@
     {
       "id": "belmont-all",
       "name": "Belmont Hotel Manila · 9–10 feb · 2 rum",
+      "date": "2027-02-09",
+      "category": "Hotell",
       "amountSEK": 2115.47,
       "scope": "Alla 7 personer",
       "status": "paid",
@@ -1153,6 +1161,8 @@
     {
       "id": "cebu-pacific-all",
       "name": "Cebu Pacific · Manila–Bohol 10 feb · inkl. bagage",
+      "date": "2027-02-10",
+      "category": "Flygbiljetter",
       "amountSEK": 5230.08,
       "scope": "Alla 7 personer",
       "status": "paid",
@@ -1162,12 +1172,13 @@
       },
       "source": "Kiwi: flyg 4 839,48 kr och två incheckade väskor à 195,30 kr",
       "peRepaymentStatus": "paid",
-      "category": "Inrikesflyg",
       "splitNote": "Biljetter och en incheckad väska per sällskap."
     },
     {
       "id": "pal-all",
       "name": "Philippine Airlines · Cebu–Caticlan 17 feb · inkl. bagage",
+      "date": "2027-02-17",
+      "category": "Flygbiljetter",
       "amountSEK": 3988.05,
       "scope": "Alla 7 personer",
       "status": "paid",
@@ -1177,12 +1188,13 @@
       },
       "source": "Kiwi: flyg 3 538,05 kr och två incheckade väskor à 225 kr",
       "peRepaymentStatus": "paid",
-      "category": "Inrikesflyg",
       "splitNote": "Biljetter och en incheckad väska per sällskap."
     },
     {
       "id": "airasia-all",
       "name": "AirAsia · Caticlan–Manila 23 feb · inkl. bagage",
+      "date": "2027-02-23",
+      "category": "Flygbiljetter",
       "amountSEK": 4550.66,
       "scope": "Alla 7 personer",
       "status": "paid",
@@ -1192,12 +1204,13 @@
       },
       "source": "Kiwi: flyg 3 974,56 kr och två incheckade väskor à 288,05 kr",
       "peRepaymentStatus": "paid",
-      "category": "Inrikesflyg",
       "splitNote": "Biljetter och en incheckad väska per sällskap."
     },
     {
       "id": "belmont-return",
       "name": "Belmont Hotel Manila · 23–24 feb · 2 rum",
+      "date": "2027-02-23",
+      "category": "Hotell",
       "amountSEK": 1988.9,
       "amountPHP": 12350.2,
       "scope": "Alla 7 personer",
@@ -1216,6 +1229,8 @@
     {
       "id": "bohol-northland-booked",
       "name": "Alona Northland Resort · 10–17 feb · två rum",
+      "date": "2027-02-10",
+      "category": "Hotell",
       "amountSEK": 10279,
       "scope": "Alla 7 · uppdaterat totalpris",
       "status": "paid",
@@ -1231,7 +1246,9 @@
     },
     {
       "id": "riviera-all",
-      "name": "Boracay · Riviera",
+      "name": "Riviera Boracay · 17–23 feb",
+      "date": "2027-02-17",
+      "category": "Hotell",
       "amountSEK": 19298.34,
       "scope": "Alla 7 · bokat, ej betalt",
       "status": "booked",

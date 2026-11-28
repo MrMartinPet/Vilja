@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-28-bohol-paid",
+  "version": "2026-11-28-belmont-return",
   "updated": "2026-11-28",
   "title": "Filippinerna 2027",
   "subtitle": "Bohol + Boracay",
@@ -119,42 +119,49 @@
       "from": "2027-02-23",
       "to": "2027-02-24",
       "nights": 1,
-      "place": "Manila · Savoy Hotel Manila",
+      "place": "Manila · Belmont Hotel Manila",
       "area": "Newport City, Pasay · nära NAIA Terminal 3",
       "kind": "hotell",
-      "status": "booked",
-      "details": "Bekräftad Agoda-bokning 23–24 februari 2027: två Standard Twin-rum, en natt. 23 m² per rum och två enkelsängar per rum. Bokningen avser 4 vuxna och 3 barn. Totalt 1 061,66 SEK för båda rummen, inklusive angivna skatter. Gratis avbokning före 22 februari 2027. Planerad debitering 19 februari 2027; ännu inte betalt vid bokningstillfället. Bagageförvaring, 24-timmars incheckning och anslutande rum listas som faciliteter. Kontrollera avgångsterminal före resan.",
-      "suggestion": "Savoy Hotel Manila · 2 × Standard Twin · 1 natt · 1 061,66 kr",
-      "link": "https://www.google.com/maps/search/?api=1&query=Savoy+Hotel+Manila+Newport+City+Pasay",
+      "status": "paid",
+      "details": "Två bekräftade och betalda Agoda-bokningar för 23–24 februari 2027. M&M: Family Connecting Room för 2 vuxna och 3 barn, 8 143,15 PHP. P&E: Standard Twin för 2 vuxna, 4 207,05 PHP. Savoy Hotel Manila är avbokat.",
+      "suggestion": "Samma hotell som första natten · 2 rumsbokningar · 12 350,20 PHP betalt",
+      "link": "https://www.google.com/maps/search/?api=1&query=Belmont+Hotel+Manila+Newport+City+Pasay",
       "booking": {
         "confirmed": true,
-        "accommodation": "Savoy Hotel Manila near Airport NAIA Terminal 3 MNL",
+        "accommodation": "Belmont Hotel Manila near NAIA Terminal 3 MNL",
         "checkIn": "2027-02-23",
         "checkOut": "2027-02-24",
+        "checkInFrom": "14:00",
         "nights": 1,
         "roomCount": 2,
-        "rooms": 2,
-        "roomType": "Standard Twin",
-        "bedsPerRoom": "2 enkelsängar",
-        "roomSizeSqm": 23,
+        "roomType": "Family Connecting Room (M&M) · Standard Twin (P&E)",
         "adults": 4,
         "childrenCount": 3,
-        "maximumOccupancyShown": "4 vuxna och 4 barn totalt för två rum",
-        "freeCancellationBefore": "2027-02-22",
-        "paymentScheduledDate": "2027-02-19",
-        "paymentStatus": "Ej betalt; planerad debitering via Agoda 19 februari 2027",
-        "totalSEK": 1061.66,
-        "priceSEK": 1061.66,
-        "facilities": [
-          "Bagageförvaring",
-          "24-timmars incheckning",
-          "Anslutande rum listas"
+        "rooms": [
+          {
+            "roomType": "Family Connecting Room",
+            "adults": 2,
+            "childrenCount": 3,
+            "pricePHP": 8143.15,
+            "estimatedSEK": 1311.39
+          },
+          {
+            "roomType": "Standard Twin",
+            "adults": 2,
+            "childrenCount": 0,
+            "pricePHP": 4207.05,
+            "estimatedSEK": 677.51
+          }
         ],
-        "notes": "Första natten är bokad på Belmont Hotel; sista natten på Savoy Hotel. Ingen bokningsreferens publiceras.",
+        "totalPHP": 12350.2,
+        "totalSEK": 1988.9,
+        "estimatedSEK": true,
         "splitSEK": {
-          "mm": 530.83,
-          "pe": 530.83
-        }
+          "mm": 1311.39,
+          "pe": 677.51
+        },
+        "paymentStatus": "Betalt via Agoda",
+        "notes": "Family Connecting Room för fem: 8 143,15 PHP. Standard Twin för två: 4 207,05 PHP. Incheckning från 14.00. Båda bokningarna är ej återbetalningsbara."
       }
     }
   ],
@@ -293,12 +300,12 @@
       "id": "last-hotel-checkin",
       "date": "2027-02-23",
       "type": "hotell",
-      "title": "Incheckning Savoy Hotel Manila",
-      "route": "MNL → Savoy Hotel Manila, Newport City",
+      "title": "Incheckning Belmont Hotel Manila",
+      "route": "MNL → Belmont Hotel Manila, Newport City",
       "time": "Efter ankomst Manila 15.40 den 23 feb",
-      "duration": "1 natt · 2 Standard Twin-rum",
-      "status": "booked",
-      "details": "Savoy Hotel Manila är bokat 23–24 februari för 4 vuxna och 3 barn. Två rum, totalt 1 061,66 kr. Planerad debitering 19 feb; kostnadsfri avbokning före 22 feb. Nära NAIA Terminal 3, men kontrollera terminal för Air China-flyget 24 feb."
+      "duration": "1 natt · Family Connecting Room och Standard Twin",
+      "status": "paid",
+      "details": "Samma hotell som vid ankomst till Manila. Båda rumsbokningarna för 23–24 februari är bekräftade och betalda. Hotellet ligger vid NAIA Terminal 3. Kontrollera terminal för Air China-flyget 24 feb."
     },
     {
       "id": "flight-international-out",
@@ -402,11 +409,11 @@
     },
     {
       "id": "t08",
-      "title": "Bokat: Savoy Hotel Manila · 2 rum 23–24 feb",
+      "title": "Bokat och betalt: Belmont Hotel Manila · 2 rum 23–24 feb",
       "category": "Boende",
       "priority": "medium",
       "done": true,
-      "note": "2 Standard Twin-rum för alla sju, totalt 1 061,66 kr. Gratis avbokning före 22 feb. Planerad debitering 19 feb."
+      "note": "Family Connecting Room för 2 vuxna och 3 barn och Standard Twin för 2 vuxna. Totalt 12 350,20 PHP. Savoy Hotel Manila är avbokat."
     },
     {
       "id": "t09",
@@ -587,13 +594,11 @@
       "title": "Sista flygplatshotellet i Manila 23–24 feb",
       "priority": "high",
       "options": [
-        "Belmont Hotel Manila",
-        "Savoy Hotel Manila",
-        "Annat hotell nära flygplatsen"
+        "Belmont Hotel Manila"
       ],
-      "choice": "Savoy Hotel Manila · 2 Standard Twin-rum",
-      "note": "Bokat 23–24 februari 2027 för hela sällskapet. 1 061,66 kr, gratis avbokning före 22 feb. Planerad debitering 19 feb.",
-      "why": "Klart – båda nätterna i Manila har nu bokade hotell."
+      "choice": "Belmont Hotel Manila · Family Connecting Room och Standard Twin",
+      "note": "Bokat och betalt för alla sju 23–24 februari 2027. Savoy Hotel Manila är avbokat.",
+      "why": "Samma hotell i Manila vid ankomst och inför hemresan."
     },
     {
       "id": "d3",
@@ -841,12 +846,12 @@
       "description": "Möjlig dagsutflykt"
     },
     {
-      "id": "savoy",
-      "name": "Savoy Hotel Manila · bokat 23–24 feb",
-      "lat": 14.5226,
-      "long": 121.0203,
+      "id": "belmont",
+      "name": "Belmont Hotel Manila",
+      "lat": 14.52095,
+      "long": 121.01652,
       "kind": "boende",
-      "description": "Savoy Hotel Manila, Newport City. 2 Standard Twin-rum för 7 personer. Markören är ungefärlig."
+      "description": "Bokat både 9–10 och 23–24 februari. Newport City, Pasay."
     }
   ],
   "budget": [
@@ -901,12 +906,18 @@
     },
     {
       "id": "b8",
-      "name": "Savoy Hotel Manila · 2 rum 23–24 feb",
+      "name": "Belmont Hotel Manila · 2 rum 23–24 feb",
       "category": "Boende",
-      "totalSEK": 1061.66,
-      "paidSEK": null,
-      "scope": "7 personer",
-      "status": "booked"
+      "totalSEK": 1988.9,
+      "paidSEK": 1988.9,
+      "scope": "7 personer · 12 350,20 PHP betalt",
+      "status": "paid",
+      "totalPHP": 12350.2,
+      "estimatedSEK": true,
+      "splitSEK": {
+        "mm": 1311.39,
+        "pe": 677.51
+      }
     },
     {
       "id": "b9",
@@ -985,7 +996,7 @@
       "estimated": false
     }
   ],
-  "notes": "Båda flygplatshotellen i Manila och samtliga flyg är bokade. Bohol: Bokat och betalt för 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 087,82 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 191,18 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 279 kr enligt användarens uppdaterade totalpris; rumsandelarna är proportionellt beräknade. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Exakt slutpris per rum är inte verifierat. Boracay: Sunset Pool Villa – Riviera Boracay bokad 17–23 februari för alla 7, 19 298,34 kr. Debitering 4 februari. Belmont redovisas per familj. Savoy delas 50/50 och Bohol redovisas per rum. Boracay är inte fördelat mellan familjerna ännu. SJ enligt kvitto: M&M 2 202 kr och P&E 1 618 kr; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Flygbussarna tur och retur är bokade och betalda: 1 174 kr för hela gruppen, varav M&M 756 kr och P&E 418 kr.",
+  "notes": "Belmont Hotel Manila är bokat för 9–10 och 23–24 februari. Samtliga flyg är bokade. Bohol: Bokat och betalt för 10–17 februari 2027: två rum på Alona Northland Resort. M&M: Familjerum Deluxe, 75 m², en dubbelsäng och en stor dubbelsäng, 6 087,82 kr, frukost ej inkluderad. P&E: Deluxe King (rumstyp enligt tidigare underlag), 50 m², en stor dubbelsäng, 4 191,18 kr, frukost ingår. Båda har balkong med poolutsikt. Totalt 10 279 kr enligt användarens uppdaterade totalpris; rumsandelarna är proportionellt beräknade. Familjerummets bokningsbild visar fyra gäster; bekräfta fem i familjerummet med hotellet. Exakt slutpris per rum är inte verifierat. Boracay: Sunset Pool Villa – Riviera Boracay bokad 17–23 februari för alla 7, 19 298,34 kr. Debitering 4 februari. Belmont och Bohol redovisas per rum. Savoy är avbokat och den tidigare inbetalningen räknas av för P&E på hemresan. Boracay är inte fördelat mellan familjerna ännu. SJ enligt kvitto: M&M 2 202 kr och P&E 1 618 kr; transfer och utflykter delvis ej prissatta. Inga privata bokningsuppgifter lagras på offentliga sidan. Flygbussarna tur och retur är bokade och betalda: 1 174 kr för hela gruppen, varav M&M 756 kr och P&E 418 kr.",
   "stayPreference": "Bohol: Alona Northland Resort bokat och betalt. Frukost för familjerummet återstår. Boracay: Sunset Pool Villa – Riviera Boracay, bokad för alla 7, 17–23 februari. Pool, havsutsikt och cirka 5 minuters promenad till barnvänlig strand enligt värden.",
   "domesticBaggage": {
     "status": "confirmed_in_booking_overviews",
@@ -1186,19 +1197,30 @@
       "splitNote": "Biljetter och en incheckad väska per sällskap."
     },
     {
-      "id": "savoy-all",
-      "name": "Savoy Hotel Manila · 23–24 feb · 2 rum",
-      "amountSEK": 1061.66,
+      "id": "belmont-return",
+      "name": "Belmont Hotel Manila · 23–24 feb · 2 rum",
+      "amountSEK": 1988.9,
+      "amountPHP": 12350.2,
       "scope": "Alla 7 personer",
-      "status": "booked",
+      "status": "paid",
+      "estimatedSEK": true,
       "splitSEK": {
-        "mm": 530.83,
-        "pe": 530.83
+        "mm": 1311.39,
+        "pe": 677.51
       },
-      "source": "Agoda: debitering 19 feb 2027",
-      "peRepaymentStatus": "paid",
+      "source": "Agodas betalningsbekräftelser i PHP. SEK uppskattat med Agodas omräkning för Standard Twin.",
+      "paymentNote": "12 350,20 PHP betalt · kortbelopp i SEK inväntas",
+      "peRepaymentStatus": "pending",
+      "peRepaidSEK": 530.83,
       "peRepaymentDate": "2026-11-27",
-      "paymentNote": "Debiteras 19 februari"
+      "replaces": {
+        "name": "Savoy Hotel Manila",
+        "amountSEK": 1061.66,
+        "splitSEK": {
+          "mm": 530.83,
+          "pe": 530.83
+        }
+      }
     },
     {
       "id": "bohol-northland-booked",
@@ -1227,5 +1249,5 @@
       "deferAllocation": true
     }
   ],
-  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat och betalt, 10 279 kr enligt uppdaterat totalpris, proportionell rumsfördelning (M&M 6 087,82 kr, P&E 4 191,18 kr). Frukost för M&M tillkommer; exakt slutpris per rum ej verifierat. Boracay: bokat gemensamt, belopp per familj fastställs senare och ingår inte i kostnader hittills. Belmont redovisas per familj. Savoy delas 50/50. SJ 3 820 kr enligt kvitto (M&M 2 202 kr, P&E 1 618 kr). Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Flygbussarna: betalt 1 174 kr (M&M 756 kr, P&E 418 kr)."
+  "budgetAccountingNote": "Bohol: Alona Northland Resort bokat och betalt, 10 279 kr enligt uppdaterat totalpris, proportionell rumsfördelning (M&M 6 087,82 kr, P&E 4 191,18 kr). Frukost för M&M tillkommer; exakt slutpris per rum ej verifierat. Boracay: bokat gemensamt, belopp per familj fastställs senare och ingår inte i kostnader hittills. Belmont redovisas per rum. Hemresans Belmont är betalt i PHP och budgetens SEK-belopp är preliminära. P&E:s tidigare inbetalning för Savoy räknas av. SJ 3 820 kr enligt kvitto (M&M 2 202 kr, P&E 1 618 kr). Flyg per familj och bagage. Okända transfer-/utflyktskostnader ingår inte. Flygbussarna: betalt 1 174 kr (M&M 756 kr, P&E 418 kr)."
 }

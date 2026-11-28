@@ -148,7 +148,7 @@ function renderCostOverview(){
  var paidAll=paidFor("all"),paidMm=paidFor("mm"),paidPe=paidFor("pe");
  byId("allCostTotal").textContent=fmt(paidAll/100);
  byId("mmCostTotal").textContent=fmt(paidMm/100);
- byId("peCostTotal").textContent=fmt(rows.filter(peCostIncluded).reduce(function(s,x){return s+cents(x.splitSEK.pe);},0)/100);
+ byId("peCostTotal").textContent=fmt(rows.filter(peCostIncluded).filter(function(x){return x.peRepaymentStatus==="paid";}).reduce(function(s,x){return s+cents(x.splitSEK.pe);},0)/100);
  [["allCostFuture",total-paidAll],["mmCostFuture",mm-paidMm],["peCostFuture",rows.filter(peCostIncluded).filter(peRepaymentPending).reduce(function(s,x){return s+cents(x.splitSEK.pe);},0)]].forEach(function(pair){var el=byId(pair[0]);if(el)el.textContent=(pair[0]==="peCostFuture"?"Att betala till M&M: ":"Kommande: ")+fmt(pair[1]/100);});
  var totalAmount=total/100,mmAmount=mm/100,peAmount=pe/100,mmPct=total?100*mm/total:0,pePct=total?100*pe/total:0;
  byId("overviewBookedTotal").textContent=withEstimate(totalAmount);
@@ -194,46 +194,48 @@ function openCostSpec(key){
  var sum=function(list){return list.reduce(function(n,x){var a=amount(x);return n+(Number.isFinite(a)?Math.round(a*100):0);},0)/100;};
  var paid=rows.filter(isPaid),future=rows.filter(function(x){return !isPaid(x);});
  var unknown=(data.budget||[]).filter(function(x){return !x.excludeFromTotals&&x.status==="todo"&&!Number.isFinite(x.totalSEK);});
- function unknownRow(name,note){return '<div class="family-cost-row cost-is-unpaid"><div><strong>'+esc(name)+'</strong><small>'+esc(note)+'</small></div><b>?</b></div>';}
- function deferredRows(){return deferred.map(function(x){return unknownRow(x.name,"Bokat · ej betalt · andel ej fastställd");}).join("");}
- function unknownRows(){return unknown.map(function(x){return unknownRow(x.name,"Ej bokat · ej fördelat");}).join("");}
+ function unknownRow(name,note){return '<div class="family-cost-row cost-is-unpaid"><div><strong>'+esc(name)+'</strong><small>'+esc(note)+'</small></div><b aria-label="Belopp saknas">?</b></div>';}
+ function deferredRows(){return deferred.map(function(x){return unknownRow(x.name,"Bokat · andel ej fastställd");}).join("");}
+ function unknownRows(){return unknown.map(function(x){return unknownRow(x.name,"Ej bokat");}).join("");}
  function row(x,paidFlag){
-  var a=amount(x),note=x.splitNote||"";
-  if(x.id==="belmont-all"||x.id==="savoy-all"||x.id==="riviera-all")note=x.scope+(x.id==="belmont-all"?" · debitering 5 feb":x.id==="savoy-all"?" · debitering 19 feb":"");
+  var a=amount(x),note=x.paymentNote||x.splitNote||"";
   if(x.id==="sj-all")note=key==="mm"?"Utresa 892 kr · hemresa 1 310 kr":key==="pe"?"Utresa 656 kr · hemresa 962 kr":x.allocationNote||"";
   return '<div class="family-cost-row '+(paidFlag?'cost-is-paid':'cost-is-unpaid')+'"><div><strong>'+esc(x.name)+'</strong><small>'+esc(costState(x))+(note?' · '+esc(note):'')+'</small></div><b>'+esc((x.estimated&&Number.isFinite(a)?"ca ":"")+fmt(a))+'</b></div>';
+ }
+ function detailedRows(list,renderRow){
+  var flights=list.filter(function(x){return x.category==="Inrikesflyg";});
+  var other=list.filter(function(x){return x.category!=="Inrikesflyg";});
+  return (flights.length?'<h3 class="family-cost-section">Inrikesflyg i Filippinerna <span>'+esc(fmt(sum(flights)))+'</span></h3>'+
+   '<div class="family-cost-rows">'+flights.map(renderRow).join("")+'</div>':'')+
+   (other.length?'<h3 class="family-cost-section">Övriga kostnader</h3><div class="family-cost-rows">'+other.map(renderRow).join("")+'</div>':'');
+ }
+ function unknownSection(contents){
+  return contents?'<h3 class="family-cost-section">Kommande belopp att fastställa</h3><div class="family-cost-rows">'+contents+'</div>':'';
  }
  byId("familyCostTitle").textContent=names[key];
  if(key==="pe"){
   var included=rows.filter(peCostIncluded);
   var pending=included.filter(peRepaymentPending);
-  byId("familyCostBody").innerHTML='<p class="family-cost-explain">Alla kända bokade och betalda kostnader hittills, exklusive Boracay.</p>'+
-   '<div class="family-cost-main"><span>Kostnader hittills</span><strong>'+esc(fmt(sum(included)))+'</strong></div>'+
-   '<div class="family-cost-rows">'+included.map(function(x){
-    var note=costState(x);
+   var repaid=included.filter(function(x){return x.peRepaymentStatus==="paid";});
+   byId("familyCostBody").innerHTML='<div class="family-cost-main"><span>Betalt till M&amp;M</span><strong>'+esc(fmt(sum(repaid)))+'</strong></div>'+
+    detailedRows(included,function(x){
+     var note=costState(x)+(x.paymentNote?" · "+x.paymentNote:"");
     if(x.id==="sj-all")note+=" · Utresa 656 kr · hemresa 962 kr";
-    if(x.id==="bohol-northland-booked")note+=" · Proportionell rumsandel";
-    if(x.id==="belmont-all")note+=" · debitering 5 feb";
-    if(x.id==="savoy-all")note+=" · debitering 19 feb";
     return '<div class="family-cost-row"><div><strong>'+esc(x.name)+'</strong><small>'+esc(note)+'</small>'+
       (peRepaymentPending(x)?'<small class="repayment-pending">◷ Ej betalt till M&amp;M ännu</small>':x.peRepaymentStatus==="paid"?'<small class="repayment-paid">✓ Betalt till M&amp;M</small>':'')+
       '</div><b>'+esc(fmt(amount(x)))+'</b></div>';
-   }).join("")+
-   '</div>'+
-   '<div class="family-cost-main'+(pending.length?' family-repayment-total':' family-repayment-settled')+'"><span>'+(pending.length?'Att betala till M&amp;M':'Ingen återbetalning kvar')+'</span><strong>'+esc(fmt(sum(pending)))+'</strong></div>'+
-   '<p class="family-cost-explain">✓ Betalt till M&amp;M · ◷ Återbetalning kvar. Betalningsstatus till leverantör visas separat.</p>'+
-   '<div class="family-cost-future"><span>Kommande · ännu ej fastställda belopp</span></div>'+
-   '<div class="family-cost-rows">'+deferredRows()+rows.filter(function(x){return !peCostIncluded(x);}).map(function(x){return unknownRow(x.name,"Belopp ej bekräftat");}).join("")+unknownRows()+'</div>'+
-   '<p class="family-cost-explain">Dessa kostnader ingår inte i summan ovan.</p>';
+    })+
+    (pending.length?'<div class="family-cost-main family-repayment-total"><span>Att betala till M&amp;M</span><strong>'+esc(fmt(sum(pending)))+'</strong></div>':'')+
+    unknownSection(deferredRows()+rows.filter(function(x){return !peCostIncluded(x);}).map(function(x){return unknownRow(x.name,"Belopp ej bekräftat");}).join("")+unknownRows());
   if(!dlg.open)dlg.showModal();
   return;
  }
- byId("familyCostBody").innerHTML='<p class="family-cost-explain">Din andel av registrerade utgifter. Betalt avser betalning till leverantör, inte om familjerna har reglerat sina utlägg sinsemellan.</p>'+
- '<div class="family-cost-main"><span>Betalt hittills</span><strong>'+esc(fmt(sum(paid)))+'</strong></div>'+
- '<div class="family-cost-rows">'+(paid.map(function(x){return row(x,true);}).join("")||'<p>Inga registrerade betalningar.</p>')+'</div>'+
- '<div class="family-cost-future"><span>Kommande / ej verifierat</span><strong>'+esc(fmt(sum(future)))+'</strong></div>'+
- '<div class="family-cost-rows">'+future.map(function(x){return row(x,false);}).join("")+deferredRows()+unknownRows()+'</div>'+
- '<p class="family-cost-explain">Kommande och okända belopp ingår inte i Betalt hittills. Frukost för familjerummet på Bohol kan tillkomma.</p>';
+ byId("familyCostBody").innerHTML='<div class="family-cost-main"><span>Registrerat betalt till leverantörer</span><strong>'+esc(fmt(sum(paid)))+'</strong></div>'+
+  (detailedRows(paid,function(x){return row(x,true);})||'<p>Inga registrerade betalningar.</p>')+
+  (future.length?'<div class="family-cost-future"><span>Bokat · betalning återstår eller är obekräftad</span><strong>'+esc(fmt(sum(future)))+'</strong></div>'+
+   '<div class="family-cost-rows">'+future.map(function(x){return row(x,false);}).join("")+'</div>':'')+
+  unknownSection(deferredRows()+unknownRows())+
+  '<p class="family-cost-explain">Frukost för familjerummet på Bohol kan tillkomma.</p>';
  if(!dlg.open)dlg.showModal();
 }
 

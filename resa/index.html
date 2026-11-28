@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css?v=12">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-  <script src="app.js?v=21" defer></script>
+  <script src="app.js?v=22" defer></script>
   <style>
 .cost-summary>.family-cost-card{padding:0;overflow:hidden}
 .family-cost-card>button{width:100%;height:100%;display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:transparent;border:0;text-align:left;padding:17px 16px;color:inherit;font:inherit;cursor:pointer}
@@ -24,7 +24,6 @@
 .family-cost-main,.family-cost-future{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;background:#edf7f0;padding:12px 13px;border-radius:12px;color:#176b4b;font-weight:750;font-size:13px}.family-cost-main strong,.family-cost-future strong{font-size:23px;font-variant-numeric:tabular-nums}.family-cost-future{color:#ae2938;background:#fff1f1;margin-top:18px}
 .family-cost-rows{display:grid;gap:0}.family-cost-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 3px;border-bottom:1px solid #e5eeea}.family-cost-row>div{min-width:0;display:flex;flex-direction:column;gap:4px}.family-cost-row strong{font-size:13px;line-height:1.3}.family-cost-row small{font-size:11px;color:#647b77;line-height:1.4}.family-cost-row>b{font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
 @media(max-width:420px){.family-cost-card>button{padding:13px 11px}.family-cost-row{gap:8px}.family-cost-row>b{font-size:12px}#familyCostDialog{padding:15px}#familyCostDialog .dialog-head{top:-15px}}
-  .repayment-pending{color:#ae2938!important;font-size:10px!important}.family-repayment-total{margin-top:15px;background:#fff4ef;color:#9b4131}.family-repayment-total span{max-width:65%}
   .repayment-paid{color:#176b4b!important;font-size:10px!important}
   .family-cost-section{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;margin:18px 0 0;padding:0 3px 6px;border-bottom:1px solid #e5eeea;color:#245452;font-size:13px}
   .family-cost-section span{white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -80,15 +79,14 @@
 
     <section data-view="overview" class="overview-finance" aria-label="Kostnadsläget">
       <div class="overview-finance-header">
-        <div><span class="overview-finance-kicker">EKONOMI · BOKAT OCH PLANERAT</span><h2>Resans kostnader</h2><p>Bohol: två rum betalda, totalt 10 279 kr. Frukost för M&M tillkommer.</p></div>
-        <div class="overview-finance-total"><span>Summa kända belopp</span><strong id="overviewBookedTotal">–</strong></div>
+        <div><h2>Resans kostnader</h2></div>
+        <div class="overview-finance-total"><span>Bokat totalt</span><strong id="overviewBookedTotal">–</strong></div>
       </div>
       <div class="overview-split-labels">
-        <div><span class="split-dot mm-dot"></span><b>M&M <strong id="overviewMmCost">–</strong></b><small id="overviewMmPct">–</small></div>
-        <div><span class="split-dot pe-dot"></span><b>P&E <strong id="overviewPeCost">–</strong></b><small id="overviewPePct">–</small></div>
+        <div><span class="split-dot mm-dot"></span><b>M&M <strong id="overviewMmCost">–</strong></b></div>
+        <div><span class="split-dot pe-dot"></span><b>P&E <strong id="overviewPeCost">–</strong></b></div>
       </div>
-      <div class="overview-allocation-bar" aria-label="Fördelning mellan sällskapen"><span id="overviewMmBar"></span><span id="overviewPeBar"></span></div>
-      <div class="overview-finance-foot"><span>🏨 Bohol: Alona Northland Resort betalt, 10 279 kr. Frukost för M&M tillkommer. Boracay: Riviera bokat för alla 7 · ingår inte i kostnadssumman ännu. SJ betalt och fördelat enligt kvitto.</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
+      <div class="overview-finance-foot"><span id="overviewShared">–</span><button class="text-link" type="button" data-go-view="costs">Se alla kostnader →</button></div>
     </section>
 
     <section data-view="overview" class="overview-grid" aria-label="Nästa steg och bokningsöversikt">
@@ -158,16 +156,13 @@
     </section>
 
     <section data-view="costs" id="kostnader" class="page-section">
-      <div class="section-intro"><div><div class="section-kicker">BOKAT OCH PLANERAT</div><h2>Vad kostar hela resan?</h2><p>Klicka på respektive sällskap för att se betalningar och inrikesflyg.</p></div></div>
+      <div class="section-intro"><div><h2>Bokade kostnader</h2></div></div>
       <div class="cost-summary">
         <div class="cost-summary-all family-cost-card"><button type="button" data-family-cost="all" aria-haspopup="dialog"><span>Totalt · 7 personer</span><strong id="allCostTotal">–</strong><small>Betalt hittills · Visa specifikation ↗</small><small id="allCostFuture" class="family-future-label">–</small></button></div>
         <div class="family-cost-card"><button type="button" data-family-cost="mm" aria-haspopup="dialog"><span>M&M · 5 personer</span><strong id="mmCostTotal">–</strong><small>Betalt hittills · Visa specifikation ↗</small><small id="mmCostFuture" class="family-future-label">–</small></button></div>
         <div class="family-cost-card"><button type="button" data-family-cost="pe" aria-haspopup="dialog"><span>Per-Erik &amp; Lenita · 2 personer</span><strong id="peCostTotal">–</strong><small>Betalt till M&amp;M · Visa specifikation ↗</small><small id="peCostFuture" class="family-future-label">–</small></button></div>
       </div>
-      <p class="cost-unallocated">SJ: betalt 3 820 kr. M&M 2 202 kr (892 kr utresa + 1 310 kr hemresa), P&E 1 618 kr (656 kr utresa + 962 kr hemresa). Verifierat mot kvitto.</p>
-      <p id="hotelChangeCost" class="cost-unallocated" hidden></p>
       <div id="costOverviewList" class="cost-overview-list"></div>
-      <p class="cost-warning">Bohol är betalt, totalt 10 279 kr. M&M:s andel är beräknad till 6 087,82 kr och P&E:s till 4 191,18 kr. Frukost för M&M tillkommer. Boracay är bokat för alla sju. Betalning och kostnadsfördelning återstår. Belmont redovisas per rum. Flygen fördelas per biljett och bagage. SJ är betalt och fördelat enligt faktiska biljettpriser. Transfer och utflykter utan kända priser ingår inte. Sidan är offentlig – inga kortuppgifter eller bokningsnummer visas.</p>
     </section>
 
     <section data-view="details" id="bokningar" class="page-section">
